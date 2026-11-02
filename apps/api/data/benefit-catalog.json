@@ -9,7 +9,8 @@
         "source": "GOV24",
         "externalId": "571000000105"
       }
-    ]
+    ],
+    "audience": "INFERTILITY"
   },
   {
     "slug": "gov24-571000000121",
@@ -25,7 +26,8 @@
         "source": "BOKJIRO_LOCAL",
         "externalId": "WLF00003642"
       }
-    ]
+    ],
+    "audience": "DISABILITY"
   },
   {
     "slug": "gov24-571000000123",
@@ -37,7 +39,8 @@
         "source": "GOV24",
         "externalId": "571000000123"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "gov24-571000000125",
@@ -169,7 +172,8 @@
         "text": "체외수정 : 20회(신선배아 최대 110만원, 동결배아 최대 50만원) - 인공수정 : 5회(최대 30만원) / 충청북도 내 거주한 난임 진단 부부(소득기준 폐지)",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2131716&bnefType=all&svcId=643000000736"
       }
-    }
+    },
+    "audience": "INFERTILITY"
   },
   {
     "slug": "gov24-643000000737",
@@ -193,7 +197,8 @@
         "source": "GOV24",
         "externalId": "643000000739"
       }
-    ]
+    ],
+    "audience": "SPECIAL"
   },
   {
     "slug": "gov24-643000000740",
@@ -232,7 +237,8 @@
         "source": "GOV24",
         "externalId": "643000000743"
       }
-    ]
+    ],
+    "audience": "MULTI_CHILD"
   },
   {
     "slug": "gov24-643000000747",
@@ -264,7 +270,8 @@
         "source": "GOV24",
         "externalId": "643000000756"
       }
-    ]
+    ],
+    "audience": "SPECIAL"
   },
   {
     "slug": "gov24-643000000758",
@@ -379,7 +386,8 @@
         "source": "BOKJIRO_LOCAL",
         "externalId": "WLF00006558"
       }
-    ]
+    ],
+    "audience": "MULTI_CHILD"
   },
   {
     "slug": "bokjiro-wlf00003773",
@@ -535,7 +543,8 @@
     ],
     "conditions": [
       "USES_CHILDCARE"
-    ]
+    ],
+    "audience": "SPECIAL"
   },
   {
     "slug": "gov24-135200000005",
@@ -556,7 +565,8 @@
         "text": "영양위험요인이 있는 임산부 및 영유아에게 정기적인 영양교육 및 상담과 더불어 보충 식품패키지 제공 / 가구 규모별 기준 중위소득 대비 80% 이하",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999156&bnefType=all&svcId=135200000005"
       }
-    }
+    },
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-135200000114",
@@ -673,7 +683,8 @@
         "text": "1인당 700천원 현금 지급(쌍둥이 출산 시 1,400천원 지급)",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=900009&bnefType=all&svcId=135200005002"
       }
-    }
+    },
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-135200005011",
@@ -685,7 +696,8 @@
         "source": "GOV24",
         "externalId": "135200005011"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "gov24-135200005015",
@@ -794,7 +806,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00006289"
       }
-    ]
+    ],
+    "audience": "SPECIAL"
   },
   {
     "slug": "gov24-135200005050",
@@ -845,7 +858,8 @@
         "source": "GOV24",
         "externalId": "135200005055"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "gov24-135200005058",
@@ -857,7 +871,8 @@
         "source": "GOV24",
         "externalId": "135200005058"
       }
-    ]
+    ],
+    "audience": "INFERTILITY"
   },
   {
     "slug": "gov24-138300000051",
@@ -869,7 +884,8 @@
         "source": "GOV24",
         "externalId": "138300000051"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "gov24-138300000052",
@@ -889,7 +905,8 @@
         "text": "신청기한: 2026.10.01~2026.10.31",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2121704&bnefType=all&svcId=138300000052"
       }
-    }
+    },
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "gov24-138300000065",
@@ -901,7 +918,8 @@
         "source": "GOV24",
         "externalId": "138300000065"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "gov24-138300000066",
@@ -913,7 +931,8 @@
         "source": "GOV24",
         "externalId": "138300000066"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "gov24-149200000153",
@@ -1026,7 +1045,8 @@
     ],
     "conditions": [
       "EITHER_PARENT_INSURED"
-    ]
+    ],
+    "audience": "INFERTILITY"
   },
   {
     "slug": "gov24-174000000029",
@@ -1068,7 +1088,8 @@
         "source": "GOV24",
         "externalId": "183000000019"
       }
-    ]
+    ],
+    "audience": "SPECIAL"
   },
   {
     "slug": "gov24-502000000101",
@@ -1084,7 +1105,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00000807"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "gov24-999000000004",
@@ -1213,7 +1235,8 @@
         "text": "외래진료 시 요양기관 종별 및 상병 구분없이 동일하게 요양급여비용 총액의 5% 적용 / 경감종료일: 재태기간에 따라 출생일로부터 5년에서 최대 5년 4개월이 되는 날까지",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2147900&bnefType=all&svcId=B55092800042"
       }
-    }
+    },
+    "audience": "SICK_CHILD"
   },
   {
     "slug": "gov24-b55117700002",
@@ -1335,7 +1358,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00003278"
       }
-    ]
+    ],
+    "audience": "DISABILITY"
   },
   {
     "slug": "gov24-ptr000050390",
@@ -1399,7 +1423,8 @@
         "text": "출산일로부터 3년 이내에 건강보험공단 지사에 구비 서류를 제출, 신청하면 25만원을 출산비로 지급",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=50397&bnefType=all&svcId=PTR000050397"
       }
-    }
+    },
+    "audience": "SPECIAL"
   },
   {
     "slug": "gov24-sch000000070",
@@ -1426,7 +1451,8 @@
         "source": "GOV24",
         "externalId": "SCY000000040"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "gov24-scy000000050",
@@ -1438,7 +1464,8 @@
         "source": "GOV24",
         "externalId": "SCY000000050"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "gov24-scy000000060",
@@ -1454,7 +1481,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00003235"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "gov24-scy000000190",
@@ -1466,7 +1494,8 @@
         "source": "GOV24",
         "externalId": "SCY000000190"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "gov24-sd0000002014",
@@ -1491,7 +1520,8 @@
         "text": "출산(출산 예정 포함)한 경우 1인당 700천 원 지급 / 생계, 의료, 주거급여 수급자가 출산(출산 예정 포함)인 경우",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=575762&bnefType=all&svcId=SD0000002014"
       }
-    }
+    },
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-sd0000006936",
@@ -1507,7 +1537,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00003246"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "gov24-sd0000007672",
@@ -1568,7 +1599,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00000061"
       }
-    ]
+    ],
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-sd0000016094",
@@ -1628,7 +1660,8 @@
         "text": "의료급여수급권자, 차상위계층 : 최대 40만 원 ○ 그외 건강보험가입자 : 최대 20만 원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=16095&bnefType=all&svcId=SD0000016095"
       }
-    }
+    },
+    "audience": "SICK_CHILD"
   },
   {
     "slug": "gov24-sme000000040",
@@ -1644,7 +1677,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00001185"
       }
-    ]
+    ],
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-sme000000100",
@@ -1665,7 +1699,8 @@
         "text": "체외수정 시술 20회까지 신선배아 1회당 최대 110만원, 동결배아 1회당 최대 50만원, 자궁내 정자주입 시술 5회까지 1회당 최대 30만원 * 배아동결비 최대 30만원, 유산방지제 및 착상보조제 각각 최대 20만원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=753142&bnefType=all&svcId=SME000000100"
       }
-    }
+    },
+    "audience": "INFERTILITY"
   },
   {
     "slug": "gov24-sme000000110",
@@ -1690,7 +1725,8 @@
         "text": "의료비의 건강보험 급여 중 전액본인부담금 및 비급여 진료비 - 미숙아 : 체중별 최고 2천만원까지 지원 - 선천성이상아 : 최고 7백만원까지 지원 / (최종)퇴원일로부터 6개월 이내 신청 가능",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=107131&bnefType=all&svcId=SME000000110"
       }
-    }
+    },
+    "audience": "SICK_CHILD"
   },
   {
     "slug": "gov24-spe000000020",
@@ -1702,7 +1738,8 @@
         "source": "GOV24",
         "externalId": "SPE000000020"
       }
-    ]
+    ],
+    "audience": "DISABILITY"
   },
   {
     "slug": "gov24-spe000000120",
@@ -1718,7 +1755,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00003262"
       }
-    ]
+    ],
+    "audience": "DISABILITY"
   },
   {
     "slug": "gov24-ssi000000020",
@@ -1730,7 +1768,8 @@
         "source": "GOV24",
         "externalId": "SSI000000020"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "gov24-wii000000260",
@@ -1763,7 +1802,8 @@
         "source": "GOV24",
         "externalId": "WII000000450"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "gov24-wii000001460",
@@ -1817,7 +1857,8 @@
         "source": "GOV24",
         "externalId": "WII000001550"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "bokjiro-wlf00005858",
@@ -1829,7 +1870,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00005858"
       }
-    ]
+    ],
+    "audience": "INFERTILITY"
   },
   {
     "slug": "bokjiro-wlf00004657",
@@ -1874,7 +1916,8 @@
     ],
     "conditions": [
       "USES_CHILDCARE"
-    ]
+    ],
+    "audience": "DISABILITY"
   },
   {
     "slug": "bokjiro-wlf00006335",
@@ -1913,7 +1956,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00006300"
       }
-    ]
+    ],
+    "audience": "SICK_CHILD"
   },
   {
     "slug": "bokjiro-wlf00003186",
@@ -1925,7 +1969,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00003186"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "bokjiro-wlf00000028",
@@ -1949,7 +1994,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00005856"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "bokjiro-wlf00001147",
@@ -1976,7 +2022,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00001021"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "bokjiro-wlf00000030",
@@ -2015,7 +2062,8 @@
         "source": "GOV24",
         "externalId": "131200000008"
       }
-    ]
+    ],
+    "audience": "MULTI_CHILD"
   },
   {
     "slug": "gov24-135200000006",
@@ -2027,7 +2075,8 @@
         "source": "GOV24",
         "externalId": "135200000006"
       }
-    ]
+    ],
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-135200000115",
@@ -2072,7 +2121,8 @@
         "source": "GOV24",
         "externalId": "179038700004"
       }
-    ]
+    ],
+    "audience": "SPECIAL"
   },
   {
     "slug": "gov24-423000000362",
@@ -2127,7 +2177,8 @@
         "source": "GOV24",
         "externalId": "B41000200003"
       }
-    ]
+    ],
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-b55271300007",
@@ -2139,7 +2190,8 @@
         "source": "GOV24",
         "externalId": "B55271300007"
       }
-    ]
+    ],
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-b55288100003",
@@ -2180,7 +2232,8 @@
         "text": "(1인)295,200원, (2인)407,500원, (3인)532,700원, (4인 이상)701,300원 / (연탄전환 에너지바우처) 정액 지급된 바우처 금액(576,000원)",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999178&bnefType=all&svcId=B55353000001"
       }
-    }
+    },
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-b55370100008",
@@ -2192,7 +2245,8 @@
         "source": "GOV24",
         "externalId": "B55370100008"
       }
-    ]
+    ],
+    "audience": "SINGLE_TEEN_PARENT"
   },
   {
     "slug": "gov24-scy000000080",
@@ -2204,7 +2258,8 @@
         "source": "GOV24",
         "externalId": "SCY000000080"
       }
-    ]
+    ],
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-scy000000170",
@@ -2216,7 +2271,8 @@
         "source": "GOV24",
         "externalId": "SCY000000170"
       }
-    ]
+    ],
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-sd0000003474",
@@ -2314,7 +2370,8 @@
         "text": "기저귀(월 9만원) ･ 조제분유(월 11만원) 구매비용을 국민행복카드에 바우처 포인트로 지급",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=165908&bnefType=all&svcId=WII000000500"
       }
-    }
+    },
+    "audience": "LOW_INCOME"
   },
   {
     "slug": "bokjiro-wlf00000064",
@@ -2326,7 +2383,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00000064"
       }
-    ]
+    ],
+    "audience": "DISABILITY"
   },
   {
     "slug": "bokjiro-wlf00005631",
@@ -2350,7 +2408,8 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00005032"
       }
-    ]
+    ],
+    "audience": "ADOPTION_FOSTER"
   },
   {
     "slug": "bokjiro-wlf00006239",
@@ -2362,6 +2421,7 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00006239"
       }
-    ]
+    ],
+    "audience": "LOW_INCOME"
   }
 ]
