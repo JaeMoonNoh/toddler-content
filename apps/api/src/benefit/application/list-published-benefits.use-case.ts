@@ -1,0 +1,44 @@
+import type { BenefitScope } from '../domain/benefit';
+import { isPublishable, type PublishedStatusKind } from '../domain/review-status';
+import type { BenefitRepository } from './ports/benefit.repository';
+import type { SourceStateReader } from './ports/source-state.reader';
+
+export interface PublishedBenefit {
+  slug: string;
+  name: string;
+  scope: BenefitScope;
+  sourceName: string;
+  sourceUrl: string;
+  verifiedAt: Date | null;
+  // VERIFIED: 확인됨, UNVERIFIED: "검증 전"으로 표시, SOURCE_CHANGED: 확인 뒤 출처 내용이 바뀌어 다시 확인 중
+  reviewStatus: PublishedStatusKind;
+}
+
+// 사이트에 보여줄 혜택. 원본이 사라졌거나 없는 혜택만 빠진다
+export class ListPublishedBenefitsUseCase {
+  constructor(
+    private readonly repository: BenefitRepository,
+    private readonly reader: SourceStateReader,
+  ) {}
+
+  async execute(): Promise<PublishedBenefit[]> {
+    const benefits = await this.repository.findAll();
+    const current = await this.reader.read(benefits.flatMap((benefit) => benefit.sources));
+
+    return benefits
+      .flatMap((benefit) => {
+        const status = benefit.reviewStatus(current);
+        if (!isPublishable(status)) return [];
+        return {
+          slug: benefit.slug,
+          name: benefit.name,
+          scope: benefit.scope,
+          sourceName: benefit.primarySource.label,
+          sourceUrl: benefit.sourceUrl,
+          verifiedAt: benefit.verifiedAt,
+          reviewStatus: status.kind,
+        };
+      })
+      .sort((a, b) => a.name.localeCompare(b.name, 'ko'));
+  }
+}

@@ -1,5 +1,6 @@
 import type { ChangedItem } from '../../application/collect-source.use-case';
 import type { CollectionReport, SourceOutcome } from '../../application/collection-report';
+import { formatKst } from '../../../shared/format-kst';
 import type { SourceId } from '../../domain/source-record';
 
 const SOURCE_LABEL: Record<SourceId, string> = {
@@ -48,8 +49,4 @@ export class ReportPrinter {
 function describeChange(change: ChangedItem): string {
   const fields = change.fields.length > 0 ? ` (${change.fields.join(', ')})` : '';
   return `    ${CHANGE_LABEL[change.type]}  ${change.name || change.externalId}${fields}`;
-}
-
-function formatKst(at: Date): string {
-  return at.toLocaleString('sv-SE', { timeZone: 'Asia/Seoul' }).slice(0, 16);
 }

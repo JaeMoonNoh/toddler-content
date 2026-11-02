@@ -44,6 +44,18 @@ docker compose exec api node dist/collect/infrastructure/cli/collect.cli.js
 
 API 서버는 매일 새벽 4시(한국 시각)에 자동으로 수집합니다. 끄려면 `COLLECT_SCHEDULE=off`.
 
+## 혜택 검토와 게시
+
+사이트에 올릴 혜택은 `apps/api/data/benefit-catalog.json`에서 관리하고, `GET /benefits`로 나갑니다. 사람이 원문을 확인하기 전에는 "검증 전"으로 표시되고, 원본이 출처에서 사라진 혜택은 빠집니다.
+
+```bash
+pnpm benefit sync                 # 목록 파일을 DB에 반영
+pnpm benefit review               # 확인이 필요한 혜택 보기 (바뀐 원본은 필드별 전후 값까지)
+pnpm benefit verify <slug> ...    # 원문을 확인한 혜택에 확인일 남기기
+```
+
+Docker 안에서는 `docker compose exec api node dist/benefit/infrastructure/cli/benefit.cli.js <명령>`.
+
 ## 구조
 
 ```

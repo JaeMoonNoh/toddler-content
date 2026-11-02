@@ -8,7 +8,8 @@
     "dev:api": "pnpm --filter @toddler/api start:dev",
     "dev:web": "pnpm --filter @toddler/web dev",
     "build": "pnpm -r build",
-    "collect": "pnpm --filter @toddler/api collect"
+    "collect": "pnpm --filter @toddler/api collect",
+    "benefit": "pnpm --filter @toddler/api benefit"
   },
   "packageManager": "pnpm@12.14.0"
 }
