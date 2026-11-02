@@ -28,3 +28,10 @@ export function isPublishable(status: ReviewStatus): status is Extract<ReviewSta
 export function needsReview(status: ReviewStatus) {
   return status.kind !== 'VERIFIED';
 }
+
+// 확인한 뒤로 원본에 무슨 일이 생긴 것. 매일 보고서에서 바로 알려야 하는 것들이다
+const ATTENTION: ReadonlySet<ReviewStatusKind> = new Set(['SOURCE_CHANGED', 'SOURCE_REMOVED', 'SOURCE_MISSING']);
+
+export function needsAttention(status: ReviewStatus) {
+  return ATTENTION.has(status.kind);
+}

@@ -39,10 +39,18 @@ pnpm collect
 Docker로 띄운 상태라면 컨테이너 안에서도 실행할 수 있습니다.
 
 ```bash
-docker compose exec api node dist/collect/infrastructure/cli/collect.cli.js
+docker compose exec api node dist/daily-check/infrastructure/daily-check.cli.js
 ```
 
-API 서버는 매일 새벽 4시(한국 시각)에 자동으로 수집합니다. 끄려면 `COLLECT_SCHEDULE=off`.
+수집 결과 아래에 혜택 검토 요약이 함께 나옵니다. 사람이 확인한 뒤로 원본이 바뀌었거나 사라진 혜택이 있으면 `⚠ 혜택 검토: 확인 필요 N건`과 혜택 이름, 바뀐 필드를 보여줍니다.
+
+```
+⚠ 혜택 검토: 확인 필요 1건 (원본 바뀜 1 · 원본 사라짐 0 · 원본 없음 0), 검증 전 111건
+    원본 바뀜  아동수당 (지원내용)
+자세히 보기: pnpm benefit review
+```
+
+API 서버는 매일 새벽 4시(한국 시각)에 같은 일을 자동으로 하고 결과를 로그에 남깁니다 (`docker compose logs api`). 확인할 혜택이 있거나 실패가 있으면 경고(WARN)로 남깁니다. 끄려면 `COLLECT_SCHEDULE=off`.
 
 ## 혜택 검토와 게시
 
