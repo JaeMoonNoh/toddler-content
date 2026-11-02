@@ -1048,10 +1048,10 @@
     ],
     "amount": {
       "kind": "wage",
-      "summary": "1~3개월 통상임금 100% (월 상한 250만원), 4~6개월 월 상한 200만원, 7개월부터 80% (월 상한 160만원)",
+      "summary": "1~3개월 통상임금 100% (월 상한 250만원), 4~6개월 월 상한 200만원, 7개월부터 80% (월 상한 160만원). 부모가 함께 쓰거나 한부모면 첫 6개월 상한이 더 높아요",
       "tiers": null,
       "basis": {
-        "text": "육아휴직 (1~3개월) : 월 상한 250만원, 통상임금 100%, (4~6개월) 월 상한 200만원, 통상임금 100%, (7개월 이후) 월 상한 160만원, 통상임금 80%",
+        "text": "육아휴직 (1~3개월) : 월 상한 250만원, 통상임금 100%, (4~6개월) 월 상한 200만원, 통상임금 100%, (7개월 이후) 월 상한 160만원, 통상임금 80% / 부모함께육아휴직제: 생후 18개월 이내 자녀를 대상으로 부모 모두 육아휴직 사용 시, 부모의 첫 6개월 육아휴직급여를 통상임금의 100%(상한 250~450만원)으로 지급",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999029&bnefType=all&svcId=999000000008"
       }
     }
@@ -1160,13 +1160,13 @@
       "until": {
         "anchor": "birth",
         "months": 0,
-        "days": 60
+        "days": 30
       },
       "untilLabel": "신청 마감",
-      "summary": "출산예정일 40일 전부터 출산 후 60일까지 보건소나 복지로에서 신청해요",
+      "summary": "출산예정일 40일 전부터 출산 후 30일까지 보건소나 복지로에서 신청해요",
       "basis": {
-        "text": "신청기간: 출산예정일 40일 전부터 출산일로부터 60일까지 (공공 API 원문에는 없어 인천광역시 안내 기준)",
-        "url": "https://www.incheon.go.kr/earlychild/EC020102"
+        "text": "신청기한 : 출산예정일 40일 전부터 출산일로부터 30일 까지",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=741282&bnefType=all&svcId=PTR000050390"
       }
     },
     "amount": {
@@ -1321,7 +1321,7 @@
     },
     "amount": {
       "kind": "voucher",
-      "summary": "임신 1회당 100만원 (다태아 140만원 기본, 태아당 100만원까지 추가)",
+      "summary": "임신 1회당 100만원 (다태아는 태아당 100만원, 예: 쌍둥이 200만원 / 분만취약지 20만원 추가)",
       "tiers": [
         {
           "minBirthOrder": 1,
@@ -1330,7 +1330,7 @@
         }
       ],
       "basis": {
-        "text": "임신 1회당 100만원(다태아 임신부의 경우 140만원 기본지급)",
+        "text": "임신 1회당 100만원(다태아 임신부의 경우 140만원 기본지급) * 분만취약지의 경우 20만원 추가지원 * 다태아 임산부의 경우 태아당 100만원이 되도록 추가지원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999124&bnefType=all&svcId=SD0000007672"
       }
     }
