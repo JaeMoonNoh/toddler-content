@@ -49,6 +49,9 @@
         "source": "GOV24",
         "externalId": "571000000125"
       }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
     ]
   },
   {
@@ -73,6 +76,9 @@
         "source": "BOKJIRO_LOCAL",
         "externalId": "WLF00003640"
       }
+    ],
+    "conditions": [
+      "HOME_CARE"
     ]
   },
   {
@@ -266,6 +272,9 @@
         "source": "BOKJIRO_LOCAL",
         "externalId": "WLF00003416"
       }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
     ]
   },
   {
@@ -306,6 +315,9 @@
         "source": "BOKJIRO_LOCAL",
         "externalId": "WLF00003773"
       }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
     ]
   },
   {
@@ -355,7 +367,10 @@
         "text": "[양육수당] (24~86개월 미만) 10만원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2122936&bnefType=all&svcId=134200005012"
       }
-    }
+    },
+    "conditions": [
+      "HOME_CARE"
+    ]
   },
   {
     "slug": "gov24-134200005031",
@@ -371,6 +386,9 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00000037"
       }
+    ],
+    "conditions": [
+      "HOME_CARE"
     ]
   },
   {
@@ -387,6 +405,9 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00003250"
       }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
     ]
   },
   {
@@ -399,6 +420,9 @@
         "source": "GOV24",
         "externalId": "134200005047"
       }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
     ]
   },
   {
@@ -982,6 +1006,9 @@
         "source": "GOV24",
         "externalId": "SCH000000070"
       }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
     ]
   },
   {
@@ -1367,6 +1394,9 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00001067"
       }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
     ]
   },
   {
@@ -1379,6 +1409,9 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00006335"
       }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
     ]
   },
   {
@@ -1451,6 +1484,9 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00001147"
       }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
     ]
   },
   {

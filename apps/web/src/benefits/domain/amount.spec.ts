@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { BenefitAmount, PublishedBenefit } from './benefit';
 import { amountRange, formatRange, formatWon, receiptOf } from './amount';
+import { UNANSWERED } from './eligibility';
 
 const firstMeeting: BenefitAmount = {
   kind: 'voucher',
@@ -52,7 +53,7 @@ describe('receiptOf', () => {
   const benefits = [benefit('첫만남이용권', firstMeeting), benefit('아동수당', flat(9_600_000)), benefit('육아휴직', wage), benefit('금액 없음', null)];
 
   it('합계에 넣을 수 있는 금액만 많이 받는 순서로 더한다', () => {
-    const receipt = receiptOf(benefits, 1);
+    const receipt = receiptOf(benefits, { ...UNANSWERED, birthOrder: 1 });
     expect(receipt.lines.map((l) => [l.benefit.name, l.range.min])).toEqual([
       ['아동수당', 9_600_000],
       ['첫만남이용권', 2_000_000],
@@ -61,15 +62,21 @@ describe('receiptOf', () => {
   });
 
   it('몇째인지 모르면 합계도 범위', () => {
-    expect(receiptOf(benefits, null).total).toEqual({ min: 11_600_000, max: 12_600_000 });
+    expect(receiptOf(benefits, UNANSWERED).total).toEqual({ min: 11_600_000, max: 12_600_000 });
   });
 
   it('금액을 정할 수 없는 혜택은 따로 알려주고, 금액을 정리하지 않은 혜택은 넣지 않는다', () => {
-    expect(receiptOf(benefits, 1).notCounted.map((b) => b.name)).toEqual(['육아휴직']);
+    expect(receiptOf(benefits, { ...UNANSWERED, birthOrder: 1 }).notCounted.map((b) => b.name)).toEqual(['육아휴직']);
+  });
+
+  it('답하지 않은 조건이 있는 금액은 조건부로 표시한다', () => {
+    const homeCare = { ...benefit('가정양육수당', flat(6_200_000)), conditions: ['HOME_CARE' as const] };
+    expect(receiptOf([homeCare], UNANSWERED).lines[0].onlyIf).toEqual(['어린이집·유치원 안 다닐 때']);
+    expect(receiptOf([homeCare], { ...UNANSWERED, childcare: 'home' }).lines[0].onlyIf).toEqual([]);
   });
 
   it('혜택이 없으면 0원', () => {
-    expect(receiptOf([], 1)).toEqual({ lines: [], total: { min: 0, max: 0 }, notCounted: [] });
+    expect(receiptOf([], { ...UNANSWERED, birthOrder: 1 })).toEqual({ lines: [], total: { min: 0, max: 0 }, notCounted: [] });
   });
 });
 

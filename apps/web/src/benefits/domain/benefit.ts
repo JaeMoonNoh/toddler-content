@@ -15,7 +15,13 @@ export interface BenefitSchedule {
   basis: { text: string; url: string };
 }
 
-export type EligibilityCondition = 'BIRTH_PARENT_INSURED' | 'PARTNER_INSURED' | 'EITHER_PARENT_INSURED' | 'BIRTH_PARENT_UNINSURED';
+export type EligibilityCondition =
+  | 'BIRTH_PARENT_INSURED'
+  | 'PARTNER_INSURED'
+  | 'EITHER_PARENT_INSURED'
+  | 'BIRTH_PARENT_UNINSURED'
+  | 'HOME_CARE'
+  | 'USES_CHILDCARE';
 
 export interface AmountTier {
   minBirthOrder: number;

@@ -136,3 +136,4 @@ select, input[type='date'] { font: inherit; color: var(--ink); background: var(-
 .rtotal { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-weight: 500; }
 .rtotal strong { font-size: 20px; font-variant-numeric: tabular-nums; color: var(--accent); white-space: nowrap; }
 .receipt .foot { color: var(--muted); font-size: 11px; margin: 8px 0 0; line-height: 1.5; }
+.rline .onlyif { display: block; font-size: 11px; color: var(--now); }

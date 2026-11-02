@@ -1,4 +1,4 @@
-import type { Household, Insurance } from '../domain/eligibility';
+import type { Childcare, Household, Insurance } from '../domain/eligibility';
 
 const OPTIONS: { value: Insurance; label: string }[] = [
   { value: 'unknown', label: '선택 안 함' },
@@ -33,6 +33,28 @@ export function BirthOrderField({ household, onChange }: { household: Household;
           </option>
         ))}
       </select>
+    </div>
+  );
+}
+
+const CHILDCARE: { value: Childcare; label: string }[] = [
+  { value: 'unknown', label: '선택 안 함' },
+  { value: 'home', label: '집에서 돌볼 예정이에요' },
+  { value: 'daycare', label: '보낼 예정이에요' },
+];
+
+export function ChildcareField({ household, onChange }: { household: Household; onChange: (next: Household) => void }) {
+  return (
+    <div className="field">
+      <label htmlFor="childcare">어린이집·유치원 (선택)</label>
+      <select id="childcare" value={household.childcare} onChange={(e) => onChange({ ...household, childcare: e.target.value as Childcare })}>
+        {CHILDCARE.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      <p className="stage">가정양육수당과 보육료 지원은 함께 받을 수 없어서, 답하면 맞는 쪽만 보여드려요.</p>
     </div>
   );
 }

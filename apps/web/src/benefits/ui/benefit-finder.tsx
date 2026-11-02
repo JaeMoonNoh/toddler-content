@@ -12,7 +12,7 @@ import { BenefitGroups } from './benefit-groups';
 import { CalendarDownload } from './calendar-download';
 import { ExcludedBenefits } from './excluded-benefits';
 import { AmountReceipt } from './amount-receipt';
-import { BirthOrderField, HouseholdFields } from './household-fields';
+import { BirthOrderField, ChildcareField, HouseholdFields } from './household-fields';
 import { TimelineCard } from './timeline-card';
 
 // 사는 곳, 출산예정일, 고용보험 답은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다
@@ -30,7 +30,7 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
     household,
   );
   const timeline = due && stage?.kind !== 'too-far' ? buildTimeline(region, shown, due, today) : null;
-  const receipt = receiptOf(shown, household.birthOrder);
+  const receipt = receiptOf(shown, household);
   const listed = groupForRegion(region, timeline ? timeline.unscheduled : shown);
   const scheduledCount = timeline?.phases.reduce((sum, phase) => sum + phase.items.length, 0) ?? 0;
 
@@ -57,6 +57,7 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
           </div>
           <BirthOrderField household={household} onChange={setHousehold} />
           <HouseholdFields household={household} onChange={setHousehold} />
+          <ChildcareField household={household} onChange={setHousehold} />
         </form>
         <AmountReceipt receipt={receipt} birthOrderKnown={household.birthOrder !== null} />
         {timeline && <CalendarDownload timeline={timeline} />}
