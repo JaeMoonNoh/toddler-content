@@ -11,6 +11,7 @@ export interface SourceRecord {
 // 이전 수집까지 알고 있던 항목 한 건
 export interface StoredItem {
   externalId: string;
+  name: string;
   hash: string;
   payload: Record<string, unknown>;
   removed: boolean;

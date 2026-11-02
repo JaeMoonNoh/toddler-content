@@ -1,11 +1,10 @@
-import type { FieldChange, SourceId, StoredItem } from '../domain/source-record';
-import { SnapshotRepository, type RunSummary, type SnapshotPlan } from './ports';
+import type { FieldChange, SourceId, StoredItem } from '../../domain/source-record';
+import { SnapshotRepository, type RunSummary, type SnapshotPlan } from '../ports/snapshot.repository';
 
 // 테스트용 저장소. Prisma 구현과 같은 규칙을 메모리에서 따른다.
 
 interface MemoryItem extends StoredItem {
   source: SourceId;
-  name: string;
 }
 
 export interface MemoryChange {
@@ -36,7 +35,7 @@ export class InMemorySnapshotRepository extends SnapshotRepository {
   async loadItems(source: SourceId): Promise<StoredItem[]> {
     return [...this.items.values()]
       .filter((i) => i.source === source)
-      .map(({ externalId, hash, payload, removed }) => ({ externalId, hash, payload, removed }));
+      .map(({ externalId, name, hash, payload, removed }) => ({ externalId, name, hash, payload, removed }));
   }
 
   async startRun(source: SourceId): Promise<string> {

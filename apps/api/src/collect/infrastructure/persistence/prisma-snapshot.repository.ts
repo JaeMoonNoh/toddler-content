@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ChangeType, Prisma } from '../../generated/prisma/client';
-import { PrismaService } from '../../prisma/prisma.service';
-import { SnapshotRepository, type RunSummary, type SnapshotPlan } from '../application/ports';
-import type { SourceId, StoredItem } from '../domain/source-record';
+import { ChangeType, Prisma } from '../../../generated/prisma/client';
+import { PrismaService } from '../../../prisma/prisma.service';
+import { SnapshotRepository, type RunSummary, type SnapshotPlan } from '../../application/ports/snapshot.repository';
+import type { SourceId, StoredItem } from '../../domain/source-record';
 
 const CHUNK = 1000; // 한 쿼리에 넣는 최대 건수 (PostgreSQL 파라미터 한도 대비)
 
@@ -21,10 +21,11 @@ export class PrismaSnapshotRepository extends SnapshotRepository {
   async loadItems(source: SourceId): Promise<StoredItem[]> {
     const rows = await this.prisma.sourceItem.findMany({
       where: { source },
-      select: { externalId: true, hash: true, payload: true, removedAt: true },
+      select: { externalId: true, name: true, hash: true, payload: true, removedAt: true },
     });
     return rows.map((r) => ({
       externalId: r.externalId,
+      name: r.name,
       hash: r.hash,
       payload: r.payload as Record<string, unknown>,
       removed: r.removedAt !== null,

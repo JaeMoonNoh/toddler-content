@@ -1,4 +1,4 @@
-import type { FieldChange, SourceId, SourceRecord, StoredItem } from '../domain/source-record';
+import type { FieldChange, SourceId, SourceRecord, StoredItem } from '../../domain/source-record';
 
 // 비즈니스 로직이 저장소에 요구하는 것. 구현(Prisma 등)은 infrastructure에서 한다.
 // Nest가 이 추상 클래스를 주입 토큰으로도 쓴다.
