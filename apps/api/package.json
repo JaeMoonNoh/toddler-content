@@ -9,7 +9,8 @@
     "start:prod": "prisma migrate deploy && node dist/main.js",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "test": "vitest run"
+    "test": "pnpm typecheck && vitest run",
+    "typecheck": "prisma generate && tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
     "@nestjs/common": "^12.3.2",
