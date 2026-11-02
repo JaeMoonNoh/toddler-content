@@ -98,6 +98,15 @@ describe('HttpClient', () => {
     });
   });
 
+  it('여러 줄 오류 본문(공공데이터포털 403 XML)은 한 줄로 담는다', async () => {
+    const body = '<?xml version="1.0"?>\n<OpenAPI_ServiceResponse>\n  <cmmMsgHeader>\n    <errMsg>SERVICE_KEY_IS_NOT_REGISTERED_ERROR</errMsg>';
+    const fake = new FakeFetch().on(any, { status: 403, body });
+    const error = await failureOf(clientWith(fake).client.getText(url));
+
+    expect(error.message).not.toContain('\n');
+    expect(error.message).toContain('<cmmMsgHeader> <errMsg>SERVICE_KEY_IS_NOT_REGISTERED_ERROR');
+  });
+
   it('긴 오류 본문은 잘라서 담는다', async () => {
     const fake = new FakeFetch().on(any, { status: 400, body: 'x'.repeat(5000) });
     const error = await failureOf(clientWith(fake).client.getText(url));

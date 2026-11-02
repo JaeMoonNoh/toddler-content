@@ -28,7 +28,7 @@ export class HttpError extends Error {
     url: URL,
     body: string,
   ) {
-    super(`HTTP ${status} ${redactUrl(url)} ${body.slice(0, 200)}`.trim());
+    super(`HTTP ${status} ${redactUrl(url)} ${body.replace(/\s+/g, ' ').slice(0, 200)}`.trim());
   }
 
   get retryable() {
