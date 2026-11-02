@@ -56,6 +56,37 @@ docker compose up --build
   (`https://github.com/JaeMoonNoh/toddler-content/compare/main...<브랜치>?expand=1`).
 - 이 폴더(`~/personal/`)는 개인 SSH 키와 개인 이메일(JaeMoonNoh)로 커밋·push되도록 설정돼 있다. 원격 주소를 https로 바꾸지 않는다.
 
+## 커밋 메시지·PR 제목 형식
+
+`타입(범위): 한글 설명` 형식. 타입과 범위는 영어 소문자, 설명은 한글. 콜론 앞에는 공백을 두지 않는다.
+
+```
+feat(api): 혜택 목록 조회 API 추가
+fix(web): 출산예정일 입력 시 날짜가 하루 밀리는 문제 수정
+chore(deps): 패키지 매니저를 npm에서 pnpm으로 전환
+```
+
+| 타입 | 언제 |
+|---|---|
+| `feat` | 사용자가 체감하는 새 기능 |
+| `fix` | 버그 수정 |
+| `refactor` | 동작은 그대로, 코드 구조만 변경 |
+| `chore` | 설정, 의존성, 빌드, Docker 등 기능과 무관한 작업 |
+| `docs` | 문서만 변경 (README, CLAUDE.md) |
+| `test` | 테스트만 추가·수정 |
+
+| 범위 | 대상 |
+|---|---|
+| `api` | `apps/api` (NestJS) |
+| `web` | `apps/web` (Next.js) |
+| `db` | Prisma 스키마, 마이그레이션 |
+| `data` | 혜택 데이터, 공공 API 수집·변경 감지 |
+| `docker` | Dockerfile, docker-compose |
+| `deps` | 패키지 추가·버전 변경 |
+
+- 범위가 여러 곳이면 가장 중심이 되는 하나만 쓰고, 애매하면 생략한다 (`docs: …`).
+- PR 제목도 같은 형식. 브랜치 이름은 타입과 맞춘다 (`feat/…`, `fix/…`).
+
 ## PR 본문 형식
 
 ```
