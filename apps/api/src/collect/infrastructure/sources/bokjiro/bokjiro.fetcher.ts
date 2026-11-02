@@ -1,4 +1,4 @@
-import type { SourceId, SourceRecord } from '../../../domain/source-record';
+import { VOLATILE_FIELDS, type SourceId, type SourceRecord } from '../../../domain/source-record';
 import type { HttpClient } from '../../http/http-client';
 import { PagedSourceFetcher, type Page } from '../paged-source-fetcher';
 import { ServiceKey } from '../service-key';
@@ -7,10 +7,13 @@ import { parseBokjiroPage, type BokjiroItem } from './bokjiro-response';
 // 복지로 목록 API 공통. 중앙부처와 지자체는 주소와 고정 파라미터만 다르다.
 abstract class BokjiroFetcher extends PagedSourceFetcher<BokjiroItem> {
   abstract readonly source: SourceId;
-  readonly ignoredFields = ['inqNum'];
   protected readonly pageSize = 500;
   protected abstract readonly listUrl: string;
   protected readonly fixedParams: Record<string, string> = {};
+
+  get ignoredFields() {
+    return VOLATILE_FIELDS[this.source];
+  }
 
   constructor(
     private readonly http: HttpClient,
