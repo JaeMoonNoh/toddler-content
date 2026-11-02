@@ -1,27 +1,26 @@
-// 요청마다 API 상태를 새로 확인한다 (빌드 시점에 고정하지 않음)
+import { fetchPublishedBenefits } from '@/benefits/api/fetch-benefits';
+import { BenefitFinder } from '@/benefits/ui/benefit-finder';
+
+// 요청 때 API에서 받는다 (빌드할 때는 API가 없다). 응답은 5분 동안 재사용한다
 export const dynamic = 'force-dynamic';
 
-async function getApiStatus(): Promise<string> {
-  // 컨테이너 안에서는 서비스 이름(api)으로, 로컬 개발에서는 localhost로 접속
-  const base = process.env.API_INTERNAL_URL ?? 'http://localhost:4000';
-  try {
-    const res = await fetch(`${base}/health`, { cache: 'no-store' });
-    const body = (await res.json()) as { status: string };
-    return body.status;
-  } catch {
-    return '연결 실패';
-  }
-}
-
 export default async function Home() {
-  const apiStatus = await getApiStatus();
+  const result = await fetchPublishedBenefits();
   return (
-    <main>
-      <h1>출산 혜택 타임라인</h1>
-      <p>스켈레톤 화면입니다.</p>
-      <p>
-        API 상태: <strong>{apiStatus}</strong>
-      </p>
+    <main className="page">
+      <header className="top">
+        <h1>출산예정일만 넣으면, 받을 수 있는 혜택을 한눈에</h1>
+        <p>회원가입 없이, 입력한 정보는 이 화면 밖으로 나가지 않아요.</p>
+      </header>
+      {result.ok ? (
+        <BenefitFinder benefits={result.benefits} />
+      ) : (
+        <p className="error">혜택 정보를 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.</p>
+      )}
+      <footer className="src">
+        원본: 보조금24(행정안전부), 복지로(한국사회보장정보원). 이 사이트는 공공 정보를 보기 쉽게 다시 정리할 뿐이며, 실제 신청 전
+        각 혜택의 원문에서 확인해 주세요. &quot;검증 전&quot;은 아직 사람이 원문과 대조하지 않은 혜택이에요.
+      </footer>
     </main>
   );
 }
