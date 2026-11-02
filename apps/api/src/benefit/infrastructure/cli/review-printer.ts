@@ -27,7 +27,9 @@ const MAX_VALUE = 80;
 // 혜택 검토 명령의 결과를 사람이 읽는 글로 바꾼다
 export class ReviewPrinter {
   printSync(result: SyncResult): string {
-    const lines = [`혜택 목록 반영: 새로 등록 ${result.registered.length} · 수정 ${result.revised.length} · 그대로 ${result.unchanged}`];
+    const lines = [
+      `혜택 목록 반영: 새로 등록 ${result.registered.length} · 수정 ${result.revised.length} · 대상 묶음만 바뀜 ${result.regrouped.length} · 그대로 ${result.unchanged}`,
+    ];
     if (result.revised.length) lines.push(`수정된 혜택은 다시 "검증 전"으로 바뀌었습니다: ${result.revised.join(', ')}`);
     if (result.notInCatalog.length) {
       lines.push(`목록 파일에 없는 혜택 (DB와 사이트에는 남아 있음): ${result.notInCatalog.join(', ')}`);

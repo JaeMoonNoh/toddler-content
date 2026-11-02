@@ -4,6 +4,7 @@ import { CatalogError } from '../../application/sync-catalog.use-case';
 import { BenefitCatalog } from '../../application/ports/benefit-catalog';
 import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
 import type { ApplicationPeriod } from '../../domain/application-period';
+import type { Audience } from '../../domain/audience';
 import type { AmountKind, AmountTier, BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule, ScheduleAnchor, ScheduleOffset } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
@@ -50,6 +51,7 @@ function toDetails(entry: unknown, index: number): BenefitDetails {
     conditions: conditionsOf(e.conditions, where),
     amount: e.amount === undefined || e.amount === null ? null : amountOf(e.amount, where),
     applicationPeriod: e.applicationPeriod === undefined || e.applicationPeriod === null ? null : periodOf(e.applicationPeriod, where),
+    audience: audienceOf(e.audience, where),
   };
 }
 
@@ -132,4 +134,10 @@ function periodOf(value: unknown, where: string): ApplicationPeriod {
     return v;
   };
   return { start: text(p.start, 'start'), end: text(p.end, 'end'), basis: { text: text(basis.text, 'basis.text'), url: text(basis.url, 'basis.url') } };
+}
+
+function audienceOf(value: unknown, where: string): Audience | null {
+  if (value === undefined || value === null) return null;
+  if (typeof value !== 'string') throw new CatalogError(`${where}: audience가 문자열이 아닙니다`);
+  return value as Audience;
 }

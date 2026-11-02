@@ -4,6 +4,7 @@ import { PrismaService } from '../../../prisma/prisma.service';
 import { BenefitRepository } from '../../application/ports/benefit.repository';
 import { Benefit, type BenefitScope } from '../../domain/benefit';
 import type { ApplicationPeriod } from '../../domain/application-period';
+import type { Audience } from '../../domain/audience';
 import type { BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
@@ -41,6 +42,7 @@ export class PrismaBenefitRepository extends BenefitRepository {
           sourceUrl: benefit.sourceUrl,
           schedule: benefit.schedule ? (benefit.schedule as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
           conditions: benefit.conditions,
+          audience: benefit.audience,
           amount: benefit.amount ? (benefit.amount as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
           applicationPeriod: benefit.applicationPeriod ? (benefit.applicationPeriod as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
           verifiedAt: benefit.verifiedAt,
@@ -79,6 +81,7 @@ function toBenefit(row: BenefitRow): Benefit {
     conditions: row.conditions as EligibilityCondition[],
     amount: (row.amount ?? null) as BenefitAmount | null,
     applicationPeriod: (row.applicationPeriod ?? null) as ApplicationPeriod | null,
+    audience: (row.audience ?? null) as Audience | null,
   };
   const snapshots = sources
     .filter((s) => s.row.verifiedHash !== null)

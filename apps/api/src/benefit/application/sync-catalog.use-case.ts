@@ -7,6 +7,7 @@ export class CatalogError extends Error {}
 export interface SyncResult {
   registered: string[];
   revised: string[]; // 정보가 바뀌어서 다시 확인해야 하는 혜택
+  regrouped: string[]; // 대상 묶음만 바뀐 혜택. 확인 기록은 그대로
   unchanged: number;
   notInCatalog: string[]; // DB에는 있지만 목록에서 빠진 혜택. 지우지 않고 알려만 준다
 }
@@ -23,7 +24,7 @@ export class SyncCatalogUseCase {
     assertUniqueSlugs(entries);
 
     const existing = new Map((await this.repository.findAll()).map((benefit) => [benefit.slug, benefit]));
-    const result: SyncResult = { registered: [], revised: [], unchanged: 0, notInCatalog: [] };
+    const result: SyncResult = { registered: [], revised: [], regrouped: [], unchanged: 0, notInCatalog: [] };
     const toSave: Benefit[] = [];
     const problems: string[] = [];
 
@@ -35,7 +36,9 @@ export class SyncCatalogUseCase {
           result.unchanged++;
           continue;
         }
-        (before ? result.revised : result.registered).push(entry.slug);
+        if (!before) result.registered.push(entry.slug);
+        else if (after.verification === before.verification) result.regrouped.push(entry.slug);
+        else result.revised.push(entry.slug);
         toSave.push(after);
       } catch (error) {
         problems.push(error instanceof Error ? error.message : String(error));

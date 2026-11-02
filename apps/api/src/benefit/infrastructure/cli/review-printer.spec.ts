@@ -77,10 +77,10 @@ describe('ReviewPrinter', () => {
 
   describe('목록 반영', () => {
     it('수정된 혜택과 목록에 없는 혜택을 알려준다', () => {
-      const text = printer.printSync({ registered: ['a'], revised: ['b'], unchanged: 3, notInCatalog: ['z'] });
+      const text = printer.printSync({ registered: ['a'], revised: ['b'], regrouped: ['c'], unchanged: 3, notInCatalog: ['z'] });
       expect(text).toBe(
         [
-          '혜택 목록 반영: 새로 등록 1 · 수정 1 · 그대로 3',
+          '혜택 목록 반영: 새로 등록 1 · 수정 1 · 대상 묶음만 바뀜 1 · 그대로 3',
           '수정된 혜택은 다시 "검증 전"으로 바뀌었습니다: b',
           '목록 파일에 없는 혜택 (DB와 사이트에는 남아 있음): z',
           '사이트에서 빼려면: pnpm benefit retire z',

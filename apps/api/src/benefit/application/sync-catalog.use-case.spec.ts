@@ -27,7 +27,7 @@ describe('SyncCatalogUseCase', () => {
   it('처음이면 목록의 혜택을 모두 확인 전 상태로 등록한다', async () => {
     catalog.entries = [benefitDetails('1'), benefitDetails('2')];
 
-    expect(await sync()).toEqual({ registered: ['gov24-1', 'gov24-2'], revised: [], unchanged: 0, notInCatalog: [] });
+    expect(await sync()).toEqual({ registered: ['gov24-1', 'gov24-2'], revised: [], regrouped: [], unchanged: 0, notInCatalog: [] });
     expect([...repo.benefits.values()].every((b) => b.verifiedAt === null)).toBe(true);
   });
 
@@ -48,6 +48,14 @@ describe('SyncCatalogUseCase', () => {
     expect(repo.benefits.get('gov24-1')).toMatchObject({ name: '이름 바꿈', verifiedAt: null });
   });
 
+  it('대상 묶음만 바뀐 혜택은 확인 기록을 유지하고 따로 알려준다', async () => {
+    repo = new InMemoryBenefitRepository([verified('1')]);
+    catalog.entries = [benefitDetails('1', { audience: 'LOW_INCOME' })];
+
+    expect(await sync()).toMatchObject({ revised: [], regrouped: ['gov24-1'] });
+    expect(repo.benefits.get('gov24-1')).toMatchObject({ audience: 'LOW_INCOME', verifiedAt: at });
+  });
+
   it('목록에서 빠진 혜택은 지우지 않고 알려만 준다', async () => {
     repo = new InMemoryBenefitRepository([verified('1'), verified('2')]);
     catalog.entries = [benefitDetails('1')];
@@ -59,7 +67,7 @@ describe('SyncCatalogUseCase', () => {
   it('목록이 비어 있으면 아무것도 바꾸지 않는다', async () => {
     repo = new InMemoryBenefitRepository([verified('1')]);
 
-    expect(await sync()).toEqual({ registered: [], revised: [], unchanged: 0, notInCatalog: ['gov24-1'] });
+    expect(await sync()).toEqual({ registered: [], revised: [], regrouped: [], unchanged: 0, notInCatalog: ['gov24-1'] });
     expect(repo.saveCount).toBe(0);
   });
 

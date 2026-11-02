@@ -17,6 +17,7 @@ const details = (overrides: Partial<BenefitDetails> = {}): BenefitDetails => ({
   conditions: [],
   amount: null,
   applicationPeriod: null,
+  audience: null,
   ...overrides,
 });
 
@@ -250,6 +251,20 @@ describe('Benefit', () => {
     it('조건 순서만 다르면 바뀐 것으로 보지 않는다', () => {
       const benefit = Benefit.register(details({ conditions: ['BIRTH_PARENT_INSURED', 'PARTNER_INSURED'] })).verify(sources(state(gov)), at);
       expect(benefit.revise(details({ conditions: ['PARTNER_INSURED', 'BIRTH_PARENT_INSURED'] })).verifiedAt).toBe(at);
+    });
+
+    it('대상 묶음만 바뀌면 확인 기록을 유지하고 묶음은 바꾼다', () => {
+      const revised = verified().revise(details({ audience: 'LOW_INCOME' }));
+      expect(revised.verifiedAt).toBe(at);
+      expect(revised.audience).toBe('LOW_INCOME');
+    });
+
+    it('대상 묶음과 다른 정보가 함께 바뀌면 다시 확인해야 한다', () => {
+      expect(verified().revise(details({ audience: 'LOW_INCOME', name: '이름 바꿈' })).verifiedAt).toBeNull();
+    });
+
+    it('모르는 대상 묶음으로는 바꿀 수 없다', () => {
+      expect(() => verified().revise(details({ audience: 'VIP' as never }))).toThrow('알 수 없는 대상 묶음');
     });
 
     it('slug는 바꿀 수 없다', () => {
