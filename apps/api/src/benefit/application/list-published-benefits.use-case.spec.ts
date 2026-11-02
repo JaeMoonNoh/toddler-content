@@ -15,9 +15,9 @@ describe('ListPublishedBenefitsUseCase', () => {
     expect(await useCase.execute()).toEqual([]);
   });
 
-  it('확인된 혜택만 이름순으로, 원본이 바뀐 것은 표시를 붙여 내보낸다', async () => {
+  it('원본이 사라진 혜택만 빼고 이름순으로, 검토 상태와 함께 내보낸다', async () => {
     const bok = new SourceRef('BOKJIRO_NATIONAL', 'WLF00001171');
-    const reader = new FakeSourceStateReader().set(ref('1')).set(ref('2')).set(ref('3')).set(bok);
+    const reader = new FakeSourceStateReader().set(ref('1')).set(ref('2')).set(ref('3')).set(ref('4')).set(bok);
     const verify = async (benefit: Benefit) => benefit.verify(await reader.read(benefit.sources), at);
 
     const benefits = [
@@ -32,9 +32,10 @@ describe('ListPublishedBenefitsUseCase', () => {
     const published = await new ListPublishedBenefitsUseCase(new InMemoryBenefitRepository(benefits), reader).execute();
 
     expect(published).toEqual([
-      expect.objectContaining({ slug: 'gov24-5', name: '가 복지로', scope: 'cheongju', sourceName: '복지로', sourceChangedSinceVerified: false }),
-      expect.objectContaining({ slug: 'gov24-2', sourceName: '보조금24', verifiedAt: at, sourceChangedSinceVerified: true }),
-      expect.objectContaining({ slug: 'gov24-1', sourceChangedSinceVerified: false }),
+      expect.objectContaining({ slug: 'gov24-5', name: '가 복지로', scope: 'cheongju', sourceName: '복지로', reviewStatus: 'VERIFIED' }),
+      expect.objectContaining({ slug: 'gov24-2', sourceName: '보조금24', verifiedAt: at, reviewStatus: 'SOURCE_CHANGED' }),
+      expect.objectContaining({ slug: 'gov24-4', name: '라 확인 전', verifiedAt: null, reviewStatus: 'UNVERIFIED' }),
+      expect.objectContaining({ slug: 'gov24-1', reviewStatus: 'VERIFIED' }),
     ]);
   });
 });

@@ -9,7 +9,7 @@ const STATUS_LABEL: Record<ReviewStatusKind, string> = {
   SOURCE_MISSING: '원본 없음 (수집된 적 없는 ID, 게시 안 함)',
   SOURCE_REMOVED: '원본 사라짐 (출처에서 종료됐을 수 있음, 게시 멈춤)',
   SOURCE_CHANGED: '원본 바뀜 (마지막 확인 내용으로 게시 중)',
-  UNVERIFIED: '확인 전 (게시 안 함)',
+  UNVERIFIED: '확인 전 ("검증 전"으로 게시 중)',
   VERIFIED: '확인됨',
 };
 
@@ -27,7 +27,7 @@ const MAX_VALUE = 80;
 export class ReviewPrinter {
   printSync(result: SyncResult): string {
     const lines = [`혜택 목록 반영: 새로 등록 ${result.registered.length} · 수정 ${result.revised.length} · 그대로 ${result.unchanged}`];
-    if (result.revised.length) lines.push(`수정된 혜택은 다시 확인해야 게시됩니다: ${result.revised.join(', ')}`);
+    if (result.revised.length) lines.push(`수정된 혜택은 다시 "검증 전"으로 바뀌었습니다: ${result.revised.join(', ')}`);
     if (result.notInCatalog.length) lines.push(`목록 파일에 없는 혜택 (DB에는 남아 있음): ${result.notInCatalog.join(', ')}`);
     return lines.join('\n');
   }

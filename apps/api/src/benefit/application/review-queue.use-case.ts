@@ -15,7 +15,7 @@ export interface ReviewQueue {
   counts: Record<ReviewStatusKind, number>;
 }
 
-// 게시가 멈춘 것(원본 없음, 사라짐)부터, 그 다음 게시 중이지만 내용이 바뀐 것, 마지막이 아직 안 올린 것
+// 게시가 멈춘 것(원본 없음, 사라짐)부터, 그 다음 확인 뒤 내용이 바뀐 것, 마지막이 검증 전으로 게시 중인 것
 const URGENCY: ReviewStatusKind[] = ['SOURCE_MISSING', 'SOURCE_REMOVED', 'SOURCE_CHANGED', 'UNVERIFIED', 'VERIFIED'];
 
 // 사람이 확인해야 할 혜택 목록

@@ -16,12 +16,13 @@ export type ReviewStatus =
 
 export type ReviewStatusKind = ReviewStatus['kind'];
 
-// 원본이 바뀌어도 마지막으로 확인한 내용과 확인일은 그대로 보여준다.
-// 원본이 사라졌거나 한 번도 확인하지 않은 혜택은 보여주지 않는다.
-const PUBLISHED: ReadonlySet<ReviewStatusKind> = new Set(['VERIFIED', 'SOURCE_CHANGED']);
+// 확인 전 혜택은 "검증 전"으로, 원본이 바뀐 혜택은 마지막 확인일과 함께 보여준다.
+// 원본이 사라졌거나 수집된 적 없는 혜택만 보여주지 않는다.
+const PUBLISHED = ['VERIFIED', 'UNVERIFIED', 'SOURCE_CHANGED'] as const;
+export type PublishedStatusKind = (typeof PUBLISHED)[number];
 
-export function isPublishable(status: ReviewStatus) {
-  return PUBLISHED.has(status.kind);
+export function isPublishable(status: ReviewStatus): status is Extract<ReviewStatus, { kind: PublishedStatusKind }> {
+  return (PUBLISHED as readonly ReviewStatusKind[]).includes(status.kind);
 }
 
 export function needsReview(status: ReviewStatus) {

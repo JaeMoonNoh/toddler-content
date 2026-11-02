@@ -183,9 +183,14 @@ describe('Benefit', () => {
       expect(verified().isPublished(sources(state(gov, 'h2')))).toBe(true);
     });
 
-    it('확인 전, 원본 사라짐, 원본 없음은 게시하지 않는다', () => {
-      expect(Benefit.register(details()).isPublished(sources(state(gov)))).toBe(false);
+    it('확인 전 혜택도 게시한다 (화면에 "검증 전"으로 표시)', () => {
+      expect(Benefit.register(details()).isPublished(sources(state(gov)))).toBe(true);
+    });
+
+    it('원본이 사라졌거나 없으면 확인 여부와 상관없이 게시하지 않는다', () => {
+      expect(Benefit.register(details()).isPublished(sources(state(gov, 'h1', {}, true)))).toBe(false);
       expect(verified().isPublished(sources(state(gov, 'h1', {}, true)))).toBe(false);
+      expect(Benefit.register(details()).isPublished(sources())).toBe(false);
       expect(verified().isPublished(sources())).toBe(false);
     });
   });
