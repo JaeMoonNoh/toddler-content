@@ -2159,7 +2159,16 @@
         "source": "GOV24",
         "externalId": "B41000200003"
       }
-    ]
+    ],
+    "amount": {
+      "kind": "service",
+      "summary": "주택용 전기요금 30% 할인 (월 16,000원 한도). 출산 가구도 대상이에요 (언제까지 출산 가구로 보는지는 한국전력에 확인)",
+      "tiers": null,
+      "basis": {
+        "text": "(주택용)해당월 전기요금의 30% 할인(월 16,000원 한도) - 가구원 중 자녀가 3인 이상인 가구 - 가구원수가 5인 이상인 가구 - 출산 가구",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2000928&bnefType=all&svcId=B41000200003"
+      }
+    }
   },
   {
     "slug": "gov24-b55271300007",
