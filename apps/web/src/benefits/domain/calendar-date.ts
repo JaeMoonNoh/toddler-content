@@ -39,6 +39,10 @@ export class CalendarDate {
     return this.epochDay - other.epochDay;
   }
 
+  get year() {
+    return new Date(this.epochDay * DAY_MS).getUTCFullYear();
+  }
+
   isAfter(other: CalendarDate) {
     return this.epochDay > other.epochDay;
   }
