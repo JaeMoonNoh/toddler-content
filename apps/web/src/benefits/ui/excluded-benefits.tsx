@@ -8,7 +8,7 @@ export function ExcludedBenefits({ excluded }: { excluded: ExcludedBenefit[] }) 
       <ul>
         {excluded.map(({ benefit, reasons }) => (
           <li key={benefit.slug}>
-            {benefit.name} <span>({reasons.join(', ')} 필요)</span>
+            {benefit.name} <span>(조건: {reasons.join(', ')})</span>
           </li>
         ))}
       </ul>

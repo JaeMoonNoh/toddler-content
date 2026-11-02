@@ -1,4 +1,5 @@
 import type { BenefitAmount, PublishedBenefit } from './benefit';
+import { unansweredConditions, type Household } from './eligibility';
 
 export interface WonRange {
   min: number;
@@ -20,6 +21,7 @@ function covers({ minBirthOrder, maxBirthOrder }: { minBirthOrder: number; maxBi
 export interface AmountLine {
   benefit: PublishedBenefit;
   range: WonRange;
+  onlyIf: string[]; // 아직 답하지 않은 조건. 답에 따라 합계에서 빠질 수 있다
 }
 
 export interface AmountReceipt {
@@ -28,12 +30,12 @@ export interface AmountReceipt {
   notCounted: PublishedBenefit[]; // 금액이 소득·임금에 따라 달라서 합계에서 뺀 혜택
 }
 
-export function receiptOf(benefits: PublishedBenefit[], birthOrder: number | null): AmountReceipt {
+export function receiptOf(benefits: PublishedBenefit[], household: Household): AmountReceipt {
   const withAmount = benefits.filter((b): b is PublishedBenefit & { amount: BenefitAmount } => b.amount !== null);
   const lines = withAmount
     .flatMap((benefit) => {
-      const range = amountRange(benefit.amount, birthOrder);
-      return range ? { benefit, range } : [];
+      const range = amountRange(benefit.amount, household.birthOrder);
+      return range ? { benefit, range, onlyIf: unansweredConditions(benefit, household) } : [];
     })
     .sort((a, b) => b.range.max - a.range.max || a.benefit.name.localeCompare(b.benefit.name, 'ko'));
   const total = lines.reduce((sum, { range }) => ({ min: sum.min + range.min, max: sum.max + range.max }), { min: 0, max: 0 });

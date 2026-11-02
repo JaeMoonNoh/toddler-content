@@ -8,9 +8,12 @@ export function AmountReceipt({ receipt, birthOrderKnown }: { receipt: Receipt; 
       <h2 id="receipt-title">받을 수 있는 금액</h2>
       <p className="sub">{birthOrderKnown ? '현금·이용권 합계 (예상)' : '몇째인지에 따라 달라서 범위로 보여드려요'}</p>
       <hr />
-      {receipt.lines.map(({ benefit, range }) => (
+      {receipt.lines.map(({ benefit, range, onlyIf }) => (
         <div key={benefit.slug} className="rline">
-          <span>{benefit.name}</span>
+          <span>
+            {benefit.name}
+            {onlyIf.length > 0 && <small className="onlyif">{onlyIf.join(', ')}</small>}
+          </span>
           <span>{formatRange(range)}</span>
         </div>
       ))}
