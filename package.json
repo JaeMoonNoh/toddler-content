@@ -7,7 +7,8 @@
   "scripts": {
     "dev:api": "pnpm --filter @toddler/api start:dev",
     "dev:web": "pnpm --filter @toddler/web dev",
-    "build": "pnpm -r build"
+    "build": "pnpm -r build",
+    "collect": "pnpm --filter @toddler/api collect"
   },
   "packageManager": "pnpm@12.14.0"
 }
