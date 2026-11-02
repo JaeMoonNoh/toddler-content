@@ -37,7 +37,7 @@ export class SyncCatalogUseCase {
           continue;
         }
         if (!before) result.registered.push(entry.slug);
-        else if (after.verification === before.verification) result.regrouped.push(entry.slug);
+        else if (before.changeKind(entry) === 'audience') result.regrouped.push(entry.slug);
         else result.revised.push(entry.slug);
         toSave.push(after);
       } catch (error) {

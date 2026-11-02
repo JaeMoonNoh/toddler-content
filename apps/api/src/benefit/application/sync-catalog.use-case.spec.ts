@@ -56,6 +56,13 @@ describe('SyncCatalogUseCase', () => {
     expect(repo.benefits.get('gov24-1')).toMatchObject({ audience: 'LOW_INCOME', verifiedAt: at });
   });
 
+  it('확인 전 혜택도 원본 연결이 바뀌면 대상 묶음 변경이 아니라 수정으로 센다', async () => {
+    repo = new InMemoryBenefitRepository([Benefit.register(benefitDetails('1'))]);
+    catalog.entries = [benefitDetails('1', { sources: [new SourceRef('GOV24', '1'), new SourceRef('BOKJIRO_LOCAL', 'WLF1')] })];
+
+    expect(await sync()).toMatchObject({ revised: ['gov24-1'], regrouped: [] });
+  });
+
   it('목록에서 빠진 혜택은 지우지 않고 알려만 준다', async () => {
     repo = new InMemoryBenefitRepository([verified('1'), verified('2')]);
     catalog.entries = [benefitDetails('1')];

@@ -66,22 +66,11 @@
       {
         "source": "GOV24",
         "externalId": "571000000142"
-      }
-    ]
-  },
-  {
-    "slug": "bokjiro-wlf00003640",
-    "name": "시간제보육 보육료 지원",
-    "scope": "cheongju",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003640&wlfareInfoReldBztpCd=02",
-    "sources": [
+      },
       {
         "source": "BOKJIRO_LOCAL",
         "externalId": "WLF00003640"
       }
-    ],
-    "conditions": [
-      "HOME_CARE"
     ]
   },
   {
@@ -184,6 +173,10 @@
       {
         "source": "GOV24",
         "externalId": "643000000737"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005669"
       }
     ]
   },
@@ -332,18 +325,6 @@
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2176716&bnefType=all&svcId=643000000764"
       }
     }
-  },
-  {
-    "slug": "bokjiro-wlf00005669",
-    "name": "산모신생아 건강관리지원사업 대상자 확대",
-    "scope": "chungbuk",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005669&wlfareInfoReldBztpCd=02",
-    "sources": [
-      {
-        "source": "BOKJIRO_LOCAL",
-        "externalId": "WLF00005669"
-      }
-    ]
   },
   {
     "slug": "bokjiro-wlf00003416",

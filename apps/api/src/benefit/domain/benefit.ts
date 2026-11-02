@@ -107,13 +107,24 @@ export class Benefit {
     return this.verification?.verifiedAt ?? null;
   }
 
+  // none: 그대로, audience: 대상 묶음만 바뀜, content: 사람이 다시 확인해야 하는 정보가 바뀜
+  changeKind(details: BenefitDetails): 'none' | 'audience' | 'content' {
+    if (!sameDetails(this.details, details)) return 'content';
+    return details.audience === this.audience ? 'none' : 'audience';
+  }
+
   // 혜택 정보가 바뀌면 사람이 다시 확인해야 한다. 대상 묶음은 보여주는 자리일 뿐이라 확인 기록을 유지한다
   revise(details: BenefitDetails): Benefit {
     if (details.slug !== this.slug) throw new InvalidBenefitError(`slug는 바꿀 수 없습니다: ${this.slug} → ${details.slug}`);
-    if (!sameDetails(this.details, details)) return Benefit.register(details);
-    if (details.audience === this.audience) return this;
-    assertValid(details);
-    return new Benefit(details, this.verification);
+    switch (this.changeKind(details)) {
+      case 'none':
+        return this;
+      case 'content':
+        return Benefit.register(details);
+      case 'audience':
+        assertValid(details);
+        return new Benefit(details, this.verification);
+    }
   }
 
   reviewStatus(current: CurrentSources): ReviewStatus {
