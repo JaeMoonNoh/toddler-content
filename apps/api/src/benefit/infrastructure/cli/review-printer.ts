@@ -1,5 +1,6 @@
 import { formatKstDate } from '../../../shared/format-kst';
 import type { ReviewItem, ReviewQueue } from '../../application/review-queue.use-case';
+import type { RetireResult } from '../../application/retire-benefits.use-case';
 import type { SyncResult } from '../../application/sync-catalog.use-case';
 import type { VerifyResult } from '../../application/verify-benefits.use-case';
 import type { ReviewStatusKind } from '../../domain/review-status';
@@ -28,7 +29,10 @@ export class ReviewPrinter {
   printSync(result: SyncResult): string {
     const lines = [`혜택 목록 반영: 새로 등록 ${result.registered.length} · 수정 ${result.revised.length} · 그대로 ${result.unchanged}`];
     if (result.revised.length) lines.push(`수정된 혜택은 다시 "검증 전"으로 바뀌었습니다: ${result.revised.join(', ')}`);
-    if (result.notInCatalog.length) lines.push(`목록 파일에 없는 혜택 (DB에는 남아 있음): ${result.notInCatalog.join(', ')}`);
+    if (result.notInCatalog.length) {
+      lines.push(`목록 파일에 없는 혜택 (DB와 사이트에는 남아 있음): ${result.notInCatalog.join(', ')}`);
+      lines.push(`사이트에서 빼려면: pnpm benefit retire ${result.notInCatalog.join(' ')}`);
+    }
     return lines.join('\n');
   }
 
@@ -47,6 +51,12 @@ export class ReviewPrinter {
     }
     lines.push('', '원문을 확인했으면: pnpm benefit verify <slug> [<slug> ...]');
     return lines.join('\n');
+  }
+
+  printRetire(result: RetireResult): string {
+    const lines = result.retired.length ? [`✔ ${result.retired.length}건 삭제: ${result.retired.join(', ')}`] : [];
+    lines.push(...result.failed.map(({ slug, reason }) => `✘ ${slug}: ${reason}`));
+    return lines.length ? lines.join('\n') : '지울 slug를 넣어 주세요.';
   }
 
   printVerify(result: VerifyResult, at: Date): string {
