@@ -3,6 +3,7 @@ import type { SourceId } from '../../../collect/domain/source-record';
 import { CatalogError } from '../../application/sync-catalog.use-case';
 import { BenefitCatalog } from '../../application/ports/benefit-catalog';
 import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
+import type { BenefitSchedule, ScheduleAnchor, ScheduleOffset } from '../../domain/benefit-schedule';
 import { SourceRef } from '../../domain/source-ref';
 
 const SOURCE_IDS: readonly string[] = ['GOV24', 'BOKJIRO_NATIONAL', 'BOKJIRO_LOCAL'] satisfies SourceId[];
@@ -42,6 +43,7 @@ function toDetails(entry: unknown, index: number): BenefitDetails {
     scope: text('scope') as BenefitScope,
     sourceUrl: text('sourceUrl'),
     sources: sourcesOf(e.sources, where),
+    schedule: e.schedule === undefined || e.schedule === null ? null : scheduleOf(e.schedule, where),
   };
 }
 
@@ -53,4 +55,32 @@ function sourcesOf(value: unknown, where: string): SourceRef[] {
     }
     return new SourceRef(s.source as SourceId, s.externalId);
   });
+}
+
+const ANCHORS: readonly string[] = ['pregnancy', 'birth'] satisfies ScheduleAnchor[];
+
+function scheduleOf(value: unknown, where: string): BenefitSchedule {
+  const s = (value ?? {}) as Record<string, unknown>;
+  const basis = (s.basis ?? {}) as Record<string, unknown>;
+  const text = (v: unknown, field: string) => {
+    if (typeof v !== 'string') throw new CatalogError(`${where}: schedule.${field}가 문자열이 아닙니다`);
+    return v;
+  };
+  return {
+    from: offsetOf(s.from, `${where}: schedule.from`),
+    until: offsetOf(s.until, `${where}: schedule.until`),
+    untilLabel: text(s.untilLabel, 'untilLabel'),
+    summary: text(s.summary, 'summary'),
+    basis: { text: text(basis.text, 'basis.text'), url: text(basis.url, 'basis.url') },
+  };
+}
+
+function offsetOf(value: unknown, where: string): ScheduleOffset {
+  const o = (value ?? {}) as Record<string, unknown>;
+  const whole = (v: unknown) => (v === undefined ? 0 : v);
+  const months = whole(o.months);
+  const days = whole(o.days);
+  if (!ANCHORS.includes(String(o.anchor))) throw new CatalogError(`${where}: anchor는 pregnancy 또는 birth여야 합니다`);
+  if (!Number.isInteger(months) || !Number.isInteger(days)) throw new CatalogError(`${where}: months, days는 정수여야 합니다`);
+  return { anchor: o.anchor as ScheduleAnchor, months: months as number, days: days as number };
 }

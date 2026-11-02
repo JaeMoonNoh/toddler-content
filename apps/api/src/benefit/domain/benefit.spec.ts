@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Benefit, InvalidBenefitError, NotVerifiableError, type BenefitDetails } from './benefit';
+import type { BenefitSchedule } from './benefit-schedule';
 import { CurrentSources, type SourceState } from './current-sources';
 import { SourceRef } from './source-ref';
 
@@ -12,6 +13,16 @@ const details = (overrides: Partial<BenefitDetails> = {}): BenefitDetails => ({
   scope: 'cheongju',
   sourceUrl: 'https://plus.gov.kr/portal/benefit?svcId=571000000116',
   sources: [gov],
+  schedule: null,
+  ...overrides,
+});
+
+const schedule = (overrides: Partial<BenefitSchedule> = {}): BenefitSchedule => ({
+  from: { anchor: 'birth', months: 0, days: 0 },
+  until: { anchor: 'birth', months: 0, days: 59 },
+  untilLabel: '소급 신청 마감',
+  summary: '출생 후 60일 안에 신청해야 출생한 달부터 받아요',
+  basis: { text: '출생일 포함 60일 이내 신청', url: 'https://www.bokjiro.go.kr' },
   ...overrides,
 });
 
@@ -44,6 +55,32 @@ describe('Benefit', () => {
     ])('%s이면 거절한다', (_, overrides, message) => {
       expect(() => Benefit.register(details(overrides))).toThrow(InvalidBenefitError);
       expect(() => Benefit.register(details(overrides))).toThrow(message);
+    });
+
+    describe('신청 기간 규칙', () => {
+      it('올바른 규칙이면 받는다', () => {
+        expect(Benefit.register(details({ schedule: schedule() })).schedule).toEqual(schedule());
+      });
+
+      it('시작과 끝이 같은 날이어도 받는다', () => {
+        expect(() => Benefit.register(details({ schedule: schedule({ until: { anchor: 'birth', months: 0, days: 0 } }) }))).not.toThrow();
+      });
+
+      it.each([
+        ['끝이 시작보다 앞', { until: { anchor: 'birth' as const, months: 0, days: -1 } }, '앞입니다'],
+        ['출생 기준 끝이 임신 기준 시작보다 앞', { from: { anchor: 'birth' as const, months: 1, days: 0 }, until: { anchor: 'pregnancy' as const, months: 9, days: 0 } }, '앞입니다'],
+        ['마감 설명 없음', { untilLabel: ' ' }, '마감 설명'],
+        ['설명 없음', { summary: '' }, '일정 설명'],
+        ['근거 문장 없음', { basis: { text: '', url: 'https://a.kr' } }, '근거 문장'],
+        ['근거 링크가 http', { basis: { text: '근거', url: 'http://a.kr' } }, '근거 링크'],
+      ])('%s이면 거절한다', (_, overrides, message) => {
+        expect(() => Benefit.register(details({ schedule: schedule(overrides) }))).toThrow(message);
+      });
+
+      it('임신 기준 시작과 출생 기준 끝을 섞어 쓸 수 있다', () => {
+        const mixed = schedule({ from: { anchor: 'pregnancy', months: 0, days: 0 }, until: { anchor: 'birth', months: 24, days: 0 } });
+        expect(() => Benefit.register(details({ schedule: mixed }))).not.toThrow();
+      });
     });
 
     it('문제가 여러 개면 한 번에 모두 알려준다', () => {
@@ -155,12 +192,19 @@ describe('Benefit', () => {
       ['원문 링크', { sourceUrl: 'https://www.bokjiro.go.kr/x' }],
       ['연결 원본', { sources: [gov] }],
       ['대표 출처 순서', { sources: [bok, gov] }],
+      ['신청 기간 규칙 추가', { schedule: schedule() }],
     ])('%s이 바뀌면 다시 확인해야 한다', (_, overrides) => {
       const base = details({ sources: [gov, bok] });
       const benefit = Benefit.register(base).verify(sources(state(gov), state(bok)), at);
       const changed = { ...base, ...overrides };
 
       expect(benefit.revise(changed).verifiedAt).toBeNull();
+    });
+
+    it('신청 기간 규칙이 같으면 확인 기록을 유지한다', () => {
+      const withSchedule = Benefit.register(details({ schedule: schedule() })).verify(sources(state(gov)), at);
+      expect(withSchedule.revise(details({ schedule: schedule() })).verifiedAt).toBe(at);
+      expect(withSchedule.revise(details({ schedule: schedule({ summary: '바뀐 설명' }) })).verifiedAt).toBeNull();
     });
 
     it('slug는 바꿀 수 없다', () => {

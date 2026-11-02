@@ -9,6 +9,7 @@ export function benefitDetails(id: string, overrides: Partial<BenefitDetails> = 
     scope: 'national',
     sourceUrl: `https://plus.gov.kr/benefit?svcId=${id}`,
     sources: [new SourceRef('GOV24', id)],
+    schedule: null,
     ...overrides,
   };
 }

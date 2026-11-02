@@ -19,8 +19,23 @@ const parse = (value: unknown) => parseCatalog(JSON.stringify(value));
 describe('parseCatalog', () => {
   it('항목을 혜택 정보로 바꾼다', () => {
     expect(parse([entry()])).toEqual([
-      { slug: 'gov24-1', name: '혜택', scope: 'national', sourceUrl: 'https://plus.gov.kr/x', sources: [new SourceRef('GOV24', '1')] },
+      { slug: 'gov24-1', name: '혜택', scope: 'national', sourceUrl: 'https://plus.gov.kr/x', sources: [new SourceRef('GOV24', '1')], schedule: null },
     ]);
+  });
+
+  it('신청 기간 규칙을 읽고, 빠진 months와 days는 0으로 본다', () => {
+    const schedule = {
+      from: { anchor: 'birth' },
+      until: { anchor: 'birth', days: 59 },
+      untilLabel: '소급 신청 마감',
+      summary: '출생 후 60일 안에 신청',
+      basis: { text: '60일 이내 신청', url: 'https://www.gov.kr' },
+    };
+    expect(parse([entry({ schedule })])[0].schedule).toEqual({
+      ...schedule,
+      from: { anchor: 'birth', months: 0, days: 0 },
+      until: { anchor: 'birth', months: 0, days: 59 },
+    });
   });
 
   it('빈 배열은 빈 목록', () => {
@@ -35,6 +50,9 @@ describe('parseCatalog', () => {
     ['sources 없음', JSON.stringify([entry({ sources: undefined })]), 'sources가 배열'],
     ['모르는 출처', JSON.stringify([entry({ sources: [{ source: 'NAVER', externalId: '1' }] })]), '알 수 없는 원본'],
     ['출처 ID 빈 값', JSON.stringify([entry({ sources: [{ source: 'GOV24', externalId: '' }] })]), '알 수 없는 원본'],
+    ['모르는 기준일', JSON.stringify([entry({ schedule: { from: { anchor: 'due' }, until: { anchor: 'birth' } } })]), 'anchor는'],
+    ['소수 날수', JSON.stringify([entry({ schedule: { from: { anchor: 'birth', days: 1.5 }, until: { anchor: 'birth' } } })]), '정수'],
+    ['일정 설명 없음', JSON.stringify([entry({ schedule: { from: { anchor: 'birth' }, until: { anchor: 'birth' }, untilLabel: '마감' } })]), 'schedule.summary'],
   ])('%s이면 몇 번째 항목인지와 함께 거절한다', (_, text, message) => {
     expect(() => parseCatalog(text)).toThrow(CatalogError);
     expect(() => parseCatalog(text)).toThrow(message);
