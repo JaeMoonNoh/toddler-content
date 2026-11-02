@@ -28,6 +28,22 @@ pnpm dev:web   # http://localhost:3000
 
 DB 스키마를 바꿨다면 `pnpm --filter @toddler/api db:migrate --name <변경내용>`
 
+## 공공 데이터 수집
+
+`apps/api/.env`에 `DATA_GO_KR_SERVICE_KEY`(공공데이터포털 일반 인증키)가 있어야 합니다.
+
+```bash
+pnpm collect
+```
+
+Docker로 띄운 상태라면 컨테이너 안에서도 실행할 수 있습니다.
+
+```bash
+docker compose exec api node dist/collect/infrastructure/cli/collect.cli.js
+```
+
+API 서버는 매일 새벽 4시(한국 시각)에 자동으로 수집합니다. 끄려면 `COLLECT_SCHEDULE=off`.
+
 ## 구조
 
 ```
