@@ -91,9 +91,9 @@ function amountLines(amount: BenefitAmount | null): string[] {
 const ORDINALS = ['', '첫째', '둘째', '셋째', '넷째', '다섯째'];
 const ordinal = (n: number) => ORDINALS[n] ?? `${n}째`;
 
-// 구간이 하나뿐이면 "모든 아이", 아니면 "첫째", "둘째 이상", "첫째~둘째"
+// 구간이 하나뿐이면 "출생 순위 상관없이", 아니면 "첫째", "둘째 이상", "첫째~둘째"
 function birthOrderRange(min: number, max: number | null) {
-  if (min === 1 && max === null) return '모든 아이';
+  if (min === 1 && max === null) return '출생 순위 상관없이';
   if (max === null) return `${ordinal(min)} 이상`;
   return min === max ? ordinal(min) : `${ordinal(min)}~${ordinal(max)}`;
 }
