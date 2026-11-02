@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
-import { ApplySnapshotUseCase } from '../application/apply-snapshot.use-case';
-import { SnapshotRepository } from '../application/ports';
-import { PrismaSnapshotRepository } from './prisma-snapshot.repository';
+import { CollectSourceUseCase } from '../application/collect-source.use-case';
+import { SnapshotRepository } from '../application/ports/snapshot.repository';
+import { PrismaSnapshotRepository } from './persistence/prisma-snapshot.repository';
 
-// 비즈니스 로직(application)은 Nest를 모르므로, 여기서 포트에 구현을 연결해 조립한다
+// application 층은 Nest를 모르므로 여기서 포트에 구현을 연결한다
 @Module({
   providers: [
     { provide: SnapshotRepository, useClass: PrismaSnapshotRepository },
     {
-      provide: ApplySnapshotUseCase,
-      useFactory: (repository: SnapshotRepository) => new ApplySnapshotUseCase(repository),
+      provide: CollectSourceUseCase,
+      useFactory: (repository: SnapshotRepository) => new CollectSourceUseCase(repository),
       inject: [SnapshotRepository],
     },
   ],
-  exports: [ApplySnapshotUseCase],
+  exports: [CollectSourceUseCase],
 })
 export class CollectModule {}
