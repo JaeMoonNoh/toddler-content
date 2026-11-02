@@ -1,25 +1,7 @@
 import { createHash } from 'node:crypto';
+import type { FieldChange, SourceRecord, StoredItem } from './source-record';
 
-// 출처에서 새로 받은 항목 한 건
-export interface SourceRecord {
-  externalId: string;
-  name: string;
-  payload: Record<string, unknown>;
-}
-
-// DB에 저장돼 있던 항목 한 건
-export interface StoredItem {
-  externalId: string;
-  hash: string;
-  payload: Record<string, unknown>;
-  removed: boolean;
-}
-
-export interface FieldChange {
-  field: string;
-  before: unknown;
-  after: unknown;
-}
+// 무엇을 "바뀌었다"고 볼지 정하는 규칙. 저장 방식이나 수집 방식과 무관한 순수 함수만 둔다.
 
 export interface SnapshotDiff {
   added: SourceRecord[]; // 처음 보거나, 사라졌다가 다시 나타난 항목
@@ -35,6 +17,7 @@ function stableStringify(value: unknown): string {
   if (value && typeof value === 'object') {
     const obj = value as Record<string, unknown>;
     return `{${Object.keys(obj)
+      .filter((k) => obj[k] !== undefined)
       .sort()
       .map((k) => `${JSON.stringify(k)}:${stableStringify(obj[k])}`)
       .join(',')}}`;
@@ -95,13 +78,4 @@ export function diffSnapshot(
     if (!prev.removed && !seen.has(prev.externalId)) diff.removed.push(prev);
   }
   return diff;
-}
-
-// API 장애로 목록이 일부만 왔을 때 대량 삭제로 오인하지 않도록 막는다
-export function assertNotShrunk(previousActive: number, currentCount: number, minRatio = 0.9) {
-  if (previousActive > 0 && currentCount < previousActive * minRatio) {
-    throw new Error(
-      `받은 항목 수(${currentCount})가 이전(${previousActive})의 ${minRatio * 100}% 미만이라 수집을 중단했습니다. API 응답을 확인하세요.`,
-    );
-  }
 }
