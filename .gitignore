@@ -147,3 +147,6 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Next.js가 빌드 때 자동 생성
+next-env.d.ts
