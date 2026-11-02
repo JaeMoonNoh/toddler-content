@@ -24,7 +24,7 @@
 - 패키지 매니저는 pnpm만 쓴다. npm, yarn으로 설치하지 않는다 (`pnpm --filter @toddler/api add <패키지>`).
 - 백엔드: NestJS (`apps/api`)
 - 프론트엔드: Next.js (`apps/web`)
-- DB: PostgreSQL
+- DB: PostgreSQL + Prisma 7 (`apps/api/prisma/schema.prisma`). Prisma 8은 아직 RC라 7.x를 유지한다.
 - Node.js 22 이상
 - 로컬 실행은 Docker Compose, 배포는 Docker 이미지
 
@@ -47,6 +47,18 @@ docker compose up --build
 - PostgreSQL: localhost:5432 (계정 정보는 `.env.example` 참고)
 
 Docker 없이 개발할 때는 `pnpm install` 후 `pnpm dev:api`, `pnpm dev:web`.
+(DB는 `docker compose up -d db`로 띄우고, `apps/api/.env.example`을 `apps/api/.env`로 복사)
+
+DB 스키마 변경:
+
+```bash
+# schema.prisma 수정 후 마이그레이션 파일 생성 + 로컬 DB 적용
+pnpm --filter @toddler/api db:migrate --name <변경내용>
+```
+
+- 마이그레이션 파일(`apps/api/prisma/migrations`)은 git에 커밋한다.
+- API 컨테이너는 시작할 때 `prisma migrate deploy`로 마이그레이션을 자동 적용한다.
+- 생성된 Prisma 클라이언트(`apps/api/src/generated`)는 커밋하지 않는다.
 
 ## Git 규칙
 
