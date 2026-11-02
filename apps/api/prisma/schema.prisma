@@ -22,3 +22,71 @@ model Benefit {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
+
+// ── 공공 API 원본과 변경 감지 ─────────────────────────────
+
+enum DataSource {
+  GOV24            // 보조금24 (행정안전부 공공서비스 정보)
+  BOKJIRO_NATIONAL // 복지로 중앙부처 복지서비스
+  BOKJIRO_LOCAL    // 복지로 지자체 복지서비스
+}
+
+enum ChangeType {
+  ADDED
+  UPDATED
+  REMOVED
+}
+
+enum RunStatus {
+  RUNNING
+  SUCCEEDED
+  FAILED
+}
+
+// 출처에서 받은 항목의 최신 원본. 출처 + 출처의 ID로 한 건을 식별한다
+model SourceItem {
+  id          String     @id @default(cuid())
+  source      DataSource
+  externalId  String
+  name        String
+  payload     Json       // API가 준 그대로 (비교에서 빼는 필드 포함)
+  hash        String     // 비교용 지문. 조회수처럼 매일 바뀌는 필드는 빼고 계산
+  firstSeenAt DateTime   @default(now())
+  lastSeenAt  DateTime   @default(now())
+  removedAt   DateTime?  // 출처 목록에서 사라진 시각. 다시 나타나면 null로 되돌린다
+  changes     SourceChange[]
+
+  @@unique([source, externalId])
+}
+
+// 수집 한 번에서 발견한 변경 한 건
+model SourceChange {
+  id            String        @id @default(cuid())
+  type          ChangeType
+  itemId        String
+  item          SourceItem    @relation(fields: [itemId], references: [id])
+  runId         String
+  run           CollectionRun @relation(fields: [runId], references: [id])
+  changedFields Json?         // UPDATED일 때 [{ field, before, after }]
+  detectedAt    DateTime      @default(now())
+
+  @@index([runId])
+  @@index([detectedAt])
+}
+
+// 출처별 수집 실행 기록
+model CollectionRun {
+  id         String         @id @default(cuid())
+  source     DataSource
+  status     RunStatus      @default(RUNNING)
+  startedAt  DateTime       @default(now())
+  finishedAt DateTime?
+  itemCount  Int?
+  added      Int            @default(0)
+  updated    Int            @default(0)
+  removed    Int            @default(0)
+  error      String?
+  changes    SourceChange[]
+
+  @@index([source, startedAt])
+}
