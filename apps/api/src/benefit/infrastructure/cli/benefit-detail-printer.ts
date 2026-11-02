@@ -1,5 +1,6 @@
 import { formatKstDate } from '../../../shared/format-kst';
 import type { BenefitDetail } from '../../application/benefit-detail.use-case';
+import type { ApplicationPeriod } from '../../domain/application-period';
 import type { BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule, ScheduleOffset } from '../../domain/benefit-schedule';
 import type { SourceState } from '../../domain/current-sources';
@@ -40,6 +41,9 @@ export class BenefitDetailPrinter {
       '[우리가 정리한 금액]',
       ...amountLines(benefit.amount),
       '',
+      '[우리가 정리한 올해 신청 기간]',
+      ...periodLines(benefit.applicationPeriod),
+      '',
       ...sources.flatMap(({ ref, state }) => this.sourceLines(ref, state)),
       `원문과 맞으면: pnpm benefit verify ${benefit.slug}`,
     ].join('\n');
@@ -71,11 +75,16 @@ function scheduleLines(schedule: BenefitSchedule | null): string[] {
   ];
 }
 
+function periodLines(period: ApplicationPeriod | null): string[] {
+  if (!period) return ['  없음 (상시 신청이거나 아직 정리하지 않았어요)'];
+  return [`  기간: ${period.start} ~ ${period.end}`, `  근거: ${period.basis.text}`, `        ${period.basis.url}`];
+}
+
 function amountLines(amount: BenefitAmount | null): string[] {
   if (!amount) return ['  아직 정리하지 않았어요'];
   const tiers = amount.tiers
     ? amount.tiers.map((t) => `${birthOrderRange(t.minBirthOrder, t.maxBirthOrder)} ${t.won.toLocaleString('ko-KR')}원`).join(', ')
-    : '합계에서 뺌 (소득·임금에 따라 다름)';
+    : '합계에서 뺌 (받는 사람마다 금액이 달라서 숫자로 정하지 않음)';
   return [`  ${KIND_LABEL[amount.kind]}: ${amount.summary}`, `  합계에 넣는 금액: ${tiers}`, `  근거: ${amount.basis.text}`, `        ${amount.basis.url}`];
 }
 

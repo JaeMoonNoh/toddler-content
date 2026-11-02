@@ -63,11 +63,22 @@ describe('BenefitDetailPrinter', () => {
     expect(text.split('\n').at(-1)).toBe('원문과 맞으면: pnpm benefit verify gov24-135200005015');
   });
 
+  it('올해 신청 기간이 있으면 날짜와 근거를 보여준다', () => {
+    const withPeriod = Benefit.register(
+      benefitDetails('b55353000001', {
+        applicationPeriod: { start: '2026-06-15', end: '2026-12-31', basis: { text: '신청기한: 2026. 6. 15. ~ 2026. 12. 31.', url: 'https://plus.gov.kr/e' } },
+      }),
+    );
+    const out = new BenefitDetailPrinter().print({ benefit: withPeriod, status: { kind: 'UNVERIFIED' }, sources: [] });
+    expect(out).toContain('[우리가 정리한 올해 신청 기간]\n  기간: 2026-06-15 ~ 2026-12-31\n  근거: 신청기한: 2026. 6. 15. ~ 2026. 12. 31.');
+  });
+
   it('정리하지 않은 일정·금액은 그렇다고 알려준다', () => {
     const bare = Benefit.register(benefitDetails('1'));
     const out = new BenefitDetailPrinter().print({ benefit: bare, status: { kind: 'UNVERIFIED' }, sources: [] });
     expect(out).toContain('[우리가 정리한 일정]\n  아직 정리하지 않았어요');
     expect(out).toContain('[우리가 정리한 금액]\n  아직 정리하지 않았어요');
+    expect(out).toContain('[우리가 정리한 올해 신청 기간]\n  없음');
   });
 
   it('수집된 적 없는 원본과 사라진 원본을 알려준다', () => {
