@@ -3,24 +3,32 @@
 import { useState } from 'react';
 import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
+import { splitByEligibility, UNANSWERED } from '../domain/eligibility';
 import { describeStage, pregnancyStage } from '../domain/pregnancy';
 import { groupForRegion, REGIONS } from '../domain/region';
 import { buildTimeline } from '../domain/timeline';
 import { BenefitGroups } from './benefit-groups';
 import { CalendarDownload } from './calendar-download';
+import { ExcludedBenefits } from './excluded-benefits';
+import { HouseholdFields } from './household-fields';
 import { TimelineCard } from './timeline-card';
 
-// 사는 곳과 출산예정일은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다
+// 사는 곳, 출산예정일, 고용보험 답은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다
 export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
   const [regionId, setRegionId] = useState(REGIONS[0].id);
   const [dueText, setDueText] = useState('');
+  const [household, setHousehold] = useState(UNANSWERED);
 
   const region = REGIONS.find((r) => r.id === regionId) ?? REGIONS[0];
   const today = CalendarDate.today();
   const due = CalendarDate.parse(dueText);
   const stage = due ? pregnancyStage(due, today) : null;
-  const timeline = due && stage?.kind !== 'too-far' ? buildTimeline(region, benefits, due, today) : null;
-  const listed = groupForRegion(region, timeline ? timeline.unscheduled : benefits);
+  const { shown, excluded } = splitByEligibility(
+    benefits.filter((b) => region.scopes.includes(b.scope)),
+    household,
+  );
+  const timeline = due && stage?.kind !== 'too-far' ? buildTimeline(region, shown, due, today) : null;
+  const listed = groupForRegion(region, timeline ? timeline.unscheduled : shown);
   const scheduledCount = timeline?.phases.reduce((sum, phase) => sum + phase.items.length, 0) ?? 0;
 
   return (
@@ -44,6 +52,7 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
               {stage ? describeStage(stage) : '출산예정일을 넣으면 신청 일정을 날짜로 계산해 드려요'}
             </p>
           </div>
+          <HouseholdFields household={household} onChange={setHousehold} />
         </form>
         {timeline && <CalendarDownload timeline={timeline} />}
         <p className="notice">
@@ -79,6 +88,7 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
         {timeline && <p className="hint">아래 혜택은 신청 일정을 아직 정리하는 중이에요. 원문에서 기간을 확인해 주세요.</p>}
         {listed.length === 0 && <p className="empty">이 지역에 보여드릴 혜택이 아직 없어요.</p>}
         <BenefitGroups groups={listed} />
+        <ExcludedBenefits excluded={excluded} />
       </section>
     </div>
   );

@@ -1,12 +1,11 @@
-import { reviewBadge, SCOPE_LABEL } from '../domain/benefit';
 import { deadlineEventOf } from '../domain/deadline-event';
 import { googleCalendarUrl } from '../domain/google-calendar';
 import { describeStatus } from '../domain/schedule-window';
 import type { TimelineItem } from '../domain/timeline';
+import { BenefitChips } from './benefit-chips';
 
 export function TimelineCard({ item }: { item: TimelineItem }) {
   const { benefit, schedule, window, status } = item;
-  const badge = reviewBadge(benefit);
   return (
     <li className={`ev s-${status.kind}`}>
       <div className="when">
@@ -14,10 +13,7 @@ export function TimelineCard({ item }: { item: TimelineItem }) {
         <span>{describeStatus(status)}</span>
       </div>
       <div className="card">
-        <div className="chips">
-          <span className={`chip scope-${benefit.scope}`}>{SCOPE_LABEL[benefit.scope]}</span>
-          <span className={`chip review-${badge.tone}`}>{badge.text}</span>
-        </div>
+        <BenefitChips benefit={benefit} />
         <h3>{benefit.name}</h3>
         <dl>
           <dt>기간</dt>

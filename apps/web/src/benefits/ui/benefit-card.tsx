@@ -1,13 +1,10 @@
-import { reviewBadge, SCOPE_LABEL, type PublishedBenefit } from '../domain/benefit';
+import type { PublishedBenefit } from '../domain/benefit';
+import { BenefitChips } from './benefit-chips';
 
 export function BenefitCard({ benefit }: { benefit: PublishedBenefit }) {
-  const badge = reviewBadge(benefit);
   return (
     <li className="card">
-      <div className="chips">
-        <span className={`chip scope-${benefit.scope}`}>{SCOPE_LABEL[benefit.scope]}</span>
-        <span className={`chip review-${badge.tone}`}>{badge.text}</span>
-      </div>
+      <BenefitChips benefit={benefit} />
       <h3>{benefit.name}</h3>
       <div className="meta">
         <span>출처 {benefit.sourceName}</span>
