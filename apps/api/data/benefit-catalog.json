@@ -463,9 +463,9 @@
         "days": -1
       },
       "untilLabel": "생후 36개월 전까지",
-      "summary": "어린이집에 다니지 않는 생후 6~36개월 아이를 필요한 시간만큼 맡길 수 있어요",
+      "summary": "어린이집에 다니지 않는 생후 6~36개월 아이를 필요한 시간만큼 맡길 수 있어요 (독립반 기준, 2세반 통합반도 있어요)",
       "basis": {
-        "text": "독립반 : 6~36개월 미만 영아",
+        "text": "독립반 : 6~36개월 미만 영아, 통합반 : 6개월~2세반 영아",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2123215&bnefType=all&svcId=134200005031"
       }
     },
@@ -1263,7 +1263,7 @@
         "days": 0
       },
       "untilLabel": "출산 전까지 (보건소 등록)",
-      "summary": "보건소에 임산부 등록을 하면 임산부수첩과 아기수첩을 받아요",
+      "summary": "보건소에 임산부 등록을 하면 임산부수첩과 아기수첩을 받아요. 출산 뒤 아기로도 받을 수 있어요",
       "basis": {
         "text": "임신부 또는 출생 사실 확인된 영유아 / 보건소 등록 임산부",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=104657&bnefType=all&svcId=GMW000000010"
@@ -1967,10 +1967,10 @@
     },
     "amount": {
       "kind": "service",
-      "summary": "임신부(주수 상관없이)와 생후 6개월~14세 어린이 무료 접종",
+      "summary": "임신부(주수 상관없이)와 생후 6개월~14세 어린이 무료 접종. 처음 맞는 9세 미만 어린이는 2회 접종",
       "tiers": null,
       "basis": {
-        "text": "임신부 인플루엔자 국가예방접종 지원 - 임신 주수에 상관없이 접종 가능 / 지정 의료기관 및 보건소를 이용하면 주소지에 관계없이 전국 어디서나 무료로 인플루엔자 예방접종 가능",
+        "text": "임신부 인플루엔자 국가예방접종 지원 - 임신 주수에 상관없이 접종 가능 / 지정 의료기관 및 보건소를 이용하면 주소지에 관계없이 전국 어디서나 무료로 인플루엔자 예방접종 가능 / 생후 6개월~9세 미만 어린이 중 인플루엔자 예방접종을 처음 접종 또는 2025.6.30까지 인플루엔자 백신을 총 1회만 접종한 어린이는 2회 접종 필요",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=749131&bnefType=all&svcId=135200000115"
       }
     }
@@ -2082,6 +2082,15 @@
       "end": "2026-12-31",
       "basis": {
         "text": "신청기한: 2026. 6. 15.(월) ~ 2026. 12. 31.(목)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999178&bnefType=all&svcId=B55353000001"
+      }
+    },
+    "amount": {
+      "kind": "voucher",
+      "summary": "가구원 수에 따라 29.5만~70.1만원 이용권 (연탄보일러 가구는 연탄전환 바우처 57.6만원)",
+      "tiers": null,
+      "basis": {
+        "text": "(1인)295,200원, (2인)407,500원, (3인)532,700원, (4인 이상)701,300원 / (연탄전환 에너지바우처) 정액 지급된 바우처 금액(576,000원)",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999178&bnefType=all&svcId=B55353000001"
       }
     }
