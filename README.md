@@ -16,6 +16,18 @@ docker compose up --build
 
 종료: `docker compose down` (DB 데이터까지 지우려면 `docker compose down -v`)
 
+## Docker 없이 개발
+
+```bash
+pnpm install
+docker compose up -d db
+cp apps/api/.env.example apps/api/.env
+pnpm dev:api   # http://localhost:4000
+pnpm dev:web   # http://localhost:3000
+```
+
+DB 스키마를 바꿨다면 `pnpm --filter @toddler/api db:migrate --name <변경내용>`
+
 ## 구조
 
 ```
