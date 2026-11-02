@@ -57,6 +57,14 @@ export class Benefit {
     return this.details.name;
   }
 
+  get scope() {
+    return this.details.scope;
+  }
+
+  get sourceUrl() {
+    return this.details.sourceUrl;
+  }
+
   get sources() {
     return this.details.sources;
   }
