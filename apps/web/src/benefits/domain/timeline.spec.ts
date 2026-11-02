@@ -27,6 +27,7 @@ const benefit = (name: string, schedule: BenefitSchedule | null, scope: BenefitS
   conditions: [],
   amount: null,
   applicationPeriod: null,
+  audience: null,
 });
 
 describe('buildTimeline', () => {

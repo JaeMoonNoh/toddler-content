@@ -26,6 +26,7 @@ const benefit = (name: string, amount: BenefitAmount | null): PublishedBenefit =
   conditions: [],
   amount,
   applicationPeriod: null,
+  audience: null,
 });
 
 describe('amountRange', () => {
