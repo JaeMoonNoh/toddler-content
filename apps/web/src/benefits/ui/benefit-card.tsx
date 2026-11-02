@@ -2,6 +2,7 @@ import { periodStatus } from '../domain/application-period';
 import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { BenefitChips } from './benefit-chips';
+import { CardFooter } from './card-footer';
 
 export function BenefitCard({ benefit }: { benefit: PublishedBenefit }) {
   return (
@@ -9,12 +10,7 @@ export function BenefitCard({ benefit }: { benefit: PublishedBenefit }) {
       <BenefitChips benefit={benefit} />
       <h3>{benefit.name}</h3>
       {benefit.amount && <p className="amt">{benefit.amount.summary}</p>}
-      <div className="meta">
-        <span>출처 {benefit.sourceName}</span>
-        <a href={benefit.sourceUrl} target="_blank" rel="noopener noreferrer">
-          원문 보기
-        </a>
-      </div>
+      <CardFooter benefit={benefit} />
     </li>
   );
 }

@@ -78,7 +78,8 @@ select, input[type='date'] { font: inherit; color: var(--ink); background: var(-
 .chip.scope-cheongju, .chip.scope-chungbuk { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
 .chip.review-unverified, .chip.review-changed { background: var(--now-soft); color: var(--now); border-color: transparent; }
 .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 8px; }
-.meta a { margin-left: auto; font-weight: 600; text-decoration: none; }
+.meta a { font-weight: 600; text-decoration: none; }
+.meta .links { margin-left: auto; display: flex; gap: 12px; }
 .meta a:hover { text-decoration: underline; }
 .empty, .error { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 0; }
 .src { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
@@ -90,8 +91,10 @@ select, input[type='date'] { font: inherit; color: var(--ink); background: var(-
 .when { text-align: right; padding-top: 14px; font-variant-numeric: tabular-nums; }
 .when b { display: block; font-size: 15px; font-weight: 600; }
 .when span { display: block; font-size: 11px; color: var(--muted); line-height: 1.4; }
-.s-open .card { border-color: var(--now); box-shadow: 0 0 0 3px var(--now-soft); }
-.s-open .when span { color: var(--now); font-weight: 600; }
+.s-soon .card { border-color: var(--now); box-shadow: 0 0 0 3px var(--now-soft); }
+.s-soon .when span { color: var(--now); font-weight: 600; }
+.s-open .card { border-left: 3px solid var(--accent); }
+.s-open .when span { color: var(--accent); }
 .s-closed .card { opacity: 0.6; }
 .s-closed .when b { text-decoration: line-through; color: var(--muted); }
 .card dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 12px; font-size: 14px; }
@@ -110,8 +113,6 @@ select, input[type='date'] { font: inherit; color: var(--ink); background: var(-
 .btn { font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; background: var(--accent); color: var(--surface); border: 0; border-radius: 10px; padding: 11px 14px; }
 .btn:hover { filter: brightness(1.05); }
 .ics small { color: var(--muted); font-size: 12px; }
-.meta a.cal { margin-left: auto; }
-.meta a.cal + a { margin-left: 0; }
 
 /* 고용보험 조건 */
 .household { border: 0; margin: 0; padding: 0; }
@@ -150,3 +151,14 @@ select, input[type='date'] { font: inherit; color: var(--ink); background: var(-
 .audience summary span { font-weight: 400; color: var(--muted); margin-left: 4px; }
 .audience summary small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.6; }
 .audience[open] summary { margin-bottom: 4px; }
+
+/* 카드 다듬기 */
+.card { gap: 6px; }
+.card .period { margin: 0; font-size: 14px; font-variant-numeric: tabular-nums; }
+.card .period span { color: var(--muted); }
+.summary { color: var(--ink); }
+.basis summary { font-size: 12px; }
+.more-fields { display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+.more-fields summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--accent); }
+.more-fields summary span { font-weight: 400; color: var(--muted); font-size: 12px; margin-left: 4px; }
+.more-fields[open] summary { margin-bottom: 2px; }

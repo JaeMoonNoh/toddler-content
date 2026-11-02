@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { BenefitSchedule } from './benefit';
 import { CalendarDate } from './calendar-date';
-import { describeStatus, ScheduleWindow } from './schedule-window';
+import { describeStatus, emphasisOf, ScheduleWindow } from './schedule-window';
 
 const date = (text: string) => CalendarDate.parse(text)!;
 const due = date('2027-05-06');
@@ -62,5 +62,17 @@ describe('ScheduleWindow', () => {
     [{ kind: 'closed' } as const, '기간 지남'],
   ])('%o는 "%s"', (status, text) => {
     expect(describeStatus(status)).toBe(text);
+  });
+});
+
+describe('emphasisOf', () => {
+  it.each([
+    [{ kind: 'open', daysLeft: 31 } as const, 'open'],
+    [{ kind: 'open', daysLeft: 30 } as const, 'soon'],
+    [{ kind: 'open', daysLeft: 0 } as const, 'soon'],
+    [{ kind: 'upcoming', daysUntilStart: 3 } as const, 'upcoming'],
+    [{ kind: 'closed' } as const, 'closed'],
+  ])('%o는 %s', (status, emphasis) => {
+    expect(emphasisOf(status)).toBe(emphasis);
   });
 });

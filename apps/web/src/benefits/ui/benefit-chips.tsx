@@ -3,6 +3,7 @@ import { reviewBadge, SCOPE_LABEL, type PublishedBenefit } from '../domain/benef
 import { CalendarDate } from '../domain/calendar-date';
 import { CONDITION_LABEL } from '../domain/eligibility';
 
+// 확인된 혜택은 카드 아래에 작게 확인일만 쓰고, 검증 전·다시 확인 중일 때만 칩으로 눈에 띄게 한다
 export function BenefitChips({ benefit }: { benefit: PublishedBenefit }) {
   const badge = reviewBadge(benefit);
   const period = benefit.applicationPeriod ? periodBadge(benefit.applicationPeriod, CalendarDate.today()) : null;
@@ -15,7 +16,7 @@ export function BenefitChips({ benefit }: { benefit: PublishedBenefit }) {
         </span>
       ))}
       {period && <span className={`chip period-${period.tone}`}>{period.text}</span>}
-      <span className={`chip review-${badge.tone}`}>{badge.text}</span>
+      {badge.tone !== 'verified' && <span className={`chip review-${badge.tone}`}>{badge.text}</span>}
     </div>
   );
 }
