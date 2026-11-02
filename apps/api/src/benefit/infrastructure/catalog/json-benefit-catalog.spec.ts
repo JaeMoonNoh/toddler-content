@@ -19,7 +19,7 @@ const parse = (value: unknown) => parseCatalog(JSON.stringify(value));
 describe('parseCatalog', () => {
   it('항목을 혜택 정보로 바꾼다', () => {
     expect(parse([entry()])).toEqual([
-      { slug: 'gov24-1', name: '혜택', scope: 'national', sourceUrl: 'https://plus.gov.kr/x', sources: [new SourceRef('GOV24', '1')], schedule: null, conditions: [], amount: null, applicationPeriod: null },
+      { slug: 'gov24-1', name: '혜택', scope: 'national', sourceUrl: 'https://plus.gov.kr/x', sources: [new SourceRef('GOV24', '1')], schedule: null, conditions: [], amount: null, applicationPeriod: null, audience: null },
     ]);
   });
 
@@ -71,6 +71,7 @@ describe('parseCatalog', () => {
     ['금액 구간이 객체', JSON.stringify([entry({ amount: { kind: 'cash', summary: 's', tiers: {}, basis: { text: 't', url: 'u' } } })]), 'tiers는 배열'],
     ['금액이 문자열', JSON.stringify([entry({ amount: { kind: 'cash', summary: 's', tiers: [{ minBirthOrder: 1, won: '100' }], basis: { text: 't', url: 'u' } } })]), '숫자여야'],
     ['신청 기간 날짜가 숫자', JSON.stringify([entry({ applicationPeriod: { start: 20260101, end: '2026-12-31', basis: { text: 't', url: 'u' } } })]), 'applicationPeriod.start'],
+    ['대상 묶음이 숫자', JSON.stringify([entry({ audience: 1 })]), 'audience가 문자열'],
     ['일정 설명 없음', JSON.stringify([entry({ schedule: { from: { anchor: 'birth' }, until: { anchor: 'birth' }, untilLabel: '마감' } })]), 'schedule.summary'],
   ])('%s이면 몇 번째 항목인지와 함께 거절한다', (_, text, message) => {
     expect(() => parseCatalog(text)).toThrow(CatalogError);

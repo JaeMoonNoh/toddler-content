@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { receiptOf } from '../domain/amount';
+import { splitByAudience } from '../domain/audience';
 import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { splitByEligibility, UNANSWERED } from '../domain/eligibility';
@@ -12,6 +13,7 @@ import { BenefitGroups } from './benefit-groups';
 import { CalendarDownload } from './calendar-download';
 import { ExcludedBenefits } from './excluded-benefits';
 import { AmountReceipt } from './amount-receipt';
+import { AudienceGroups } from './audience-groups';
 import { BirthOrderField, ChildcareField, HouseholdFields } from './household-fields';
 import { TimelineCard } from './timeline-card';
 
@@ -31,7 +33,8 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
   );
   const timeline = due && stage?.kind !== 'too-far' ? buildTimeline(region, shown, due, today) : null;
   const receipt = receiptOf(shown, household);
-  const listed = groupForRegion(region, timeline ? timeline.unscheduled : shown);
+  const rest = splitByAudience((timeline ? timeline.unscheduled : shown).filter((b) => region.scopes.includes(b.scope)));
+  const listed = groupForRegion(region, rest.forEveryone);
   const scheduledCount = timeline?.phases.reduce((sum, phase) => sum + phase.items.length, 0) ?? 0;
 
   return (
@@ -94,6 +97,7 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
         {timeline && <p className="hint">아래 혜택은 신청 일정을 아직 정리하는 중이에요. 원문에서 기간을 확인해 주세요.</p>}
         {listed.length === 0 && <p className="empty">이 지역에 보여드릴 혜택이 아직 없어요.</p>}
         <BenefitGroups groups={listed} />
+        <AudienceGroups groups={rest.groups} />
         <ExcludedBenefits excluded={excluded} />
       </section>
     </div>

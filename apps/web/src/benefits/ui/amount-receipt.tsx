@@ -3,6 +3,7 @@ import { formatRange, type AmountReceipt as Receipt } from '../domain/amount';
 // 프로토타입의 영수증 모양. 받을 수 있는 현금·이용권을 더해서 보여준다
 export function AmountReceipt({ receipt, birthOrderKnown }: { receipt: Receipt; birthOrderKnown: boolean }) {
   if (receipt.lines.length === 0) return null;
+  const hasUnverified = receipt.lines.some(({ benefit }) => benefit.reviewStatus !== 'VERIFIED');
   return (
     <section className="receipt" aria-labelledby="receipt-title">
       <h2 id="receipt-title">받을 수 있는 금액</h2>
@@ -23,8 +24,9 @@ export function AmountReceipt({ receipt, birthOrderKnown }: { receipt: Receipt; 
         <strong>{formatRange(receipt.total)}</strong>
       </div>
       <p className="foot">
-        금액을 정리한 혜택만 더했어요. {receipt.notCounted.length > 0 && `휴가·육아휴직 급여처럼 소득에 따라 달라지는 ${receipt.notCounted.length}건은 빼고 계산했어요. `}
-        모두 검증 전 금액이에요.
+        금액을 정리한 혜택만 더했어요.
+        {receipt.notCounted.length > 0 && ` 휴가 급여·진료비 지원처럼 사람마다 금액이 다른 ${receipt.notCounted.length}건은 빼고 계산했어요.`}
+        {hasUnverified && ' 검증 전 금액이 섞여 있어요.'}
       </p>
     </section>
   );

@@ -43,6 +43,16 @@ export interface ApplicationPeriod {
   basis: { text: string; url: string };
 }
 
+export type Audience =
+  | 'ADOPTION_FOSTER'
+  | 'DISABILITY'
+  | 'SINGLE_TEEN_PARENT'
+  | 'LOW_INCOME'
+  | 'MULTI_CHILD'
+  | 'INFERTILITY'
+  | 'SICK_CHILD'
+  | 'SPECIAL';
+
 // GET /benefits 응답 한 건
 export interface PublishedBenefit {
   slug: string;
@@ -56,6 +66,7 @@ export interface PublishedBenefit {
   conditions: EligibilityCondition[];
   amount: BenefitAmount | null;
   applicationPeriod: ApplicationPeriod | null;
+  audience: Audience | null; // 특정 대상만 받는 혜택의 묶음. 누구나 받으면 null
 }
 
 export const SCOPE_LABEL: Record<BenefitScope, string> = {

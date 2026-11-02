@@ -143,3 +143,10 @@ select, input[type='date'] { font: inherit; color: var(--ink); background: var(-
 .chip.period-soon { background: var(--now); color: var(--surface); border-color: transparent; }
 .chip.period-closed { background: var(--bg); color: var(--muted); }
 .card.is-closed { opacity: 0.6; }
+
+/* 특정 대상 혜택 묶음 */
+.audience { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin-top: 8px; }
+.audience summary { cursor: pointer; font-weight: 600; font-size: 15px; }
+.audience summary span { font-weight: 400; color: var(--muted); margin-left: 4px; }
+.audience summary small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.6; }
+.audience[open] summary { margin-bottom: 4px; }

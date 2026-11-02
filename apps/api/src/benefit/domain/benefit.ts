@@ -1,3 +1,4 @@
+import { audienceProblems, type Audience } from './audience';
 import { periodProblems, samePeriod, type ApplicationPeriod } from './application-period';
 import { amountProblems, sameAmount, type BenefitAmount } from './benefit-amount';
 import { conditionProblems, sameConditions, type EligibilityCondition } from './eligibility-condition';
@@ -21,6 +22,7 @@ export interface BenefitDetails {
   conditions: EligibilityCondition[]; // 받기 위한 조건. 없으면 빈 배열
   amount: BenefitAmount | null; // 받는 금액. 아직 정리하지 않았으면 null
   applicationPeriod: ApplicationPeriod | null; // 해마다 공고하는 사업의 올해 신청 기간. 상시 신청이면 null
+  audience: Audience | null; // 특정 대상만 받는 혜택의 묶음. 누구나 받을 수 있으면 null
 }
 
 export interface Verification {
@@ -77,6 +79,10 @@ export class Benefit {
     return this.details.schedule;
   }
 
+  get audience() {
+    return this.details.audience;
+  }
+
   get applicationPeriod() {
     return this.details.applicationPeriod;
   }
@@ -101,11 +107,13 @@ export class Benefit {
     return this.verification?.verifiedAt ?? null;
   }
 
-  // 혜택 정보가 바뀌면 사람이 다시 확인해야 한다
+  // 혜택 정보가 바뀌면 사람이 다시 확인해야 한다. 대상 묶음은 보여주는 자리일 뿐이라 확인 기록을 유지한다
   revise(details: BenefitDetails): Benefit {
     if (details.slug !== this.slug) throw new InvalidBenefitError(`slug는 바꿀 수 없습니다: ${this.slug} → ${details.slug}`);
-    if (sameDetails(this.details, details)) return this;
-    return Benefit.register(details);
+    if (!sameDetails(this.details, details)) return Benefit.register(details);
+    if (details.audience === this.audience) return this;
+    assertValid(details);
+    return new Benefit(details, this.verification);
   }
 
   reviewStatus(current: CurrentSources): ReviewStatus {
@@ -164,6 +172,7 @@ function assertValid(details: BenefitDetails) {
     ...conditionProblems(details.conditions),
     ...(details.amount ? amountProblems(details.amount) : []),
     ...(details.applicationPeriod ? periodProblems(details.applicationPeriod) : []),
+    ...audienceProblems(details.audience),
   ].filter((problem): problem is string => Boolean(problem));
   if (problems.length) throw new InvalidBenefitError(`${details.slug}: ${problems.join(', ')}`);
 }
