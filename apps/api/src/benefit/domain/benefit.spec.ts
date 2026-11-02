@@ -15,6 +15,7 @@ const details = (overrides: Partial<BenefitDetails> = {}): BenefitDetails => ({
   sources: [gov],
   schedule: null,
   conditions: [],
+  amount: null,
   ...overrides,
 });
 
@@ -96,6 +97,11 @@ describe('Benefit', () => {
       ])('%s이면 거절한다', (_, conditions, message) => {
         expect(() => Benefit.register(details({ conditions: conditions as never }))).toThrow(message);
       });
+    });
+
+    it('금액에 문제가 있으면 거절한다', () => {
+      const amount = { kind: 'cash' as const, summary: '월 10만원', tiers: [], basis: { text: '근거', url: 'https://a.kr' } };
+      expect(() => Benefit.register(details({ amount }))).toThrow('금액 구간이 비어');
     });
 
     it('문제가 여러 개면 한 번에 모두 알려준다', () => {
@@ -209,6 +215,17 @@ describe('Benefit', () => {
       ['대표 출처 순서', { sources: [bok, gov] }],
       ['신청 기간 규칙 추가', { schedule: schedule() }],
       ['받기 위한 조건 추가', { conditions: ['EITHER_PARENT_INSURED' as const] }],
+      [
+        '금액 추가',
+        {
+          amount: {
+            kind: 'cash' as const,
+            summary: '월 10만원',
+            tiers: [{ minBirthOrder: 1, maxBirthOrder: null, won: 9_600_000 }],
+            basis: { text: '월 10만원', url: 'https://a.kr' },
+          },
+        },
+      ],
     ])('%s이 바뀌면 다시 확인해야 한다', (_, overrides) => {
       const base = details({ sources: [gov, bok] });
       const benefit = Benefit.register(base).verify(sources(state(gov), state(bok)), at);

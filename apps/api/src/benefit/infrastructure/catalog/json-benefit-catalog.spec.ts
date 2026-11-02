@@ -19,7 +19,7 @@ const parse = (value: unknown) => parseCatalog(JSON.stringify(value));
 describe('parseCatalog', () => {
   it('항목을 혜택 정보로 바꾼다', () => {
     expect(parse([entry()])).toEqual([
-      { slug: 'gov24-1', name: '혜택', scope: 'national', sourceUrl: 'https://plus.gov.kr/x', sources: [new SourceRef('GOV24', '1')], schedule: null, conditions: [] },
+      { slug: 'gov24-1', name: '혜택', scope: 'national', sourceUrl: 'https://plus.gov.kr/x', sources: [new SourceRef('GOV24', '1')], schedule: null, conditions: [], amount: null },
     ]);
   });
 
@@ -42,6 +42,16 @@ describe('parseCatalog', () => {
     expect(parse([entry({ conditions: ['EITHER_PARENT_INSURED'] })])[0].conditions).toEqual(['EITHER_PARENT_INSURED']);
   });
 
+  it('금액을 읽고, 빠진 maxBirthOrder는 끝없음으로 본다', () => {
+    const amount = { kind: 'cash', summary: '1천만원', tiers: [{ minBirthOrder: 1, won: 10_000_000 }], basis: { text: '1천만원', url: 'https://a.kr' } };
+    expect(parse([entry({ amount })])[0].amount).toEqual({ ...amount, tiers: [{ minBirthOrder: 1, maxBirthOrder: null, won: 10_000_000 }] });
+  });
+
+  it('금액을 정할 수 없으면 tiers는 null', () => {
+    const amount = { kind: 'wage', summary: '통상임금', tiers: null, basis: { text: '통상임금', url: 'https://a.kr' } };
+    expect(parse([entry({ amount })])[0].amount?.tiers).toBeNull();
+  });
+
   it('빈 배열은 빈 목록', () => {
     expect(parse([])).toEqual([]);
   });
@@ -58,6 +68,8 @@ describe('parseCatalog', () => {
     ['소수 날수', JSON.stringify([entry({ schedule: { from: { anchor: 'birth', days: 1.5 }, until: { anchor: 'birth' } } })]), '정수'],
     ['조건이 문자열 배열이 아님', JSON.stringify([entry({ conditions: 'BIRTH_PARENT_INSURED' })]), 'conditions는'],
     ['조건에 숫자', JSON.stringify([entry({ conditions: [1] })]), 'conditions는'],
+    ['금액 구간이 객체', JSON.stringify([entry({ amount: { kind: 'cash', summary: 's', tiers: {}, basis: { text: 't', url: 'u' } } })]), 'tiers는 배열'],
+    ['금액이 문자열', JSON.stringify([entry({ amount: { kind: 'cash', summary: 's', tiers: [{ minBirthOrder: 1, won: '100' }], basis: { text: 't', url: 'u' } } })]), '숫자여야'],
     ['일정 설명 없음', JSON.stringify([entry({ schedule: { from: { anchor: 'birth' }, until: { anchor: 'birth' }, untilLabel: '마감' } })]), 'schedule.summary'],
   ])('%s이면 몇 번째 항목인지와 함께 거절한다', (_, text, message) => {
     expect(() => parseCatalog(text)).toThrow(CatalogError);

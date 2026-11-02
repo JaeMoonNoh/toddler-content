@@ -1,3 +1,4 @@
+import { amountProblems, sameAmount, type BenefitAmount } from './benefit-amount';
 import { conditionProblems, sameConditions, type EligibilityCondition } from './eligibility-condition';
 import { sameSchedule, scheduleProblems, type BenefitSchedule } from './benefit-schedule';
 import { changedFields } from '../../collect/domain/snapshot-diff';
@@ -17,6 +18,7 @@ export interface BenefitDetails {
   sources: SourceRef[]; // 첫 번째가 대표 출처
   schedule: BenefitSchedule | null; // 신청 기간 규칙. 아직 정리하지 않았으면 null
   conditions: EligibilityCondition[]; // 받기 위한 조건. 없으면 빈 배열
+  amount: BenefitAmount | null; // 받는 금액. 아직 정리하지 않았으면 null
 }
 
 export interface Verification {
@@ -71,6 +73,10 @@ export class Benefit {
 
   get schedule() {
     return this.details.schedule;
+  }
+
+  get amount() {
+    return this.details.amount;
   }
 
   get conditions() {
@@ -150,6 +156,7 @@ function assertValid(details: BenefitDetails) {
     new Set(details.sources.map((ref) => ref.key)).size !== details.sources.length && '같은 원본이 두 번 연결돼 있습니다',
     ...(details.schedule ? scheduleProblems(details.schedule) : []),
     ...conditionProblems(details.conditions),
+    ...(details.amount ? amountProblems(details.amount) : []),
   ].filter((problem): problem is string => Boolean(problem));
   if (problems.length) throw new InvalidBenefitError(`${details.slug}: ${problems.join(', ')}`);
 }
@@ -162,6 +169,7 @@ function sameDetails(a: BenefitDetails, b: BenefitDetails) {
     a.sourceUrl === b.sourceUrl &&
     keys(a) === keys(b) &&
     sameSchedule(a.schedule, b.schedule) &&
-    sameConditions(a.conditions, b.conditions)
+    sameConditions(a.conditions, b.conditions) &&
+    sameAmount(a.amount, b.amount)
   );
 }

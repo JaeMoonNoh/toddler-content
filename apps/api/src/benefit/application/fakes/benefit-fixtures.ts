@@ -11,6 +11,7 @@ export function benefitDetails(id: string, overrides: Partial<BenefitDetails> = 
     sources: [new SourceRef('GOV24', id)],
     schedule: null,
     conditions: [],
+    amount: null,
     ...overrides,
   };
 }

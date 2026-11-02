@@ -19,6 +19,7 @@ model Benefit {
   sourceUrl  String          // 사용자에게 보여줄 원문 링크
   schedule   Json?           // 신청 기간 규칙 (BenefitSchedule). 출산예정일로 날짜를 계산하는 건 브라우저가 한다
   conditions String[]        @default([]) // 받기 위한 조건 (EligibilityCondition). 예: BIRTH_PARENT_INSURED
+  amount     Json?           // 받는 금액 (BenefitAmount). 출생 순위별 구간, 근거
   verifiedAt DateTime?       // 사람이 마지막으로 확인한 시각. null이면 확인 전이라 게시하지 않는다
   sources    BenefitSource[]
   createdAt  DateTime        @default(now())

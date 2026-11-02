@@ -3,6 +3,7 @@ import type { SourceId } from '../../../collect/domain/source-record';
 import { CatalogError } from '../../application/sync-catalog.use-case';
 import { BenefitCatalog } from '../../application/ports/benefit-catalog';
 import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
+import type { AmountKind, AmountTier, BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule, ScheduleAnchor, ScheduleOffset } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
 import { SourceRef } from '../../domain/source-ref';
@@ -46,6 +47,7 @@ function toDetails(entry: unknown, index: number): BenefitDetails {
     sources: sourcesOf(e.sources, where),
     schedule: e.schedule === undefined || e.schedule === null ? null : scheduleOf(e.schedule, where),
     conditions: conditionsOf(e.conditions, where),
+    amount: e.amount === undefined || e.amount === null ? null : amountOf(e.amount, where),
   };
 }
 
@@ -92,4 +94,30 @@ function conditionsOf(value: unknown, where: string): EligibilityCondition[] {
   if (value === undefined) return [];
   if (!Array.isArray(value) || value.some((c) => typeof c !== 'string')) throw new CatalogError(`${where}: conditions는 문자열 배열이어야 합니다`);
   return value as EligibilityCondition[];
+}
+
+// 값이 맞는지는 도메인이 검사하고, 여기서는 모양만 본다
+function amountOf(value: unknown, where: string): BenefitAmount {
+  const a = (value ?? {}) as Record<string, unknown>;
+  const basis = (a.basis ?? {}) as Record<string, unknown>;
+  const text = (v: unknown, field: string) => {
+    if (typeof v !== 'string') throw new CatalogError(`${where}: amount.${field}가 문자열이 아닙니다`);
+    return v;
+  };
+  if (a.tiers !== null && !Array.isArray(a.tiers)) throw new CatalogError(`${where}: amount.tiers는 배열 또는 null이어야 합니다`);
+  return {
+    kind: text(a.kind, 'kind') as AmountKind,
+    summary: text(a.summary, 'summary'),
+    tiers: a.tiers === null ? null : (a.tiers as unknown[]).map((t) => tierOf(t, where)),
+    basis: { text: text(basis.text, 'basis.text'), url: text(basis.url, 'basis.url') },
+  };
+}
+
+function tierOf(value: unknown, where: string): AmountTier {
+  const t = (value ?? {}) as Record<string, unknown>;
+  const max = t.maxBirthOrder === undefined ? null : t.maxBirthOrder;
+  if (typeof t.minBirthOrder !== 'number' || typeof t.won !== 'number' || (max !== null && typeof max !== 'number')) {
+    throw new CatalogError(`${where}: amount.tiers의 minBirthOrder, maxBirthOrder, won은 숫자여야 합니다`);
+  }
+  return { minBirthOrder: t.minBirthOrder, maxBirthOrder: max as number | null, won: t.won };
 }
