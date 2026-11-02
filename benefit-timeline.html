@@ -1,0 +1,515 @@
+<title>출산 혜택 타임라인</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: mobile-first single column; on wide screens, inputs + receipt stick left, timeline scrolls right */
+:root {
+  --bg: #F3F6F5;
+  --surface: #FFFFFF;
+  --paper: #FFFFFF;
+  --ink: #15201E;
+  --muted: #5A6A67;
+  --line: #D9E1DF;
+  --accent: #13706A;
+  --accent-soft: #E0F0EE;
+  --now: #B8650F;
+  --now-soft: #FCEEDC;
+  --past: #98A4A2;
+  --warn-soft: #FFF6D6;
+  --warn-ink: #6B5200;
+  --f-display: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", "IBM Plex Sans KR", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1413; --surface: #161F1E; --paper: #1B2524; --ink: #E6EEEC; --muted: #9AAAA7;
+    --line: #2A3735; --accent: #52BBB0; --accent-soft: #173230; --now: #EBA352; --now-soft: #3A2914;
+    --past: #5F6C6A; --warn-soft: #342C10; --warn-ink: #F0D77A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1413; --surface: #161F1E; --paper: #1B2524; --ink: #E6EEEC; --muted: #9AAAA7;
+  --line: #2A3735; --accent: #52BBB0; --accent-soft: #173230; --now: #EBA352; --now-soft: #3A2914;
+  --past: #5F6C6A; --warn-soft: #342C10; --warn-ink: #F0D77A; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 15px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 20px; }
+@media (min-width: 900px) {
+  .wrap { grid-template-columns: 340px minmax(0, 1fr); align-items: start; gap: 32px; }
+  .side { position: sticky; top: 16px; }
+}
+
+.proto {
+  grid-column: 1 / -1;
+  background: var(--warn-soft); color: var(--warn-ink);
+  border-radius: 10px; padding: 10px 14px; font-size: 13px;
+}
+.proto b { font-weight: 600; }
+
+header.top { grid-column: 1 / -1; display: grid; gap: 4px; }
+header.top h1 {
+  font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(26px, 5vw, 34px); line-height: 1.25; margin: 0; text-wrap: balance;
+}
+header.top p { margin: 0; color: var(--muted); }
+
+.side { display: grid; gap: 16px; min-width: 0; }
+
+/* inputs */
+.form { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 14px; }
+.field { display: grid; gap: 6px; }
+.field > label, .field > .lbl { font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--muted); }
+select, input[type="date"] {
+  font: inherit; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%;
+}
+.seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 3px; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { text-align: center; padding: 7px 4px; border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--muted); }
+.seg input:checked + label { background: var(--surface); color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.seg input:focus-visible + label { outline: 2px solid var(--accent); }
+.check { display: flex; gap: 8px; align-items: center; font-size: 14px; cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--accent); }
+.gest { font-size: 14px; color: var(--muted); }
+.gest b { color: var(--ink); font-weight: 600; }
+
+/* receipt */
+.receipt {
+  background: var(--paper); border-radius: 4px; padding: 20px 18px 16px;
+  font-family: var(--f-mono); font-size: 13px; color: var(--ink);
+  box-shadow: 0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.06);
+  position: relative;
+  -webkit-mask: radial-gradient(circle 6px at 50% 100%, transparent 5.5px, #000 6px) 0 100% / 14px 100% repeat-x;
+          mask: radial-gradient(circle 6px at 50% 100%, transparent 5.5px, #000 6px) 0 100% / 14px 100% repeat-x;
+  padding-bottom: 24px;
+}
+.receipt h2 { font-family: var(--f-body); font-size: 13px; font-weight: 600; text-align: center; margin: 0 0 2px; letter-spacing: .08em; }
+.receipt .sub { text-align: center; color: var(--muted); font-size: 11px; margin-bottom: 10px; }
+.receipt hr { border: 0; border-top: 1px dashed var(--line); margin: 10px 0; }
+.rline { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; }
+.rline span:first-child { font-family: var(--f-body); min-width: 0; }
+.rline span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rtotal { display: flex; justify-content: space-between; align-items: baseline; font-weight: 500; }
+.rtotal strong { font-size: 22px; font-variant-numeric: tabular-nums; color: var(--accent); }
+.receipt .foot { color: var(--muted); font-size: 11px; font-family: var(--f-body); margin-top: 8px; line-height: 1.5; }
+
+.ics { display: grid; gap: 6px; }
+.btn {
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+  background: var(--accent); color: var(--surface); border: 0; border-radius: 10px; padding: 11px 14px;
+}
+.btn:hover { filter: brightness(1.05); }
+.ics small { color: var(--muted); font-size: 12px; }
+
+/* timeline */
+main { min-width: 0; display: grid; gap: 14px; }
+.nowbar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+.nowbar h2 { font-family: var(--f-display); font-weight: 400; font-size: 22px; margin: 0; }
+.nowbar p { margin: 0; color: var(--muted); font-size: 14px; }
+.nowbar b { color: var(--now); }
+
+ol.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.phase {
+  font-size: 12px; font-weight: 600; letter-spacing: .06em; color: var(--muted);
+  padding: 18px 0 8px 76px; position: relative;
+}
+.phase::before { content: ""; position: absolute; left: 60px; top: 24px; width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.ev { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 20px; position: relative; padding-bottom: 12px; }
+.ev::before { content: ""; position: absolute; left: 64px; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.when { text-align: right; padding-top: 14px; font-variant-numeric: tabular-nums; }
+.when b { display: block; font-size: 16px; font-weight: 600; }
+.when span { font-size: 11px; color: var(--muted); }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 14px 16px; display: grid; gap: 8px; min-width: 0; position: relative;
+}
+.card::before {
+  content: ""; position: absolute; left: -16px; top: 20px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--surface); border: 2px solid var(--accent);
+}
+.s-now .card { border-color: var(--now); box-shadow: 0 0 0 3px var(--now-soft); }
+.s-now .card::before { background: var(--now); border-color: var(--now); }
+.s-past .card { opacity: .6; }
+.s-past .card::before { border-color: var(--past); }
+.s-past .when b { color: var(--past); text-decoration: line-through; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+.chip.scope-cheongju, .chip.scope-chungbuk { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.chip.st-now { background: var(--now-soft); color: var(--now); border-color: transparent; }
+.card h3 { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.4; }
+.amt { font-family: var(--f-mono); font-weight: 500; color: var(--accent); font-size: 14px; }
+.card dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; font-size: 14px; }
+.card dt { color: var(--muted); font-size: 12px; padding-top: 2px; white-space: nowrap; }
+.card dd { margin: 0; }
+.note { font-size: 13px; color: var(--warn-ink); background: var(--warn-soft); border-radius: 8px; padding: 6px 10px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 8px; }
+.meta .unv { color: var(--now); font-weight: 600; }
+.meta a.cal { margin-left: auto; font-weight: 600; text-decoration: none; }
+.meta a.cal:hover { text-decoration: underline; }
+
+details.excl { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+details.excl summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+details.excl ul { margin: 10px 0 0; padding-left: 18px; font-size: 14px; color: var(--muted); display: grid; gap: 4px; }
+
+footer.src { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+
+@media (max-width: 420px) {
+  .ev { grid-template-columns: 44px minmax(0, 1fr); gap: 16px; }
+  .ev::before { left: 52px; }
+  .card::before { left: -13px; }
+  .phase { padding-left: 60px; }
+  .phase::before { left: 48px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ev { animation: rise .35s ease both; }
+  @keyframes rise { from { transform: translateY(6px); } to { transform: none; } }
+}
+</style>
+
+<div class="wrap">
+  <div class="proto"><b>프로토타입</b> · 금액·조건·기한은 검증 전 샘플입니다. 각 항목의 "최종 확인일"이 비어 있는 이유예요. 실제 서비스에서는 출처 확인 후 날짜가 채워집니다.</div>
+
+  <header class="top">
+    <h1>출산예정일만 넣으면, 언제 무엇을 신청할지</h1>
+    <p>회원가입 없이, 입력한 정보는 이 화면 밖으로 나가지 않아요.</p>
+  </header>
+
+  <aside class="side">
+    <form class="form" id="f" autocomplete="off">
+      <div class="field">
+        <label for="region">사는 곳</label>
+        <select id="region">
+          <option value="cheongju">충청북도 청주시</option>
+          <option value="other">다른 지역 (전국 공통만 표시)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="due">출산예정일</label>
+        <input type="date" id="due">
+        <div class="gest" id="gest"></div>
+      </div>
+      <div class="field">
+        <span class="lbl">이번 아이는</span>
+        <div class="seg" role="radiogroup" aria-label="출생 순위">
+          <input type="radio" name="order" id="o1" value="1" checked><label for="o1">첫째</label>
+          <input type="radio" name="order" id="o2" value="2"><label for="o2">둘째 이상</label>
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" id="employed"> 엄마 또는 아빠가 고용보험 가입 직장인</label>
+    </form>
+
+    <section class="receipt" aria-labelledby="rh">
+      <h2 id="rh">받을 수 있는 금액</h2>
+      <div class="sub" id="rsub"></div>
+      <hr>
+      <div id="rlines"></div>
+      <hr>
+      <div class="rtotal"><span>합계 (예상)</span><strong id="rtotal"></strong></div>
+      <div class="foot">현금·바우처만 합산. 휴가·육아휴직 급여는 소득에 따라 달라서 제외했어요.</div>
+    </section>
+
+    <div class="ics">
+      <button type="button" class="btn" id="icsBtn">신청 일정 전체를 내 캘린더에 추가 (.ics)</button>
+      <small id="icsMsg">아이폰·갤럭시·구글 캘린더 모두 열 수 있는 파일이에요.</small>
+    </div>
+  </aside>
+
+  <main>
+    <div class="nowbar">
+      <h2>신청 타임라인</h2>
+      <p id="nowSummary"></p>
+    </div>
+    <ol class="tl" id="tl"></ol>
+    <details class="excl" id="exclBox"><summary id="exclSum"></summary><ul id="excl"></ul></details>
+    <footer class="src">원본: 복지로, 정부24(보조금24), 국민건강보험공단, 고용24, 충청북도·청주시 공고. 이 사이트는 공공 정보를 보기 쉽게 다시 정리할 뿐이며, 실제 신청 전 각 출처에서 확인해 주세요.</footer>
+  </main>
+</div>
+
+<script>
+// ── 혜택 데이터 (샘플, 검증 전) ─────────────────────────────
+// 기간은 기준일 + 일수: lmp(마지막 생리일 = 예정일-280) 또는 birth(출산일 = 예정일로 가정)
+const BENEFITS = [
+  {
+    id: "hc", name: "보건소 임산부 등록 · 엽산제/철분제", scope: "cheongju", kind: "현물",
+    amountText: "엽산제(임신 12주까지), 철분제(16주부터 5개월분)",
+    from: ["lmp", 0], to: ["birth", 0],
+    what: "임신확인서와 신분증을 들고 보건소에 임산부 등록",
+    where: "주소지 관할 보건소 (상당·서원·흥덕·청원)",
+    source: { name: "청주시 보건소", url: "https://www.cheongju.go.kr" },
+  },
+  {
+    id: "voucher", name: "임신·출산 진료비 바우처", scope: "national", kind: "바우처",
+    amount: () => 1000000, amountText: "100만 원 (다태아는 태아당 100만 원)",
+    from: ["lmp", 0], to: ["birth", 730], calLabel: "사용기한",
+    what: "임신 확인 후 국민행복카드 발급 신청, 산부인과 진료비로 사용",
+    where: "카드사 또는 국민건강보험공단",
+    source: { name: "국민건강보험공단", url: "https://www.nhis.or.kr" },
+  },
+  {
+    id: "maternity", name: "출산전후휴가 급여", scope: "national", kind: "급여", needsEmployed: true,
+    amountText: "통상임금 기준 (상한 있음)",
+    from: ["birth", -44], to: ["birth", 0], calLabel: "휴가 시작 가능",
+    what: "회사에 휴가 신청 (90일, 출산 후 45일 이상 확보). 급여는 고용센터에 신청",
+    where: "회사 + 고용24",
+    source: { name: "고용24", url: "https://www.work24.go.kr" },
+  },
+  {
+    id: "postnatal", name: "산모·신생아 건강관리 (산후도우미)", scope: "national", kind: "서비스",
+    amountText: "이용료 일부 지원 (소득·태아 유형별 상이)",
+    from: ["birth", -40], to: ["birth", 60],
+    what: "출산 40일 전부터 신청, 출산 후 도우미 파견",
+    where: "주소지 보건소 또는 복지로",
+    note: "출산 후 신청 기한과 소득 기준(지자체별 완화 여부) 확인 필요",
+    source: { name: "복지로", url: "https://www.bokjiro.go.kr" },
+  },
+  {
+    id: "report", name: "출생신고 + 행복출산 원스톱 신청", scope: "national", kind: "절차",
+    amountText: "아래 현금 혜택을 한 번에 신청",
+    from: ["birth", 0], to: ["birth", 30], calLabel: "출생신고 기한",
+    what: "출생신고하면서 첫만남이용권·부모급여·아동수당 등을 한꺼번에 신청",
+    where: "주민센터 또는 정부24 (온라인 출생신고)",
+    source: { name: "정부24", url: "https://www.gov.kr" },
+  },
+  {
+    id: "first", name: "첫만남이용권", scope: "national", kind: "바우처",
+    amount: s => s.order === 1 ? 2000000 : 3000000,
+    amountText: s => s.order === 1 ? "200만 원 (첫째)" : "300만 원 (둘째 이상)",
+    from: ["birth", 0], to: ["birth", 365], calLabel: "사용기한",
+    what: "출생신고 때 함께 신청 → 국민행복카드 포인트로 지급",
+    where: "주민센터, 정부24, 복지로",
+    note: "포인트는 출생일로부터 1년 안에 써야 해요",
+    source: { name: "복지로", url: "https://www.bokjiro.go.kr" },
+  },
+  {
+    id: "parent", name: "부모급여", scope: "national", kind: "현금",
+    amount: () => 1000000 * 12 + 500000 * 12, amountText: "0세 월 100만 원 + 1세 월 50만 원",
+    from: ["birth", 0], to: ["birth", 60], calLabel: "소급 신청 마감",
+    what: "출생 후 60일 안에 신청해야 출생한 달부터 받을 수 있어요",
+    where: "주민센터, 정부24, 복지로",
+    source: { name: "복지로", url: "https://www.bokjiro.go.kr" },
+  },
+  {
+    id: "child", name: "아동수당", scope: "national", kind: "현금",
+    amount: () => 100000 * 96, amountText: "월 10만 원 (8세 미만 기준 96개월)",
+    from: ["birth", 0], to: ["birth", 60], calLabel: "소급 신청 마감",
+    what: "출생 후 60일 안에 신청해야 출생한 달부터 소급",
+    where: "주민센터, 정부24, 복지로",
+    note: "지급 연령 확대 여부 2026년 기준 확인 필요",
+    source: { name: "복지로", url: "https://www.bokjiro.go.kr" },
+  },
+  {
+    id: "cb", name: "충북 출산육아수당", scope: "chungbuk", kind: "현금",
+    amount: () => 10000000, amountText: "총 1,000만 원 (여러 해 분할 지급)",
+    from: ["birth", 0], to: ["birth", 365],
+    what: "출생신고 후 신청, 해마다 나눠서 지급",
+    where: "주민센터",
+    note: "신청 기한·분할 일정·거주 요건 확인 필요",
+    source: { name: "충청북도", url: "https://www.chungbuk.go.kr" },
+  },
+  {
+    id: "checkup", name: "영유아 건강검진 1차", scope: "national", kind: "무료",
+    amountText: "무료 검진",
+    from: ["birth", 14], to: ["birth", 35], calLabel: "검진 기한",
+    what: "생후 14~35일 사이 지정 기관에서 검진",
+    where: "영유아 건강검진 지정 병원",
+    source: { name: "국민건강보험공단", url: "https://www.nhis.or.kr" },
+  },
+  {
+    id: "leave", name: "육아휴직 급여", scope: "national", kind: "급여", needsEmployed: true,
+    amountText: "첫 3개월 월 최대 250만 원 (상한 있음)",
+    from: ["birth", 0], to: ["birth", 365 * 8], calLabel: "사용 가능 기한",
+    what: "회사에 육아휴직 신청 후, 고용센터에 급여 신청",
+    where: "회사 + 고용24",
+    note: "2025년 개편 기준 금액, 최신 상한액 확인 필요",
+    source: { name: "고용24", url: "https://www.work24.go.kr" },
+  },
+];
+const SCOPE_LABEL = { national: "전국", chungbuk: "충북", cheongju: "청주" };
+const REGION_SCOPES = { cheongju: ["national", "chungbuk", "cheongju"], other: ["national"] };
+
+// ── 날짜 유틸 ───────────────────────────────────────────
+const DAY = 86400000;
+const WD = ["일", "월", "화", "수", "목", "금", "토"];
+const startOfDay = d => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+const diffDays = (a, b) => Math.round((startOfDay(a) - startOfDay(b)) / DAY);
+const pad = n => String(n).padStart(2, "0");
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const ymd = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+const fmt = d => `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}(${WD[d.getDay()]})`;
+const won = n => n >= 10000 ? `${(n / 10000).toLocaleString("ko-KR")}만 원` : `${n.toLocaleString("ko-KR")}원`;
+const parseDate = v => { const [y, m, d] = v.split("-").map(Number); return new Date(y, m - 1, d); };
+const val = (x, s) => typeof x === "function" ? x(s) : x;
+
+const today = startOfDay(new Date());
+const $ = id => document.getElementById(id);
+$("due").value = iso(addDays(today, 175)); // 예시: 오늘 기준 임신 15주차
+
+function readState() {
+  return {
+    region: $("region").value,
+    due: parseDate($("due").value || iso(addDays(today, 175))),
+    order: Number(document.querySelector('input[name="order"]:checked').value),
+    employed: $("employed").checked,
+  };
+}
+
+function resolve(s) {
+  const lmp = addDays(s.due, -280);
+  const base = { lmp, birth: s.due };
+  const scopes = REGION_SCOPES[s.region];
+  const items = [], excluded = [];
+  for (const b of BENEFITS) {
+    if (!scopes.includes(b.scope)) { excluded.push([b, `${SCOPE_LABEL[b.scope]} 거주자 대상`]); continue; }
+    if (b.needsEmployed && !s.employed) { excluded.push([b, "고용보험 가입 직장인 대상"]); continue; }
+    const from = addDays(base[b.from[0]], b.from[1]);
+    const to = addDays(base[b.to[0]], b.to[1]);
+    const status = today < from ? "up" : today > to ? "past" : "now";
+    items.push({ b, from, to, status, amount: b.amount ? b.amount(s) : 0, amountText: val(b.amountText, s) });
+  }
+  items.sort((x, y) => x.from - y.from || x.to - y.to);
+  return { items, excluded, lmp };
+}
+
+function phaseOf(from, due) {
+  const d = diffDays(from, due);
+  if (d < -44) return "임신 중";
+  if (d < 0) return "출산 준비 (출산 6주 전부터)";
+  if (d <= 60) return "출산 직후 (60일 안)";
+  return "그 이후";
+}
+
+function gcalUrl(it) {
+  const p = new URLSearchParams({
+    action: "TEMPLATE",
+    text: `[${it.b.calLabel || "신청 마감"}] ${it.b.name}`,
+    dates: `${ymd(it.to)}/${ymd(addDays(it.to, 1))}`,
+    details: `${it.b.what}\n어디서: ${it.b.where}\n출처: ${it.b.source.url}`,
+  });
+  return `https://calendar.google.com/calendar/render?${p}`;
+}
+
+function esc(t) { return String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]); }
+
+let current = null;
+function render() {
+  const s = readState();
+  const r = resolve(s);
+  current = { s, r };
+
+  // 임신 주수
+  const gd = diffDays(today, r.lmp);
+  const left = diffDays(s.due, today);
+  $("gest").innerHTML = gd >= 0 && left >= 0
+    ? `오늘 기준 <b>임신 ${Math.floor(gd / 7)}주 ${gd % 7}일</b> · 출산까지 ${left}일`
+    : left < 0 ? `출산 후 <b>${-left}일</b>째` : "";
+
+  // 영수증
+  const paid = r.items.filter(i => i.amount > 0);
+  $("rsub").textContent = `${s.region === "cheongju" ? "청주시" : "전국 공통"} · ${s.order === 1 ? "첫째" : "둘째 이상"} · 예정일 ${fmt(s.due)}`;
+  $("rlines").innerHTML = paid.map(i => `<div class="rline"><span>${esc(i.b.name)}</span><span>${won(i.amount)}</span></div>`).join("");
+  $("rtotal").textContent = won(paid.reduce((a, i) => a + i.amount, 0));
+
+  // 지금 할 일 요약
+  const nowCount = r.items.filter(i => i.status === "now").length;
+  const next = r.items.find(i => i.status === "up");
+  $("nowSummary").innerHTML = `지금 신청할 수 있는 것 <b>${nowCount}개</b>` +
+    (next ? ` · 다음은 ${fmt(next.from)} ${esc(next.b.name)}` : "");
+
+  // 타임라인
+  let html = "", lastPhase = "";
+  for (const it of r.items) {
+    const ph = phaseOf(it.from, s.due);
+    if (ph !== lastPhase) { html += `<li class="phase">${ph}</li>`; lastPhase = ph; }
+    const dToEnd = diffDays(it.to, today);
+    const dToStart = diffDays(it.from, today);
+    const chip = it.status === "now" ? `<span class="chip st-now">지금 신청 가능 · 마감 D-${dToEnd}</span>`
+      : it.status === "up" ? `<span class="chip">D-${dToStart}부터</span>`
+      : `<span class="chip">기한 지남</span>`;
+    const whenSub = it.status === "now" ? "진행 중" : it.status === "up" ? `D-${dToStart}` : "지남";
+    html += `<li class="ev s-${it.status}">
+      <div class="when"><b>${it.from.getMonth() + 1}.${it.from.getDate()}</b><span>${whenSub}</span></div>
+      <article class="card">
+        <div class="chips"><span class="chip scope-${it.b.scope}">${SCOPE_LABEL[it.b.scope]}</span><span class="chip">${it.b.kind}</span>${chip}</div>
+        <h3>${esc(it.b.name)}</h3>
+        <div class="amt">${esc(it.amountText)}</div>
+        <dl>
+          <dt>무엇을</dt><dd>${esc(it.b.what)}</dd>
+          <dt>어디서</dt><dd>${esc(it.b.where)}</dd>
+          <dt>언제</dt><dd>${fmt(it.from)} ~ ${fmt(it.to)}</dd>
+        </dl>
+        ${it.b.note ? `<div class="note">${esc(it.b.note)}</div>` : ""}
+        <div class="meta">
+          <span>출처 <a href="${it.b.source.url}" target="_blank" rel="noopener">${esc(it.b.source.name)}</a></span>
+          <span>최종 확인일 <span class="unv">검증 전</span></span>
+          ${it.status !== "past" ? `<a class="cal" href="${gcalUrl(it)}" target="_blank" rel="noopener">구글 캘린더에 추가</a>` : ""}
+        </div>
+      </article>
+    </li>`;
+  }
+  $("tl").innerHTML = html;
+
+  // 제외 항목
+  $("exclBox").hidden = r.excluded.length === 0;
+  $("exclSum").textContent = `조건이 맞지 않아 뺀 혜택 ${r.excluded.length}개`;
+  $("excl").innerHTML = r.excluded.map(([b, why]) => `<li>${esc(b.name)} · ${why}</li>`).join("");
+}
+
+// ── .ics 생성 (서버 없이 브라우저에서 파일 생성) ──────────────
+function buildIcs() {
+  const { r } = current;
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
+  const escI = t => t.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//birth-benefit-timeline//KO", "CALSCALE:GREGORIAN"];
+  for (const it of r.items.filter(i => i.status !== "past")) {
+    lines.push(
+      "BEGIN:VEVENT",
+      `UID:${it.b.id}-${ymd(it.to)}@birth-benefit-timeline`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${ymd(it.to)}`,
+      `DTEND;VALUE=DATE:${ymd(addDays(it.to, 1))}`,
+      `SUMMARY:${escI(`[${it.b.calLabel || "신청 마감"}] ${it.b.name}`)}`,
+      `DESCRIPTION:${escI(`${it.b.what}\n어디서: ${it.b.where}\n출처: ${it.b.source.url}`)}`,
+      "BEGIN:VALARM", "TRIGGER:-P7D", "ACTION:DISPLAY", `DESCRIPTION:${escI(it.b.name + " 마감 1주 전")}`, "END:VALARM",
+      "END:VEVENT"
+    );
+  }
+  lines.push("END:VCALENDAR");
+  return lines.join("\r\n");
+}
+$("icsBtn").addEventListener("click", () => {
+  // Claude 미리보기 안에서는 .ics 저장이 막혀 있음. 실제 배포 사이트에서만 파일 저장
+  if (window.claude) {
+    $("icsMsg").textContent = "미리보기에서는 파일 저장이 막혀 있어요. 실제 사이트에서는 바로 저장돼요. 지금은 각 항목의 '구글 캘린더에 추가'를 써 주세요.";
+    return;
+  }
+  try {
+    const blob = new Blob([buildIcs()], { type: "text/calendar;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "출산혜택-일정.ics";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  } catch (e) { /* 아래 안내로 대체 */ }
+  $("icsMsg").textContent = "파일이 저장되지 않았다면 각 항목의 '구글 캘린더에 추가'를 눌러 주세요. 마감 1주 전 알림이 함께 들어가요.";
+});
+
+$("f").addEventListener("input", render);
+$("f").addEventListener("submit", e => e.preventDefault());
+render();
+</script>
