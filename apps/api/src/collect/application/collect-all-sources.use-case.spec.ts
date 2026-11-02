@@ -61,6 +61,14 @@ describe('CollectAllSourcesUseCase', () => {
     expect(report.hasFailures).toBe(false);
   });
 
+  it('첫 수집(기준점)은 변경 수에 넣지 않는다', async () => {
+    const useCase = new CollectAllSourcesUseCase(collectSource, [
+      new FakeSourceFetcher('GOV24', [[rec('1'), rec('2')]]),
+      new FakeSourceFetcher('BOKJIRO_LOCAL', [[rec('x')]]),
+    ]);
+    expect((await useCase.execute()).totalChanges).toBe(0);
+  });
+
   it('두 번째 수집부터 발생한 변경 수를 모두 더한다', async () => {
     const all = Array.from({ length: 20 }, (_, i) => rec(String(i)));
     const useCase = new CollectAllSourcesUseCase(collectSource, [

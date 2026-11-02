@@ -12,6 +12,7 @@ const record = (id: string, payload: Record<string, unknown>): SourceRecord => (
 
 const stored = (id: string, payload: Record<string, unknown>, removed = false): StoredItem => ({
   externalId: id,
+  name: String(payload['서비스명'] ?? id),
   hash: hashPayload(payload, IGNORED),
   payload,
   removed,

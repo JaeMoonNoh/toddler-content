@@ -5,7 +5,6 @@ import { SnapshotRepository, type RunSummary, type SnapshotPlan } from '../ports
 
 interface MemoryItem extends StoredItem {
   source: SourceId;
-  name: string;
 }
 
 export interface MemoryChange {
@@ -36,7 +35,7 @@ export class InMemorySnapshotRepository extends SnapshotRepository {
   async loadItems(source: SourceId): Promise<StoredItem[]> {
     return [...this.items.values()]
       .filter((i) => i.source === source)
-      .map(({ externalId, hash, payload, removed }) => ({ externalId, hash, payload, removed }));
+      .map(({ externalId, name, hash, payload, removed }) => ({ externalId, name, hash, payload, removed }));
   }
 
   async startRun(source: SourceId): Promise<string> {

@@ -30,6 +30,7 @@ describe('CollectSourceUseCase', () => {
       expect(result).toMatchObject({ source: 'GOV24', baseline: true, itemCount: 3, added: 3 });
       expect(repo.items.size).toBe(3);
       expect(repo.changes).toHaveLength(0);
+      expect(result.changes).toEqual([]);
       expect(repo.runs[0].status).toBe('SUCCEEDED');
     });
 
@@ -67,6 +68,16 @@ describe('CollectSourceUseCase', () => {
       expect(repo.changes.map((c) => `${c.type}:${c.externalId}`).sort()).toEqual(['ADDED:4', 'REMOVED:3', 'UPDATED:1']);
       expect(repo.changes.find((c) => c.type === 'UPDATED')!.changedFields).toEqual([
         { field: '지원내용', before: '월 10만원', after: '월 20만원' },
+      ]);
+    });
+
+    it('바뀐 항목의 이름과 바뀐 필드를 결과에 담는다 (삭제된 항목도 이름으로)', async () => {
+      const result = await collect([rec('1', { 지원내용: '월 20만원' }), rec('2'), rec('4')]);
+
+      expect(result.changes).toEqual([
+        { type: 'ADDED', externalId: '4', name: '혜택 4', fields: [] },
+        { type: 'UPDATED', externalId: '1', name: '혜택 1', fields: ['지원내용'] },
+        { type: 'REMOVED', externalId: '3', name: '혜택 3', fields: [] },
       ]);
     });
 

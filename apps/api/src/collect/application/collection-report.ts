@@ -21,6 +21,6 @@ export class CollectionReport {
   }
 
   get totalChanges() {
-    return this.succeeded.reduce((sum, { result }) => sum + result.added + result.updated + result.removed, 0);
+    return this.succeeded.reduce((sum, { result }) => sum + result.changes.length, 0);
   }
 }

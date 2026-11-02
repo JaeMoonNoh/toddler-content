@@ -21,10 +21,11 @@ export class PrismaSnapshotRepository extends SnapshotRepository {
   async loadItems(source: SourceId): Promise<StoredItem[]> {
     const rows = await this.prisma.sourceItem.findMany({
       where: { source },
-      select: { externalId: true, hash: true, payload: true, removedAt: true },
+      select: { externalId: true, name: true, hash: true, payload: true, removedAt: true },
     });
     return rows.map((r) => ({
       externalId: r.externalId,
+      name: r.name,
       hash: r.hash,
       payload: r.payload as Record<string, unknown>,
       removed: r.removedAt !== null,

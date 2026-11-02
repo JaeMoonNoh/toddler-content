@@ -1,8 +1,15 @@
-import { diffSnapshot, hashPayload } from '../domain/snapshot-diff';
+import { diffSnapshot, hashPayload, type SnapshotDiff } from '../domain/snapshot-diff';
 import type { SourceId, SourceRecord, StoredItem } from '../domain/source-record';
 import { assertAcceptable, isBaseline } from './policies/collection-policy';
 import { SnapshotRepository, type SnapshotPlan } from './ports/snapshot.repository';
 import type { SourceFetcher } from './ports/source-fetcher';
+
+export interface ChangedItem {
+  type: 'ADDED' | 'UPDATED' | 'REMOVED';
+  externalId: string;
+  name: string;
+  fields: string[];
+}
 
 export interface CollectSourceResult {
   source: SourceId;
@@ -13,6 +20,7 @@ export interface CollectSourceResult {
   updated: number;
   removed: number;
   duplicateIds: string[];
+  changes: ChangedItem[]; // 첫 수집(기준점)이면 비어 있다
 }
 
 export class CollectSourceUseCase {
@@ -57,10 +65,24 @@ export class CollectSourceUseCase {
       updated: diff.updated.length,
       removed: diff.removed.length,
       duplicateIds: diff.duplicateIds,
+      changes: baseline ? [] : changedItemsOf(diff),
     };
   }
 }
 
 function countActive(items: StoredItem[]) {
   return items.filter((item) => !item.removed).length;
+}
+
+function changedItemsOf(diff: SnapshotDiff): ChangedItem[] {
+  return [
+    ...diff.added.map(({ externalId, name }) => ({ type: 'ADDED' as const, externalId, name, fields: [] })),
+    ...diff.updated.map(({ record, changedFields }) => ({
+      type: 'UPDATED' as const,
+      externalId: record.externalId,
+      name: record.name,
+      fields: changedFields.map((c) => c.field),
+    })),
+    ...diff.removed.map(({ externalId, name }) => ({ type: 'REMOVED' as const, externalId, name, fields: [] })),
+  ];
 }
