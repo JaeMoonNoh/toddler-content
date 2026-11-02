@@ -609,7 +609,8 @@
         "text": "고위험 임산부 입원치료비의 건강보험 급여 중 전액본인부담금 및 비급여 진료비에 해당하는 금액의 90% 지원 - (병실입원료 및 환자특식 제외)",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=594728&bnefType=all&svcId=135200000114"
       }
-    }
+    },
+    "audience": "SPECIAL"
   },
   {
     "slug": "gov24-135200000120",
@@ -2177,8 +2178,7 @@
         "source": "GOV24",
         "externalId": "B41000200003"
       }
-    ],
-    "audience": "LOW_INCOME"
+    ]
   },
   {
     "slug": "gov24-b55271300007",
