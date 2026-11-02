@@ -27,7 +27,7 @@ export class NotVerifiableError extends Error {
     readonly slug: string,
     readonly status: ReviewStatus,
   ) {
-    super(`${slug}: 원본이 ${status.kind === 'SOURCE_REMOVED' ? '출처에서 사라져서' : '수집돼 있지 않아서'} 확인할 수 없습니다`);
+    super(`원본이 ${status.kind === 'SOURCE_REMOVED' ? '출처에서 사라져서' : '수집돼 있지 않아서'} 확인할 수 없습니다`);
   }
 }
 

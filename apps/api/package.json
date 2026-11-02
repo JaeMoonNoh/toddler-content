@@ -11,7 +11,8 @@
     "db:studio": "prisma studio",
     "test": "pnpm typecheck && vitest run",
     "typecheck": "prisma generate && tsc --noEmit -p tsconfig.json",
-    "collect": "prisma generate && nest build && node dist/collect/infrastructure/cli/collect.cli.js"
+    "collect": "prisma generate && nest build && node dist/collect/infrastructure/cli/collect.cli.js",
+    "benefit": "prisma generate && nest build && node dist/benefit/infrastructure/cli/benefit.cli.js"
   },
   "dependencies": {
     "@nestjs/common": "^12.3.2",
