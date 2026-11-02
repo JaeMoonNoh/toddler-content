@@ -49,7 +49,7 @@ export class ReviewPrinter {
       }
       lines.push(...linesOf(item));
     }
-    lines.push('', '원문을 확인했으면: pnpm benefit verify <slug> [<slug> ...]');
+    lines.push('', '혜택 하나 자세히 보기: pnpm benefit review <slug>', '원문을 확인했으면: pnpm benefit verify <slug> [<slug> ...]');
     return lines.join('\n');
   }
 
