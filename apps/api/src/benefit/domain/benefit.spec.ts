@@ -16,6 +16,7 @@ const details = (overrides: Partial<BenefitDetails> = {}): BenefitDetails => ({
   schedule: null,
   conditions: [],
   amount: null,
+  applicationPeriod: null,
   ...overrides,
 });
 
@@ -98,6 +99,11 @@ describe('Benefit', () => {
       ])('%s이면 거절한다', (_, conditions, message) => {
         expect(() => Benefit.register(details({ conditions: conditions as never }))).toThrow(message);
       });
+    });
+
+    it('신청 기간에 문제가 있으면 거절한다', () => {
+      const applicationPeriod = { start: '2026-12-31', end: '2026-01-01', basis: { text: '근거', url: 'https://a.kr' } };
+      expect(() => Benefit.register(details({ applicationPeriod }))).toThrow('시작일보다 앞');
     });
 
     it('금액에 문제가 있으면 거절한다', () => {

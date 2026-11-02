@@ -136,7 +136,15 @@
         "source": "GOV24",
         "externalId": "643000000731"
       }
-    ]
+    ],
+    "applicationPeriod": {
+      "start": "2025-01-01",
+      "end": "2025-12-19",
+      "basis": {
+        "text": "신청기한: 2025.01.01~2025.12.19",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2130846&bnefType=all&svcId=643000000731"
+      }
+    }
   },
   {
     "slug": "gov24-643000000736",
@@ -212,7 +220,15 @@
         "source": "GOV24",
         "externalId": "643000000747"
       }
-    ]
+    ],
+    "applicationPeriod": {
+      "start": "2026-07-01",
+      "end": "2026-07-31",
+      "basis": {
+        "text": "신청기한: 2026년 7월",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2147830&bnefType=all&svcId=643000000747"
+      }
+    }
   },
   {
     "slug": "gov24-643000000756",
@@ -751,7 +767,15 @@
         "source": "GOV24",
         "externalId": "138300000052"
       }
-    ]
+    ],
+    "applicationPeriod": {
+      "start": "2026-10-01",
+      "end": "2026-10-31",
+      "basis": {
+        "text": "신청기한: 2026.10.01~2026.10.31",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2121704&bnefType=all&svcId=138300000052"
+      }
+    }
   },
   {
     "slug": "gov24-138300000065",
@@ -1864,7 +1888,15 @@
         "source": "GOV24",
         "externalId": "B55353000001"
       }
-    ]
+    ],
+    "applicationPeriod": {
+      "start": "2026-06-15",
+      "end": "2026-12-31",
+      "basis": {
+        "text": "신청기한: 2026. 6. 15.(월) ~ 2026. 12. 31.(목)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999178&bnefType=all&svcId=B55353000001"
+      }
+    }
   },
   {
     "slug": "gov24-b55370100008",

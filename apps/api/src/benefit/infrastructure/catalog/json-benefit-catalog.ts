@@ -3,6 +3,7 @@ import type { SourceId } from '../../../collect/domain/source-record';
 import { CatalogError } from '../../application/sync-catalog.use-case';
 import { BenefitCatalog } from '../../application/ports/benefit-catalog';
 import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
+import type { ApplicationPeriod } from '../../domain/application-period';
 import type { AmountKind, AmountTier, BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule, ScheduleAnchor, ScheduleOffset } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
@@ -48,6 +49,7 @@ function toDetails(entry: unknown, index: number): BenefitDetails {
     schedule: e.schedule === undefined || e.schedule === null ? null : scheduleOf(e.schedule, where),
     conditions: conditionsOf(e.conditions, where),
     amount: e.amount === undefined || e.amount === null ? null : amountOf(e.amount, where),
+    applicationPeriod: e.applicationPeriod === undefined || e.applicationPeriod === null ? null : periodOf(e.applicationPeriod, where),
   };
 }
 
@@ -120,4 +122,14 @@ function tierOf(value: unknown, where: string): AmountTier {
     throw new CatalogError(`${where}: amount.tiers의 minBirthOrder, maxBirthOrder, won은 숫자여야 합니다`);
   }
   return { minBirthOrder: t.minBirthOrder, maxBirthOrder: max as number | null, won: t.won };
+}
+
+function periodOf(value: unknown, where: string): ApplicationPeriod {
+  const p = (value ?? {}) as Record<string, unknown>;
+  const basis = (p.basis ?? {}) as Record<string, unknown>;
+  const text = (v: unknown, field: string) => {
+    if (typeof v !== 'string') throw new CatalogError(`${where}: applicationPeriod.${field}가 문자열이 아닙니다`);
+    return v;
+  };
+  return { start: text(p.start, 'start'), end: text(p.end, 'end'), basis: { text: text(basis.text, 'basis.text'), url: text(basis.url, 'basis.url') } };
 }

@@ -1,4 +1,5 @@
 import type { BenefitScope } from '../domain/benefit';
+import type { ApplicationPeriod } from '../domain/application-period';
 import type { BenefitAmount } from '../domain/benefit-amount';
 import type { BenefitSchedule } from '../domain/benefit-schedule';
 import type { EligibilityCondition } from '../domain/eligibility-condition';
@@ -18,6 +19,7 @@ export interface PublishedBenefit {
   schedule: BenefitSchedule | null;
   conditions: EligibilityCondition[];
   amount: BenefitAmount | null;
+  applicationPeriod: ApplicationPeriod | null;
 }
 
 // 사이트에 보여줄 혜택. 원본이 사라졌거나 없는 혜택만 빠진다
@@ -46,6 +48,7 @@ export class ListPublishedBenefitsUseCase {
           schedule: benefit.schedule,
           conditions: benefit.conditions,
           amount: benefit.amount,
+          applicationPeriod: benefit.applicationPeriod,
         };
       })
       .sort((a, b) => a.name.localeCompare(b.name, 'ko'));
