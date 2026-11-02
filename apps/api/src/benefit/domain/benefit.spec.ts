@@ -267,6 +267,15 @@ describe('Benefit', () => {
       expect(() => verified().revise(details({ audience: 'VIP' as never }))).toThrow('알 수 없는 대상 묶음');
     });
 
+    it.each([
+      [{}, 'none'],
+      [{ audience: 'LOW_INCOME' as const }, 'audience'],
+      [{ name: '이름 바꿈' }, 'content'],
+      [{ name: '이름 바꿈', audience: 'LOW_INCOME' as const }, 'content'],
+    ])('바뀐 것 %o는 %s', (overrides, kind) => {
+      expect(Benefit.register(details()).changeKind(details(overrides))).toBe(kind);
+    });
+
     it('slug는 바꿀 수 없다', () => {
       expect(() => verified().revise(details({ slug: 'other' }))).toThrow(InvalidBenefitError);
     });
