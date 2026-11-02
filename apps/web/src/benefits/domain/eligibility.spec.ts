@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { EligibilityCondition, PublishedBenefit } from './benefit';
-import { splitByEligibility, UNANSWERED, unansweredConditions, type Household, type Insurance } from './eligibility';
+import { answeredCount, splitByEligibility, UNANSWERED, unansweredConditions, type Household, type Insurance } from './eligibility';
 
 const benefit = (name: string, conditions: EligibilityCondition[] = []): PublishedBenefit => ({
   slug: name,
@@ -103,5 +103,13 @@ describe('unansweredConditions', () => {
 
   it('조건이 없으면 빈 목록', () => {
     expect(unansweredConditions(everyone, UNANSWERED)).toEqual([]);
+  });
+});
+
+describe('answeredCount', () => {
+  it('답한 선택 질문 수를 센다', () => {
+    expect(answeredCount(UNANSWERED)).toBe(0);
+    expect(answeredCount({ ...UNANSWERED, birthOrder: 1, childcare: 'home' })).toBe(2);
+    expect(answeredCount({ birthOrder: 2, birthParent: 'insured', partner: 'uninsured', childcare: 'daycare' })).toBe(4);
   });
 });

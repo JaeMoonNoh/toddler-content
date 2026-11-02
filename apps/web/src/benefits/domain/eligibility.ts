@@ -71,3 +71,8 @@ export function splitByEligibility(benefits: PublishedBenefit[], household: Hous
 export function unansweredConditions(benefit: PublishedBenefit, household: Household): string[] {
   return benefit.conditions.filter((c) => meets(c, household) === null).map((c) => CONDITION_LABEL[c]);
 }
+
+// 선택 질문 중 답한 개수 (몇째, 출산하는 분 고용보험, 배우자 고용보험, 어린이집)
+export function answeredCount({ birthOrder, birthParent, partner, childcare }: Household): number {
+  return [birthOrder !== null, birthParent !== 'unknown', partner !== 'unknown', childcare !== 'unknown'].filter(Boolean).length;
+}

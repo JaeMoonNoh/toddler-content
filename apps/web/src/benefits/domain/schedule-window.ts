@@ -41,3 +41,13 @@ export function describeStatus(status: WindowStatus): string {
       return '기간 지남';
   }
 }
+
+const SOON_DAYS = 30; // 마감까지 이만큼 남았을 때만 눈에 띄게 한다
+
+// 화면에서 얼마나 강조할지. 지금 가능한 혜택이 많아도 마감이 가까운 것만 튀게 한다
+export type WindowEmphasis = 'soon' | 'open' | 'upcoming' | 'closed';
+
+export function emphasisOf(status: WindowStatus): WindowEmphasis {
+  if (status.kind === 'open') return status.daysLeft <= SOON_DAYS ? 'soon' : 'open';
+  return status.kind;
+}

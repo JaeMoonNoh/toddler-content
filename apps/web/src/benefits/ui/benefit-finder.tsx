@@ -5,7 +5,7 @@ import { receiptOf } from '../domain/amount';
 import { splitByAudience } from '../domain/audience';
 import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
-import { splitByEligibility, UNANSWERED } from '../domain/eligibility';
+import { answeredCount, splitByEligibility, UNANSWERED } from '../domain/eligibility';
 import { describeStage, pregnancyStage } from '../domain/pregnancy';
 import { groupForRegion, REGIONS } from '../domain/region';
 import { buildTimeline } from '../domain/timeline';
@@ -58,9 +58,14 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
               {stage ? describeStage(stage) : '출산예정일을 넣으면 신청 일정을 날짜로 계산해 드려요'}
             </p>
           </div>
-          <BirthOrderField household={household} onChange={setHousehold} />
-          <HouseholdFields household={household} onChange={setHousehold} />
-          <ChildcareField household={household} onChange={setHousehold} />
+          <details className="more-fields">
+            <summary>
+              더 정확하게 보기 <span>{answeredCount(household) ? `${answeredCount(household)}개 답함` : '선택'}</span>
+            </summary>
+            <BirthOrderField household={household} onChange={setHousehold} />
+            <HouseholdFields household={household} onChange={setHousehold} />
+            <ChildcareField household={household} onChange={setHousehold} />
+          </details>
         </form>
         <AmountReceipt receipt={receipt} birthOrderKnown={household.birthOrder !== null} />
         {timeline && <CalendarDownload timeline={timeline} />}
