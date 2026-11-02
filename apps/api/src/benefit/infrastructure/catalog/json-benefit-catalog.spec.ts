@@ -19,7 +19,7 @@ const parse = (value: unknown) => parseCatalog(JSON.stringify(value));
 describe('parseCatalog', () => {
   it('항목을 혜택 정보로 바꾼다', () => {
     expect(parse([entry()])).toEqual([
-      { slug: 'gov24-1', name: '혜택', scope: 'national', sourceUrl: 'https://plus.gov.kr/x', sources: [new SourceRef('GOV24', '1')], schedule: null },
+      { slug: 'gov24-1', name: '혜택', scope: 'national', sourceUrl: 'https://plus.gov.kr/x', sources: [new SourceRef('GOV24', '1')], schedule: null, conditions: [] },
     ]);
   });
 
@@ -38,6 +38,10 @@ describe('parseCatalog', () => {
     });
   });
 
+  it('조건을 읽는다', () => {
+    expect(parse([entry({ conditions: ['EITHER_PARENT_INSURED'] })])[0].conditions).toEqual(['EITHER_PARENT_INSURED']);
+  });
+
   it('빈 배열은 빈 목록', () => {
     expect(parse([])).toEqual([]);
   });
@@ -52,6 +56,8 @@ describe('parseCatalog', () => {
     ['출처 ID 빈 값', JSON.stringify([entry({ sources: [{ source: 'GOV24', externalId: '' }] })]), '알 수 없는 원본'],
     ['모르는 기준일', JSON.stringify([entry({ schedule: { from: { anchor: 'due' }, until: { anchor: 'birth' } } })]), 'anchor는'],
     ['소수 날수', JSON.stringify([entry({ schedule: { from: { anchor: 'birth', days: 1.5 }, until: { anchor: 'birth' } } })]), '정수'],
+    ['조건이 문자열 배열이 아님', JSON.stringify([entry({ conditions: 'BIRTH_PARENT_INSURED' })]), 'conditions는'],
+    ['조건에 숫자', JSON.stringify([entry({ conditions: [1] })]), 'conditions는'],
     ['일정 설명 없음', JSON.stringify([entry({ schedule: { from: { anchor: 'birth' }, until: { anchor: 'birth' }, untilLabel: '마감' } })]), 'schedule.summary'],
   ])('%s이면 몇 번째 항목인지와 함께 거절한다', (_, text, message) => {
     expect(() => parseCatalog(text)).toThrow(CatalogError);

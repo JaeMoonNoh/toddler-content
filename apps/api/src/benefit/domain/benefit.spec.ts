@@ -14,6 +14,7 @@ const details = (overrides: Partial<BenefitDetails> = {}): BenefitDetails => ({
   sourceUrl: 'https://plus.gov.kr/portal/benefit?svcId=571000000116',
   sources: [gov],
   schedule: null,
+  conditions: [],
   ...overrides,
 });
 
@@ -80,6 +81,20 @@ describe('Benefit', () => {
       it('임신 기준 시작과 출생 기준 끝을 섞어 쓸 수 있다', () => {
         const mixed = schedule({ from: { anchor: 'pregnancy', months: 0, days: 0 }, until: { anchor: 'birth', months: 24, days: 0 } });
         expect(() => Benefit.register(details({ schedule: mixed }))).not.toThrow();
+      });
+    });
+
+    describe('받기 위한 조건', () => {
+      it('알려진 조건이면 받는다', () => {
+        expect(Benefit.register(details({ conditions: ['BIRTH_PARENT_INSURED', 'PARTNER_INSURED'] })).conditions).toHaveLength(2);
+      });
+
+      it.each([
+        ['모르는 조건', ['MULTI_CHILD'], '알 수 없는 조건'],
+        ['같은 조건 두 번', ['PARTNER_INSURED', 'PARTNER_INSURED'], '두 번'],
+        ['가입과 미가입을 함께', ['BIRTH_PARENT_INSURED', 'BIRTH_PARENT_UNINSURED'], '함께 요구할 수 없습니다'],
+      ])('%s이면 거절한다', (_, conditions, message) => {
+        expect(() => Benefit.register(details({ conditions: conditions as never }))).toThrow(message);
       });
     });
 
@@ -193,6 +208,7 @@ describe('Benefit', () => {
       ['연결 원본', { sources: [gov] }],
       ['대표 출처 순서', { sources: [bok, gov] }],
       ['신청 기간 규칙 추가', { schedule: schedule() }],
+      ['받기 위한 조건 추가', { conditions: ['EITHER_PARENT_INSURED' as const] }],
     ])('%s이 바뀌면 다시 확인해야 한다', (_, overrides) => {
       const base = details({ sources: [gov, bok] });
       const benefit = Benefit.register(base).verify(sources(state(gov), state(bok)), at);
@@ -205,6 +221,11 @@ describe('Benefit', () => {
       const withSchedule = Benefit.register(details({ schedule: schedule() })).verify(sources(state(gov)), at);
       expect(withSchedule.revise(details({ schedule: schedule() })).verifiedAt).toBe(at);
       expect(withSchedule.revise(details({ schedule: schedule({ summary: '바뀐 설명' }) })).verifiedAt).toBeNull();
+    });
+
+    it('조건 순서만 다르면 바뀐 것으로 보지 않는다', () => {
+      const benefit = Benefit.register(details({ conditions: ['BIRTH_PARENT_INSURED', 'PARTNER_INSURED'] })).verify(sources(state(gov)), at);
+      expect(benefit.revise(details({ conditions: ['PARTNER_INSURED', 'BIRTH_PARENT_INSURED'] })).verifiedAt).toBe(at);
     });
 
     it('slug는 바꿀 수 없다', () => {

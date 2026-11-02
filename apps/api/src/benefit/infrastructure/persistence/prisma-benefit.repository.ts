@@ -4,6 +4,7 @@ import { PrismaService } from '../../../prisma/prisma.service';
 import { BenefitRepository } from '../../application/ports/benefit.repository';
 import { Benefit, type BenefitScope } from '../../domain/benefit';
 import type { BenefitSchedule } from '../../domain/benefit-schedule';
+import type { EligibilityCondition } from '../../domain/eligibility-condition';
 import { SourceRef } from '../../domain/source-ref';
 
 const WITH_SOURCES = { sources: { orderBy: { position: 'asc' } } } satisfies Prisma.BenefitInclude;
@@ -32,6 +33,7 @@ export class PrismaBenefitRepository extends BenefitRepository {
           scope: benefit.scope,
           sourceUrl: benefit.sourceUrl,
           schedule: benefit.schedule ? (benefit.schedule as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
+          conditions: benefit.conditions,
           verifiedAt: benefit.verifiedAt,
         };
         const { id } = await tx.benefit.upsert({ where: { slug: benefit.slug }, create: { slug: benefit.slug, ...fields }, update: fields });
@@ -65,6 +67,7 @@ function toBenefit(row: BenefitRow): Benefit {
     sourceUrl: row.sourceUrl,
     sources: sources.map((s) => s.ref),
     schedule: (row.schedule ?? null) as BenefitSchedule | null,
+    conditions: row.conditions as EligibilityCondition[],
   };
   const snapshots = sources
     .filter((s) => s.row.verifiedHash !== null)

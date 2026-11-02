@@ -4,6 +4,7 @@ import { CatalogError } from '../../application/sync-catalog.use-case';
 import { BenefitCatalog } from '../../application/ports/benefit-catalog';
 import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
 import type { BenefitSchedule, ScheduleAnchor, ScheduleOffset } from '../../domain/benefit-schedule';
+import type { EligibilityCondition } from '../../domain/eligibility-condition';
 import { SourceRef } from '../../domain/source-ref';
 
 const SOURCE_IDS: readonly string[] = ['GOV24', 'BOKJIRO_NATIONAL', 'BOKJIRO_LOCAL'] satisfies SourceId[];
@@ -44,6 +45,7 @@ function toDetails(entry: unknown, index: number): BenefitDetails {
     sourceUrl: text('sourceUrl'),
     sources: sourcesOf(e.sources, where),
     schedule: e.schedule === undefined || e.schedule === null ? null : scheduleOf(e.schedule, where),
+    conditions: conditionsOf(e.conditions, where),
   };
 }
 
@@ -83,4 +85,11 @@ function offsetOf(value: unknown, where: string): ScheduleOffset {
   if (!ANCHORS.includes(String(o.anchor))) throw new CatalogError(`${where}: anchor는 pregnancy 또는 birth여야 합니다`);
   if (!Number.isInteger(months) || !Number.isInteger(days)) throw new CatalogError(`${where}: months, days는 정수여야 합니다`);
   return { anchor: o.anchor as ScheduleAnchor, months: months as number, days: days as number };
+}
+
+// 어떤 조건이 있는지는 도메인이 검사한다
+function conditionsOf(value: unknown, where: string): EligibilityCondition[] {
+  if (value === undefined) return [];
+  if (!Array.isArray(value) || value.some((c) => typeof c !== 'string')) throw new CatalogError(`${where}: conditions는 문자열 배열이어야 합니다`);
+  return value as EligibilityCondition[];
 }

@@ -1,5 +1,6 @@
 import type { BenefitScope } from '../domain/benefit';
 import type { BenefitSchedule } from '../domain/benefit-schedule';
+import type { EligibilityCondition } from '../domain/eligibility-condition';
 import { isPublishable, type PublishedStatusKind } from '../domain/review-status';
 import type { BenefitRepository } from './ports/benefit.repository';
 import type { SourceStateReader } from './ports/source-state.reader';
@@ -14,6 +15,7 @@ export interface PublishedBenefit {
   // VERIFIED: 확인됨, UNVERIFIED: "검증 전"으로 표시, SOURCE_CHANGED: 확인 뒤 출처 내용이 바뀌어 다시 확인 중
   reviewStatus: PublishedStatusKind;
   schedule: BenefitSchedule | null;
+  conditions: EligibilityCondition[];
 }
 
 // 사이트에 보여줄 혜택. 원본이 사라졌거나 없는 혜택만 빠진다
@@ -40,6 +42,7 @@ export class ListPublishedBenefitsUseCase {
           verifiedAt: benefit.verifiedAt,
           reviewStatus: status.kind,
           schedule: benefit.schedule,
+          conditions: benefit.conditions,
         };
       })
       .sort((a, b) => a.name.localeCompare(b.name, 'ko'));

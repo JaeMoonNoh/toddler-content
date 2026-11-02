@@ -637,6 +637,9 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00000838"
       }
+    ],
+    "conditions": [
+      "BIRTH_PARENT_UNINSURED"
     ]
   },
   {
@@ -649,6 +652,9 @@
         "source": "GOV24",
         "externalId": "149200005017"
       }
+    ],
+    "conditions": [
+      "BIRTH_PARENT_INSURED"
     ]
   },
   {
@@ -665,6 +671,9 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00006292"
       }
+    ],
+    "conditions": [
+      "EITHER_PARENT_INSURED"
     ]
   },
   {
@@ -717,6 +726,9 @@
         "source": "GOV24",
         "externalId": "999000000004"
       }
+    ],
+    "conditions": [
+      "PARTNER_INSURED"
     ]
   },
   {
@@ -729,6 +741,9 @@
         "source": "GOV24",
         "externalId": "999000000007"
       }
+    ],
+    "conditions": [
+      "EITHER_PARENT_INSURED"
     ]
   },
   {
@@ -759,7 +774,10 @@
         "text": "근로자가 만 8세 이하 또는 초등학교 2학년 이하의 자녀를 양육하기 위하여 육아휴직을 신청하는 경우 / 육아휴직을 시작한 날 이후 1개월부터 끝난 날 이후 12개월 이내에 신청",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999029&bnefType=all&svcId=999000000008"
       }
-    }
+    },
+    "conditions": [
+      "EITHER_PARENT_INSURED"
+    ]
   },
   {
     "slug": "gov24-b55092800042",
@@ -1189,7 +1207,10 @@
         "text": "임신 중의 여성에게 출산 전과 후를 통하여 90일(미숙아 100일, 다태아 120일) 부여, 출산 후 45일(다태아 60일) 이상 배정",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=758582&bnefType=all&svcId=WII000001460"
       }
-    }
+    },
+    "conditions": [
+      "BIRTH_PARENT_INSURED"
+    ]
   },
   {
     "slug": "gov24-wii000001550",
@@ -1375,6 +1396,9 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00003226"
       }
+    ],
+    "conditions": [
+      "EITHER_PARENT_INSURED"
     ]
   },
   {

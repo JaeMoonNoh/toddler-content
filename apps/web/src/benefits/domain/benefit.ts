@@ -15,6 +15,8 @@ export interface BenefitSchedule {
   basis: { text: string; url: string };
 }
 
+export type EligibilityCondition = 'BIRTH_PARENT_INSURED' | 'PARTNER_INSURED' | 'EITHER_PARENT_INSURED' | 'BIRTH_PARENT_UNINSURED';
+
 // GET /benefits 응답 한 건
 export interface PublishedBenefit {
   slug: string;
@@ -25,6 +27,7 @@ export interface PublishedBenefit {
   verifiedAt: string | null;
   reviewStatus: ReviewStatus;
   schedule: BenefitSchedule | null;
+  conditions: EligibilityCondition[];
 }
 
 export const SCOPE_LABEL: Record<BenefitScope, string> = {
