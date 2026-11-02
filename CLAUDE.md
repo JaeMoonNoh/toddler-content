@@ -20,7 +20,8 @@
 
 ## 기술 스택
 
-- 저장소 하나에 백엔드와 프론트엔드를 함께 둔다 (npm workspaces). 혼자 개발하는 동안은 분리하지 않는다.
+- 저장소 하나에 백엔드와 프론트엔드를 함께 둔다 (pnpm workspace). 혼자 개발하는 동안은 분리하지 않는다.
+- 패키지 매니저는 pnpm만 쓴다. npm, yarn으로 설치하지 않는다 (`pnpm --filter @toddler/api add <패키지>`).
 - 백엔드: NestJS (`apps/api`)
 - 프론트엔드: Next.js (`apps/web`)
 - DB: PostgreSQL
@@ -44,6 +45,8 @@ docker compose up --build
 - 웹: http://localhost:3000
 - API: http://localhost:4000 (상태 확인: `/health`)
 - PostgreSQL: localhost:5432 (계정 정보는 `.env.example` 참고)
+
+Docker 없이 개발할 때는 `pnpm install` 후 `pnpm dev:api`, `pnpm dev:web`.
 
 ## Git 규칙
 

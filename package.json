@@ -1,15 +1,13 @@
 {
   "name": "toddler-content",
   "private": true,
-  "workspaces": [
-    "apps/*"
-  ],
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "dev:api": "npm run start:dev -w apps/api",
-    "dev:web": "npm run dev -w apps/web",
-    "build": "npm run build --workspaces"
-  }
+    "dev:api": "pnpm --filter @toddler/api start:dev",
+    "dev:web": "pnpm --filter @toddler/web dev",
+    "build": "pnpm -r build"
+  },
+  "packageManager": "pnpm@12.14.0"
 }

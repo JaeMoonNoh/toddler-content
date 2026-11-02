@@ -1,25 +1,23 @@
 # 빌드 컨텍스트는 저장소 루트 (docker compose가 지정)
 
-FROM node:22-alpine AS deps
+FROM node:22-alpine AS base
+RUN corepack enable
 WORKDIR /app
-# 워크스페이스 전체 package.json이 있어야 lockfile 검증을 통과한다
-COPY package.json package-lock.json ./
-COPY apps/api/package.json apps/api/
-COPY apps/web/package.json apps/web/
-RUN npm ci -w apps/api
 
-FROM deps AS build
+FROM base AS build
+# 의존성 설치 레이어를 소스 변경과 분리해서 캐시를 살린다
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/api/package.json apps/api/
+RUN pnpm install --frozen-lockfile --filter @toddler/api
 COPY apps/api apps/api
-RUN npm run build -w apps/api
+RUN pnpm --filter @toddler/api build
+# 실행에 필요한 파일과 운영 의존성만 /out으로 모은다
+RUN pnpm --filter @toddler/api deploy --prod --legacy /out
 
 FROM node:22-alpine AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
-COPY package.json package-lock.json ./
-COPY apps/api/package.json apps/api/
-COPY apps/web/package.json apps/web/
-RUN npm ci -w apps/api --omit=dev && npm cache clean --force
-COPY --from=build /app/apps/api/dist apps/api/dist
+COPY --from=build --chown=node:node /out ./
 USER node
 EXPOSE 4000
-CMD ["node", "apps/api/dist/main.js"]
+CMD ["node", "dist/main.js"]
