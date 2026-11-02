@@ -7,6 +7,7 @@ import { describeStage, pregnancyStage } from '../domain/pregnancy';
 import { groupForRegion, REGIONS } from '../domain/region';
 import { buildTimeline } from '../domain/timeline';
 import { BenefitGroups } from './benefit-groups';
+import { CalendarDownload } from './calendar-download';
 import { TimelineCard } from './timeline-card';
 
 // 사는 곳과 출산예정일은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다
@@ -44,6 +45,7 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
             </p>
           </div>
         </form>
+        {timeline && <CalendarDownload timeline={timeline} />}
         <p className="notice">
           일정은 아이가 출산예정일에 태어난다고 보고 계산해요. 실제 출생일이 다르면 그만큼 밀리거나 당겨져요.
         </p>

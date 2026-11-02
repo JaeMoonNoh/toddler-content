@@ -104,3 +104,11 @@ select, input[type='date'] { font: inherit; color: var(--ink); background: var(-
 @media (max-width: 420px) {
   .ev { grid-template-columns: 52px minmax(0, 1fr); gap: 10px; }
 }
+
+/* 캘린더 */
+.ics { display: grid; gap: 6px; }
+.btn { font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; background: var(--accent); color: var(--surface); border: 0; border-radius: 10px; padding: 11px 14px; }
+.btn:hover { filter: brightness(1.05); }
+.ics small { color: var(--muted); font-size: 12px; }
+.meta a.cal { margin-left: auto; }
+.meta a.cal + a { margin-left: 0; }

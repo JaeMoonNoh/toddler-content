@@ -1,4 +1,6 @@
 import { reviewBadge, SCOPE_LABEL } from '../domain/benefit';
+import { deadlineEventOf } from '../domain/deadline-event';
+import { googleCalendarUrl } from '../domain/google-calendar';
 import { describeStatus } from '../domain/schedule-window';
 import type { TimelineItem } from '../domain/timeline';
 
@@ -37,6 +39,11 @@ export function TimelineCard({ item }: { item: TimelineItem }) {
         </details>
         <div className="meta">
           <span>출처 {benefit.sourceName}</span>
+          {status.kind !== 'closed' && (
+            <a className="cal" href={googleCalendarUrl(deadlineEventOf(item))} target="_blank" rel="noopener noreferrer">
+              구글 캘린더에 마감일 추가
+            </a>
+          )}
           <a href={benefit.sourceUrl} target="_blank" rel="noopener noreferrer">
             원문 보기
           </a>

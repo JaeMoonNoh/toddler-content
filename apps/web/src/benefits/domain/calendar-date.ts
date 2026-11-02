@@ -47,6 +47,11 @@ export class CalendarDate {
     return new Date(this.epochDay * DAY_MS).toISOString().slice(0, 10);
   }
 
+  // 20261102 (캘린더 파일 형식)
+  toCompact(): string {
+    return this.toIso().replaceAll('-', '');
+  }
+
   // 11.2(월)
   formatShort(): string {
     return this.format().slice(5);
