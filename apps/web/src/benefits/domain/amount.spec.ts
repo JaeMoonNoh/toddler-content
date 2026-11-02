@@ -25,6 +25,7 @@ const benefit = (name: string, amount: BenefitAmount | null): PublishedBenefit =
   schedule: null,
   conditions: [],
   amount,
+  applicationPeriod: null,
 });
 
 describe('amountRange', () => {

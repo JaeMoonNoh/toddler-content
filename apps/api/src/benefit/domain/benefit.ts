@@ -1,3 +1,4 @@
+import { periodProblems, samePeriod, type ApplicationPeriod } from './application-period';
 import { amountProblems, sameAmount, type BenefitAmount } from './benefit-amount';
 import { conditionProblems, sameConditions, type EligibilityCondition } from './eligibility-condition';
 import { sameSchedule, scheduleProblems, type BenefitSchedule } from './benefit-schedule';
@@ -19,6 +20,7 @@ export interface BenefitDetails {
   schedule: BenefitSchedule | null; // 신청 기간 규칙. 아직 정리하지 않았으면 null
   conditions: EligibilityCondition[]; // 받기 위한 조건. 없으면 빈 배열
   amount: BenefitAmount | null; // 받는 금액. 아직 정리하지 않았으면 null
+  applicationPeriod: ApplicationPeriod | null; // 해마다 공고하는 사업의 올해 신청 기간. 상시 신청이면 null
 }
 
 export interface Verification {
@@ -73,6 +75,10 @@ export class Benefit {
 
   get schedule() {
     return this.details.schedule;
+  }
+
+  get applicationPeriod() {
+    return this.details.applicationPeriod;
   }
 
   get amount() {
@@ -157,6 +163,7 @@ function assertValid(details: BenefitDetails) {
     ...(details.schedule ? scheduleProblems(details.schedule) : []),
     ...conditionProblems(details.conditions),
     ...(details.amount ? amountProblems(details.amount) : []),
+    ...(details.applicationPeriod ? periodProblems(details.applicationPeriod) : []),
   ].filter((problem): problem is string => Boolean(problem));
   if (problems.length) throw new InvalidBenefitError(`${details.slug}: ${problems.join(', ')}`);
 }
@@ -170,6 +177,7 @@ function sameDetails(a: BenefitDetails, b: BenefitDetails) {
     keys(a) === keys(b) &&
     sameSchedule(a.schedule, b.schedule) &&
     sameConditions(a.conditions, b.conditions) &&
-    sameAmount(a.amount, b.amount)
+    sameAmount(a.amount, b.amount) &&
+    samePeriod(a.applicationPeriod, b.applicationPeriod)
   );
 }

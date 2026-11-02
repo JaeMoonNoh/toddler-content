@@ -36,6 +36,13 @@ export interface BenefitAmount {
   basis: { text: string; url: string };
 }
 
+// 해마다 공고하는 사업의 올해 신청 기간 (실제 날짜)
+export interface ApplicationPeriod {
+  start: string; // YYYY-MM-DD
+  end: string;
+  basis: { text: string; url: string };
+}
+
 // GET /benefits 응답 한 건
 export interface PublishedBenefit {
   slug: string;
@@ -48,6 +55,7 @@ export interface PublishedBenefit {
   schedule: BenefitSchedule | null;
   conditions: EligibilityCondition[];
   amount: BenefitAmount | null;
+  applicationPeriod: ApplicationPeriod | null;
 }
 
 export const SCOPE_LABEL: Record<BenefitScope, string> = {

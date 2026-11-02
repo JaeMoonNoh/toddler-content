@@ -3,6 +3,7 @@ import { Prisma } from '../../../generated/prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { BenefitRepository } from '../../application/ports/benefit.repository';
 import { Benefit, type BenefitScope } from '../../domain/benefit';
+import type { ApplicationPeriod } from '../../domain/application-period';
 import type { BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
@@ -41,6 +42,7 @@ export class PrismaBenefitRepository extends BenefitRepository {
           schedule: benefit.schedule ? (benefit.schedule as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
           conditions: benefit.conditions,
           amount: benefit.amount ? (benefit.amount as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
+          applicationPeriod: benefit.applicationPeriod ? (benefit.applicationPeriod as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
           verifiedAt: benefit.verifiedAt,
         };
         const { id } = await tx.benefit.upsert({ where: { slug: benefit.slug }, create: { slug: benefit.slug, ...fields }, update: fields });
@@ -76,6 +78,7 @@ function toBenefit(row: BenefitRow): Benefit {
     schedule: (row.schedule ?? null) as BenefitSchedule | null,
     conditions: row.conditions as EligibilityCondition[],
     amount: (row.amount ?? null) as BenefitAmount | null,
+    applicationPeriod: (row.applicationPeriod ?? null) as ApplicationPeriod | null,
   };
   const snapshots = sources
     .filter((s) => s.row.verifiedHash !== null)

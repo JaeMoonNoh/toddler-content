@@ -137,3 +137,9 @@ select, input[type='date'] { font: inherit; color: var(--ink); background: var(-
 .rtotal strong { font-size: 20px; font-variant-numeric: tabular-nums; color: var(--accent); white-space: nowrap; }
 .receipt .foot { color: var(--muted); font-size: 11px; margin: 8px 0 0; line-height: 1.5; }
 .rline .onlyif { display: block; font-size: 11px; color: var(--now); }
+
+/* 올해 신청 기간 */
+.chip.period-open, .chip.period-upcoming { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.chip.period-soon { background: var(--now); color: var(--surface); border-color: transparent; }
+.chip.period-closed { background: var(--bg); color: var(--muted); }
+.card.is-closed { opacity: 0.6; }

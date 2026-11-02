@@ -13,6 +13,7 @@ const benefit = (name: string, conditions: EligibilityCondition[] = []): Publish
   schedule: null,
   conditions,
   amount: null,
+  applicationPeriod: null,
 });
 const household = (birthParent: Insurance, partner: Insurance): Household => ({ birthParent, partner, birthOrder: null, childcare: 'unknown' });
 const shownNames = (benefits: PublishedBenefit[], h: Household) => splitByEligibility(benefits, h).shown.map((b) => b.name);
