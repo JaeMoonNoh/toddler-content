@@ -451,7 +451,34 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00001088"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "pregnancy",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 6,
+        "days": -1
+      },
+      "untilLabel": "신청 마감",
+      "summary": "고위험 임신질환으로 입원치료를 받았다면 분만일로부터 6개월 안에 신청해요",
+      "basis": {
+        "text": "분만일로부터 6개월 이내",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=594728&bnefType=all&svcId=135200000114"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "입원치료비 중 전액본인부담금·비급여 진료비의 90%",
+      "tiers": null,
+      "basis": {
+        "text": "고위험 임산부 입원치료비의 건강보험 급여 중 전액본인부담금 및 비급여 진료비에 해당하는 금액의 90% 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=594728&bnefType=all&svcId=135200000114"
+      }
+    }
   },
   {
     "slug": "gov24-135200000120",
@@ -482,8 +509,8 @@
       "untilLabel": "소급 신청 마감",
       "summary": "출생일 포함 60일 안에 신청해야 출생한 달부터 받아요. 늦으면 신청한 달부터 나와요",
       "basis": {
-        "text": "출생일 포함 60일 이내 신청 시 출생월부터 소급 지급 (공공 API 원문에는 없는 규칙이라 정부24·복지로 안내 기준으로 넣음. 검증 때 원문 확인 필요)",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=700023&bnefType=all&svcId=135200000120"
+        "text": "행복출산 통합신청 원문: 부모급여, 아동수당, 양육수당, 기저귀·조제분유지원 : 출생 후 60일까지 신청시 소급지원 가능",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=593069&bnefType=all&svcId=174000000029"
       }
     },
     "amount": {
@@ -594,7 +621,34 @@
         "source": "GOV24",
         "externalId": "135200005046"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "pregnancy",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "untilLabel": "임신 기간 동안",
+      "summary": "임신 중 병원 외래진료비가 자동으로 줄어요",
+      "basis": {
+        "text": "임신 기간 중 진료 과목 상관없이 요양 급여 비용 총액의 일정 비율 경감",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2156119&bnefType=all&svcId=135200005046"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "외래진료비 본인부담 경감 (상급종합병원 40%, 종합병원 30%, 병원 20%, 의원 10%)",
+      "tiers": null,
+      "basis": {
+        "text": "요양 급여 비용 총액의 일정 비율 경감(상급 종합병원 40%, 종합병원 30%, 병원 20%, 의원 10%)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2156119&bnefType=all&svcId=135200005046"
+      }
+    }
   },
   {
     "slug": "gov24-135200005048",
@@ -622,7 +676,34 @@
         "source": "GOV24",
         "externalId": "135200005050"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 24,
+        "days": -1
+      },
+      "untilLabel": "만 2세 전까지",
+      "summary": "아이가 2세가 되기 전까지 입원하면 본인부담금이 면제돼요",
+      "basis": {
+        "text": "2세 미만 영유아 / 입원 진료 시 진료비 중 본인 부담금 면제",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2156123&bnefType=all&svcId=135200005050"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "입원 진료비 본인부담금 면제 (식대 등 제외)",
+      "tiers": null,
+      "basis": {
+        "text": "입원 진료 시 진료비 중 본인 부담금 면제 ※ 식대, 선별 급여 등은 제외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2156123&bnefType=all&svcId=135200005050"
+      }
+    }
   },
   {
     "slug": "gov24-135200005055",
@@ -713,7 +794,40 @@
     ],
     "conditions": [
       "BIRTH_PARENT_UNINSURED"
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 12,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (지나면 소멸)",
+      "summary": "출산일로부터 1년 안에 신청하지 않으면 받을 수 없어요",
+      "basis": {
+        "text": "출산일로부터 1년 이내(기간내 미신청시 소멸)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=746900&bnefType=all&svcId=149200000153"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "총 150만원 한 번에 (월 50만원 × 3개월분)",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": null,
+          "won": 1500000
+        }
+      ],
+      "basis": {
+        "text": "출산급여 총 150만원 일괄 지급(월 50만원 x 3월분)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=746900&bnefType=all&svcId=149200000153"
+      }
+    }
   },
   {
     "slug": "gov24-149200005017",
@@ -728,7 +842,34 @@
     ],
     "conditions": [
       "BIRTH_PARENT_INSURED"
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 12,
+        "days": -1
+      },
+      "untilLabel": "신청 마감",
+      "summary": "출산한 날부터 12개월 안에 고용24에 신청해요",
+      "basis": {
+        "text": "출산 또는 유산ㆍ사산을 한 날부터 12개월 이내",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2103001&bnefType=all&svcId=149200005017"
+      }
+    },
+    "amount": {
+      "kind": "wage",
+      "summary": "출산 전후 90일 동안 월평균보수 (2026년 예술인 30일 상한 220만원, 노무제공자 210만원)",
+      "tiers": null,
+      "basis": {
+        "text": "출산(유산·사산)일 직전 1년 동안의 월평균보수에 해당하는 금액 / (예술인) '26년 고시 금액: 상한액 30일 기준 220만원 (노무제공자) 상한액 30일 기준 210만원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2103001&bnefType=all&svcId=149200005017"
+      }
+    }
   },
   {
     "slug": "gov24-149200005026",
@@ -759,7 +900,25 @@
         "source": "GOV24",
         "externalId": "174000000029"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 59
+      },
+      "untilLabel": "함께 신청해야 소급되는 기한",
+      "summary": "출생신고 때 첫만남이용권·부모급여·아동수당 등을 한 번에 신청해요. 출생 후 60일 안에 해야 부모급여·아동수당이 출생한 달부터 나와요",
+      "basis": {
+        "text": "출생신고 시 또는 출생신고 이후 신청가능 / 부모급여, 아동수당, 양육수당, 기저귀·조제분유지원 : 출생 후 60일까지 신청시 소급지원 가능",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=593069&bnefType=all&svcId=174000000029"
+      }
+    }
   },
   {
     "slug": "gov24-183000000019",
@@ -802,7 +961,16 @@
     ],
     "conditions": [
       "PARTNER_INSURED"
-    ]
+    ],
+    "amount": {
+      "kind": "wage",
+      "summary": "20일 휴가 동안 통상임금 (2026년 상한 1,684,210원)",
+      "tiers": null,
+      "basis": {
+        "text": "배우자 출산휴가 기간(20일) / 지급 금액: 통상임금에 해당하는 금액 · 상한액: ('26년 고시 금액: 1,684,210원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999019&bnefType=all&svcId=999000000004"
+      }
+    }
   },
   {
     "slug": "gov24-999000000007",
@@ -817,7 +985,34 @@
     ],
     "conditions": [
       "EITHER_PARENT_INSURED"
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 156,
+        "days": -1
+      },
+      "untilLabel": "쓸 수 있는 기한 (만 12세 이하)",
+      "summary": "자녀가 만 12세 이하일 때까지 주 15~35시간으로 줄여 일할 수 있어요. 급여는 단축 시작 1개월 뒤부터 끝난 뒤 12개월 안에 신청해요",
+      "basis": {
+        "text": "만 12세 이하 또는 초등학교 6학년 이하의 자녀를 양육하기 위하여 신청하는 경우 1년간(육아휴직 미사용 기간 2배 가산 시 최대 3년간) 주당 15~35시간으로 근로시간 단축 가능",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999028&bnefType=all&svcId=999000000007"
+      }
+    },
+    "amount": {
+      "kind": "wage",
+      "summary": "줄인 시간만큼 임금 일부 (매주 처음 10시간은 통상임금 100%, 상한 250만원 기준)",
+      "tiers": null,
+      "basis": {
+        "text": "매주 최초 10시간 단축분: 월 통상임금 100%(상한액 250만원) × 10 / 단축 전 소정근로시간 · 나머지 근로시간 단축분: 통상임금의 80%(상한액 160만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999028&bnefType=all&svcId=999000000007"
+      }
+    }
   },
   {
     "slug": "gov24-999000000008",
@@ -1166,7 +1361,34 @@
         "source": "GOV24",
         "externalId": "SD0000016094"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "pregnancy",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "untilLabel": "출산 전까지 (보건소)",
+      "summary": "엽산제는 임신 초기, 철분제는 임신 16주부터 5개월분을 보건소에서 받아요",
+      "basis": {
+        "text": "(엽산제) 임신 전후 3개월까지 엽산제 지원 (철분제) 임신 16주부터 철분제 5개월분",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=585138&bnefType=all&svcId=SD0000016094"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "엽산제, 철분제(5개월분) 무료",
+      "tiers": null,
+      "basis": {
+        "text": "(엽산제) 임신 전후 3개월까지 엽산제 지원 (철분제) 임신 16주부터 철분제 5개월분",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=585138&bnefType=all&svcId=SD0000016094"
+      }
+    }
   },
   {
     "slug": "gov24-sd0000016095",
@@ -1379,8 +1601,8 @@
       "untilLabel": "소급 신청 마감",
       "summary": "출생일 포함 60일 안에 신청해야 출생한 달부터 받아요. 늦으면 신청한 달부터 나와요",
       "basis": {
-        "text": "출생일 포함 60일 이내 신청 시 출생월부터 소급 지급 (공공 API 원문에는 없는 규칙이라 정부24·복지로 안내 기준으로 넣음. 검증 때 원문 확인 필요)",
-        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004657&wlfareInfoReldBztpCd=01"
+        "text": "행복출산 통합신청 원문: 부모급여, 아동수당, 양육수당, 기저귀·조제분유지원 : 출생 후 60일까지 신청시 소급지원 가능",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=593069&bnefType=all&svcId=174000000029"
       }
     }
   },
@@ -1706,7 +1928,34 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00000040"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 12,
+        "days": -1
+      },
+      "untilLabel": "검사비 신청 마감",
+      "summary": "신생아 선천성 대사이상 검사비는 출생일로부터 1년 안에 보건소에 신청해요",
+      "basis": {
+        "text": "(대사이상 검사비) 대상 영아 출생일로부터 1년 이내",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=107104&bnefType=all&svcId=SD0000007043"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "선별·확진검사 본인부담금 지원 (확진검사는 환아 판정 시, 7만원 한도)",
+      "tiers": null,
+      "basis": {
+        "text": "신생아 선천성대사이상 외래 선별검사 및 확진검사 (일부)본인부담금 지원 - 확진검사의 경우 확진검사 결과 선천성대사이상 환아로 판정된 경우에만 지원(7만원 한도)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=107104&bnefType=all&svcId=SD0000007043"
+      }
+    }
   },
   {
     "slug": "gov24-wii000000500",
