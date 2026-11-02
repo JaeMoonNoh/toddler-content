@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { join } from 'node:path';
+import { BenefitDetailUseCase } from '../application/benefit-detail.use-case';
 import { ListPublishedBenefitsUseCase } from '../application/list-published-benefits.use-case';
 import { BenefitCatalog } from '../application/ports/benefit-catalog';
 import { BenefitRepository } from '../application/ports/benefit.repository';
@@ -9,6 +10,7 @@ import { ReviewQueueUseCase } from '../application/review-queue.use-case';
 import { SyncCatalogUseCase } from '../application/sync-catalog.use-case';
 import { VerifyBenefitsUseCase } from '../application/verify-benefits.use-case';
 import { JsonBenefitCatalog } from './catalog/json-benefit-catalog';
+import { BenefitDetailPrinter } from './cli/benefit-detail-printer';
 import { ReviewPrinter } from './cli/review-printer';
 import { BenefitsController } from './http/benefits.controller';
 import { PrismaBenefitRepository } from './persistence/prisma-benefit.repository';
@@ -41,6 +43,11 @@ const withRepositoryAndReader = [BenefitRepository, SourceStateReader];
       inject: withRepositoryAndReader,
     },
     {
+      provide: BenefitDetailUseCase,
+      useFactory: (repository: BenefitRepository, reader: SourceStateReader) => new BenefitDetailUseCase(repository, reader),
+      inject: withRepositoryAndReader,
+    },
+    {
       provide: VerifyBenefitsUseCase,
       useFactory: (repository: BenefitRepository, reader: SourceStateReader) => new VerifyBenefitsUseCase(repository, reader),
       inject: withRepositoryAndReader,
@@ -51,7 +58,8 @@ const withRepositoryAndReader = [BenefitRepository, SourceStateReader];
       inject: withRepositoryAndReader,
     },
     { provide: ReviewPrinter, useFactory: () => new ReviewPrinter() },
+    { provide: BenefitDetailPrinter, useFactory: () => new BenefitDetailPrinter() },
   ],
-  exports: [SyncCatalogUseCase, RetireBenefitsUseCase, ReviewQueueUseCase, VerifyBenefitsUseCase, ReviewPrinter],
+  exports: [SyncCatalogUseCase, RetireBenefitsUseCase, BenefitDetailUseCase, BenefitDetailPrinter, ReviewQueueUseCase, VerifyBenefitsUseCase, ReviewPrinter],
 })
 export class BenefitModule {}

@@ -1,16 +1,19 @@
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import type { INestApplicationContext } from '@nestjs/common';
+import { BenefitDetailUseCase } from '../../application/benefit-detail.use-case';
 import { RetireBenefitsUseCase } from '../../application/retire-benefits.use-case';
 import { ReviewQueueUseCase } from '../../application/review-queue.use-case';
 import { SyncCatalogUseCase } from '../../application/sync-catalog.use-case';
 import { VerifyBenefitsUseCase } from '../../application/verify-benefits.use-case';
 import { BenefitCliModule } from './benefit-cli.module';
+import { BenefitDetailPrinter } from './benefit-detail-printer';
 import { ReviewPrinter } from './review-printer';
 
 const USAGE = `사용법: pnpm benefit <명령>
   sync                     data/benefit-catalog.json을 DB에 반영
   review                   확인이 필요한 혜택 보기
+  review <slug>            혜택 하나를 검증할 때 볼 내용 (정리한 일정·금액과 지금 원문)
   verify <slug> [...]      원문을 확인한 혜택에 확인일 남기기
   retire <slug> [...]      목록 파일에서 뺀 혜택을 DB에서도 지우기 (사이트에서 사라짐)`;
 
@@ -18,7 +21,11 @@ type Command = (app: INestApplicationContext, args: string[]) => Promise<{ text:
 
 const COMMANDS: Record<string, Command> = {
   sync: async (app) => ({ text: app.get(ReviewPrinter).printSync(await app.get(SyncCatalogUseCase).execute()), ok: true }),
-  review: async (app) => ({ text: app.get(ReviewPrinter).printQueue(await app.get(ReviewQueueUseCase).execute()), ok: true }),
+  review: async (app, [slug]) => {
+    if (!slug) return { text: app.get(ReviewPrinter).printQueue(await app.get(ReviewQueueUseCase).execute()), ok: true };
+    const detail = await app.get(BenefitDetailUseCase).execute(slug);
+    return detail ? { text: app.get(BenefitDetailPrinter).print(detail), ok: true } : { text: `✘ ${slug}: 없는 혜택입니다`, ok: false };
+  },
   verify: async (app, slugs) => {
     const at = new Date();
     const result = await app.get(VerifyBenefitsUseCase).execute(slugs, at);

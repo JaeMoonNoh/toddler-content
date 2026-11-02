@@ -59,6 +59,7 @@ API 서버는 매일 새벽 4시(한국 시각)에 같은 일을 자동으로 �
 ```bash
 pnpm benefit sync                 # 목록 파일을 DB에 반영
 pnpm benefit review               # 확인이 필요한 혜택 보기 (바뀐 원본은 필드별 전후 값까지)
+pnpm benefit review <slug>        # 혜택 하나를 검증할 때 볼 내용: 정리한 일정·금액·조건과 지금 원문을 나란히
 pnpm benefit verify <slug> ...    # 원문을 확인한 혜택에 확인일 남기기
 pnpm benefit retire <slug> ...    # 목록 파일에서 뺀 혜택을 DB와 사이트에서도 지우기
 ```
