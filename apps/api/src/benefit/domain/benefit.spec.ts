@@ -94,6 +94,7 @@ describe('Benefit', () => {
         ['모르는 조건', ['MULTI_CHILD'], '알 수 없는 조건'],
         ['같은 조건 두 번', ['PARTNER_INSURED', 'PARTNER_INSURED'], '두 번'],
         ['가입과 미가입을 함께', ['BIRTH_PARENT_INSURED', 'BIRTH_PARENT_UNINSURED'], '함께 요구할 수 없습니다'],
+        ['집에서 돌봄과 어린이집 이용을 함께', ['HOME_CARE', 'USES_CHILDCARE'], '함께 요구할 수 없습니다'],
       ])('%s이면 거절한다', (_, conditions, message) => {
         expect(() => Benefit.register(details({ conditions: conditions as never }))).toThrow(message);
       });
