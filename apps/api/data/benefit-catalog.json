@@ -355,7 +355,7 @@
     },
     "amount": {
       "kind": "cash",
-      "summary": "월 10만원, 생후 24개월부터 86개월 전까지 (62개월, 620만원)",
+      "summary": "월 10만원, 생후 24개월부터 86개월 전까지 (62개월, 620만원). 장애아동·농어촌아동은 더 많아요",
       "tiers": [
         {
           "minBirthOrder": 1,
@@ -364,7 +364,7 @@
         }
       ],
       "basis": {
-        "text": "[양육수당] (24~86개월 미만) 10만원",
+        "text": "[양육수당] (24~86개월 미만) 10만원 / [장애아동 양육수당] (24~35개월) 20만원 / [농어촌아동 양육수당] (24~35개월) 15.6만원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2122936&bnefType=all&svcId=134200005012"
       }
     },
@@ -472,10 +472,10 @@
     },
     "amount": {
       "kind": "cash",
-      "summary": "입원치료비 중 전액본인부담금·비급여 진료비의 90%",
+      "summary": "입원치료비 중 전액본인부담금·비급여 진료비의 90% (병실입원료·환자특식 제외)",
       "tiers": null,
       "basis": {
-        "text": "고위험 임산부 입원치료비의 건강보험 급여 중 전액본인부담금 및 비급여 진료비에 해당하는 금액의 90% 지원",
+        "text": "고위험 임산부 입원치료비의 건강보험 급여 중 전액본인부담금 및 비급여 진료비에 해당하는 금액의 90% 지원 - (병실입원료 및 환자특식 제외)",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=594728&bnefType=all&svcId=135200000114"
       }
     }
@@ -815,7 +815,7 @@
     },
     "amount": {
       "kind": "cash",
-      "summary": "총 150만원 한 번에 (월 50만원 × 3개월분)",
+      "summary": "총 150만원 한 번에 (월 50만원 × 3개월분). 유산·사산은 임신 기간에 따라 30만~150만원",
       "tiers": [
         {
           "minBirthOrder": 1,
@@ -824,7 +824,7 @@
         }
       ],
       "basis": {
-        "text": "출산급여 총 150만원 일괄 지급(월 50만원 x 3월분)",
+        "text": "출산급여 총 150만원 일괄 지급(월 50만원 x 3월분) - 유산, 사산의 경우는 임신 기간에 따라 급여 수준 상이 - 임신 기간 15주까지 : 30만원 / 16~21주 : 50만원 / 22~27주 : 100만원 / 28주 이상 : 150만원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=746900&bnefType=all&svcId=149200000153"
       }
     }
@@ -863,10 +863,10 @@
     },
     "amount": {
       "kind": "wage",
-      "summary": "출산 전후 90일 동안 월평균보수 (2026년 예술인 30일 상한 220만원, 노무제공자 210만원)",
+      "summary": "출산 전후 90일 동안 월평균보수 (2026년 30일 기준 예술인 60만~220만원, 노무제공자 80만~210만원)",
       "tiers": null,
       "basis": {
-        "text": "출산(유산·사산)일 직전 1년 동안의 월평균보수에 해당하는 금액 / (예술인) '26년 고시 금액: 상한액 30일 기준 220만원 (노무제공자) 상한액 30일 기준 210만원",
+        "text": "출산(유산·사산)일 직전 1년 동안의 월평균보수에 해당하는 금액 / (예술인) '26년 고시 금액: 상한액 30일 기준 220만원 (노무제공자) 상한액 30일 기준 210만원 / 하한액 30일 기준 예술인 60만원, 노무제공자 80만원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2103001&bnefType=all&svcId=149200005017"
       }
     }
@@ -998,7 +998,7 @@
         "days": -1
       },
       "untilLabel": "쓸 수 있는 기한 (만 12세 이하)",
-      "summary": "자녀가 만 12세 이하일 때까지 주 15~35시간으로 줄여 일할 수 있어요. 급여는 단축 시작 1개월 뒤부터 끝난 뒤 12개월 안에 신청해요",
+      "summary": "자녀가 만 12세 이하일 때까지 주 15~35시간으로 줄여 일할 수 있어요 (최대 1년, 육아휴직을 덜 쓰면 최대 3년). 급여는 단축 시작 1개월 뒤부터 끝난 뒤 12개월 안에 신청해요",
       "basis": {
         "text": "만 12세 이하 또는 초등학교 6학년 이하의 자녀를 양육하기 위하여 신청하는 경우 1년간(육아휴직 미사용 기간 2배 가산 시 최대 3년간) 주당 15~35시간으로 근로시간 단축 가능",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999028&bnefType=all&svcId=999000000007"
@@ -1374,7 +1374,7 @@
         "days": 0
       },
       "untilLabel": "출산 전까지 (보건소)",
-      "summary": "엽산제는 임신 초기, 철분제는 임신 16주부터 5개월분을 보건소에서 받아요",
+      "summary": "엽산제는 임신 전 3개월부터 임신 3개월까지, 철분제는 임신 16주부터 5개월분을 보건소에서 받아요",
       "basis": {
         "text": "(엽산제) 임신 전후 3개월까지 엽산제 지원 (철분제) 임신 16주부터 철분제 5개월분",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=585138&bnefType=all&svcId=SD0000016094"
@@ -1949,10 +1949,10 @@
     },
     "amount": {
       "kind": "service",
-      "summary": "선별·확진검사 본인부담금 지원 (확진검사는 환아 판정 시, 7만원 한도)",
+      "summary": "선별·확진검사 본인부담금 지원 (확진 7만원 한도). 환아로 판정되면 특수분유·의료비도 지원",
       "tiers": null,
       "basis": {
-        "text": "신생아 선천성대사이상 외래 선별검사 및 확진검사 (일부)본인부담금 지원 - 확진검사의 경우 확진검사 결과 선천성대사이상 환아로 판정된 경우에만 지원(7만원 한도)",
+        "text": "신생아 선천성대사이상 외래 선별검사 및 확진검사 (일부)본인부담금 지원 - 확진검사의 경우 확진검사 결과 선천성대사이상 환아로 판정된 경우에만 지원(7만원 한도) ○ (환아관리) 특수조제분유 및 저단백햇반 지원, 선천성 갑상선기능저하증 환아의 경우에는 의료비 지원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=107104&bnefType=all&svcId=SD0000007043"
       }
     }
