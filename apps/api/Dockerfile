@@ -16,8 +16,11 @@ RUN pnpm --filter @toddler/api deploy --prod --legacy /out
 
 FROM node:22-alpine AS runtime
 ENV NODE_ENV=production
+# Prisma 마이그레이션 엔진이 openssl을 사용한다
+RUN apk add --no-cache openssl
 WORKDIR /app
 COPY --from=build --chown=node:node /out ./
 USER node
 EXPOSE 4000
-CMD ["node", "dist/main.js"]
+# 시작할 때 아직 적용되지 않은 마이그레이션을 먼저 적용한다
+CMD ["sh", "-c", "./node_modules/.bin/prisma migrate deploy && node dist/main.js"]
