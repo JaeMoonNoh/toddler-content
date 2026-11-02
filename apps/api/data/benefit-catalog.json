@@ -160,7 +160,16 @@
         "source": "BOKJIRO_LOCAL",
         "externalId": "WLF00005668"
       }
-    ]
+    ],
+    "amount": {
+      "kind": "service",
+      "summary": "체외수정 20회(신선배아 최대 110만원, 동결배아 50만원), 인공수정 5회(최대 30만원), 소득 기준 없음",
+      "tiers": null,
+      "basis": {
+        "text": "체외수정 : 20회(신선배아 최대 110만원, 동결배아 최대 50만원) - 인공수정 : 5회(최대 30만원) / 충청북도 내 거주한 난임 진단 부부(소득기준 폐지)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2131716&bnefType=all&svcId=643000000736"
+      }
+    }
   },
   {
     "slug": "gov24-643000000737",
@@ -252,7 +261,16 @@
         "source": "GOV24",
         "externalId": "643000000758"
       }
-    ]
+    ],
+    "amount": {
+      "kind": "service",
+      "summary": "분만비·산후조리비를 최대 500만원까지 무이자로 빌리고 4년까지 나눠 갚아요",
+      "tiers": null,
+      "basis": {
+        "text": "산부인과 질환(분만비 및 산후조리비) 치료비 최대 500만원 융자 지원 - 환자는 의료비후불제 대출 실행 후 무이자 분할 상환(최대 4년), 도에서는 이자 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153416&bnefType=all&svcId=643000000758"
+      }
+    }
   },
   {
     "slug": "gov24-643000000764",
@@ -264,7 +282,34 @@
         "source": "GOV24",
         "externalId": "643000000764"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "pregnancy",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 6,
+        "days": 0
+      },
+      "untilLabel": "증명서 유효기간 끝",
+      "summary": "충북 가치자람플랫폼에서 신청하면 출산예정일 6개월 뒤까지 쓰는 모바일 임신증명서를 받아요",
+      "basis": {
+        "text": "증명서 유효기간 : 임신진단일 ~ 분만(출산)예정일 후 6개월",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2176716&bnefType=all&svcId=643000000764"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "도내 민원실·보건소·농협 등에서 임신 확인용으로 써요",
+      "tiers": null,
+      "basis": {
+        "text": "사용처 : 도내 지방자치단체 민원실, 보건소, 농협, 청남대, 조령산자연휴양림 등",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2176716&bnefType=all&svcId=643000000764"
+      }
+    }
   },
   {
     "slug": "bokjiro-wlf00005669",
@@ -405,7 +450,34 @@
     ],
     "conditions": [
       "HOME_CARE"
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 6,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 36,
+        "days": -1
+      },
+      "untilLabel": "생후 36개월 전까지",
+      "summary": "어린이집에 다니지 않는 생후 6~36개월 아이를 필요한 시간만큼 맡길 수 있어요",
+      "basis": {
+        "text": "독립반 : 6~36개월 미만 영아",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2123215&bnefType=all&svcId=134200005031"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "시간당 보육료 5천원 중 3천원 지원 (월 60시간까지)",
+      "tiers": null,
+      "basis": {
+        "text": "부모급여(현금) 또는 가정양육수당 수급 영아 대상 시간당 보육료 5천원 중 3천원 지원(최대 월 60시간까지 지원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2123215&bnefType=all&svcId=134200005031"
+      }
+    }
   },
   {
     "slug": "gov24-134200005036",
@@ -424,7 +496,16 @@
     ],
     "conditions": [
       "USES_CHILDCARE"
-    ]
+    ],
+    "amount": {
+      "kind": "service",
+      "summary": "어린이집 보육료를 나라가 내줘요 (2026년 월 0세반 58.4만원, 1세반 51.5만원, 2세반 42.6만원, 3~5세반 28만원)",
+      "tiers": null,
+      "basis": {
+        "text": "2026년 0세에서 5세 아동의 지원단가 ㅇ 0세반 : (기본보육) 584,000원 ㅇ 1세반 : (기본보육) 515,000원 ㅇ 2세반 : (기본보육) 426,000원 ㅇ 3~5세반 : (기본보육) 280,000원 / 지자체에 보육료 지원을 신청한 날 부터 지원합니다",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2132016&bnefType=all&svcId=134200005036"
+      }
+    }
   },
   {
     "slug": "gov24-134200005047",
@@ -1114,7 +1195,34 @@
         "source": "GOV24",
         "externalId": "B55145700016"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "pregnancy",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 12,
+        "days": 0
+      },
+      "untilLabel": "할인 기간 끝 (출산예정일 + 1년)",
+      "summary": "임산부 등록을 하면 출산예정일 1년 뒤까지 기차표를 할인받아요",
+      "basis": {
+        "text": "할인기간 : 출산예정일 +1년까지",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=94779&bnefType=all&svcId=B55145700016"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "KTX 일반실·일반열차 40% 할인 (동행 1명까지), KTX 특실은 일반실 가격",
+      "tiers": null,
+      "basis": {
+        "text": "KTX 특실·우등실 : 특실· 우등실 요금 면제(일반실 가격으로 제공) - KTX 일반실 및 일반열차 : 운임 40% 할인 * 등록된 임산부 및 임산부와 동행하는 1명까지 할인",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=94779&bnefType=all&svcId=B55145700016"
+      }
+    }
   },
   {
     "slug": "gov24-b55265700002",
@@ -1142,7 +1250,34 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00001161"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "pregnancy",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "untilLabel": "출산 전까지 (보건소 등록)",
+      "summary": "보건소에 임산부 등록을 하면 임산부수첩과 아기수첩을 받아요",
+      "basis": {
+        "text": "임신부 또는 출생 사실 확인된 영유아 / 보건소 등록 임산부",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=104657&bnefType=all&svcId=GMW000000010"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "임산부수첩과 아기수첩 무료",
+      "tiers": null,
+      "basis": {
+        "text": "임산부수첩 및 아기수첩 제공",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=104657&bnefType=all&svcId=GMW000000010"
+      }
+    }
   },
   {
     "slug": "gov24-gmw000000260",
@@ -1452,7 +1587,16 @@
         "source": "GOV24",
         "externalId": "SME000000100"
       }
-    ]
+    ],
+    "amount": {
+      "kind": "service",
+      "summary": "체외수정 20회까지 신선배아 회당 최대 110만원·동결배아 50만원, 인공수정 5회까지 회당 30만원",
+      "tiers": null,
+      "basis": {
+        "text": "체외수정 시술 20회까지 신선배아 1회당 최대 110만원, 동결배아 1회당 최대 50만원, 자궁내 정자주입 시술 5회까지 1회당 최대 30만원 * 배아동결비 최대 30만원, 유산방지제 및 착상보조제 각각 최대 20만원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=753142&bnefType=all&svcId=SME000000100"
+      }
+    }
   },
   {
     "slug": "gov24-sme000000110",
@@ -1812,7 +1956,24 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00003213"
       }
-    ]
+    ],
+    "applicationPeriod": {
+      "start": "2026-09-21",
+      "end": "2027-04-30",
+      "basis": {
+        "text": "(지원대상 - 임신부) 사업기간 : 2026. 9. 21.(월)~2027. 4. 30.(금) / (생후 6개월~ 14세 어린이) 사업기간 : 2026. 9. 21.(월)~2027. 4. 30.(금)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=749131&bnefType=all&svcId=135200000115"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "임신부(주수 상관없이)와 생후 6개월~14세 어린이 무료 접종",
+      "tiers": null,
+      "basis": {
+        "text": "임신부 인플루엔자 국가예방접종 지원 - 임신 주수에 상관없이 접종 가능 / 지정 의료기관 및 보건소를 이용하면 주소지에 관계없이 전국 어디서나 무료로 인플루엔자 예방접종 가능",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=749131&bnefType=all&svcId=135200000115"
+      }
+    }
   },
   {
     "slug": "gov24-179038700004",
@@ -1840,7 +2001,34 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00000024"
       }
-    ]
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 3,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 156,
+        "days": -1
+      },
+      "untilLabel": "만 12세까지",
+      "summary": "아이돌보미가 집으로 와요. 생후 3개월부터 (영아종일제는 36개월까지, 시간제는 만 12세까지)",
+      "basis": {
+        "text": "영아종일제서비스 : 생후3개월 이상 ~ 36개월 이하의 아동 / 시간제 서비스: 생후 3개월 이상 ~ 12세 이하의 아동",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=746602&bnefType=all&svcId=423000000362"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "소득에 따라 이용요금 일부 지원 (기준 중위소득 200% 이하, 2025년 시간제 시간당 1,828~10,354원)",
+      "tiers": null,
+      "basis": {
+        "text": "('25년 기준) 기준 중위소득 200% 이하의 가정을 대상으로 지원 / 가형 A형 시간당 10,354원 지원 … 라형 A형 시간당 1,828원 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=746602&bnefType=all&svcId=423000000362"
+      }
+    }
   },
   {
     "slug": "gov24-b41000200003",
