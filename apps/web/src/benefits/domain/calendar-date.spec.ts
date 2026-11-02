@@ -19,6 +19,17 @@ describe('CalendarDate', () => {
     expect(CalendarDate.parse('2026-03-01')!.addDays(-1).toIso()).toBe('2026-02-28');
   });
 
+  it.each([
+    ['2026-01-31', 1, '2026-02-28'],
+    ['2028-01-31', 1, '2028-02-29'],
+    ['2026-03-31', -1, '2026-02-28'],
+    ['2026-11-02', 24, '2028-11-02'],
+    ['2026-12-15', 1, '2027-01-15'],
+    ['2024-02-29', 12, '2025-02-28'],
+  ])('%s + %i개월 = %s (없는 날은 그 달 말일)', (from, months, to) => {
+    expect(CalendarDate.parse(from)!.addMonths(months).toIso()).toBe(to);
+  });
+
   it('두 날짜 사이 일수를 센다', () => {
     expect(CalendarDate.parse('2027-05-06')!.daysSince(CalendarDate.parse('2026-11-02')!)).toBe(185);
   });

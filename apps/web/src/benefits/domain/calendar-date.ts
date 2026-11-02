@@ -27,6 +27,14 @@ export class CalendarDate {
     return new CalendarDate(this.epochDay + days);
   }
 
+  // 1월 31일 + 1개월처럼 그 달에 없는 날이면 그 달 마지막 날로 맞춘다
+  addMonths(months: number): CalendarDate {
+    const d = new Date(this.epochDay * DAY_MS);
+    const target = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + months, 1));
+    const lastDay = new Date(Date.UTC(target.getUTCFullYear(), target.getUTCMonth() + 1, 0)).getUTCDate();
+    return CalendarDate.of(target.getUTCFullYear(), target.getUTCMonth() + 1, Math.min(d.getUTCDate(), lastDay));
+  }
+
   daysSince(other: CalendarDate): number {
     return this.epochDay - other.epochDay;
   }
@@ -37,6 +45,11 @@ export class CalendarDate {
 
   toIso(): string {
     return new Date(this.epochDay * DAY_MS).toISOString().slice(0, 10);
+  }
+
+  // 11.2(월)
+  formatShort(): string {
+    return this.format().slice(5);
   }
 
   // 2026.11.2(월)

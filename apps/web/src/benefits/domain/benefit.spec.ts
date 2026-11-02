@@ -9,6 +9,7 @@ const benefit = (overrides: Partial<PublishedBenefit>): PublishedBenefit => ({
   sourceUrl: 'https://plus.gov.kr',
   verifiedAt: null,
   reviewStatus: 'UNVERIFIED',
+  schedule: null,
   ...overrides,
 });
 

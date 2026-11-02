@@ -1,6 +1,20 @@
 export type BenefitScope = 'national' | 'chungbuk' | 'cheongju';
 export type ReviewStatus = 'VERIFIED' | 'UNVERIFIED' | 'SOURCE_CHANGED';
 
+export interface ScheduleOffset {
+  anchor: 'pregnancy' | 'birth'; // pregnancy: 임신 시작(출산예정일 280일 전), birth: 출생일
+  months: number;
+  days: number;
+}
+
+export interface BenefitSchedule {
+  from: ScheduleOffset;
+  until: ScheduleOffset;
+  untilLabel: string;
+  summary: string;
+  basis: { text: string; url: string };
+}
+
 // GET /benefits 응답 한 건
 export interface PublishedBenefit {
   slug: string;
@@ -10,6 +24,7 @@ export interface PublishedBenefit {
   sourceUrl: string;
   verifiedAt: string | null;
   reviewStatus: ReviewStatus;
+  schedule: BenefitSchedule | null;
 }
 
 export const SCOPE_LABEL: Record<BenefitScope, string> = {
