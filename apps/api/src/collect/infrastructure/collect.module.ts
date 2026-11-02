@@ -6,7 +6,6 @@ import { SourceFetcher } from '../application/ports/source-fetcher';
 import { ReportPrinter } from './cli/report-printer';
 import { HttpClient } from './http/http-client';
 import { PrismaSnapshotRepository } from './persistence/prisma-snapshot.repository';
-import { CollectScheduler } from './scheduling/collect.scheduler';
 import { BokjiroLocalFetcher, BokjiroNationalFetcher } from './sources/bokjiro/bokjiro.fetcher';
 import { Gov24Fetcher } from './sources/gov24/gov24.fetcher';
 import { ServiceKey } from './sources/service-key';
@@ -39,7 +38,6 @@ const SOURCE_FETCHERS = Symbol('SOURCE_FETCHERS');
       inject: [CollectSourceUseCase, SOURCE_FETCHERS],
     },
     { provide: ReportPrinter, useFactory: () => new ReportPrinter() },
-    CollectScheduler,
   ],
   exports: [CollectAllSourcesUseCase, ReportPrinter],
 })
