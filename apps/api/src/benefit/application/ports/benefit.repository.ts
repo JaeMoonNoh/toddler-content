@@ -4,4 +4,5 @@ export abstract class BenefitRepository {
   abstract findAll(): Promise<Benefit[]>;
   abstract findBySlugs(slugs: string[]): Promise<Benefit[]>;
   abstract saveAll(benefits: Benefit[]): Promise<void>;
+  abstract deleteBySlugs(slugs: string[]): Promise<void>;
 }

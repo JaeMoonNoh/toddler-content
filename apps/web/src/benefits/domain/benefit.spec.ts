@@ -11,6 +11,7 @@ const benefit = (overrides: Partial<PublishedBenefit>): PublishedBenefit => ({
   reviewStatus: 'UNVERIFIED',
   schedule: null,
   conditions: [],
+  amount: null,
   ...overrides,
 });
 

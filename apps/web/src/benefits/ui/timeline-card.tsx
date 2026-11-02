@@ -22,6 +22,12 @@ export function TimelineCard({ item }: { item: TimelineItem }) {
           </dd>
           <dt>마감</dt>
           <dd>{schedule.untilLabel}</dd>
+          {benefit.amount && (
+            <>
+              <dt>금액</dt>
+              <dd className="amt">{benefit.amount.summary}</dd>
+            </>
+          )}
         </dl>
         <p className="summary">{schedule.summary}</p>
         <details className="basis">

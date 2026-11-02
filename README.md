@@ -60,7 +60,10 @@ API 서버는 매일 새벽 4시(한국 시각)에 같은 일을 자동으로 �
 pnpm benefit sync                 # 목록 파일을 DB에 반영
 pnpm benefit review               # 확인이 필요한 혜택 보기 (바뀐 원본은 필드별 전후 값까지)
 pnpm benefit verify <slug> ...    # 원문을 확인한 혜택에 확인일 남기기
+pnpm benefit retire <slug> ...    # 목록 파일에서 뺀 혜택을 DB와 사이트에서도 지우기
 ```
+
+`sync`는 실수로 데이터를 지우지 않도록 목록 파일에서 빠진 혜택을 지우지 않습니다. 빼려면 목록 파일에서 지운 뒤 `retire`를 실행합니다.
 
 Docker 안에서는 `docker compose exec api node dist/benefit/infrastructure/cli/benefit.cli.js <명령>`.
 

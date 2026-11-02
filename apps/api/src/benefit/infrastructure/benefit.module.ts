@@ -4,6 +4,7 @@ import { ListPublishedBenefitsUseCase } from '../application/list-published-bene
 import { BenefitCatalog } from '../application/ports/benefit-catalog';
 import { BenefitRepository } from '../application/ports/benefit.repository';
 import { SourceStateReader } from '../application/ports/source-state.reader';
+import { RetireBenefitsUseCase } from '../application/retire-benefits.use-case';
 import { ReviewQueueUseCase } from '../application/review-queue.use-case';
 import { SyncCatalogUseCase } from '../application/sync-catalog.use-case';
 import { VerifyBenefitsUseCase } from '../application/verify-benefits.use-case';
@@ -30,6 +31,11 @@ const withRepositoryAndReader = [BenefitRepository, SourceStateReader];
       inject: [BenefitCatalog, BenefitRepository],
     },
     {
+      provide: RetireBenefitsUseCase,
+      useFactory: (catalog: BenefitCatalog, repository: BenefitRepository) => new RetireBenefitsUseCase(catalog, repository),
+      inject: [BenefitCatalog, BenefitRepository],
+    },
+    {
       provide: ReviewQueueUseCase,
       useFactory: (repository: BenefitRepository, reader: SourceStateReader) => new ReviewQueueUseCase(repository, reader),
       inject: withRepositoryAndReader,
@@ -46,6 +52,6 @@ const withRepositoryAndReader = [BenefitRepository, SourceStateReader];
     },
     { provide: ReviewPrinter, useFactory: () => new ReviewPrinter() },
   ],
-  exports: [SyncCatalogUseCase, ReviewQueueUseCase, VerifyBenefitsUseCase, ReviewPrinter],
+  exports: [SyncCatalogUseCase, RetireBenefitsUseCase, ReviewQueueUseCase, VerifyBenefitsUseCase, ReviewPrinter],
 })
 export class BenefitModule {}

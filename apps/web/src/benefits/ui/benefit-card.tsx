@@ -6,6 +6,7 @@ export function BenefitCard({ benefit }: { benefit: PublishedBenefit }) {
     <li className="card">
       <BenefitChips benefit={benefit} />
       <h3>{benefit.name}</h3>
+      {benefit.amount && <p className="amt">{benefit.amount.summary}</p>}
       <div className="meta">
         <span>출처 {benefit.sourceName}</span>
         <a href={benefit.sourceUrl} target="_blank" rel="noopener noreferrer">

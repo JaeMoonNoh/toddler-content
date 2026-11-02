@@ -37,7 +37,7 @@
 | 포함 | 서비스명 | 한 줄 설명 | 기관 | 출처 | 신뢰도 |
 |---|---|---|---|---|---|
 | [x] | [난임 한방치료비 지원](https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000442&bnefType=all&svcId=571000000105) | 난임부부에게 임상검사, 한약치료 지원 | 충청북도 청주시 | 보조금24 | 강함 |
-| [x] | [셋째 자녀 이상 양육지원금 지원](https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003525&bnefType=all&svcId=571000000116) | 셋째아 이상 출생아를 위해 양육지원금 지급 | 충청북도 청주시 | 보조금24, 복지로 | 강함 |
+| [ ] | [셋째 자녀 이상 양육지원금 지원](https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003525&bnefType=all&svcId=571000000116) | 셋째아 이상 출생아를 위해 양육지원금 지급 | 충청북도 청주시 | 보조금24, 복지로 | 강함 |
 | [x] | [장애인가정 출산지원금 지원](https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003545&bnefType=all&svcId=571000000121) | 출산한 장애인가정에게 출산지원금 지급 | 충청북도 청주시 | 보조금24, 복지로 | 강함 |
 | [x] | [가정위탁 양육보조금 지원](https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003547&bnefType=all&svcId=571000000123) | 가정위탁아동의 양육보조금 지원 | 충청북도 청주시 | 보조금24 | 강함 |
 | [x] | [어린이집 부모부담 차액보육료 지원](https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003565&bnefType=all&svcId=571000000125) | 민간·가정 및 공공형어린이집 이용하는 3~5세 아동을 위해 부모부담 차액보육료 지원 | 충청북도 청주시 | 보조금24 | 강함 |
@@ -208,3 +208,7 @@
 - 지역사회 통합건강증진 서비스 제공
 - 환경보건이용권 지급
 - 어업활동지원
+
+## 검토 후 뺀 항목 (2026-11-02)
+
+- **셋째 자녀 이상 양육지원금 지원 (청주)**: 원문이 "2022.12.31. 이전 출생아까지 지원, 2023.1.1. 이후 출생아 출산육아수당으로 통합지원". 공공 API는 최신이지만 지금 임신한 분은 대상이 아니라서 뺌 (`pnpm benefit retire gov24-571000000116`). 112건 원문을 다시 훑었을 때 출생 시기 때문에 대상이 아닌 혜택은 이 1건뿐이었다.

@@ -26,6 +26,7 @@ const benefit = (slug: string, name: string, s: BenefitSchedule | null, reviewSt
   reviewStatus,
   schedule: s,
   conditions: [],
+  amount: null,
 });
 const eventsOn = (today: string, benefits: PublishedBenefit[]) =>
   deadlineEventsOf(buildTimeline(region, benefits, due, CalendarDate.parse(today)!));

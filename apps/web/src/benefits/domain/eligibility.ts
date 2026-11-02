@@ -6,9 +6,10 @@ export type Insurance = 'unknown' | 'insured' | 'uninsured';
 export interface Household {
   birthParent: Insurance; // 출산하는 분
   partner: Insurance; // 배우자
+  birthOrder: number | null; // 이번 아이가 몇째인지. 3은 셋째 이상. null이면 답하지 않음
 }
 
-export const UNANSWERED: Household = { birthParent: 'unknown', partner: 'unknown' };
+export const UNANSWERED: Household = { birthParent: 'unknown', partner: 'unknown', birthOrder: null };
 
 export const CONDITION_LABEL: Record<EligibilityCondition, string> = {
   BIRTH_PARENT_INSURED: '출산하는 분 고용보험 가입',

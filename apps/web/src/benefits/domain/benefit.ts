@@ -17,6 +17,19 @@ export interface BenefitSchedule {
 
 export type EligibilityCondition = 'BIRTH_PARENT_INSURED' | 'PARTNER_INSURED' | 'EITHER_PARENT_INSURED' | 'BIRTH_PARENT_UNINSURED';
 
+export interface AmountTier {
+  minBirthOrder: number;
+  maxBirthOrder: number | null; // null이면 끝없음
+  won: number;
+}
+
+export interface BenefitAmount {
+  kind: 'cash' | 'voucher' | 'service' | 'wage';
+  summary: string;
+  tiers: AmountTier[] | null; // 소득이나 임금에 따라 달라서 정할 수 없으면 null
+  basis: { text: string; url: string };
+}
+
 // GET /benefits 응답 한 건
 export interface PublishedBenefit {
   slug: string;
@@ -28,6 +41,7 @@ export interface PublishedBenefit {
   reviewStatus: ReviewStatus;
   schedule: BenefitSchedule | null;
   conditions: EligibilityCondition[];
+  amount: BenefitAmount | null;
 }
 
 export const SCOPE_LABEL: Record<BenefitScope, string> = {
