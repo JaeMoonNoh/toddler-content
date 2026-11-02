@@ -12,8 +12,9 @@ const benefit = (name: string, conditions: EligibilityCondition[] = []): Publish
   reviewStatus: 'UNVERIFIED',
   schedule: null,
   conditions,
+  amount: null,
 });
-const household = (birthParent: Insurance, partner: Insurance): Household => ({ birthParent, partner });
+const household = (birthParent: Insurance, partner: Insurance): Household => ({ birthParent, partner, birthOrder: null });
 const shownNames = (benefits: PublishedBenefit[], h: Household) => splitByEligibility(benefits, h).shown.map((b) => b.name);
 
 const maternityLeave = benefit('출산전후휴가', ['BIRTH_PARENT_INSURED']);

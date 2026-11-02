@@ -6,10 +6,36 @@ const OPTIONS: { value: Insurance; label: string }[] = [
   { value: 'uninsured', label: '가입 안 했어요' },
 ];
 
-const PEOPLE: { key: keyof Household; label: string }[] = [
+const PEOPLE: { key: 'birthParent' | 'partner'; label: string }[] = [
   { key: 'birthParent', label: '출산하는 분' },
   { key: 'partner', label: '배우자' },
 ];
+
+const BIRTH_ORDERS: { value: string; label: string }[] = [
+  { value: '', label: '선택 안 함' },
+  { value: '1', label: '첫째' },
+  { value: '2', label: '둘째' },
+  { value: '3', label: '셋째 이상' },
+];
+
+export function BirthOrderField({ household, onChange }: { household: Household; onChange: (next: Household) => void }) {
+  return (
+    <div className="field">
+      <label htmlFor="birth-order">이번 아이는 (선택)</label>
+      <select
+        id="birth-order"
+        value={household.birthOrder === null ? '' : String(household.birthOrder)}
+        onChange={(e) => onChange({ ...household, birthOrder: e.target.value ? Number(e.target.value) : null })}
+      >
+        {BIRTH_ORDERS.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
 
 export function HouseholdFields({ household, onChange }: { household: Household; onChange: (next: Household) => void }) {
   return (

@@ -25,6 +25,7 @@ const benefit = (name: string, schedule: BenefitSchedule | null, scope: BenefitS
   reviewStatus: 'UNVERIFIED',
   schedule,
   conditions: [],
+  amount: null,
 });
 
 describe('buildTimeline', () => {

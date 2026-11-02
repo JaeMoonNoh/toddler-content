@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { receiptOf } from '../domain/amount';
 import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { splitByEligibility, UNANSWERED } from '../domain/eligibility';
@@ -10,7 +11,8 @@ import { buildTimeline } from '../domain/timeline';
 import { BenefitGroups } from './benefit-groups';
 import { CalendarDownload } from './calendar-download';
 import { ExcludedBenefits } from './excluded-benefits';
-import { HouseholdFields } from './household-fields';
+import { AmountReceipt } from './amount-receipt';
+import { BirthOrderField, HouseholdFields } from './household-fields';
 import { TimelineCard } from './timeline-card';
 
 // 사는 곳, 출산예정일, 고용보험 답은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다
@@ -28,6 +30,7 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
     household,
   );
   const timeline = due && stage?.kind !== 'too-far' ? buildTimeline(region, shown, due, today) : null;
+  const receipt = receiptOf(shown, household.birthOrder);
   const listed = groupForRegion(region, timeline ? timeline.unscheduled : shown);
   const scheduledCount = timeline?.phases.reduce((sum, phase) => sum + phase.items.length, 0) ?? 0;
 
@@ -52,8 +55,10 @@ export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
               {stage ? describeStage(stage) : '출산예정일을 넣으면 신청 일정을 날짜로 계산해 드려요'}
             </p>
           </div>
+          <BirthOrderField household={household} onChange={setHousehold} />
           <HouseholdFields household={household} onChange={setHousehold} />
         </form>
+        <AmountReceipt receipt={receipt} birthOrderKnown={household.birthOrder !== null} />
         {timeline && <CalendarDownload timeline={timeline} />}
         <p className="notice">
           일정은 아이가 출산예정일에 태어난다고 보고 계산해요. 실제 출생일이 다르면 그만큼 밀리거나 당겨져요.
