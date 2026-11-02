@@ -17,6 +17,7 @@ model Benefit {
   name       String
   scope      String          // national, chungbuk, cheongju
   sourceUrl  String          // 사용자에게 보여줄 원문 링크
+  schedule   Json?           // 신청 기간 규칙 (BenefitSchedule). 출산예정일로 날짜를 계산하는 건 브라우저가 한다
   verifiedAt DateTime?       // 사람이 마지막으로 확인한 시각. null이면 확인 전이라 게시하지 않는다
   sources    BenefitSource[]
   createdAt  DateTime        @default(now())

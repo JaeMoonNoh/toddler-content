@@ -3,6 +3,7 @@ import { Prisma } from '../../../generated/prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { BenefitRepository } from '../../application/ports/benefit.repository';
 import { Benefit, type BenefitScope } from '../../domain/benefit';
+import type { BenefitSchedule } from '../../domain/benefit-schedule';
 import { SourceRef } from '../../domain/source-ref';
 
 const WITH_SOURCES = { sources: { orderBy: { position: 'asc' } } } satisfies Prisma.BenefitInclude;
@@ -26,7 +27,13 @@ export class PrismaBenefitRepository extends BenefitRepository {
   async saveAll(benefits: Benefit[]): Promise<void> {
     await this.prisma.$transaction(async (tx) => {
       for (const benefit of benefits) {
-        const fields = { name: benefit.name, scope: benefit.scope, sourceUrl: benefit.sourceUrl, verifiedAt: benefit.verifiedAt };
+        const fields = {
+          name: benefit.name,
+          scope: benefit.scope,
+          sourceUrl: benefit.sourceUrl,
+          schedule: benefit.schedule ? (benefit.schedule as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
+          verifiedAt: benefit.verifiedAt,
+        };
         const { id } = await tx.benefit.upsert({ where: { slug: benefit.slug }, create: { slug: benefit.slug, ...fields }, update: fields });
         await tx.benefitSource.deleteMany({ where: { benefitId: id } });
         await tx.benefitSource.createMany({ data: sourceRowsOf(benefit, id) });
@@ -57,6 +64,7 @@ function toBenefit(row: BenefitRow): Benefit {
     scope: row.scope as BenefitScope,
     sourceUrl: row.sourceUrl,
     sources: sources.map((s) => s.ref),
+    schedule: (row.schedule ?? null) as BenefitSchedule | null,
   };
   const snapshots = sources
     .filter((s) => s.row.verifiedHash !== null)

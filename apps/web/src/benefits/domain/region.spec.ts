@@ -10,6 +10,7 @@ const benefit = (name: string, scope: BenefitScope): PublishedBenefit => ({
   sourceUrl: 'https://plus.gov.kr',
   verifiedAt: null,
   reviewStatus: 'UNVERIFIED',
+  schedule: null,
 });
 const region = (id: string) => REGIONS.find((r) => r.id === id)!;
 const all = [benefit('하 전국', 'national'), benefit('가 전국', 'national'), benefit('충북', 'chungbuk'), benefit('청주', 'cheongju')];
