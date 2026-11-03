@@ -39,6 +39,24 @@ describe('RegionTree', () => {
   });
 });
 
+describe('RegionTree 찾기', () => {
+  it('그 지역과 아래 지역을 모두 돌려준다', () => {
+    expect(tree.selfAndDescendantsOf(CHUNGBUK.code).map((r) => r.name)).toEqual(['충청북도', '청주시', '상당구']);
+    expect(tree.selfAndDescendantsOf(SEJONG.code)).toEqual([SEJONG]);
+  });
+
+  it('전체 이름으로 지역을 찾고, 띄어쓰기 차이는 무시한다', () => {
+    expect(tree.findByFullName('충청북도 청주시')).toEqual(CHEONGJU);
+    expect(tree.findByFullName(' 충청북도  청주시 ')).toEqual(CHEONGJU);
+    expect(tree.findByFullName('충청북도')).toEqual(CHUNGBUK);
+  });
+
+  it('없는 이름이면 null', () => {
+    expect(tree.findByFullName('충청북도 없는시')).toBeNull();
+    expect(tree.findByFullName('')).toBeNull();
+  });
+});
+
 describe('regionChangesBetween', () => {
   it('바뀐 게 없으면 비어 있다', () => {
     const changes = regionChangesBetween(SAMPLE_REGIONS, SAMPLE_REGIONS);
