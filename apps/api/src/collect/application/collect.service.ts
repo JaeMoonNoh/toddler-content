@@ -9,6 +9,7 @@ import { CollectionEvents } from './ports/collection-events';
 import { type SnapshotPlan, SnapshotRepository } from './ports/snapshot.repository';
 import { SOURCE_FETCHERS, type SourceFetcher } from './ports/source-fetcher';
 
+import type { SourceId } from '../../shared/domain/source-id';
 import type { SourceRecord, StoredItem } from '../domain/source-record';
 
 export class CollectionAlreadyRunningError extends Error {
@@ -39,6 +40,12 @@ export class CollectService {
     } finally {
       this.running = false;
     }
+  }
+
+  // 수집해 둔 원본 중 지금도 출처에 있는 것. 혜택 후보를 고를 때 쓴다
+  async currentItems(source: SourceId): Promise<SourceRecord[]> {
+    const items = await this.repository.loadItems(source);
+    return items.filter((item) => !item.removed).map(({ externalId, name, payload }) => ({ externalId, name, payload }));
   }
 
   async collect(fetcher: SourceFetcher): Promise<CollectSourceResult> {

@@ -2,7 +2,9 @@ import { join } from 'node:path';
 
 import { Module } from '@nestjs/common';
 
+import { CollectModule } from '../../collect/infrastructure/collect.module';
 import { RegionModule } from '../../region/infrastructure/region.module';
+import { BenefitCandidateService } from '../application/benefit-candidate.service';
 import { BenefitCatalogService } from '../application/benefit-catalog.service';
 import { BenefitReviewService } from '../application/benefit-review.service';
 import { BenefitCatalog } from '../application/ports/benefit-catalog';
@@ -21,10 +23,11 @@ import { PrismaSourceStateReader } from './persistence/prisma-source-state.reade
 const CATALOG_PATH = join(process.cwd(), 'data/benefit-catalog.json');
 
 @Module({
-  imports: [RegionModule],
+  imports: [RegionModule, CollectModule],
   controllers: [BenefitsController],
   providers: [
     BenefitCatalogService,
+    BenefitCandidateService,
     BenefitReviewService,
     PublishedBenefitService,
     { provide: BenefitRepository, useClass: PrismaBenefitRepository },
@@ -33,6 +36,6 @@ const CATALOG_PATH = join(process.cwd(), 'data/benefit-catalog.json');
     ReviewPrinter,
     { provide: BenefitDetailPrinter, useFactory: () => new BenefitDetailPrinter() },
   ],
-  exports: [BenefitCatalogService, BenefitReviewService, ReviewPrinter, BenefitDetailPrinter],
+  exports: [BenefitCatalogService, BenefitCandidateService, BenefitReviewService, ReviewPrinter, BenefitDetailPrinter],
 })
 export class BenefitModule {}

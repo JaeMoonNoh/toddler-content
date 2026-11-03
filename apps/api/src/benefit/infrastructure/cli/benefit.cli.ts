@@ -1,11 +1,14 @@
 import type { INestApplicationContext } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
+import { formatKstDate } from '../../../shared/format-kst';
+import { BenefitCandidateService } from '../../application/benefit-candidate.service';
 import { BenefitCatalogService } from '../../application/benefit-catalog.service';
 import { BenefitReviewService } from '../../application/benefit-review.service';
 
 import { BenefitCliModule } from './benefit-cli.module';
 import { BenefitDetailPrinter } from './benefit-detail-printer';
+import { printCandidates } from './candidate-printer';
 import { ReviewPrinter } from './review-printer';
 
 const USAGE = `사용법: pnpm benefit <명령>
@@ -13,7 +16,8 @@ const USAGE = `사용법: pnpm benefit <명령>
   review                   확인이 필요한 혜택 보기
   review <slug>            혜택 하나를 검증할 때 볼 내용 (정리한 일정·금액과 지금 원문)
   verify <slug> [...]      원문을 확인한 혜택에 확인일 남기기
-  retire <slug> [...]      목록 파일에서 뺀 혜택을 DB에서도 지우기 (사이트에서 사라짐)`;
+  retire <slug> [...]      목록 파일에서 뺀 혜택을 DB에서도 지우기 (사이트에서 사라짐)
+  candidates <지역코드>    그 지역과 아래 지역의 혜택 후보를 md로 (예: 인천 2800000000)`;
 
 type Command = (app: INestApplicationContext, args: string[]) => Promise<{ text: string; ok: boolean }>;
 
@@ -28,6 +32,11 @@ const COMMANDS: Record<string, Command> = {
     const at = new Date();
     const result = await app.get(BenefitReviewService).verify(slugs, at);
     return { text: app.get(ReviewPrinter).printVerify(result, at), ok: result.failed.length === 0 && slugs.length > 0 };
+  },
+  candidates: async (app, [regionCode]) => {
+    if (!regionCode) return { text: '지역코드를 넣어 주세요 (data/regions.json의 code, 예: 2800000000)', ok: false };
+    const list = await app.get(BenefitCandidateService).candidatesFor(regionCode);
+    return { text: printCandidates(list, formatKstDate(new Date())), ok: true };
   },
   retire: async (app, slugs) => {
     const result = await app.get(BenefitCatalogService).retire(slugs);

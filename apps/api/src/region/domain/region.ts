@@ -46,6 +46,21 @@ export class RegionTree {
   childrenOf(code: string): Region[] {
     return [...this.byCode.values()].filter((region) => region.parentCode === code);
   }
+
+  // 그 지역과 아래 지역 모두 (예: 인천광역시와 구·군)
+  selfAndDescendantsOf(code: string): Region[] {
+    return [this.get(code), ...this.childrenOf(code).flatMap((child) => this.selfAndDescendantsOf(child.code))];
+  }
+
+  // 원본에 적힌 기관 이름(예: "충청북도 청주시")으로 지역을 찾는다. 띄어쓰기 차이는 무시한다
+  findByFullName(fullName: string): Region | null {
+    const wanted = normalizeName(fullName);
+    return [...this.byCode.values()].find((region) => normalizeName(region.fullName) === wanted) ?? null;
+  }
+}
+
+function normalizeName(name: string) {
+  return name.replace(/\s+/g, ' ').trim();
 }
 
 export interface RegionChanges {
