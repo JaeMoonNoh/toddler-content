@@ -66,6 +66,12 @@ describe('deadlineEventsOf', () => {
     ]);
   });
 
+  it('임신 0주에 시작하는 혜택은 기간을 "임신 확인 후"부터로 쓴다', () => {
+    const pregnancy: BenefitSchedule = { ...schedule(0, 0, '출산 전까지'), from: { anchor: 'pregnancy', months: 0, days: 0 } };
+    const [event] = eventsOn('2026-11-02', [benefit('folic', '엽산제', pregnancy)]);
+    expect(event.description).toContain('기간: 임신 확인 후 ~ 2027.5.6(목)');
+  });
+
   it('확인된 혜택에는 검증 전 안내를 넣지 않는다', () => {
     const [event] = eventsOn('2026-11-02', [benefit('parent', '부모급여', schedule(0, 59), 'VERIFIED')]);
     expect(event.description).not.toContain('검증 전');
