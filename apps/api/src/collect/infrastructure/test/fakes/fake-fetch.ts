@@ -24,4 +24,5 @@ export class FakeFetch {
 }
 
 export const timeoutError = () => Object.assign(new Error('The operation was aborted due to timeout'), { name: 'TimeoutError' });
-export const networkError = () => new TypeError('fetch failed');
+export const networkError = (code?: string) =>
+  new TypeError('fetch failed', code ? { cause: Object.assign(new Error(code), { code }) } : undefined);

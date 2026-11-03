@@ -5,6 +5,7 @@ import { CollectionRejectedError } from '../policies/collection-policy';
 
 import { FakeSourceFetcher } from './fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from './fakes/in-memory-snapshot.repository';
+import { RecordingCollectionEvents } from './fakes/recording-collection-events';
 
 import type { SourceId } from '../../../shared/domain/source-id';
 import type { SourceRecord } from '../../domain/source-record';
@@ -18,13 +19,15 @@ const many = (n: number) => Array.from({ length: n }, (_, i) => rec(String(i + 1
 
 describe('CollectService.collect', () => {
   let repo: InMemorySnapshotRepository;
+  let events: RecordingCollectionEvents;
   let service: CollectService;
   const collect = (records: SourceRecord[] | Error, source: SourceId = 'GOV24') =>
     service.collect(new FakeSourceFetcher(source, [records]));
 
   beforeEach(() => {
     repo = new InMemorySnapshotRepository();
-    service = new CollectService(repo, []);
+    events = new RecordingCollectionEvents();
+    service = new CollectService(repo, [], events);
   });
 
   describe('첫 수집', () => {
@@ -145,6 +148,24 @@ describe('CollectService.collect', () => {
       await expect(collect([...many(3), rec('4')])).rejects.toThrow();
 
       expect((await collect([...many(3), rec('4')])).added).toBe(1);
+    });
+  });
+
+  describe('진행 알림', () => {
+    it('시작과 성공을 실행 ID와 함께 알린다', async () => {
+      await collect(many(3));
+      expect(events.events).toEqual(['started GOV24 run-1', 'succeeded GOV24 run-1']);
+    });
+
+    it('가져오기에 실패하면 시작과 실패 이유를 알린다', async () => {
+      await expect(collect(new Error('API 응답 없음'))).rejects.toThrow();
+      expect(events.events).toEqual(['started GOV24 run-1', 'failed GOV24 run-1 API 응답 없음']);
+    });
+
+    it('대량 감소로 중단해도 실패로 알린다', async () => {
+      await collect(many(100));
+      await expect(collect(many(10))).rejects.toThrow();
+      expect(events.events.at(-1)).toMatch(/^failed GOV24 run-2 .*90% 미만/);
     });
   });
 

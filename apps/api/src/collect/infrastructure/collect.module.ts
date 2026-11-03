@@ -1,22 +1,31 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { CollectService } from '../application/collect.service';
+import { CollectionEvents } from '../application/ports/collection-events';
 import { SnapshotRepository } from '../application/ports/snapshot.repository';
 import { SOURCE_FETCHERS, SourceFetcher } from '../application/ports/source-fetcher';
 
 import { ReportPrinter } from './cli/report-printer';
-import { HttpClient } from './http/http-client';
+import { HttpClient, type RetryNotice } from './http/http-client';
+import { LoggingCollectionEvents } from './logging/logging-collection-events';
 import { PrismaSnapshotRepository } from './persistence/prisma-snapshot.repository';
 import { BokjiroLocalFetcher, BokjiroNationalFetcher } from './sources/bokjiro/bokjiro.fetcher';
 import { Gov24Fetcher } from './sources/gov24/gov24.fetcher';
 import { ServiceKey } from './sources/service-key';
 
+const httpLogger = new Logger('HttpClient');
+
+function logRetry({ attempt, retries, delayMs, reason }: RetryNotice) {
+  httpLogger.warn(`HTTP retry ${attempt}/${retries} in ${delayMs}ms: ${reason}`);
+}
+
 @Module({
   providers: [
     CollectService,
     { provide: SnapshotRepository, useClass: PrismaSnapshotRepository },
-    { provide: HttpClient, useFactory: () => new HttpClient() },
+    { provide: CollectionEvents, useClass: LoggingCollectionEvents },
+    { provide: HttpClient, useFactory: () => new HttpClient(fetch, { onRetry: logRetry }) },
     {
       provide: ServiceKey,
       useFactory: (config: ConfigService) => new ServiceKey(config.getOrThrow<string>('DATA_GO_KR_SERVICE_KEY')),

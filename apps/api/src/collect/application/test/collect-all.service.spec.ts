@@ -4,6 +4,7 @@ import { CollectionAlreadyRunningError, CollectService } from '../collect.servic
 
 import { FakeSourceFetcher } from './fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from './fakes/in-memory-snapshot.repository';
+import { RecordingCollectionEvents } from './fakes/recording-collection-events';
 
 import type { SourceRecord } from '../../domain/source-record';
 
@@ -11,16 +12,19 @@ const rec = (id: string): SourceRecord => ({ externalId: id, name: id, payload: 
 
 describe('CollectService.collectAll', () => {
   let repo: InMemorySnapshotRepository;
+  let events: RecordingCollectionEvents;
 
   beforeEach(() => {
     repo = new InMemorySnapshotRepository();
+    events = new RecordingCollectionEvents();
   });
 
   it('모든 출처를 차례로 수집해 결과를 모은다', async () => {
-    const service = new CollectService(repo, [
-      new FakeSourceFetcher('GOV24', [[rec('1'), rec('2')]]),
-      new FakeSourceFetcher('BOKJIRO_NATIONAL', [[rec('a')]]),
-    ]);
+    const service = new CollectService(
+      repo,
+      [new FakeSourceFetcher('GOV24', [[rec('1'), rec('2')]]), new FakeSourceFetcher('BOKJIRO_NATIONAL', [[rec('a')]])],
+      events,
+    );
 
     const report = await service.collectAll();
 
@@ -30,11 +34,15 @@ describe('CollectService.collectAll', () => {
   });
 
   it('한 출처가 실패해도 나머지 출처는 수집한다', async () => {
-    const service = new CollectService(repo, [
-      new FakeSourceFetcher('GOV24', [new Error('인증키 오류')]),
-      new FakeSourceFetcher('BOKJIRO_NATIONAL', [[rec('a')]]),
-      new FakeSourceFetcher('BOKJIRO_LOCAL', [[rec('x')]]),
-    ]);
+    const service = new CollectService(
+      repo,
+      [
+        new FakeSourceFetcher('GOV24', [new Error('인증키 오류')]),
+        new FakeSourceFetcher('BOKJIRO_NATIONAL', [[rec('a')]]),
+        new FakeSourceFetcher('BOKJIRO_LOCAL', [[rec('x')]]),
+      ],
+      events,
+    );
 
     const report = await service.collectAll();
 
@@ -44,10 +52,11 @@ describe('CollectService.collectAll', () => {
   });
 
   it('모든 출처가 실패해도 예외 없이 보고서를 돌려준다', async () => {
-    const service = new CollectService(repo, [
-      new FakeSourceFetcher('GOV24', [new Error('a')]),
-      new FakeSourceFetcher('BOKJIRO_LOCAL', [new Error('b')]),
-    ]);
+    const service = new CollectService(
+      repo,
+      [new FakeSourceFetcher('GOV24', [new Error('a')]), new FakeSourceFetcher('BOKJIRO_LOCAL', [new Error('b')])],
+      events,
+    );
 
     const report = await service.collectAll();
 
@@ -56,22 +65,23 @@ describe('CollectService.collectAll', () => {
   });
 
   it('출처가 하나도 없으면 빈 보고서를 돌려준다', async () => {
-    const report = await new CollectService(repo, []).collectAll();
+    const report = await new CollectService(repo, [], events).collectAll();
     expect(report.outcomes).toEqual([]);
     expect(report.hasFailures).toBe(false);
   });
 
   it('첫 수집(기준점)은 변경 수에 넣지 않는다', async () => {
-    const service = new CollectService(repo, [
-      new FakeSourceFetcher('GOV24', [[rec('1'), rec('2')]]),
-      new FakeSourceFetcher('BOKJIRO_LOCAL', [[rec('x')]]),
-    ]);
+    const service = new CollectService(
+      repo,
+      [new FakeSourceFetcher('GOV24', [[rec('1'), rec('2')]]), new FakeSourceFetcher('BOKJIRO_LOCAL', [[rec('x')]])],
+      events,
+    );
     expect((await service.collectAll()).totalChanges).toBe(0);
   });
 
   it('두 번째 수집부터 발생한 변경 수를 모두 더한다', async () => {
     const all = Array.from({ length: 20 }, (_, i) => rec(String(i)));
-    const service = new CollectService(repo, [new FakeSourceFetcher('GOV24', [all, [...all.slice(1), rec('new')]])]);
+    const service = new CollectService(repo, [new FakeSourceFetcher('GOV24', [all, [...all.slice(1), rec('new')]])], events);
 
     await service.collectAll();
     const second = await service.collectAll();
@@ -82,7 +92,7 @@ describe('CollectService.collectAll', () => {
   it('수집 중에 다시 실행하면 거절한다', async () => {
     let release!: () => void;
     const fetcher = new FakeSourceFetcher('GOV24', [[rec('1')]]).holdUntil(new Promise<void>((r) => (release = r)));
-    const service = new CollectService(repo, [fetcher]);
+    const service = new CollectService(repo, [fetcher], events);
 
     const first = service.collectAll();
     await expect(service.collectAll()).rejects.toThrow(CollectionAlreadyRunningError);
@@ -91,7 +101,7 @@ describe('CollectService.collectAll', () => {
   });
 
   it('앞선 수집이 끝나면 다시 실행할 수 있다', async () => {
-    const service = new CollectService(repo, [new FakeSourceFetcher('GOV24', [new Error('실패')])]);
+    const service = new CollectService(repo, [new FakeSourceFetcher('GOV24', [new Error('실패')])], events);
 
     await service.collectAll();
     await expect(service.collectAll()).resolves.toBeDefined();

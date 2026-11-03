@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { HttpClient, HttpError, redactUrl } from '../http/http-client';
+import { HttpClient, HttpError, redactUrl, type RetryNotice } from '../http/http-client';
 
 import { FakeFetch, networkError, timeoutError } from './fakes/fake-fetch';
 
@@ -16,8 +16,14 @@ const failureOf = (p: Promise<unknown>) =>
 
 function clientWith(fake: FakeFetch, retries = 2) {
   const waits: number[] = [];
-  const client = new HttpClient(fake.fetch, { retries, retryDelayMs: 100, sleep: async (ms) => void waits.push(ms) });
-  return { client, waits };
+  const notices: RetryNotice[] = [];
+  const client = new HttpClient(fake.fetch, {
+    retries,
+    retryDelayMs: 100,
+    sleep: async (ms) => void waits.push(ms),
+    onRetry: (notice) => void notices.push(notice),
+  });
+  return { client, waits, notices };
 }
 
 describe('redactUrl', () => {
@@ -114,5 +120,49 @@ describe('HttpClient', () => {
     const fake = new FakeFetch().on(any, { status: 400, body: 'x'.repeat(5000) });
     const error = await failureOf(clientWith(fake).client.getText(url));
     expect(error.message.length).toBeLessThan(400);
+  });
+
+  describe('재시도 알림', () => {
+    it('재시도할 때마다 몇 번째인지, 얼마나 기다리는지, 이유를 알린다', async () => {
+      const fake = new FakeFetch().on(any, { status: 503, body: '점검 중' }, networkError('ECONNRESET'), { body: 'ok' });
+      const { client, notices } = clientWith(fake);
+
+      await client.getText(url);
+
+      expect(notices.map(({ attempt, retries, delayMs }) => ({ attempt, retries, delayMs }))).toEqual([
+        { attempt: 1, retries: 2, delayMs: 100 },
+        { attempt: 2, retries: 2, delayMs: 200 },
+      ]);
+      expect(notices[0].reason).toContain('HTTP 503');
+      expect(notices[1].reason).toContain('네트워크 오류 (ECONNRESET)');
+    });
+
+    it('알림에도 인증키는 가려져 있다', async () => {
+      const { client, notices } = clientWith(new FakeFetch().on(any, networkError(), { body: 'ok' }));
+      await client.getText(url);
+      expect(notices[0].reason).not.toContain('SECRET-KEY');
+    });
+
+    it('재시도하지 않고 끝나는 오류는 알리지 않는다', async () => {
+      const { client, notices } = clientWith(new FakeFetch().on(any, { status: 404, body: '' }));
+      await expect(client.getText(url)).rejects.toThrow('HTTP 404');
+      expect(notices).toEqual([]);
+    });
+
+    it('마지막 시도가 실패하면 그 실패는 알림이 아니라 오류로 던진다', async () => {
+      const { client, notices } = clientWith(new FakeFetch().on(any, networkError()), 1);
+      await expect(client.getText(url)).rejects.toThrow('네트워크 오류');
+      expect(notices).toHaveLength(1);
+    });
+  });
+
+  it('네트워크 오류의 원인 코드를 메시지에 담는다', async () => {
+    const error = await failureOf(clientWith(new FakeFetch().on(any, networkError('ENOTFOUND')), 0).client.getText(url));
+    expect(error.message).toMatch(/^네트워크 오류 \(ENOTFOUND\): /);
+  });
+
+  it('원인 코드가 없으면 네트워크 오류라고만 쓴다', async () => {
+    const error = await failureOf(clientWith(new FakeFetch().on(any, networkError()), 0).client.getText(url));
+    expect(error.message).toMatch(/^네트워크 오류: /);
   });
 });

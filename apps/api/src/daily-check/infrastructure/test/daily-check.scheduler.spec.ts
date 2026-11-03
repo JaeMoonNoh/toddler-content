@@ -9,6 +9,7 @@ import { InMemoryBenefitRepository } from '../../../benefit/application/test/fak
 import { CollectService } from '../../../collect/application/collect.service';
 import { FakeSourceFetcher } from '../../../collect/application/test/fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from '../../../collect/application/test/fakes/in-memory-snapshot.repository';
+import { RecordingCollectionEvents } from '../../../collect/application/test/fakes/recording-collection-events';
 import { ReportPrinter } from '../../../collect/infrastructure/cli/report-printer';
 import { DailyCheckService } from '../../application/daily-check.service';
 import { DailyCheckPrinter } from '../daily-check-printer';
@@ -19,7 +20,7 @@ const record = { externalId: '1', name: '혜택 1', payload: { id: '1' } };
 function schedulerWith(fetcher: FakeSourceFetcher) {
   const snapshots = new InMemorySnapshotRepository();
   const dailyCheck = new DailyCheckService(
-    new CollectService(snapshots, [fetcher]),
+    new CollectService(snapshots, [fetcher], new RecordingCollectionEvents()),
     new BenefitReviewService(new InMemoryBenefitRepository(), new FakeSourceStateReader()),
   );
   const scheduler = new DailyCheckScheduler(
