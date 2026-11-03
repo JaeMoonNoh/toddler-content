@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { receiptOf } from '../domain/amount';
 import { splitByAudience } from '../domain/audience';
 import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { answeredCount, splitByEligibility, UNANSWERED } from '../domain/eligibility';
 import { describeStage, pregnancyStage } from '../domain/pregnancy';
-import { groupForRegion, REGIONS } from '../domain/region';
+import { type RegionDirectory, RegionTree } from '../domain/region';
 import { buildTimeline } from '../domain/timeline';
 import { BenefitGroups } from './benefit-groups';
 import { CalendarDownload } from './calendar-download';
@@ -15,42 +15,35 @@ import { ExcludedBenefits } from './excluded-benefits';
 import { AmountReceipt } from './amount-receipt';
 import { AudienceGroups } from './audience-groups';
 import { BirthOrderField, ChildcareField, HouseholdFields } from './household-fields';
+import { type RegionPick, RegionField } from './region-field';
 import { TimelineCard } from './timeline-card';
 
 // 사는 곳, 출산예정일, 고용보험 답은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다
-export function BenefitFinder({ benefits }: { benefits: PublishedBenefit[] }) {
-  const [regionId, setRegionId] = useState(REGIONS[0].id);
+export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefit[]; regions: RegionDirectory }) {
+  const tree = useMemo(() => new RegionTree(regions.regions), [regions]);
+  const [pick, setPick] = useState<RegionPick>({ provinceCode: '', districtCode: '' });
   const [dueText, setDueText] = useState('');
   const [household, setHousehold] = useState(UNANSWERED);
 
-  const region = REGIONS.find((r) => r.id === regionId) ?? REGIONS[0];
+  const region = tree.choose(pick.districtCode || pick.provinceCode || null);
   const today = CalendarDate.today();
   const due = CalendarDate.parse(dueText);
   const stage = due ? pregnancyStage(due, today) : null;
   const { shown, excluded } = splitByEligibility(
-    benefits.filter((b) => region.scopes.includes(b.scope)),
+    benefits.filter((b) => region.covers(b)),
     household,
   );
   const timeline = due && stage?.kind !== 'too-far' ? buildTimeline(region, shown, due, today) : null;
   const receipt = receiptOf(shown, household);
-  const rest = splitByAudience((timeline ? timeline.unscheduled : shown).filter((b) => region.scopes.includes(b.scope)));
-  const listed = groupForRegion(region, rest.forEveryone);
+  const rest = splitByAudience((timeline ? timeline.unscheduled : shown).filter((b) => region.covers(b)));
+  const listed = region.groupsOf(rest.forEveryone);
   const scheduledCount = timeline?.phases.reduce((sum, phase) => sum + phase.items.length, 0) ?? 0;
 
   return (
     <div className="wrap">
       <aside className="side">
         <form className="form" autoComplete="off" onSubmit={(e) => e.preventDefault()}>
-          <div className="field">
-            <label htmlFor="region">사는 곳</label>
-            <select id="region" value={regionId} onChange={(e) => setRegionId(e.target.value)}>
-              {REGIONS.map((r) => (
-                <option key={r.id} value={r.id}>
-                  {r.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          <RegionField tree={tree} pick={pick} choice={region} prepared={region.isPrepared(benefits)} onChange={setPick} />
           <div className="field">
             <label htmlFor="due">출산예정일</label>
             <input id="due" type="date" value={dueText} onChange={(e) => setDueText(e.target.value)} />

@@ -4,7 +4,8 @@ import { reviewBadge, type PublishedBenefit } from './benefit';
 const benefit = (overrides: Partial<PublishedBenefit>): PublishedBenefit => ({
   slug: 's',
   name: 'n',
-  scope: 'national',
+  regionCode: '0000000000',
+  regionName: '전국',
   sourceName: '보조금24',
   sourceUrl: 'https://plus.gov.kr',
   verifiedAt: null,

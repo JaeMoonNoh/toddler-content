@@ -1,4 +1,3 @@
-export type BenefitScope = 'national' | 'chungbuk' | 'cheongju';
 export type ReviewStatus = 'VERIFIED' | 'UNVERIFIED' | 'SOURCE_CHANGED';
 
 export interface ScheduleOffset {
@@ -63,7 +62,8 @@ export type Audience =
 export interface PublishedBenefit {
   slug: string;
   name: string;
-  scope: BenefitScope;
+  regionCode: string; // 법정동코드 10자리 (전국 0000000000)
+  regionName: string; // 청주시, 충청북도, 전국
   sourceName: string;
   sourceUrl: string;
   verifiedAt: string | null;
@@ -75,12 +75,6 @@ export interface PublishedBenefit {
   howToApply: HowToApply | null;
   audience: Audience | null; // 특정 대상만 받는 혜택의 묶음. 누구나 받으면 null
 }
-
-export const SCOPE_LABEL: Record<BenefitScope, string> = {
-  cheongju: '청주시',
-  chungbuk: '충청북도',
-  national: '전국 공통',
-};
 
 export interface ReviewBadge {
   tone: 'verified' | 'unverified' | 'changed';
