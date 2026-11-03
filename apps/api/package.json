@@ -12,7 +12,11 @@
     "test": "pnpm typecheck && vitest run",
     "typecheck": "prisma generate && tsc --noEmit -p tsconfig.json",
     "collect": "prisma generate && nest build && node dist/daily-check/infrastructure/daily-check.cli.js",
-    "benefit": "prisma generate && nest build && node dist/benefit/infrastructure/cli/benefit.cli.js"
+    "benefit": "prisma generate && nest build && node dist/benefit/infrastructure/cli/benefit.cli.js",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint-staged": "lint-staged --quiet"
   },
   "dependencies": {
     "@nestjs/common": "^12.3.2",
@@ -31,10 +35,19 @@
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
     "@nestjs/cli": "^12.0.11",
     "@nestjs/schematics": "^12.0.12",
     "@types/node": "^26.6.6",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-formatter-codeframe": "^7.32.2",
+    "eslint-plugin-perfectionist": "^5.13.0",
+    "eslint-plugin-prettier": "^5.5.7",
+    "globals": "^16.5.0",
+    "prettier": "^3.9.10",
     "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1",
     "vitest": "^5.0.5"
   }
 }
