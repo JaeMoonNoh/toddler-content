@@ -29,6 +29,32 @@ describe('ScheduleWindow', () => {
     expect(ScheduleWindow.of(schedule(at('pregnancy'), at('birth')), due).start.toIso()).toBe('2026-07-30');
   });
 
+  describe('화면에 보여줄 시작', () => {
+    it('임신 0주에 시작하면 날짜 대신 "임신 확인 후"로 보여준다', () => {
+      const window = ScheduleWindow.of(schedule(at('pregnancy'), at('birth')), due);
+      expect(window.formatStart()).toBe('임신 확인 후');
+      expect(window.formatStartShort()).toBe('임신 확인 후');
+      expect(window.formatPeriod()).toBe('임신 확인 후 ~ 2027.5.6(목)');
+    });
+
+    it('정렬과 상태 계산에 쓰는 시작일은 그대로 임신 0주다', () => {
+      const window = ScheduleWindow.of(schedule(at('pregnancy'), at('birth')), due);
+      expect(window.start.toIso()).toBe('2026-07-30');
+      expect(window.statusOn(date('2026-11-03')).kind).toBe('open');
+    });
+
+    it('임신 기준이어도 0주가 아니면 날짜로 보여준다', () => {
+      const window = ScheduleWindow.of(schedule(at('pregnancy', 4), at('birth')), due);
+      expect(window.formatStart()).toBe('2026.11.30(월)');
+    });
+
+    it('출생 기준이면 날짜로 보여준다 (출산예정일 당일에 시작해도)', () => {
+      const window = ScheduleWindow.of(schedule(at('birth'), at('birth', 0, 59)), due);
+      expect(window.formatStartShort()).toBe('5.6(목)');
+      expect(window.formatPeriod()).toBe('2027.5.6(목) ~ 2027.7.4(일)');
+    });
+  });
+
   it('개월을 먼저 더하고 일수를 더한다 (2년 - 1일)', () => {
     expect(ScheduleWindow.of(schedule(at('birth'), at('birth', 24, -1)), due).end.toIso()).toBe('2029-05-05');
   });

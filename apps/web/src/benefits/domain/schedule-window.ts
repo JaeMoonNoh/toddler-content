@@ -2,6 +2,8 @@ import type { BenefitSchedule, ScheduleOffset } from './benefit';
 import type { CalendarDate } from './calendar-date';
 
 const PREGNANCY_DAYS = 280;
+// 임신 0주는 마지막 생리 시작일이라 그날엔 아무도 신청할 수 없다. 실제로는 병원에서 임신을 확인한 뒤부터 신청한다
+const AFTER_PREGNANCY_CONFIRMED = '임신 확인 후';
 
 export type WindowStatus =
   | { kind: 'upcoming'; daysUntilStart: number }
@@ -11,12 +13,25 @@ export type WindowStatus =
 // 출산예정일로 계산한 실제 신청 기간. 태어나기 전에는 출생일을 출산예정일로 본다
 export class ScheduleWindow {
   private constructor(
-    readonly start: CalendarDate,
+    readonly start: CalendarDate, // 정렬과 상태 계산에 쓴다. 화면에는 formatStart로 보여준다
     readonly end: CalendarDate,
+    private readonly startsWhenPregnancyConfirmed: boolean,
   ) {}
 
   static of(schedule: BenefitSchedule, due: CalendarDate): ScheduleWindow {
-    return new ScheduleWindow(dateOf(schedule.from, due), dateOf(schedule.until, due));
+    return new ScheduleWindow(dateOf(schedule.from, due), dateOf(schedule.until, due), isPregnancyStart(schedule.from));
+  }
+
+  formatStart(): string {
+    return this.startsWhenPregnancyConfirmed ? AFTER_PREGNANCY_CONFIRMED : this.start.format();
+  }
+
+  formatStartShort(): string {
+    return this.startsWhenPregnancyConfirmed ? AFTER_PREGNANCY_CONFIRMED : this.start.formatShort();
+  }
+
+  formatPeriod(): string {
+    return `${this.formatStart()} ~ ${this.end.format()}`;
   }
 
   statusOn(today: CalendarDate): WindowStatus {
@@ -24,6 +39,10 @@ export class ScheduleWindow {
     if (today.isAfter(this.end)) return { kind: 'closed' };
     return { kind: 'open', daysLeft: this.end.daysSince(today) };
   }
+}
+
+function isPregnancyStart({ anchor, months, days }: ScheduleOffset) {
+  return anchor === 'pregnancy' && months === 0 && days === 0;
 }
 
 function dateOf({ anchor, months, days }: ScheduleOffset, due: CalendarDate): CalendarDate {

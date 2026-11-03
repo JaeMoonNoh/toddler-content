@@ -11,14 +11,14 @@ export function TimelineCard({ item }: { item: TimelineItem }) {
   return (
     <li className={`ev s-${emphasisOf(status)}`}>
       <div className="when">
-        <b>{window.start.formatShort()}</b>
+        <b>{window.formatStartShort()}</b>
         <span>{describeStatus(status)}</span>
       </div>
       <div className="card">
         <BenefitChips benefit={benefit} />
         <h3>{benefit.name}</h3>
         <p className="period">
-          {window.start.format()} ~ {window.end.format()} <span>· {schedule.untilLabel}</span>
+          {window.formatPeriod()} <span>· {schedule.untilLabel}</span>
         </p>
         <p className="summary">{schedule.summary}</p>
         {benefit.amount && <p className="amt">{benefit.amount.summary}</p>}
