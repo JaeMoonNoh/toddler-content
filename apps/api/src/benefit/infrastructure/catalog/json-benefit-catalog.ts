@@ -11,6 +11,7 @@ import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
 import type { AmountKind, AmountTier, BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule, ScheduleAnchor, ScheduleOffset } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
+import type { HowToApply } from '../../domain/how-to-apply';
 
 const SOURCE_IDS: readonly string[] = ['GOV24', 'BOKJIRO_NATIONAL', 'BOKJIRO_LOCAL'] satisfies SourceId[];
 
@@ -53,6 +54,7 @@ function toDetails(entry: unknown, index: number): BenefitDetails {
     conditions: conditionsOf(e.conditions, where),
     amount: e.amount === undefined || e.amount === null ? null : amountOf(e.amount, where),
     applicationPeriod: e.applicationPeriod === undefined || e.applicationPeriod === null ? null : periodOf(e.applicationPeriod, where),
+    howToApply: e.howToApply === undefined || e.howToApply === null ? null : howToApplyOf(e.howToApply, where),
     audience: audienceOf(e.audience, where),
   };
 }
@@ -127,6 +129,16 @@ function tierOf(value: unknown, where: string): AmountTier {
     throw new CatalogError(`${where}: amount.tiers의 minBirthOrder, maxBirthOrder, won은 숫자여야 합니다`);
   }
   return { minBirthOrder: t.minBirthOrder, maxBirthOrder: max, won: t.won };
+}
+
+function howToApplyOf(value: unknown, where: string): HowToApply {
+  const h = (value ?? {}) as Record<string, unknown>;
+  const basis = (h.basis ?? {}) as Record<string, unknown>;
+  const text = (v: unknown, field: string) => {
+    if (typeof v !== 'string') throw new CatalogError(`${where}: howToApply.${field}가 문자열이 아닙니다`);
+    return v;
+  };
+  return { summary: text(h.summary, 'summary'), basis: { text: text(basis.text, 'basis.text'), url: text(basis.url, 'basis.url') } };
 }
 
 function periodOf(value: unknown, where: string): ApplicationPeriod {

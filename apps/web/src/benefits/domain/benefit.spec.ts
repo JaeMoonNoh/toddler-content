@@ -13,6 +13,7 @@ const benefit = (overrides: Partial<PublishedBenefit>): PublishedBenefit => ({
   conditions: [],
   amount: null,
   applicationPeriod: null,
+  howToApply: null,
   audience: null,
   ...overrides,
 });

@@ -14,6 +14,7 @@ export function benefitDetails(id: string, overrides: Partial<BenefitDetails> = 
     conditions: [],
     amount: null,
     applicationPeriod: null,
+    howToApply: null,
     audience: null,
     ...overrides,
   };

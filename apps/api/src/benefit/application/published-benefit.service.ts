@@ -11,6 +11,7 @@ import type { BenefitScope } from '../domain/benefit';
 import type { BenefitAmount } from '../domain/benefit-amount';
 import type { BenefitSchedule } from '../domain/benefit-schedule';
 import type { EligibilityCondition } from '../domain/eligibility-condition';
+import type { HowToApply } from '../domain/how-to-apply';
 
 export interface PublishedBenefit {
   slug: string;
@@ -25,6 +26,7 @@ export interface PublishedBenefit {
   conditions: EligibilityCondition[];
   amount: BenefitAmount | null;
   applicationPeriod: ApplicationPeriod | null;
+  howToApply: HowToApply | null;
   audience: Audience | null;
 }
 
@@ -56,6 +58,7 @@ export class PublishedBenefitService {
           conditions: benefit.conditions,
           amount: benefit.amount,
           applicationPeriod: benefit.applicationPeriod,
+          howToApply: benefit.howToApply,
           audience: benefit.audience,
         };
       })

@@ -14,6 +14,7 @@ const benefit = (name: string, scope: BenefitScope): PublishedBenefit => ({
   conditions: [],
   amount: null,
   applicationPeriod: null,
+  howToApply: null,
   audience: null,
 });
 const region = (id: string) => REGIONS.find((r) => r.id === id)!;

@@ -43,6 +43,12 @@ export interface ApplicationPeriod {
   basis: { text: string; url: string };
 }
 
+// 어디서 어떻게 신청하는지 한 줄
+export interface HowToApply {
+  summary: string;
+  basis: { text: string; url: string };
+}
+
 export type Audience =
   | 'ADOPTION_FOSTER'
   | 'DISABILITY'
@@ -66,6 +72,7 @@ export interface PublishedBenefit {
   conditions: EligibilityCondition[];
   amount: BenefitAmount | null;
   applicationPeriod: ApplicationPeriod | null;
+  howToApply: HowToApply | null;
   audience: Audience | null; // 특정 대상만 받는 혜택의 묶음. 누구나 받으면 null
 }
 

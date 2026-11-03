@@ -14,6 +14,7 @@ const benefit = (name: string, audience: Audience | null): PublishedBenefit => (
   conditions: [],
   amount: null,
   applicationPeriod: null,
+  howToApply: null,
   audience,
 });
 

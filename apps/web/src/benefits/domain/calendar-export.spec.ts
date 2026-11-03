@@ -28,6 +28,7 @@ const benefit = (slug: string, name: string, s: BenefitSchedule | null, reviewSt
   conditions: [],
   amount: null,
   applicationPeriod: null,
+  howToApply: null,
   audience: null,
 });
 const eventsOn = (today: string, benefits: PublishedBenefit[]) =>

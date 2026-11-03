@@ -4,6 +4,7 @@ import { describeStatus, emphasisOf } from '../domain/schedule-window';
 import type { TimelineItem } from '../domain/timeline';
 import { BenefitChips } from './benefit-chips';
 import { CardFooter } from './card-footer';
+import { HowToApplyLine } from './how-to-apply-line';
 
 // 한눈에 볼 것(기간, 설명, 금액)만 펼치고, 근거는 접어 둔다
 export function TimelineCard({ item }: { item: TimelineItem }) {
@@ -22,6 +23,7 @@ export function TimelineCard({ item }: { item: TimelineItem }) {
         </p>
         <p className="summary">{schedule.summary}</p>
         {benefit.amount && <p className="amt">{benefit.amount.summary}</p>}
+        <HowToApplyLine benefit={benefit} />
         <details className="basis">
           <summary>근거</summary>
           <p>

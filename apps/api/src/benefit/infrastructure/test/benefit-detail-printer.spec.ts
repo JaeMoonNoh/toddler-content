@@ -86,12 +86,23 @@ describe('BenefitDetailPrinter', () => {
     );
   });
 
+  it('신청 방법이 있으면 설명과 근거를 보여준다', () => {
+    const withHow = Benefit.register(
+      benefitDetails('1', {
+        howToApply: { summary: '주민센터 방문 · 문의 129', basis: { text: '신청방법: 방문신청', url: 'https://plus.gov.kr/x' } },
+      }),
+    );
+    const out = new BenefitDetailPrinter().print({ benefit: withHow, status: { kind: 'UNVERIFIED' }, sources: [] });
+    expect(out).toContain('[우리가 정리한 신청 방법]\n  설명: 주민센터 방문 · 문의 129\n  근거: 신청방법: 방문신청');
+  });
+
   it('정리하지 않은 일정·금액은 그렇다고 알려준다', () => {
     const bare = Benefit.register(benefitDetails('1'));
     const out = new BenefitDetailPrinter().print({ benefit: bare, status: { kind: 'UNVERIFIED' }, sources: [] });
     expect(out).toContain('[우리가 정리한 일정]\n  아직 정리하지 않았어요');
     expect(out).toContain('[우리가 정리한 금액]\n  아직 정리하지 않았어요');
     expect(out).toContain('[우리가 정리한 올해 신청 기간]\n  없음');
+    expect(out).toContain('[우리가 정리한 신청 방법]\n  아직 정리하지 않았어요');
   });
 
   it('수집된 적 없는 원본과 사라진 원본을 알려준다', () => {

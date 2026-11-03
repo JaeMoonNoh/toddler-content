@@ -11,6 +11,7 @@ import type { Audience } from '../../domain/audience';
 import type { BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
+import type { HowToApply } from '../../domain/how-to-apply';
 
 const WITH_SOURCES = { sources: { orderBy: { position: 'asc' } } } satisfies Prisma.BenefitInclude;
 type BenefitRow = Prisma.BenefitGetPayload<{ include: typeof WITH_SOURCES }>;
@@ -47,6 +48,7 @@ export class PrismaBenefitRepository extends BenefitRepository {
           audience: benefit.audience,
           amount: benefit.amount ? (benefit.amount as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
           applicationPeriod: benefit.applicationPeriod ? (benefit.applicationPeriod as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
+          howToApply: benefit.howToApply ? (benefit.howToApply as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
           verifiedAt: benefit.verifiedAt,
         };
         const { id } = await tx.benefit.upsert({
@@ -87,6 +89,7 @@ function toBenefit(row: BenefitRow): Benefit {
     conditions: row.conditions as EligibilityCondition[],
     amount: (row.amount ?? null) as BenefitAmount | null,
     applicationPeriod: (row.applicationPeriod ?? null) as ApplicationPeriod | null,
+    howToApply: (row.howToApply ?? null) as HowToApply | null,
     audience: (row.audience ?? null) as Audience | null,
   };
   const snapshots = sources
