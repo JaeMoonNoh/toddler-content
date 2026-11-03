@@ -59,11 +59,32 @@ docker-compose.yml
 | 층 | 폴더 | 담는 것 | 의존해도 되는 것 |
 |---|---|---|---|
 | 도메인 로직 | `domain/` | 이 서비스의 개념과 규칙. 예: 혜택 원본, 변경, "무엇을 변경으로 보는가" | 없음 (순수 TypeScript. Nest, Prisma, HTTP를 import하지 않는다) |
-| 비즈니스 로직 | `application/` | 유스케이스와 정책. 예: "수집하고 비교해서 저장한다", "첫 수집은 기준점만", "10% 넘게 줄면 중단" | `domain/`, 그리고 이 층이 정의한 **포트(interface)** |
+| 비즈니스 로직 | `application/` | 서비스(`@Injectable`)와 정책. 예: "수집하고 비교해서 저장한다", "첫 수집은 기준점만", "10% 넘게 줄면 중단" | `domain/`, 이 층이 정의한 **포트(abstract class)**, `@nestjs/common`의 `@Injectable`·`@Inject`만 |
 | 구현 로직 | `infrastructure/` | 포트의 실제 구현. Prisma 저장소, HTTP·XML 클라이언트, Nest 모듈, cron, CLI | `application/`, `domain/`, 외부 라이브러리 |
 
 - 의존 방향은 항상 **구현 → 비즈니스 → 도메인**. 반대로 import하지 않는다.
 - 비즈니스 로직은 DB나 API를 직접 부르지 않고 포트를 통해서만 부른다. 그래서 저장소나 출처가 바뀌어도 구현만 갈아 끼우면 된다.
+- 기능 사이에 같이 쓰는 개념은 `src/shared/domain/`에 둔다 (예: `SourceId`, 원본 해시). 한 기능이 다른 기능의 `domain/`을 가져다 쓰지 않는다.
+
+### NestJS 규칙
+
+- **유스케이스마다 클래스를 만들지 않는다.** 같은 대상을 다루는 일은 `@Injectable` 서비스 하나에 의미 있는 메서드로 묶는다 (`BenefitReviewService.queue()`, `.verify()`). `execute()` 같은 이름은 쓰지 않는다.
+- **포트는 가짜 구현으로 바꿔 끼울 필요가 있는 곳에만 둔다** (저장소, 외부 API, 파일). 포트는 abstract class로 만들어 그대로 Nest 토큰으로 쓴다. 이름에 `I`, `T` 접두사를 붙이지 않는다.
+- 모듈에는 클래스 provider를 쓰고, `useFactory`는 설정값이나 숫자 인자가 필요한 것에만 쓴다.
+- 모듈 의존은 위에서 아래로만 흐른다. `forwardRef`가 필요해지면 구조를 다시 나눈다.
+- 서버에서만 쓰는 것(스케줄러 등)은 따로 모듈로 떼어 CLI가 불러오지 않게 한다.
+- 환경 변수는 `ConfigService`로만 읽는다. `process.env`를 직접 읽지 않고, 새 변수는 `src/config/env.validation.ts`에 추가해 시작할 때 검증한다.
+- 컨트롤러에는 로직을 두지 않는다. 서비스를 부르고, 응답에 내보낼 필드는 서비스가 명시적으로 골라 만든다 (엔티티를 그대로 내보내지 않는다).
+- 로그는 서버에서는 Nest `Logger`, CLI에서는 `console`로 쓴다.
+- Swagger는 공개 API가 생길 때 붙인다.
+
+### 이름과 함수
+
+- 함수는 한 가지 수준의 일만 한다. 윗 함수는 무엇을 하는지 단계 이름만 부르고, 세부는 아래 함수로 내린다.
+- 한 줄짜리를 감싸기만 하는 얕은 함수는 만들지 않는다.
+- 이름 규칙: 바꾸는 것은 `toXxx`, 꺼내는 것은 `getXxx`/`xxxOf`, 조건이 안 맞으면 던지는 것은 `rejectXxx`/`assertXxx`.
+- 의미 있는 숫자는 상수로 이름을 붙인다 (`DAILY_CHECK_JOB`, `URGENCY`).
+- 주석은 이유만 쓴다. 나중에 할 일은 `TODO:`, 놓치기 쉬운 사정은 `NOTE:`로 시작한다.
 
 ### 테이블은 마지막에 설계한다
 
@@ -74,6 +95,7 @@ docker-compose.yml
 ### 테스트
 
 - 도메인과 비즈니스 로직은 가짜 구현으로 단위 테스트한다 (DB, 네트워크 없이).
+- 테스트는 층마다 `test/` 폴더에, 가짜 구현은 `test/fakes/`에 둔다 (예: `benefit/application/test/benefit-review.service.verify.spec.ts`). 빌드에서는 `**/test/**`를 뺀다.
 - **edge 케이스를 반드시 포함한다.** 빈 목록, 경계값(딱 맞는 페이지 수, 딱 10% 감소), 중복, 누락된 필드, 외부 API 오류·시간 초과·부분 실패, 재시도, 한 출처 실패 시 나머지 출처 진행 등.
 - 테스트 이름은 한글로 동작을 설명한다 (`it('이전보다 10% 넘게 줄면 중단')`).
 
