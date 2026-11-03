@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { CollectAllSourcesUseCase } from '../application/collect-all-sources.use-case';
 import { CollectSourceUseCase } from '../application/collect-source.use-case';
 import { SnapshotRepository } from '../application/ports/snapshot.repository';
@@ -17,10 +18,14 @@ const SOURCE_FETCHERS = Symbol('SOURCE_FETCHERS');
   providers: [
     { provide: SnapshotRepository, useClass: PrismaSnapshotRepository },
     { provide: HttpClient, useFactory: () => new HttpClient() },
-    { provide: ServiceKey, useFactory: () => ServiceKey.fromEnv() },
+    {
+      provide: ServiceKey,
+      useFactory: (config: ConfigService) => new ServiceKey(config.getOrThrow<string>('DATA_GO_KR_SERVICE_KEY')),
+      inject: [ConfigService],
+    },
     {
       provide: SOURCE_FETCHERS,
-      useFactory: (http: HttpClient, key: ServiceKey | null): SourceFetcher[] => [
+      useFactory: (http: HttpClient, key: ServiceKey): SourceFetcher[] => [
         new Gov24Fetcher(http, key),
         new BokjiroNationalFetcher(http, key),
         new BokjiroLocalFetcher(http, key),

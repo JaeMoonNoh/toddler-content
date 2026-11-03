@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { DailyCheckUseCase } from '../application/daily-check.use-case';
 import { DailyCheckCliModule } from './daily-check-cli.module';

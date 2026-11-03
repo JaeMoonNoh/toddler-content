@@ -1,20 +1,31 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Cron, SchedulerRegistry } from '@nestjs/schedule';
 import { CollectionAlreadyRunningError } from '../../collect/application/collect-all-sources.use-case';
 import { DailyCheckUseCase, requiresAttention } from '../application/daily-check.use-case';
 import { DailyCheckPrinter } from './daily-check-printer';
 
+const DAILY_CHECK_JOB = 'daily-check';
+
 // 공공 API 이용이 적은 새벽에 하루 한 번 수집하고, 확인할 혜택이 생겼는지 함께 본다
 @Injectable()
-export class DailyCheckScheduler {
+export class DailyCheckScheduler implements OnApplicationBootstrap {
   private readonly logger = new Logger(DailyCheckScheduler.name);
 
   constructor(
     private readonly dailyCheck: DailyCheckUseCase,
     private readonly printer: DailyCheckPrinter,
+    private readonly config: ConfigService,
+    private readonly schedulerRegistry: SchedulerRegistry,
   ) {}
 
-  @Cron('0 4 * * *', { name: 'daily-check', timeZone: 'Asia/Seoul', disabled: process.env.COLLECT_SCHEDULE === 'off' })
+  onApplicationBootstrap() {
+    if (this.config.getOrThrow<string>('COLLECT_SCHEDULE') !== 'off') return;
+    this.schedulerRegistry.getCronJob(DAILY_CHECK_JOB).stop();
+    this.logger.log('COLLECT_SCHEDULE=off: 새벽 자동 수집을 끕니다.');
+  }
+
+  @Cron('0 4 * * *', { name: DAILY_CHECK_JOB, timeZone: 'Asia/Seoul' })
   async runDaily() {
     try {
       const result = await this.dailyCheck.execute();

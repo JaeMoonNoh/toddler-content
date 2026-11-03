@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { FakeFetch } from './fakes/fake-fetch';
 import { HttpClient } from '../http/http-client';
-import { MissingServiceKeyError, ServiceKey } from '../sources/service-key';
+import { ServiceKey } from '../sources/service-key';
 import { Gov24Fetcher } from '../sources/gov24/gov24.fetcher';
 
-const key = ServiceKey.fromEnv({ DATA_GO_KR_SERVICE_KEY: 'TEST-KEY' });
+const key = new ServiceKey('TEST-KEY');
 const service = (id: string, extra: Record<string, unknown> = {}) => ({ 서비스ID: id, 서비스명: `혜택 ${id}`, 조회수: 3, ...extra });
 const page = (data: unknown[], totalCount: number) => ({ body: JSON.stringify({ page: 1, perPage: 1000, totalCount, currentCount: data.length, data }) });
 const pageParam = (n: number) => (url: URL) => url.searchParams.get('page') === String(n);
 
-function fetcherWith(fake: FakeFetch, serviceKey = key) {
-  return new Gov24Fetcher(new HttpClient(fake.fetch, { retries: 0 }), serviceKey);
+function fetcherWith(fake: FakeFetch) {
+  return new Gov24Fetcher(new HttpClient(fake.fetch, { retries: 0 }), key);
 }
 
 describe('Gov24Fetcher', () => {
@@ -47,12 +47,6 @@ describe('Gov24Fetcher', () => {
   it('인증키가 틀리면 HTTP 오류를 알려준다', async () => {
     const fake = new FakeFetch().on(pageParam(1), { status: 401, body: '{"code":-4,"msg":"등록되지 않은 인증키 입니다."}' });
     await expect(fetcherWith(fake).fetchAll()).rejects.toThrow('등록되지 않은 인증키');
-  });
-
-  it('인증키가 설정되지 않았으면 요청하지 않고 실패한다', async () => {
-    const fake = new FakeFetch();
-    await expect(fetcherWith(fake, null).fetchAll()).rejects.toThrow(MissingServiceKeyError);
-    expect(fake.requests).toHaveLength(0);
   });
 
   it('JSON이 아닌 응답이면 실패한다', async () => {

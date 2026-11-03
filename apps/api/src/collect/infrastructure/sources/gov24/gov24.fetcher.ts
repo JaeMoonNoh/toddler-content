@@ -2,7 +2,7 @@ import { type SourceRecord } from '../../../domain/source-record';
 import { VOLATILE_FIELDS } from '../../../../shared/domain/source-id';
 import type { HttpClient } from '../../http/http-client';
 import { PagedSourceFetcher, SourceFormatError, type Page } from '../paged-source-fetcher';
-import { ServiceKey } from '../service-key';
+import type { ServiceKey } from '../service-key';
 
 type Gov24Item = Record<string, unknown> & { 서비스ID?: string; 서비스명?: string };
 
@@ -16,7 +16,7 @@ export class Gov24Fetcher extends PagedSourceFetcher<Gov24Item> {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly key: ServiceKey | null,
+    private readonly key: ServiceKey,
   ) {
     super();
   }
@@ -26,7 +26,7 @@ export class Gov24Fetcher extends PagedSourceFetcher<Gov24Item> {
     url.searchParams.set('page', String(page));
     url.searchParams.set('perPage', String(this.pageSize));
 
-    const body = parseJson(await this.http.getText(ServiceKey.required(this.key).signed(url)));
+    const body = parseJson(await this.http.getText(this.key.signed(url)));
     if (!Array.isArray(body.data) || typeof body.totalCount !== 'number') {
       throw new SourceFormatError(`GOV24: 예상과 다른 응답입니다 (${JSON.stringify(body).slice(0, 200)})`);
     }
