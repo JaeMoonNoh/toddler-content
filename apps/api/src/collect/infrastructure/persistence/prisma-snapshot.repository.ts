@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ChangeType, Prisma } from '../../../generated/prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { SnapshotRepository, type RunSummary, type SnapshotPlan } from '../../application/ports/snapshot.repository';
-import type { SourceId, StoredItem } from '../../domain/source-record';
+import type { StoredItem } from '../../domain/source-record';
+import type { SourceId } from '../../../shared/domain/source-id';
 
 const CHUNK = 1000; // 한 쿼리에 넣는 최대 건수 (PostgreSQL 파라미터 한도 대비)
 

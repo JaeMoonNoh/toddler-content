@@ -3,8 +3,8 @@ import { periodProblems, samePeriod, type ApplicationPeriod } from './applicatio
 import { amountProblems, sameAmount, type BenefitAmount } from './benefit-amount';
 import { conditionProblems, sameConditions, type EligibilityCondition } from './eligibility-condition';
 import { sameSchedule, scheduleProblems, type BenefitSchedule } from './benefit-schedule';
-import { changedFields } from '../../collect/domain/snapshot-diff';
-import { VOLATILE_FIELDS } from '../../collect/domain/source-record';
+import { changedFields } from '../../shared/domain/payload-diff';
+import { VOLATILE_FIELDS } from '../../shared/domain/source-id';
 import type { CurrentSources, SourceSnapshot, SourceState } from './current-sources';
 import { isPublishable, type ChangedSource, type ReviewStatus } from './review-status';
 import type { SourceRef } from './source-ref';

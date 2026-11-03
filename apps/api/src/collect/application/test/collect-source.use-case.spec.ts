@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { SourceId, SourceRecord } from '../../domain/source-record';
+import type { SourceRecord } from '../../domain/source-record';
+import type { SourceId } from '../../../shared/domain/source-id';
 import { CollectSourceUseCase } from '../collect-source.use-case';
 import { FakeSourceFetcher } from './fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from './fakes/in-memory-snapshot.repository';

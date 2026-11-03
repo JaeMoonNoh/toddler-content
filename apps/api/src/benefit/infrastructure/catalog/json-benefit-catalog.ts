@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import type { SourceId } from '../../../collect/domain/source-record';
+import type { SourceId } from '../../../shared/domain/source-id';
 import { CatalogError } from '../../application/sync-catalog.use-case';
 import { BenefitCatalog } from '../../application/ports/benefit-catalog';
 import type { BenefitDetails, BenefitScope } from '../../domain/benefit';

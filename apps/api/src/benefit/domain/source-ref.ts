@@ -1,4 +1,4 @@
-import type { SourceId } from '../../collect/domain/source-record';
+import type { SourceId } from '../../shared/domain/source-id';
 
 // 혜택이 가리키는 공공 API 원본 한 건 (출처 + 출처의 ID)
 export class SourceRef {

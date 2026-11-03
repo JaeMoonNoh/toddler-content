@@ -1,4 +1,5 @@
-import type { SourceId, SourceRecord } from '../../domain/source-record';
+import type { SourceRecord } from '../../domain/source-record';
+import type { SourceId } from '../../../shared/domain/source-id';
 
 export abstract class SourceFetcher {
   abstract readonly source: SourceId;

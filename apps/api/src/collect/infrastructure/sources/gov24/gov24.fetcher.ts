@@ -1,4 +1,5 @@
-import { VOLATILE_FIELDS, type SourceRecord } from '../../../domain/source-record';
+import { type SourceRecord } from '../../../domain/source-record';
+import { VOLATILE_FIELDS } from '../../../../shared/domain/source-id';
 import type { HttpClient } from '../../http/http-client';
 import { PagedSourceFetcher, SourceFormatError, type Page } from '../paged-source-fetcher';
 import { ServiceKey } from '../service-key';

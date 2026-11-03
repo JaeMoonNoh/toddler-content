@@ -1,5 +1,7 @@
-import { diffSnapshot, hashPayload, type SnapshotDiff } from '../domain/snapshot-diff';
-import type { SourceId, SourceRecord, StoredItem } from '../domain/source-record';
+import { diffSnapshot, type SnapshotDiff } from '../domain/snapshot-diff';
+import { hashPayload } from '../../shared/domain/payload-diff';
+import type { SourceRecord, StoredItem } from '../domain/source-record';
+import type { SourceId } from '../../shared/domain/source-id';
 import { assertAcceptable, isBaseline } from './policies/collection-policy';
 import { SnapshotRepository, type SnapshotPlan } from './ports/snapshot.repository';
 import type { SourceFetcher } from './ports/source-fetcher';

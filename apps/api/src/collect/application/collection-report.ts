@@ -1,4 +1,4 @@
-import type { SourceId } from '../domain/source-record';
+import type { SourceId } from '../../shared/domain/source-id';
 import type { CollectSourceResult } from './collect-source.use-case';
 
 export type SourceOutcome =
