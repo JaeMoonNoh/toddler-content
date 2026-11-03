@@ -3206,6 +3206,10 @@
       {
         "source": "GOV24",
         "externalId": "628000000735"
+      },
+      {
+        "source": "GOV24",
+        "externalId": "357000000131"
       }
     ],
     "howToApply": {
@@ -3227,9 +3231,9 @@
         "days": 89
       },
       "untilLabel": "신청 마감 (출산 후 90일)",
-      "summary": "임신 12주부터 출산 후 90일 안에 신청해요. 인천에 6개월 이상 살아야 해요",
+      "summary": "임신 12주부터 출산 후 90일 안에 신청해요. 인천에 6개월 이상 살아야 해요. 강화군은 강화군에서 접수하고 출산 후 30일까지예요",
       "basis": {
-        "text": "신청시기 : 임신 12주부터 출산일로부터 3개월(90일) 이내 (예시) '25년 5월 1일 출산자의 경우, '25년 7월 29일까지 거주요건 충족시 신청가능",
+        "text": "신청시기 : 임신 12주부터 출산일로부터 3개월(90일) 이내 (예시) '25년 5월 1일 출산자의 경우, '25년 7월 29일까지 거주요건 충족시 신청가능 / (강화군) 신청시기: 임신 12주부터 출산 후 1개월까지(30일) … 「인천광역시 저출산 대책 및 지원에 관한 조례」제13조의 2(임산부 교통비 지원)에 따름",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2116229&bnefType=all&svcId=628000000735"
       }
     },
@@ -3737,13 +3741,7 @@
     "amount": {
       "kind": "cash",
       "summary": "월 50만원씩 6개월, 최대 300만원",
-      "tiers": [
-        {
-          "minBirthOrder": 1,
-          "maxBirthOrder": null,
-          "won": 3000000
-        }
-      ],
+      "tiers": null,
       "basis": {
         "text": "월 50만원씩 6개월(최대 300만원) 현금 지급(신청월 익월 말일)",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2124601&bnefType=all&svcId=349000000126"
@@ -4045,13 +4043,7 @@
     "amount": {
       "kind": "cash",
       "summary": "월 50만원씩 최대 6개월, 최대 300만원",
-      "tiers": [
-        {
-          "minBirthOrder": 1,
-          "maxBirthOrder": null,
-          "won": 3000000
-        }
-      ],
+      "tiers": null,
       "basis": {
         "text": "지원금액 : 월 50만원(최대 6개월)",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004388&bnefType=all&svcId=352000000106"
@@ -4310,52 +4302,6 @@
       "basis": {
         "text": "육아휴직 급여의 상·하한액에 따라 최대 월 100만원 ~ 최소 월 10만원씩 6개월차까지 지원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002926&bnefType=all&svcId=356000000106"
-      }
-    }
-  },
-  {
-    "slug": "gov24-357000000131",
-    "name": "강화군 임산부 교통비 지원",
-    "regionCode": "2871000000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2176417&bnefType=all&svcId=357000000131",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "357000000131"
-      }
-    ],
-    "howToApply": {
-      "summary": "방문 또는 정부24 온라인 · 문의 032-930-3587",
-      "basis": {
-        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 가족복지과/032-930-3587",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2176417&bnefType=all&svcId=357000000131"
-      }
-    },
-    "schedule": {
-      "from": {
-        "anchor": "pregnancy",
-        "months": 0,
-        "days": 84
-      },
-      "until": {
-        "anchor": "birth",
-        "months": 0,
-        "days": 30
-      },
-      "untilLabel": "신청 마감 (출산 후 30일)",
-      "summary": "임신 12주부터 출산 후 30일까지 신청해요. 강화군에 6개월 이상 살아야 해요",
-      "basis": {
-        "text": "신청시기: 임신 12주부터 출산 후 1개월까지(30일)",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2176417&bnefType=all&svcId=357000000131"
-      }
-    },
-    "amount": {
-      "kind": "voucher",
-      "summary": "교통비 50만원",
-      "tiers": null,
-      "basis": {
-        "text": "강화군 임산부 교통비 500천원지급",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2176417&bnefType=all&svcId=357000000131"
       }
     }
   },
