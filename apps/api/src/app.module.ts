@@ -7,9 +7,10 @@ import { DailyCheckScheduleModule } from './daily-check/infrastructure/daily-che
 import { HealthController } from './health.controller';
 import { RequestLoggingMiddleware } from './logging/request-logging.middleware';
 import { PrismaModule } from './prisma/prisma.module';
+import { RegionModule } from './region/infrastructure/region.module';
 
 @Module({
-  imports: [AppConfigModule, ScheduleModule.forRoot(), PrismaModule, BenefitModule, DailyCheckScheduleModule],
+  imports: [AppConfigModule, ScheduleModule.forRoot(), PrismaModule, BenefitModule, RegionModule, DailyCheckScheduleModule],
   controllers: [HealthController],
 })
 export class AppModule implements NestModule, BeforeApplicationShutdown {
