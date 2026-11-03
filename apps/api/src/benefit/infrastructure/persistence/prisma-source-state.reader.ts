@@ -16,12 +16,11 @@ export class PrismaSourceStateReader extends SourceStateReader {
 
     const rows = await this.prisma.sourceItem.findMany({
       where: { OR: refs.map(({ source, externalId }) => ({ source, externalId })) },
-      select: { source: true, externalId: true, hash: true, payload: true, removedAt: true },
+      select: { source: true, externalId: true, payload: true, removedAt: true },
     });
     return new CurrentSources(
       rows.map((row) => ({
         ref: new SourceRef(row.source, row.externalId),
-        hash: row.hash,
         payload: row.payload as Record<string, unknown>,
         removed: row.removedAt !== null,
       })),

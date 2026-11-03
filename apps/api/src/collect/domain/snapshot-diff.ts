@@ -1,4 +1,4 @@
-import { changedFields, type FieldChange, hashPayload } from '../../shared/domain/payload-diff';
+import type { ComparisonRule, FieldChange } from '../../shared/domain/comparison-rule';
 
 import type { SourceRecord, StoredItem } from './source-record';
 
@@ -12,7 +12,7 @@ export interface SnapshotDiff {
   duplicateIds: string[]; // 같은 ID가 두 번 이상 온 경우 (첫 번째만 사용)
 }
 
-export function diffSnapshot(previous: StoredItem[], current: SourceRecord[], ignored: readonly string[] = []): SnapshotDiff {
+export function diffSnapshot(previous: StoredItem[], current: SourceRecord[], rule: ComparisonRule): SnapshotDiff {
   const prevById = new Map(previous.map((p) => [p.externalId, p]));
   const seen = new Set<string>();
   const diff: SnapshotDiff = { added: [], updated: [], removed: [], unchanged: [], duplicateIds: [] };
@@ -27,10 +27,10 @@ export function diffSnapshot(previous: StoredItem[], current: SourceRecord[], ig
     const prev = prevById.get(record.externalId);
     if (!prev || prev.removed) {
       diff.added.push(record);
-    } else if (prev.hash !== hashPayload(record.payload, ignored)) {
-      diff.updated.push({ record, changedFields: changedFields(prev.payload, record.payload, ignored) });
-    } else {
+    } else if (rule.isSame(prev.payload, record.payload)) {
       diff.unchanged.push(record);
+    } else {
+      diff.updated.push({ record, changedFields: rule.changedFields(prev.payload, record.payload) });
     }
   }
 

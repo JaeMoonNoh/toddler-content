@@ -34,7 +34,6 @@ const benefit = Benefit.register(
 );
 const state = {
   ref: gov,
-  hash: 'h',
   payload: { 지원내용: '첫째아 200만원,\n\n둘째아 이상 300만원', 신청기한: '상시신청', 조회수: 10 },
   removed: false,
 };

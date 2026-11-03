@@ -89,7 +89,7 @@
 
 | 테이블 | 내용 |
 |---|---|
-| `SourceItem` | 출처 + 출처 ID별 최신 원본(`payload`), 비교용 지문(`hash`), 목록에서 사라진 시각(`removedAt`) |
+| `SourceItem` | 출처 + 출처 ID별 최신 원본(`payload`), 목록에서 사라진 시각(`removedAt`) |
 | `SourceChange` | 수집 한 번에서 발견한 추가 / 변경 / 삭제. 변경이면 `changedFields`에 `{ field, before, after }` |
 | `CollectionRun` | 출처별 수집 실행 기록. 상태, 건수, 오류 |
 

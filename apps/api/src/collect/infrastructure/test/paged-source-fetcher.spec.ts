@@ -8,7 +8,6 @@ type Item = { id: string; name: string };
 
 class ScriptedFetcher extends PagedSourceFetcher<Item> {
   readonly source = 'GOV24' as const;
-  readonly ignoredFields = [];
   readonly requestedPages: number[] = [];
 
   constructor(

@@ -1,6 +1,6 @@
 import { type RunSummary, type SnapshotPlan, SnapshotRepository } from '../../ports/snapshot.repository';
 
-import type { FieldChange } from '../../../../shared/domain/payload-diff';
+import type { FieldChange } from '../../../../shared/domain/comparison-rule';
 import type { SourceId } from '../../../../shared/domain/source-id';
 import type { StoredItem } from '../../../domain/source-record';
 
@@ -38,7 +38,7 @@ export class InMemorySnapshotRepository extends SnapshotRepository {
   async loadItems(source: SourceId): Promise<StoredItem[]> {
     return [...this.items.values()]
       .filter((i) => i.source === source)
-      .map(({ externalId, name, hash, payload, removed }) => ({ externalId, name, hash, payload, removed }));
+      .map(({ externalId, name, payload, removed }) => ({ externalId, name, payload, removed }));
   }
 
   async startRun(source: SourceId): Promise<string> {
@@ -53,20 +53,19 @@ export class InMemorySnapshotRepository extends SnapshotRepository {
       this.failNextSave = null;
       throw error; // 실제 저장소의 트랜잭션처럼 아무것도 반영하지 않는다
     }
-    for (const { record, hash } of plan.added) {
+    for (const { record } of plan.added) {
       this.items.set(this.key(source, record.externalId), {
         source,
         externalId: record.externalId,
         name: record.name,
         payload: record.payload,
-        hash,
         removed: false,
       });
       if (plan.recordChanges) this.changes.push({ runId, type: 'ADDED', externalId: record.externalId });
     }
-    for (const { record, hash, changedFields } of plan.updated) {
+    for (const { record, changedFields } of plan.updated) {
       const item = this.items.get(this.key(source, record.externalId))!;
-      Object.assign(item, { name: record.name, payload: record.payload, hash });
+      Object.assign(item, { name: record.name, payload: record.payload });
       if (plan.recordChanges) this.changes.push({ runId, type: 'UPDATED', externalId: record.externalId, changedFields });
     }
     for (const externalId of plan.removedIds) {

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { hashPayload } from '../../shared/domain/payload-diff';
+import { ComparisonRule } from '../../shared/domain/comparison-rule';
 import { diffSnapshot, type SnapshotDiff } from '../domain/snapshot-diff';
 
 import { type ChangedItem, CollectionReport, type CollectSourceResult, type SourceOutcome } from './collection-report';
@@ -82,8 +82,8 @@ export class CollectService {
     assertAcceptable(countActive(previous), records.length);
 
     const baseline = isBaseline(previous.length);
-    const diff = diffSnapshot(previous, records, fetcher.ignoredFields);
-    await this.repository.saveSnapshot(runId, fetcher.source, this.toPlan(diff, baseline, fetcher.ignoredFields));
+    const diff = diffSnapshot(previous, records, ComparisonRule.of(fetcher.source));
+    await this.repository.saveSnapshot(runId, fetcher.source, this.toPlan(diff, baseline));
 
     return {
       source: fetcher.source,
@@ -98,12 +98,11 @@ export class CollectService {
     };
   }
 
-  private toPlan(diff: SnapshotDiff, baseline: boolean, ignoredFields: readonly string[]): SnapshotPlan {
-    const withHash = (record: SourceRecord) => ({ record, hash: hashPayload(record.payload, ignoredFields) });
+  private toPlan(diff: SnapshotDiff, baseline: boolean): SnapshotPlan {
     return {
       recordChanges: !baseline,
-      added: diff.added.map(withHash),
-      updated: diff.updated.map(({ record, changedFields }) => ({ ...withHash(record), changedFields })),
+      added: diff.added.map((record) => ({ record })),
+      updated: diff.updated,
       unchangedIds: diff.unchanged.map((r) => r.externalId),
       removedIds: diff.removed.map((r) => r.externalId),
     };

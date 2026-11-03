@@ -1,4 +1,3 @@
-import { VOLATILE_FIELDS } from '../../../../shared/domain/source-id';
 import { type SourceRecord } from '../../../domain/source-record';
 import { type Page, PagedSourceFetcher, SourceFormatError } from '../paged-source-fetcher';
 
@@ -12,7 +11,6 @@ const LIST_URL = 'https://api.odcloud.kr/api/gov24/v3/serviceList';
 // 보조금24 (행정안전부 공공서비스 정보)
 export class Gov24Fetcher extends PagedSourceFetcher<Gov24Item> {
   readonly source = 'GOV24' as const;
-  readonly ignoredFields = VOLATILE_FIELDS.GOV24;
   protected readonly pageSize = 1000;
 
   constructor(

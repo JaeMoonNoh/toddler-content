@@ -43,10 +43,6 @@ describe('Gov24Fetcher', () => {
     expect(fake.requests.map((r) => r.searchParams.get('page'))).toEqual(['1', '2']);
   });
 
-  it('조회수는 비교에서 빼도록 알려준다', () => {
-    expect(fetcherWith(new FakeFetch()).ignoredFields).toEqual(['조회수']);
-  });
-
   it('인증키가 틀리면 HTTP 오류를 알려준다', async () => {
     const fake = new FakeFetch().on(pageParam(1), { status: 401, body: '{"code":-4,"msg":"등록되지 않은 인증키 입니다."}' });
     await expect(fetcherWith(fake).fetchAll()).rejects.toThrow('등록되지 않은 인증키');

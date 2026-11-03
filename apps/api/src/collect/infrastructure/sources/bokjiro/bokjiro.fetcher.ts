@@ -1,4 +1,4 @@
-import { type SourceId, VOLATILE_FIELDS } from '../../../../shared/domain/source-id';
+import { type SourceId } from '../../../../shared/domain/source-id';
 import { type SourceRecord } from '../../../domain/source-record';
 import { type Page, PagedSourceFetcher } from '../paged-source-fetcher';
 
@@ -13,10 +13,6 @@ abstract class BokjiroFetcher extends PagedSourceFetcher<BokjiroItem> {
   protected readonly pageSize = 500;
   protected abstract readonly listUrl: string;
   protected readonly fixedParams: Record<string, string> = {};
-
-  get ignoredFields() {
-    return VOLATILE_FIELDS[this.source];
-  }
 
   constructor(
     private readonly http: HttpClient,
