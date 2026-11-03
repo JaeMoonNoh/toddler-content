@@ -1,11 +1,7 @@
-import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import type { INestApplicationContext } from '@nestjs/common';
-import { BenefitDetailUseCase } from '../../application/benefit-detail.use-case';
-import { RetireBenefitsUseCase } from '../../application/retire-benefits.use-case';
-import { ReviewQueueUseCase } from '../../application/review-queue.use-case';
-import { SyncCatalogUseCase } from '../../application/sync-catalog.use-case';
-import { VerifyBenefitsUseCase } from '../../application/verify-benefits.use-case';
+import { BenefitCatalogService } from '../../application/benefit-catalog.service';
+import { BenefitReviewService } from '../../application/benefit-review.service';
 import { BenefitCliModule } from './benefit-cli.module';
 import { BenefitDetailPrinter } from './benefit-detail-printer';
 import { ReviewPrinter } from './review-printer';
@@ -20,19 +16,19 @@ const USAGE = `사용법: pnpm benefit <명령>
 type Command = (app: INestApplicationContext, args: string[]) => Promise<{ text: string; ok: boolean }>;
 
 const COMMANDS: Record<string, Command> = {
-  sync: async (app) => ({ text: app.get(ReviewPrinter).printSync(await app.get(SyncCatalogUseCase).execute()), ok: true }),
+  sync: async (app) => ({ text: app.get(ReviewPrinter).printSync(await app.get(BenefitCatalogService).sync()), ok: true }),
   review: async (app, [slug]) => {
-    if (!slug) return { text: app.get(ReviewPrinter).printQueue(await app.get(ReviewQueueUseCase).execute()), ok: true };
-    const detail = await app.get(BenefitDetailUseCase).execute(slug);
+    if (!slug) return { text: app.get(ReviewPrinter).printQueue(await app.get(BenefitReviewService).queue()), ok: true };
+    const detail = await app.get(BenefitReviewService).detail(slug);
     return detail ? { text: app.get(BenefitDetailPrinter).print(detail), ok: true } : { text: `✘ ${slug}: 없는 혜택입니다`, ok: false };
   },
   verify: async (app, slugs) => {
     const at = new Date();
-    const result = await app.get(VerifyBenefitsUseCase).execute(slugs, at);
+    const result = await app.get(BenefitReviewService).verify(slugs, at);
     return { text: app.get(ReviewPrinter).printVerify(result, at), ok: result.failed.length === 0 && slugs.length > 0 };
   },
   retire: async (app, slugs) => {
-    const result = await app.get(RetireBenefitsUseCase).execute(slugs);
+    const result = await app.get(BenefitCatalogService).retire(slugs);
     return { text: app.get(ReviewPrinter).printRetire(result), ok: result.failed.length === 0 && slugs.length > 0 };
   },
 };

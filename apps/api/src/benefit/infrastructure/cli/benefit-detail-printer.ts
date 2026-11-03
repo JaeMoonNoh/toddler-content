@@ -1,5 +1,5 @@
 import { formatKstDate } from '../../../shared/format-kst';
-import type { BenefitDetail } from '../../application/benefit-detail.use-case';
+import type { BenefitDetail } from '../../application/benefit-review.service';
 import type { ApplicationPeriod } from '../../domain/application-period';
 import type { BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule, ScheduleOffset } from '../../domain/benefit-schedule';

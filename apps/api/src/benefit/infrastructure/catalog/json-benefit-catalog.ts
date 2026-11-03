@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
-import type { SourceId } from '../../../collect/domain/source-record';
-import { CatalogError } from '../../application/sync-catalog.use-case';
+import type { SourceId } from '../../../shared/domain/source-id';
+import { CatalogError } from '../../application/benefit-catalog.service';
 import { BenefitCatalog } from '../../application/ports/benefit-catalog';
 import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
 import type { ApplicationPeriod } from '../../domain/application-period';

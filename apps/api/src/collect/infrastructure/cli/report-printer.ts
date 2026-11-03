@@ -1,7 +1,7 @@
-import type { ChangedItem } from '../../application/collect-source.use-case';
+import type { ChangedItem } from '../../application/collect.service';
 import type { CollectionReport, SourceOutcome } from '../../application/collection-report';
 import { formatKst } from '../../../shared/format-kst';
-import type { SourceId } from '../../domain/source-record';
+import type { SourceId } from '../../../shared/domain/source-id';
 
 const SOURCE_LABEL: Record<SourceId, string> = {
   GOV24: '보조금24',
