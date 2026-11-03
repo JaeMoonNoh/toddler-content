@@ -1586,7 +1586,7 @@
   },
   {
     "slug": "gov24-sd0000016094",
-    "name": "임산부 엽산제, 철분제 지원",
+    "name": "임산부 엽산제 지원",
     "scope": "national",
     "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=585138&bnefType=all&svcId=SD0000016094",
     "sources": [
@@ -1602,23 +1602,62 @@
         "days": 0
       },
       "until": {
-        "anchor": "birth",
-        "months": 0,
-        "days": 0
+        "anchor": "pregnancy",
+        "months": 3,
+        "days": -1
       },
-      "untilLabel": "출산 전까지 (보건소)",
-      "summary": "엽산제는 임신 전 3개월부터 임신 3개월까지, 철분제는 임신 16주부터 5개월분을 보건소에서 받아요",
+      "untilLabel": "임신 3개월까지 (보건소)",
+      "summary": "보건소에 임산부 등록을 하면 임신 3개월까지 엽산제를 받아요. 임신을 준비할 때(임신 전 3개월)부터 받을 수 있어요",
       "basis": {
-        "text": "(엽산제) 임신 전후 3개월까지 엽산제 지원 (철분제) 임신 16주부터 철분제 5개월분",
+        "text": "(엽산제) 임신 전후 3개월까지 엽산제 지원",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=585138&bnefType=all&svcId=SD0000016094"
       }
     },
     "amount": {
       "kind": "service",
-      "summary": "엽산제, 철분제(5개월분) 무료",
+      "summary": "엽산제 무료",
       "tiers": null,
       "basis": {
-        "text": "(엽산제) 임신 전후 3개월까지 엽산제 지원 (철분제) 임신 16주부터 철분제 5개월분",
+        "text": "(엽산제) 임신 전후 3개월까지 엽산제 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=585138&bnefType=all&svcId=SD0000016094"
+      }
+    }
+  },
+  {
+    "slug": "gov24-sd0000016094-iron",
+    "name": "임산부 철분제 지원",
+    "scope": "national",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=585138&bnefType=all&svcId=SD0000016094",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "SD0000016094"
+      }
+    ],
+    "schedule": {
+      "from": {
+        "anchor": "pregnancy",
+        "months": 0,
+        "days": 112
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "untilLabel": "출산 전까지 (보건소)",
+      "summary": "임신 16주부터 철분제 5개월분을 보건소에서 받아요",
+      "basis": {
+        "text": "(철분제) 임신 16주부터 철분제 5개월분",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=585138&bnefType=all&svcId=SD0000016094"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "철분제 5개월분 무료",
+      "tiers": null,
+      "basis": {
+        "text": "(철분제) 임신 16주부터 철분제 5개월분",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=585138&bnefType=all&svcId=SD0000016094"
       }
     }
