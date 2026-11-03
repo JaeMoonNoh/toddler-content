@@ -38,7 +38,7 @@ export function parseCatalog(text: string): BenefitDetails[] {
 
 function toDetails(entry: unknown, index: number): BenefitDetails {
   const e = (entry ?? {}) as Record<string, unknown>;
-  const where = `${index + 1}번째 항목(${String(e.slug ?? '')})`;
+  const where = `${index + 1}번째 항목(${typeof e.slug === 'string' ? e.slug : ''})`;
   const text = (field: string) => {
     if (typeof e[field] !== 'string') throw new CatalogError(`${where}: ${field}가 문자열이 아닙니다`);
     return e[field];

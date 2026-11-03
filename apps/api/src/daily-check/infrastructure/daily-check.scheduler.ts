@@ -22,9 +22,9 @@ export class DailyCheckScheduler implements OnApplicationBootstrap, BeforeApplic
     private readonly schedulerRegistry: SchedulerRegistry,
   ) {}
 
-  onApplicationBootstrap() {
+  async onApplicationBootstrap() {
     if (this.config.getOrThrow<string>('COLLECT_SCHEDULE') !== 'off') return;
-    this.schedulerRegistry.getCronJob(DAILY_CHECK_JOB).stop();
+    await this.schedulerRegistry.getCronJob(DAILY_CHECK_JOB).stop();
     this.logger.log('COLLECT_SCHEDULE=off: 새벽 자동 수집을 끕니다.');
   }
 

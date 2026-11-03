@@ -72,4 +72,17 @@ export default tseslint.config(
       'perfectionist/sort-objects': 'off',
     },
   },
+  {
+    // 가짜 구현은 async 포트를 메모리로 구현하므로 await가 없다. expect.stringContaining 등은 any를 돌려준다
+    files: ['src/**/test/**/*.ts'],
+    rules: {
+      '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+    },
+  },
+  {
+    // CLI는 결과를 console로 출력한다 (CLAUDE.md NestJS 규칙)
+    files: ['src/**/*.cli.ts'],
+    rules: { 'no-console': 'off' },
+  },
 );

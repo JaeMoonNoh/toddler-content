@@ -41,7 +41,7 @@ export class Gov24Fetcher extends PagedSourceFetcher<Gov24Item> {
 
 function parseJson(text: string): Record<string, unknown> {
   try {
-    return JSON.parse(text);
+    return JSON.parse(text) as Record<string, unknown>;
   } catch {
     throw new SourceFormatError(`GOV24: JSON이 아닌 응답입니다 (${text.slice(0, 200)})`);
   }
