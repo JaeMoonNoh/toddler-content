@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { FakeFetch, networkError, timeoutError } from './fakes/fake-fetch';
+
 import { HttpClient, HttpError, redactUrl } from '../http/http-client';
+
+import { FakeFetch, networkError, timeoutError } from './fakes/fake-fetch';
 
 const url = new URL('https://api.example.kr/list?page=1&serviceKey=SECRET-KEY');
 const any = () => true;
@@ -99,7 +101,8 @@ describe('HttpClient', () => {
   });
 
   it('여러 줄 오류 본문(공공데이터포털 403 XML)은 한 줄로 담는다', async () => {
-    const body = '<?xml version="1.0"?>\n<OpenAPI_ServiceResponse>\n  <cmmMsgHeader>\n    <errMsg>SERVICE_KEY_IS_NOT_REGISTERED_ERROR</errMsg>';
+    const body =
+      '<?xml version="1.0"?>\n<OpenAPI_ServiceResponse>\n  <cmmMsgHeader>\n    <errMsg>SERVICE_KEY_IS_NOT_REGISTERED_ERROR</errMsg>';
     const fake = new FakeFetch().on(any, { status: 403, body });
     const error = await failureOf(clientWith(fake).client.getText(url));
 

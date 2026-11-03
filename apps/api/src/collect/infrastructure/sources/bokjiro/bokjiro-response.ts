@@ -1,9 +1,16 @@
 import { XMLParser } from 'fast-xml-parser';
-import { SourceFormatError, type Page } from '../paged-source-fetcher';
+
+import { type Page, SourceFormatError } from '../paged-source-fetcher';
 
 export type BokjiroItem = Record<string, string>;
 
 export class SourceApiError extends Error {}
+
+// parseTagValue: false라서 값은 모두 문자열이다. 실제로 오는지는 아래에서 하나씩 확인한다
+interface BokjiroDocument {
+  OpenAPI_ServiceResponse?: { cmmMsgHeader?: { returnAuthMsg?: string; errMsg?: string; returnReasonCode?: string } };
+  wantedList?: { resultCode?: string; resultMessage?: string; totalCount?: string; servList?: BokjiroItem[] };
+}
 
 const parser = new XMLParser({
   parseTagValue: false, // ID나 코드의 앞자리 0이 사라지지 않게 모든 값을 문자열로 둔다
@@ -16,7 +23,9 @@ export function parseBokjiroPage(xml: string, source: string): Page<BokjiroItem>
 
   const gatewayError = doc.OpenAPI_ServiceResponse?.cmmMsgHeader;
   if (gatewayError) {
-    throw new SourceApiError(`${source}: ${gatewayError.returnAuthMsg ?? gatewayError.errMsg ?? '알 수 없는 오류'} (코드 ${gatewayError.returnReasonCode ?? '-'})`);
+    throw new SourceApiError(
+      `${source}: ${gatewayError.returnAuthMsg ?? gatewayError.errMsg ?? '알 수 없는 오류'} (코드 ${gatewayError.returnReasonCode ?? '-'})`,
+    );
   }
 
   const list = doc.wantedList;
@@ -29,11 +38,10 @@ export function parseBokjiroPage(xml: string, source: string): Page<BokjiroItem>
   if (!Number.isInteger(totalCount) || totalCount < 0) {
     throw new SourceFormatError(`${source}: 전체 건수를 읽을 수 없습니다 (${list.totalCount})`);
   }
-  return { items: (list.servList ?? []) as BokjiroItem[], totalCount };
+  return { items: list.servList ?? [], totalCount };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function parseXml(xml: string, source: string): any {
+function parseXml(xml: string, source: string): BokjiroDocument {
   if (!xml.trim().startsWith('<')) throw new SourceFormatError(`${source}: XML이 아닌 응답입니다 (${xml.slice(0, 200)})`);
-  return parser.parse(xml);
+  return parser.parse(xml) as BokjiroDocument;
 }

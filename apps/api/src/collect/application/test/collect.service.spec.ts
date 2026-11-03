@@ -1,10 +1,13 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { SourceRecord } from '../../domain/source-record';
-import type { SourceId } from '../../../shared/domain/source-id';
+
 import { CollectService } from '../collect.service';
+import { CollectionRejectedError } from '../policies/collection-policy';
+
 import { FakeSourceFetcher } from './fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from './fakes/in-memory-snapshot.repository';
-import { CollectionRejectedError } from '../policies/collection-policy';
+
+import type { SourceId } from '../../../shared/domain/source-id';
+import type { SourceRecord } from '../../domain/source-record';
 
 const rec = (id: string, extra: Record<string, unknown> = {}): SourceRecord => ({
   externalId: id,

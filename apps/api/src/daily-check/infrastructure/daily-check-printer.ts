@@ -1,7 +1,8 @@
+import { attentionItemsOf, type DailyCheckResult, type ReviewOutcome } from '../application/daily-check.service';
+
 import type { ReviewItem } from '../../benefit/application/benefit-review.service';
 import type { ReviewStatusKind } from '../../benefit/domain/review-status';
 import type { ReportPrinter } from '../../collect/infrastructure/cli/report-printer';
-import { attentionItemsOf, type DailyCheckResult, type ReviewOutcome } from '../application/daily-check.service';
 
 const ATTENTION_LABEL: Partial<Record<ReviewStatusKind, string>> = {
   SOURCE_CHANGED: '원본 바뀜',

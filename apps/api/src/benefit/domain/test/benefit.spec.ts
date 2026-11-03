@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { Benefit, InvalidBenefitError, NotVerifiableError, type BenefitDetails } from '../benefit';
-import type { BenefitSchedule } from '../benefit-schedule';
+
+import { Benefit, type BenefitDetails, InvalidBenefitError, NotVerifiableError } from '../benefit';
 import { CurrentSources, type SourceState } from '../current-sources';
 import { SourceRef } from '../source-ref';
+
+import type { BenefitSchedule } from '../benefit-schedule';
 
 const gov = new SourceRef('GOV24', '571000000116');
 const bok = new SourceRef('BOKJIRO_LOCAL', 'WLF00003640');
@@ -72,7 +74,11 @@ describe('Benefit', () => {
 
       it.each([
         ['끝이 시작보다 앞', { until: { anchor: 'birth' as const, months: 0, days: -1 } }, '앞입니다'],
-        ['출생 기준 끝이 임신 기준 시작보다 앞', { from: { anchor: 'birth' as const, months: 1, days: 0 }, until: { anchor: 'pregnancy' as const, months: 9, days: 0 } }, '앞입니다'],
+        [
+          '출생 기준 끝이 임신 기준 시작보다 앞',
+          { from: { anchor: 'birth' as const, months: 1, days: 0 }, until: { anchor: 'pregnancy' as const, months: 9, days: 0 } },
+          '앞입니다',
+        ],
         ['마감 설명 없음', { untilLabel: ' ' }, '마감 설명'],
         ['설명 없음', { summary: '' }, '일정 설명'],
         ['근거 문장 없음', { basis: { text: '', url: 'https://a.kr' } }, '근거 문장'],
@@ -161,7 +167,11 @@ describe('Benefit', () => {
     it('원본이 출처에서 사라지면 확인 여부와 상관없이 원본 사라짐', () => {
       const removed = sources(state(gov, 'h1', {}, true));
       expect(Benefit.register(details()).reviewStatus(removed)).toEqual({ kind: 'SOURCE_REMOVED', refs: [gov] });
-      expect(Benefit.register(details()).verify(sources(state(gov)), at).reviewStatus(removed).kind).toBe('SOURCE_REMOVED');
+      expect(
+        Benefit.register(details())
+          .verify(sources(state(gov)), at)
+          .reviewStatus(removed).kind,
+      ).toBe('SOURCE_REMOVED');
     });
 
     it('수집된 적 없는 원본을 가리키면 원본 없음', () => {
@@ -195,7 +205,9 @@ describe('Benefit', () => {
 
     it('원본이 바뀐 혜택을 다시 확인하면 확인됨이 되고 확인일이 바뀐다', () => {
       const later = new Date('2026-11-03T03:00:00Z');
-      const benefit = Benefit.register(details()).verify(sources(state(gov, 'h1')), at).verify(sources(state(gov, 'h2')), later);
+      const benefit = Benefit.register(details())
+        .verify(sources(state(gov, 'h1')), at)
+        .verify(sources(state(gov, 'h2')), later);
 
       expect(benefit.reviewStatus(sources(state(gov, 'h2'))).kind).toBe('VERIFIED');
       expect(benefit.verifiedAt).toBe(later);
@@ -249,7 +261,10 @@ describe('Benefit', () => {
     });
 
     it('조건 순서만 다르면 바뀐 것으로 보지 않는다', () => {
-      const benefit = Benefit.register(details({ conditions: ['BIRTH_PARENT_INSURED', 'PARTNER_INSURED'] })).verify(sources(state(gov)), at);
+      const benefit = Benefit.register(details({ conditions: ['BIRTH_PARENT_INSURED', 'PARTNER_INSURED'] })).verify(
+        sources(state(gov)),
+        at,
+      );
       expect(benefit.revise(details({ conditions: ['PARTNER_INSURED', 'BIRTH_PARENT_INSURED'] })).verifiedAt).toBe(at);
     });
 

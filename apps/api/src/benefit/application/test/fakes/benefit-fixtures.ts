@@ -1,5 +1,6 @@
-import type { BenefitDetails } from '../../../domain/benefit';
 import { SourceRef } from '../../../domain/source-ref';
+
+import type { BenefitDetails } from '../../../domain/benefit';
 
 // 유스케이스 테스트에서 함께 쓰는 혜택 정보
 export function benefitDetails(id: string, overrides: Partial<BenefitDetails> = {}): BenefitDetails {

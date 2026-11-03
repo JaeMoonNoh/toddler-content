@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { changedFields, hashPayload } from '../payload-diff';
 
 const IGNORED = ['조회수'];
@@ -9,9 +10,7 @@ describe('hashPayload', () => {
   });
 
   it('무시할 필드만 다르면 같은 지문', () => {
-    expect(hashPayload({ 서비스명: '아동수당', 조회수: 10 }, IGNORED)).toBe(
-      hashPayload({ 서비스명: '아동수당', 조회수: 999 }, IGNORED),
-    );
+    expect(hashPayload({ 서비스명: '아동수당', 조회수: 10 }, IGNORED)).toBe(hashPayload({ 서비스명: '아동수당', 조회수: 999 }, IGNORED));
   });
 
   it('무시할 필드가 아예 없어져도 같은 지문', () => {

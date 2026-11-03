@@ -1,10 +1,12 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+
 import { Benefit } from '../../domain/benefit';
 import { SourceRef } from '../../domain/source-ref';
+import { BenefitReviewService } from '../benefit-review.service';
+
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeSourceStateReader } from './fakes/fake-source-state.reader';
 import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository';
-import { BenefitReviewService } from '../benefit-review.service';
 
 const at = new Date('2026-11-02T03:00:00Z');
 const later = new Date('2026-11-05T03:00:00Z');

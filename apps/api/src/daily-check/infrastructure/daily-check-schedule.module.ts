@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { DailyCheckModule } from './daily-check.module';
 import { DailyCheckScheduler } from './daily-check.scheduler';
 

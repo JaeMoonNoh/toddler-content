@@ -1,12 +1,14 @@
-import { audienceProblems, type Audience } from './audience';
-import { periodProblems, samePeriod, type ApplicationPeriod } from './application-period';
-import { amountProblems, sameAmount, type BenefitAmount } from './benefit-amount';
-import { conditionProblems, sameConditions, type EligibilityCondition } from './eligibility-condition';
-import { sameSchedule, scheduleProblems, type BenefitSchedule } from './benefit-schedule';
 import { changedFields } from '../../shared/domain/payload-diff';
 import { VOLATILE_FIELDS } from '../../shared/domain/source-id';
+
+import { type ApplicationPeriod, periodProblems, samePeriod } from './application-period';
+import { type Audience, audienceProblems } from './audience';
+import { amountProblems, type BenefitAmount, sameAmount } from './benefit-amount';
+import { type BenefitSchedule, sameSchedule, scheduleProblems } from './benefit-schedule';
+import { conditionProblems, type EligibilityCondition, sameConditions } from './eligibility-condition';
+import { type ChangedSource, isPublishable, type ReviewStatus } from './review-status';
+
 import type { CurrentSources, SourceSnapshot, SourceState } from './current-sources';
-import { isPublishable, type ChangedSource, type ReviewStatus } from './review-status';
 import type { SourceRef } from './source-ref';
 
 export const BENEFIT_SCOPES = ['national', 'chungbuk', 'cheongju'] as const;
@@ -162,7 +164,7 @@ export class Benefit {
   private verifiedSnapshots(): SourceSnapshot[] | null {
     if (!this.verification) return null;
     const snapshots = this.sources.map((ref) => this.verification!.snapshots.find((s) => s.ref.equals(ref)));
-    return snapshots.every((s) => s !== undefined) ? (snapshots as SourceSnapshot[]) : null;
+    return snapshots.every((s) => s !== undefined) ? snapshots : null;
   }
 }
 

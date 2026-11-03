@@ -9,7 +9,12 @@
     "dev:web": "pnpm --filter @toddler/web dev",
     "build": "pnpm -r build",
     "collect": "pnpm --filter @toddler/api collect",
-    "benefit": "pnpm --filter @toddler/api benefit"
+    "benefit": "pnpm --filter @toddler/api benefit",
+    "prepare": "husky"
   },
-  "packageManager": "pnpm@12.14.0"
+  "packageManager": "pnpm@12.14.0",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0"
+  }
 }

@@ -1,18 +1,20 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+
+import { BenefitReviewService, type ReviewQueue } from '../../../benefit/application/benefit-review.service';
+import { SourceStateReader } from '../../../benefit/application/ports/source-state.reader';
 import { benefitDetails } from '../../../benefit/application/test/fakes/benefit-fixtures';
 import { FakeSourceStateReader } from '../../../benefit/application/test/fakes/fake-source-state.reader';
 import { InMemoryBenefitRepository } from '../../../benefit/application/test/fakes/in-memory-benefit.repository';
-import { SourceStateReader } from '../../../benefit/application/ports/source-state.reader';
-import { BenefitReviewService, type ReviewQueue } from '../../../benefit/application/benefit-review.service';
 import { Benefit } from '../../../benefit/domain/benefit';
 import { CurrentSources } from '../../../benefit/domain/current-sources';
 import { SourceRef } from '../../../benefit/domain/source-ref';
-import { CollectService, CollectionAlreadyRunningError } from '../../../collect/application/collect.service';
+import { CollectionAlreadyRunningError, CollectService } from '../../../collect/application/collect.service';
+import { CollectionReport } from '../../../collect/application/collection-report';
 import { FakeSourceFetcher } from '../../../collect/application/test/fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from '../../../collect/application/test/fakes/in-memory-snapshot.repository';
+import { type DailyCheckResult, DailyCheckService, requiresAttention } from '../daily-check.service';
+
 import type { SourceRecord } from '../../../collect/domain/source-record';
-import { CollectionReport } from '../../../collect/application/collection-report';
-import { DailyCheckService, requiresAttention, type DailyCheckResult } from '../daily-check.service';
 
 const records = (n: number): SourceRecord[] =>
   Array.from({ length: n }, (_, i) => ({ externalId: String(i + 1), name: `혜택 ${i + 1}`, payload: { 서비스ID: String(i + 1) } }));

@@ -1,11 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { FakeFetch } from './fakes/fake-fetch';
+
 import { HttpClient } from '../http/http-client';
-import { ServiceKey } from '../sources/service-key';
 import { BokjiroLocalFetcher, BokjiroNationalFetcher } from '../sources/bokjiro/bokjiro.fetcher';
+import { ServiceKey } from '../sources/service-key';
+
+import { FakeFetch } from './fakes/fake-fetch';
 
 const key = new ServiceKey('TEST-KEY');
-const serv = (id: string, extra = '') => `<servList><servId>${id}</servId><servNm>혜택 ${id}</servNm><inqNum>12</inqNum>${extra}</servList>`;
+const serv = (id: string, extra = '') =>
+  `<servList><servId>${id}</servId><servNm>혜택 ${id}</servNm><inqNum>12</inqNum>${extra}</servList>`;
 const wanted = (totalCount: number, ...items: string[]) => ({
   body: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><wantedList><totalCount>${totalCount}</totalCount><pageNo>1</pageNo><numOfRows>500</numOfRows><resultCode>0</resultCode><resultMessage>SUCCESS</resultMessage>${items.join('')}</wantedList>`,
 });

@@ -1,14 +1,16 @@
 import { readFile } from 'node:fs/promises';
-import type { SourceId } from '../../../shared/domain/source-id';
+
 import { CatalogError } from '../../application/benefit-catalog.service';
 import { BenefitCatalog } from '../../application/ports/benefit-catalog';
-import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
+import { SourceRef } from '../../domain/source-ref';
+
+import type { SourceId } from '../../../shared/domain/source-id';
 import type { ApplicationPeriod } from '../../domain/application-period';
 import type { Audience } from '../../domain/audience';
+import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
 import type { AmountKind, AmountTier, BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule, ScheduleAnchor, ScheduleOffset } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
-import { SourceRef } from '../../domain/source-ref';
 
 const SOURCE_IDS: readonly string[] = ['GOV24', 'BOKJIRO_NATIONAL', 'BOKJIRO_LOCAL'] satisfies SourceId[];
 
@@ -36,10 +38,10 @@ export function parseCatalog(text: string): BenefitDetails[] {
 
 function toDetails(entry: unknown, index: number): BenefitDetails {
   const e = (entry ?? {}) as Record<string, unknown>;
-  const where = `${index + 1}번째 항목(${String(e.slug ?? '')})`;
+  const where = `${index + 1}번째 항목(${typeof e.slug === 'string' ? e.slug : ''})`;
   const text = (field: string) => {
     if (typeof e[field] !== 'string') throw new CatalogError(`${where}: ${field}가 문자열이 아닙니다`);
-    return e[field] as string;
+    return e[field];
   };
   return {
     slug: text('slug'),
@@ -96,7 +98,8 @@ function offsetOf(value: unknown, where: string): ScheduleOffset {
 // 어떤 조건이 있는지는 도메인이 검사한다
 function conditionsOf(value: unknown, where: string): EligibilityCondition[] {
   if (value === undefined) return [];
-  if (!Array.isArray(value) || value.some((c) => typeof c !== 'string')) throw new CatalogError(`${where}: conditions는 문자열 배열이어야 합니다`);
+  if (!Array.isArray(value) || value.some((c) => typeof c !== 'string'))
+    throw new CatalogError(`${where}: conditions는 문자열 배열이어야 합니다`);
   return value as EligibilityCondition[];
 }
 
@@ -123,7 +126,7 @@ function tierOf(value: unknown, where: string): AmountTier {
   if (typeof t.minBirthOrder !== 'number' || typeof t.won !== 'number' || (max !== null && typeof max !== 'number')) {
     throw new CatalogError(`${where}: amount.tiers의 minBirthOrder, maxBirthOrder, won은 숫자여야 합니다`);
   }
-  return { minBirthOrder: t.minBirthOrder, maxBirthOrder: max as number | null, won: t.won };
+  return { minBirthOrder: t.minBirthOrder, maxBirthOrder: max, won: t.won };
 }
 
 function periodOf(value: unknown, where: string): ApplicationPeriod {
@@ -133,7 +136,11 @@ function periodOf(value: unknown, where: string): ApplicationPeriod {
     if (typeof v !== 'string') throw new CatalogError(`${where}: applicationPeriod.${field}가 문자열이 아닙니다`);
     return v;
   };
-  return { start: text(p.start, 'start'), end: text(p.end, 'end'), basis: { text: text(basis.text, 'basis.text'), url: text(basis.url, 'basis.url') } };
+  return {
+    start: text(p.start, 'start'),
+    end: text(p.end, 'end'),
+    basis: { text: text(basis.text, 'basis.text'), url: text(basis.url, 'basis.url') },
+  };
 }
 
 function audienceOf(value: unknown, where: string): Audience | null {

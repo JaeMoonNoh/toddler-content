@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { amountProblems, sameAmount, type AmountTier, type BenefitAmount } from '../benefit-amount';
+
+import { amountProblems, type AmountTier, type BenefitAmount, sameAmount } from '../benefit-amount';
 
 const amount = (overrides: Partial<BenefitAmount> = {}): BenefitAmount => ({
   kind: 'voucher',

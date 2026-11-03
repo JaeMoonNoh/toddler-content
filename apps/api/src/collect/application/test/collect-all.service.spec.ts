@@ -1,8 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { SourceRecord } from '../../domain/source-record';
-import { CollectService, CollectionAlreadyRunningError } from '../collect.service';
+
+import { CollectionAlreadyRunningError, CollectService } from '../collect.service';
+
 import { FakeSourceFetcher } from './fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from './fakes/in-memory-snapshot.repository';
+
+import type { SourceRecord } from '../../domain/source-record';
 
 const rec = (id: string): SourceRecord => ({ externalId: id, name: id, payload: { id } });
 
@@ -68,9 +71,7 @@ describe('CollectService.collectAll', () => {
 
   it('두 번째 수집부터 발생한 변경 수를 모두 더한다', async () => {
     const all = Array.from({ length: 20 }, (_, i) => rec(String(i)));
-    const service = new CollectService(repo, [
-      new FakeSourceFetcher('GOV24', [all, [...all.slice(1), rec('new')]]),
-    ]);
+    const service = new CollectService(repo, [new FakeSourceFetcher('GOV24', [all, [...all.slice(1), rec('new')]])]);
 
     await service.collectAll();
     const second = await service.collectAll();

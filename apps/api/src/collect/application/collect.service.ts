@@ -1,12 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { diffSnapshot, type SnapshotDiff } from '../domain/snapshot-diff';
+
 import { hashPayload } from '../../shared/domain/payload-diff';
-import type { SourceRecord, StoredItem } from '../domain/source-record';
-import type { SourceId } from '../../shared/domain/source-id';
+import { diffSnapshot, type SnapshotDiff } from '../domain/snapshot-diff';
+
 import { CollectionReport, type SourceOutcome } from './collection-report';
 import { assertAcceptable, isBaseline } from './policies/collection-policy';
-import { SnapshotRepository, type SnapshotPlan } from './ports/snapshot.repository';
+import { type SnapshotPlan, SnapshotRepository } from './ports/snapshot.repository';
 import { SOURCE_FETCHERS, type SourceFetcher } from './ports/source-fetcher';
+
+import type { SourceId } from '../../shared/domain/source-id';
+import type { SourceRecord, StoredItem } from '../domain/source-record';
 
 export class CollectionAlreadyRunningError extends Error {
   constructor() {

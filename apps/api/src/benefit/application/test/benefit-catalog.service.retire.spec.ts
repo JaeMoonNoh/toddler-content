@@ -1,9 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+
 import { Benefit } from '../../domain/benefit';
+import { BenefitCatalogService } from '../benefit-catalog.service';
+
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeBenefitCatalog } from './fakes/fake-benefit-catalog';
 import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository';
-import { BenefitCatalogService } from '../benefit-catalog.service';
 
 describe('BenefitCatalogService.retire', () => {
   let repo: InMemoryBenefitRepository;
@@ -27,7 +29,10 @@ describe('BenefitCatalogService.retire', () => {
   });
 
   it('없는 혜택은 실패로 알려주고 나머지는 지운다', async () => {
-    expect(await retire(['gov24-404', 'gov24-2'])).toEqual({ retired: ['gov24-2'], failed: [{ slug: 'gov24-404', reason: '없는 혜택입니다' }] });
+    expect(await retire(['gov24-404', 'gov24-2'])).toEqual({
+      retired: ['gov24-2'],
+      failed: [{ slug: 'gov24-404', reason: '없는 혜택입니다' }],
+    });
   });
 
   it('같은 slug를 두 번 넣어도 한 번만', async () => {

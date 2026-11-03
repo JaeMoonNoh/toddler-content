@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import type { BenefitDetail } from '../../application/benefit-review.service';
+
 import { benefitDetails } from '../../application/test/fakes/benefit-fixtures';
 import { Benefit } from '../../domain/benefit';
 import { CurrentSources } from '../../domain/current-sources';
 import { SourceRef } from '../../domain/source-ref';
 import { BenefitDetailPrinter, describeOffset } from '../cli/benefit-detail-printer';
+
+import type { BenefitDetail } from '../../application/benefit-review.service';
 
 const gov = new SourceRef('GOV24', '135200005015');
 const benefit = Benefit.register(
@@ -30,7 +32,12 @@ const benefit = Benefit.register(
     },
   }),
 );
-const state = { ref: gov, hash: 'h', payload: { 지원내용: '첫째아 200만원,\n\n둘째아 이상 300만원', 신청기한: '상시신청', 조회수: 10 }, removed: false };
+const state = {
+  ref: gov,
+  hash: 'h',
+  payload: { 지원내용: '첫째아 200만원,\n\n둘째아 이상 300만원', 신청기한: '상시신청', 조회수: 10 },
+  removed: false,
+};
 const detail = (overrides: Partial<BenefitDetail> = {}): BenefitDetail => ({
   benefit,
   status: benefit.reviewStatus(new CurrentSources([state])),
@@ -66,11 +73,17 @@ describe('BenefitDetailPrinter', () => {
   it('올해 신청 기간이 있으면 날짜와 근거를 보여준다', () => {
     const withPeriod = Benefit.register(
       benefitDetails('b55353000001', {
-        applicationPeriod: { start: '2026-06-15', end: '2026-12-31', basis: { text: '신청기한: 2026. 6. 15. ~ 2026. 12. 31.', url: 'https://plus.gov.kr/e' } },
+        applicationPeriod: {
+          start: '2026-06-15',
+          end: '2026-12-31',
+          basis: { text: '신청기한: 2026. 6. 15. ~ 2026. 12. 31.', url: 'https://plus.gov.kr/e' },
+        },
       }),
     );
     const out = new BenefitDetailPrinter().print({ benefit: withPeriod, status: { kind: 'UNVERIFIED' }, sources: [] });
-    expect(out).toContain('[우리가 정리한 올해 신청 기간]\n  기간: 2026-06-15 ~ 2026-12-31\n  근거: 신청기한: 2026. 6. 15. ~ 2026. 12. 31.');
+    expect(out).toContain(
+      '[우리가 정리한 올해 신청 기간]\n  기간: 2026-06-15 ~ 2026-12-31\n  근거: 신청기한: 2026. 6. 15. ~ 2026. 12. 31.',
+    );
   });
 
   it('정리하지 않은 일정·금액은 그렇다고 알려준다', () => {
@@ -83,12 +96,16 @@ describe('BenefitDetailPrinter', () => {
 
   it('수집된 적 없는 원본과 사라진 원본을 알려준다', () => {
     expect(new BenefitDetailPrinter().print(detail({ sources: [{ ref: gov, state: null }] }))).toContain('수집된 적 없는 원본');
-    expect(new BenefitDetailPrinter().print(detail({ sources: [{ ref: gov, state: { ...state, removed: true } }] }))).toContain('⚠ 출처 목록에서 사라졌어요');
+    expect(new BenefitDetailPrinter().print(detail({ sources: [{ ref: gov, state: { ...state, removed: true } }] }))).toContain(
+      '⚠ 출처 목록에서 사라졌어요',
+    );
   });
 
   it('긴 원문 필드는 잘라서 보여준다', () => {
     const long = { ...state, payload: { 지원내용: '가'.repeat(100) } };
-    expect(new BenefitDetailPrinter(10).print(detail({ sources: [{ ref: gov, state: long }] }))).toContain(`  지원내용: ${'가'.repeat(10)}…`);
+    expect(new BenefitDetailPrinter(10).print(detail({ sources: [{ ref: gov, state: long }] }))).toContain(
+      `  지원내용: ${'가'.repeat(10)}…`,
+    );
   });
 });
 

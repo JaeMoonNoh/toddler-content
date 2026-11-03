@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+
 import { PrismaService } from './prisma/prisma.service';
 
 // 서버와 DB 연결 상태를 함께 확인한다

@@ -1,7 +1,8 @@
-import { type SourceRecord } from '../../../domain/source-record';
 import { VOLATILE_FIELDS } from '../../../../shared/domain/source-id';
+import { type SourceRecord } from '../../../domain/source-record';
+import { type Page, PagedSourceFetcher, SourceFormatError } from '../paged-source-fetcher';
+
 import type { HttpClient } from '../../http/http-client';
-import { PagedSourceFetcher, SourceFormatError, type Page } from '../paged-source-fetcher';
 import type { ServiceKey } from '../service-key';
 
 type Gov24Item = Record<string, unknown> & { 서비스ID?: string; 서비스명?: string };
@@ -40,7 +41,7 @@ export class Gov24Fetcher extends PagedSourceFetcher<Gov24Item> {
 
 function parseJson(text: string): Record<string, unknown> {
   try {
-    return JSON.parse(text);
+    return JSON.parse(text) as Record<string, unknown>;
   } catch {
     throw new SourceFormatError(`GOV24: JSON이 아닌 응답입니다 (${text.slice(0, 200)})`);
   }

@@ -1,13 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import type { ReviewItem, ReviewQueue } from '../../application/benefit-review.service';
+
 import { SourceRef } from '../../domain/source-ref';
 import { ReviewPrinter } from '../cli/review-printer';
+
+import type { ReviewItem, ReviewQueue } from '../../application/benefit-review.service';
 
 const printer = new ReviewPrinter();
 const verifiedAt = new Date('2026-11-01T16:00:00Z'); // 한국 시각 11월 2일 01:00
 const gov = new SourceRef('GOV24', '571000000116');
 const zero = { VERIFIED: 0, UNVERIFIED: 0, SOURCE_CHANGED: 0, SOURCE_REMOVED: 0, SOURCE_MISSING: 0 };
-const queue = (items: ReviewItem[], counts: Partial<ReviewQueue['counts']> = {}): ReviewQueue => ({ items, counts: { ...zero, ...counts } });
+const queue = (items: ReviewItem[], counts: Partial<ReviewQueue['counts']> = {}): ReviewQueue => ({
+  items,
+  counts: { ...zero, ...counts },
+});
 
 describe('ReviewPrinter', () => {
   describe('검토 목록', () => {
@@ -23,7 +28,10 @@ describe('ReviewPrinter', () => {
             slug: 'gov24-571000000116',
             name: '셋째 자녀 양육지원금',
             verifiedAt,
-            status: { kind: 'SOURCE_CHANGED', changes: [{ ref: gov, fields: [{ field: '지원내용', before: '100만원', after: '200만원' }] }] },
+            status: {
+              kind: 'SOURCE_CHANGED',
+              changes: [{ ref: gov, fields: [{ field: '지원내용', before: '100만원', after: '200만원' }] }],
+            },
           },
           { slug: 'gov24-1', name: '가', verifiedAt: null, status: { kind: 'UNVERIFIED' } },
           { slug: 'gov24-2', name: '나', verifiedAt: null, status: { kind: 'UNVERIFIED' } },
@@ -48,7 +56,14 @@ describe('ReviewPrinter', () => {
     it('긴 값은 줄바꿈을 없애고 잘라서 보여준다', () => {
       const long = '가\r\n  나\r'.repeat(40);
       const text = printer.printQueue(
-        queue([{ slug: 's', name: 'n', verifiedAt, status: { kind: 'SOURCE_CHANGED', changes: [{ ref: gov, fields: [{ field: 'f', before: null, after: long }] }] } }]),
+        queue([
+          {
+            slug: 's',
+            name: 'n',
+            verifiedAt,
+            status: { kind: 'SOURCE_CHANGED', changes: [{ ref: gov, fields: [{ field: 'f', before: null, after: long }] }] },
+          },
+        ]),
       );
       const line = text.split('\n').find((l) => l.includes('f: null →'))!;
       expect(line).toContain('"가 나 가 나');

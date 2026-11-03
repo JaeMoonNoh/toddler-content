@@ -1,19 +1,21 @@
 import { describe, expect, it } from 'vitest';
+
 import { hashPayload } from '../../../shared/domain/payload-diff';
 import { diffSnapshot } from '../snapshot-diff';
+
 import type { SourceRecord, StoredItem } from '../source-record';
 
 const IGNORED = ['조회수'];
 
 const record = (id: string, payload: Record<string, unknown>): SourceRecord => ({
   externalId: id,
-  name: String(payload['서비스명'] ?? id),
+  name: (payload['서비스명'] as string | undefined) ?? id,
   payload,
 });
 
 const stored = (id: string, payload: Record<string, unknown>, removed = false): StoredItem => ({
   externalId: id,
-  name: String(payload['서비스명'] ?? id),
+  name: (payload['서비스명'] as string | undefined) ?? id,
   hash: hashPayload(payload, IGNORED),
   payload,
   removed,

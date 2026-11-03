@@ -29,7 +29,9 @@ function withoutIgnored(payload: Record<string, unknown>, ignored: readonly stri
 }
 
 export function hashPayload(payload: Record<string, unknown>, ignored: readonly string[] = []): string {
-  return createHash('sha256').update(stableStringify(withoutIgnored(payload, ignored))).digest('hex');
+  return createHash('sha256')
+    .update(stableStringify(withoutIgnored(payload, ignored)))
+    .digest('hex');
 }
 
 export function changedFields(

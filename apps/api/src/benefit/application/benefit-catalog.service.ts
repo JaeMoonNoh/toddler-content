@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+
 import { Benefit, type BenefitDetails } from '../domain/benefit';
+
 import { BenefitCatalog } from './ports/benefit-catalog';
 import { BenefitRepository } from './ports/benefit.repository';
 

@@ -1,6 +1,7 @@
 import { CurrentSources, type SourceState } from '../../../domain/current-sources';
-import type { SourceRef } from '../../../domain/source-ref';
 import { SourceStateReader } from '../../ports/source-state.reader';
+
+import type { SourceRef } from '../../../domain/source-ref';
 
 export class FakeSourceStateReader extends SourceStateReader {
   private readonly states = new Map<string, SourceState>();

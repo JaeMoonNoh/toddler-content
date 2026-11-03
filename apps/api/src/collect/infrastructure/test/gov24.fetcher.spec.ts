@@ -1,12 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { FakeFetch } from './fakes/fake-fetch';
+
 import { HttpClient } from '../http/http-client';
-import { ServiceKey } from '../sources/service-key';
 import { Gov24Fetcher } from '../sources/gov24/gov24.fetcher';
+import { ServiceKey } from '../sources/service-key';
+
+import { FakeFetch } from './fakes/fake-fetch';
 
 const key = new ServiceKey('TEST-KEY');
 const service = (id: string, extra: Record<string, unknown> = {}) => ({ 서비스ID: id, 서비스명: `혜택 ${id}`, 조회수: 3, ...extra });
-const page = (data: unknown[], totalCount: number) => ({ body: JSON.stringify({ page: 1, perPage: 1000, totalCount, currentCount: data.length, data }) });
+const page = (data: unknown[], totalCount: number) => ({
+  body: JSON.stringify({ page: 1, perPage: 1000, totalCount, currentCount: data.length, data }),
+});
 const pageParam = (n: number) => (url: URL) => url.searchParams.get('page') === String(n);
 
 function fetcherWith(fake: FakeFetch) {

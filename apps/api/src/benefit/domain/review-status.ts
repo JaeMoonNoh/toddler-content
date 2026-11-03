@@ -1,4 +1,5 @@
 import type { FieldChange } from '../../shared/domain/payload-diff';
+
 import type { SourceRef } from './source-ref';
 
 export interface ChangedSource {

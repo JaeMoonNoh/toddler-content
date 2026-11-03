@@ -1,5 +1,6 @@
-import type { Benefit } from '../../../domain/benefit';
 import { BenefitRepository } from '../../ports/benefit.repository';
+
+import type { Benefit } from '../../../domain/benefit';
 
 export class InMemoryBenefitRepository extends BenefitRepository {
   benefits = new Map<string, Benefit>();

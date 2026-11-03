@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
 import { CollectService } from '../application/collect.service';
 import { SnapshotRepository } from '../application/ports/snapshot.repository';
 import { SOURCE_FETCHERS, SourceFetcher } from '../application/ports/source-fetcher';
+
 import { ReportPrinter } from './cli/report-printer';
 import { HttpClient } from './http/http-client';
 import { PrismaSnapshotRepository } from './persistence/prisma-snapshot.repository';
