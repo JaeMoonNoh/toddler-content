@@ -5,13 +5,14 @@ import type { ApplicationPeriod } from '../../domain/application-period';
 import type { BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule, ScheduleOffset } from '../../domain/benefit-schedule';
 import type { SourceState } from '../../domain/current-sources';
+import type { HowToApply } from '../../domain/how-to-apply';
 import type { SourceRef } from '../../domain/source-ref';
 
 // 검증할 때 볼 원문 필드. 출처마다 이름이 다르다
 const KEY_FIELDS: Record<SourceRef['source'], string[]> = {
-  GOV24: ['지원대상', '선정기준', '지원내용', '신청기한', '신청방법', '접수기관'],
-  BOKJIRO_NATIONAL: ['servDgst', 'lifeArray', 'trgterIndvdlArray', 'jurMnofNm'],
-  BOKJIRO_LOCAL: ['servDgst', 'lifeNmArray', 'trgterIndvdlNmArray', 'ctpvNm', 'sggNm'],
+  GOV24: ['지원대상', '선정기준', '지원내용', '신청기한', '신청방법', '접수기관', '전화문의'],
+  BOKJIRO_NATIONAL: ['servDgst', 'lifeArray', 'trgterIndvdlArray', 'jurMnofNm', 'aplyMtdNm', 'onapPsbltYn', 'rprsCtadr'],
+  BOKJIRO_LOCAL: ['servDgst', 'lifeNmArray', 'trgterIndvdlNmArray', 'ctpvNm', 'sggNm', 'aplyMtdNm', 'onapPsbltYn', 'rprsCtadr'],
 };
 
 const STATUS_LABEL: Record<BenefitDetail['status']['kind'], string> = {
@@ -50,6 +51,9 @@ export class BenefitDetailPrinter {
       '[우리가 정리한 올해 신청 기간]',
       ...periodLines(benefit.applicationPeriod),
       '',
+      '[우리가 정리한 신청 방법]',
+      ...howToApplyLines(benefit.howToApply),
+      '',
       ...sources.flatMap(({ ref, state }) => this.sourceLines(ref, state)),
       `원문과 맞으면: pnpm benefit verify ${benefit.slug}`,
     ].join('\n');
@@ -84,6 +88,11 @@ function scheduleLines(schedule: BenefitSchedule | null): string[] {
 function periodLines(period: ApplicationPeriod | null): string[] {
   if (!period) return ['  없음 (상시 신청이거나 아직 정리하지 않았어요)'];
   return [`  기간: ${period.start} ~ ${period.end}`, `  근거: ${period.basis.text}`, `        ${period.basis.url}`];
+}
+
+function howToApplyLines(howToApply: HowToApply | null): string[] {
+  if (!howToApply) return ['  아직 정리하지 않았어요'];
+  return [`  설명: ${howToApply.summary}`, `  근거: ${howToApply.basis.text}`, `        ${howToApply.basis.url}`];
 }
 
 function amountLines(amount: BenefitAmount | null): string[] {

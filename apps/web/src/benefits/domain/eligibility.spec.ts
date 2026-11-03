@@ -14,6 +14,7 @@ const benefit = (name: string, conditions: EligibilityCondition[] = []): Publish
   conditions,
   amount: null,
   applicationPeriod: null,
+  howToApply: null,
   audience: null,
 });
 const household = (birthParent: Insurance, partner: Insurance): Household => ({ birthParent, partner, birthOrder: null, childcare: 'unknown' });

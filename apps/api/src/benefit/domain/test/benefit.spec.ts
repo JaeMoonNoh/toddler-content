@@ -19,6 +19,7 @@ const details = (overrides: Partial<BenefitDetails> = {}): BenefitDetails => ({
   conditions: [],
   amount: null,
   applicationPeriod: null,
+  howToApply: null,
   audience: null,
   ...overrides,
 });
@@ -116,6 +117,14 @@ describe('Benefit', () => {
     it('금액에 문제가 있으면 거절한다', () => {
       const amount = { kind: 'cash' as const, summary: '월 10만원', tiers: [], basis: { text: '근거', url: 'https://a.kr' } };
       expect(() => Benefit.register(details({ amount }))).toThrow('금액 구간이 비어');
+    });
+
+    it.each([
+      ['설명이 비어 있으면', { summary: ' ', basis: { text: '방문신청', url: 'https://a.kr' } }, '신청 방법 설명이 비어'],
+      ['근거 문장이 비어 있으면', { summary: '주민센터 방문', basis: { text: '', url: 'https://a.kr' } }, '근거 문장이 비어'],
+      ['근거 링크가 https가 아니면', { summary: '주민센터 방문', basis: { text: '방문신청', url: 'http://a.kr' } }, 'https 주소여야'],
+    ])('신청 방법의 %s 거절한다', (_, howToApply, message) => {
+      expect(() => Benefit.register(details({ howToApply }))).toThrow(message);
     });
 
     it('문제가 여러 개면 한 번에 모두 알려준다', () => {
@@ -246,6 +255,7 @@ describe('Benefit', () => {
           },
         },
       ],
+      ['신청 방법 추가', { howToApply: { summary: '주민센터 방문', basis: { text: '방문신청', url: 'https://a.kr' } } }],
     ])('%s이 바뀌면 다시 확인해야 한다', (_, overrides) => {
       const base = details({ sources: [gov, bok] });
       const benefit = Benefit.register(base).verify(sources(state(gov), state(bok)), at);

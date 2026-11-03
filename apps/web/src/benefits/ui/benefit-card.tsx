@@ -3,6 +3,7 @@ import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { BenefitChips } from './benefit-chips';
 import { CardFooter } from './card-footer';
+import { HowToApplyLine } from './how-to-apply-line';
 
 export function BenefitCard({ benefit }: { benefit: PublishedBenefit }) {
   return (
@@ -10,6 +11,7 @@ export function BenefitCard({ benefit }: { benefit: PublishedBenefit }) {
       <BenefitChips benefit={benefit} />
       <h3>{benefit.name}</h3>
       {benefit.amount && <p className="amt">{benefit.amount.summary}</p>}
+      <HowToApplyLine benefit={benefit} />
       <CardFooter benefit={benefit} />
     </li>
   );

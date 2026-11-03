@@ -31,9 +31,15 @@ describe('parseCatalog', () => {
         conditions: [],
         amount: null,
         applicationPeriod: null,
+        howToApply: null,
         audience: null,
       },
     ]);
+  });
+
+  it('신청 방법을 읽는다', () => {
+    const howToApply = { summary: '주민센터 방문 · 문의 129', basis: { text: '신청방법: 방문신청', url: 'https://plus.gov.kr/x' } };
+    expect(parse([entry({ howToApply })])[0].howToApply).toEqual(howToApply);
   });
 
   it('신청 기간 규칙을 읽고, 빠진 months와 days는 0으로 본다', () => {
@@ -107,6 +113,12 @@ describe('parseCatalog', () => {
       'applicationPeriod.start',
     ],
     ['대상 묶음이 숫자', JSON.stringify([entry({ audience: 1 })]), 'audience가 문자열'],
+    [
+      '신청 방법 설명이 숫자',
+      JSON.stringify([entry({ howToApply: { summary: 1, basis: { text: 't', url: 'u' } } })]),
+      'howToApply.summary',
+    ],
+    ['신청 방법 근거 없음', JSON.stringify([entry({ howToApply: { summary: '주민센터 방문' } })]), 'howToApply.basis.text'],
     [
       '일정 설명 없음',
       JSON.stringify([entry({ schedule: { from: { anchor: 'birth' }, until: { anchor: 'birth' }, untilLabel: '마감' } })]),

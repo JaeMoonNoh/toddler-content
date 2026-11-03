@@ -6,6 +6,7 @@ import { type Audience, audienceProblems } from './audience';
 import { amountProblems, type BenefitAmount, sameAmount } from './benefit-amount';
 import { type BenefitSchedule, sameSchedule, scheduleProblems } from './benefit-schedule';
 import { conditionProblems, type EligibilityCondition, sameConditions } from './eligibility-condition';
+import { type HowToApply, howToApplyProblems, sameHowToApply } from './how-to-apply';
 import { type ChangedSource, isPublishable, type ReviewStatus } from './review-status';
 
 import type { CurrentSources, SourceSnapshot, SourceState } from './current-sources';
@@ -24,6 +25,7 @@ export interface BenefitDetails {
   conditions: EligibilityCondition[]; // 받기 위한 조건. 없으면 빈 배열
   amount: BenefitAmount | null; // 받는 금액. 아직 정리하지 않았으면 null
   applicationPeriod: ApplicationPeriod | null; // 해마다 공고하는 사업의 올해 신청 기간. 상시 신청이면 null
+  howToApply: HowToApply | null; // 어디서 어떻게 신청하는지. 아직 정리하지 않았으면 null
   audience: Audience | null; // 특정 대상만 받는 혜택의 묶음. 누구나 받을 수 있으면 null
 }
 
@@ -87,6 +89,10 @@ export class Benefit {
 
   get applicationPeriod() {
     return this.details.applicationPeriod;
+  }
+
+  get howToApply() {
+    return this.details.howToApply;
   }
 
   get amount() {
@@ -185,6 +191,7 @@ function assertValid(details: BenefitDetails) {
     ...conditionProblems(details.conditions),
     ...(details.amount ? amountProblems(details.amount) : []),
     ...(details.applicationPeriod ? periodProblems(details.applicationPeriod) : []),
+    ...(details.howToApply ? howToApplyProblems(details.howToApply) : []),
     ...audienceProblems(details.audience),
   ].filter((problem): problem is string => Boolean(problem));
   if (problems.length) throw new InvalidBenefitError(`${details.slug}: ${problems.join(', ')}`);
@@ -200,6 +207,7 @@ function sameDetails(a: BenefitDetails, b: BenefitDetails) {
     sameSchedule(a.schedule, b.schedule) &&
     sameConditions(a.conditions, b.conditions) &&
     sameAmount(a.amount, b.amount) &&
-    samePeriod(a.applicationPeriod, b.applicationPeriod)
+    samePeriod(a.applicationPeriod, b.applicationPeriod) &&
+    sameHowToApply(a.howToApply, b.howToApply)
   );
 }
