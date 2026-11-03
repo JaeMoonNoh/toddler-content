@@ -1,18 +1,18 @@
 import { Logger, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
+import { HttpClient, type RetryNotice } from '../../shared/infrastructure/http-client';
+import { ServiceKey } from '../../shared/infrastructure/service-key';
 import { CollectService } from '../application/collect.service';
 import { CollectionEvents } from '../application/ports/collection-events';
 import { SnapshotRepository } from '../application/ports/snapshot.repository';
 import { SOURCE_FETCHERS, SourceFetcher } from '../application/ports/source-fetcher';
 
 import { ReportPrinter } from './cli/report-printer';
-import { HttpClient, type RetryNotice } from './http/http-client';
 import { LoggingCollectionEvents } from './logging/logging-collection-events';
 import { PrismaSnapshotRepository } from './persistence/prisma-snapshot.repository';
 import { BokjiroLocalFetcher, BokjiroNationalFetcher } from './sources/bokjiro/bokjiro.fetcher';
 import { Gov24Fetcher } from './sources/gov24/gov24.fetcher';
-import { ServiceKey } from './sources/service-key';
 
 const httpLogger = new Logger('HttpClient');
 

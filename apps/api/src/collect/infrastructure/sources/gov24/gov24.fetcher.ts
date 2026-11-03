@@ -2,8 +2,8 @@ import { VOLATILE_FIELDS } from '../../../../shared/domain/source-id';
 import { type SourceRecord } from '../../../domain/source-record';
 import { type Page, PagedSourceFetcher, SourceFormatError } from '../paged-source-fetcher';
 
-import type { HttpClient } from '../../http/http-client';
-import type { ServiceKey } from '../service-key';
+import type { HttpClient } from '../../../../shared/infrastructure/http-client';
+import type { ServiceKey } from '../../../../shared/infrastructure/service-key';
 
 type Gov24Item = Record<string, unknown> & { 서비스ID?: string; 서비스명?: string };
 

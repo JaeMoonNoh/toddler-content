@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { HttpClient, HttpError, redactUrl, type RetryNotice } from '../http/http-client';
+import { HttpClient, HttpError, redactUrl, type RetryNotice } from '../http-client';
 
 import { FakeFetch, networkError, timeoutError } from './fakes/fake-fetch';
 

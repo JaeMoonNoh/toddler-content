@@ -4,8 +4,8 @@ import { type Page, PagedSourceFetcher } from '../paged-source-fetcher';
 
 import { type BokjiroItem, parseBokjiroPage } from './bokjiro-response';
 
-import type { HttpClient } from '../../http/http-client';
-import type { ServiceKey } from '../service-key';
+import type { HttpClient } from '../../../../shared/infrastructure/http-client';
+import type { ServiceKey } from '../../../../shared/infrastructure/service-key';
 
 // 복지로 목록 API 공통. 중앙부처와 지자체는 주소와 고정 파라미터만 다르다.
 abstract class BokjiroFetcher extends PagedSourceFetcher<BokjiroItem> {

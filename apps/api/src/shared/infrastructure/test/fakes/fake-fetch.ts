@@ -1,4 +1,4 @@
-import type { Fetch } from '../../http/http-client';
+import type { Fetch } from '../../http-client';
 
 type Reply = { status?: number; body: string } | Error;
 

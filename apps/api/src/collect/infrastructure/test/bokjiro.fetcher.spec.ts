@@ -1,10 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { HttpClient } from '../http/http-client';
+import { HttpClient } from '../../../shared/infrastructure/http-client';
+import { ServiceKey } from '../../../shared/infrastructure/service-key';
+import { FakeFetch } from '../../../shared/infrastructure/test/fakes/fake-fetch';
 import { BokjiroLocalFetcher, BokjiroNationalFetcher } from '../sources/bokjiro/bokjiro.fetcher';
-import { ServiceKey } from '../sources/service-key';
-
-import { FakeFetch } from './fakes/fake-fetch';
 
 const key = new ServiceKey('TEST-KEY');
 const serv = (id: string, extra = '') =>
