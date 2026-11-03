@@ -1690,9 +1690,9 @@
       }
     },
     "howToApply": {
-      "summary": "보건소 방문",
+      "summary": "보건소 방문 · 문의 129",
       "basis": {
-        "text": "신청방법: 방문신청 / 접수기관: 보건소 / 전화문의: 해당지역 보건소/-",
+        "text": "신청방법: 방문신청 / 접수기관: 보건소 / 전화문의: 해당지역 보건소/- / 복지로 대표문의: 129",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=104657&bnefType=all&svcId=GMW000000010"
       }
     }
@@ -1714,9 +1714,9 @@
     ],
     "audience": "DISABILITY",
     "howToApply": {
-      "summary": "주민센터 방문 · 문의 129",
+      "summary": "주민센터 방문 또는 온라인 · 문의 129",
       "basis": {
-        "text": "신청방법: 방문신청 / 접수기관: 주민센터 / 전화문의: 보건복지상담센터/129",
+        "text": "신청방법: 방문신청 / 접수기관: 주민센터 / 전화문의: 보건복지상담센터/129 / 복지로 온라인신청가능: Y",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=717971&bnefType=all&svcId=GMW000000260"
       }
     }
@@ -1764,9 +1764,9 @@
       }
     },
     "howToApply": {
-      "summary": "보건소 방문 또는 온라인",
+      "summary": "보건소 방문 또는 온라인 · 문의 129",
       "basis": {
-        "text": "신청방법: 기타 온라인신청, 방문신청 / 접수기관: 보건소 / 전화문의: 해당지역 보건소/-",
+        "text": "신청방법: 기타 온라인신청, 방문신청 / 접수기관: 보건소 / 전화문의: 해당지역 보건소/- / 복지로 대표문의: 129",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=741282&bnefType=all&svcId=PTR000050390"
       }
     }
@@ -1932,9 +1932,9 @@
     },
     "audience": "LOW_INCOME",
     "howToApply": {
-      "summary": "주민센터 방문 · 문의 129",
+      "summary": "주민센터 방문 또는 온라인 · 문의 129",
       "basis": {
-        "text": "신청방법: 방문신청 / 접수기관: 읍면동 주민센터 / 전화문의: 보건복지상담센터/129",
+        "text": "신청방법: 방문신청 / 접수기관: 읍면동 주민센터 / 전화문의: 보건복지상담센터/129 / 복지로 온라인신청가능: Y",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=575762&bnefType=all&svcId=SD0000002014"
       }
     }
@@ -2008,7 +2008,7 @@
       }
     },
     "howToApply": {
-      "summary": "방문 또는 온라인 · 문의 1577-1000",
+      "summary": "국민건강보험공단 등 방문 또는 온라인 · 문의 1577-1000",
       "basis": {
         "text": "신청방법: 기타 온라인신청, 방문신청 / 접수기관: 국민건강보험공단(방문, 유선, 홈페이지, 앱), 전담 금융기관, 지자체(행정복지센터·보건소), 정부24 ※행정복지센터, 보건소, 정부24의 경우 '임신'으로 신청하는 경우에 가능 / 전화문의: 국민건강보험공단/1577-1000",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999124&bnefType=all&svcId=SD0000007672"
@@ -2032,9 +2032,9 @@
     ],
     "audience": "LOW_INCOME",
     "howToApply": {
-      "summary": "시·군·구청 방문 · 문의 129",
+      "summary": "시·군·구청 방문 또는 온라인 · 문의 129",
       "basis": {
-        "text": "신청방법: 방문신청 / 접수기관: 시·군·구청 / 전화문의: 보건복지상담센터/129",
+        "text": "신청방법: 방문신청 / 접수기관: 시·군·구청 / 전화문의: 보건복지상담센터/129 / 복지로 온라인신청가능: Y",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999151&bnefType=all&svcId=SD0000012326"
       }
     }
