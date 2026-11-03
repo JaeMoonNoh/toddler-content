@@ -4,7 +4,6 @@ import { ReportPrinter } from '../../collect/infrastructure/cli/report-printer';
 import { CollectModule } from '../../collect/infrastructure/collect.module';
 import { DailyCheckService } from '../application/daily-check.service';
 import { DailyCheckPrinter } from './daily-check-printer';
-import { DailyCheckScheduler } from './daily-check.scheduler';
 
 @Module({
   imports: [CollectModule, BenefitModule],
@@ -15,7 +14,6 @@ import { DailyCheckScheduler } from './daily-check.scheduler';
       useFactory: (reportPrinter: ReportPrinter) => new DailyCheckPrinter(reportPrinter),
       inject: [ReportPrinter],
     },
-    DailyCheckScheduler,
   ],
   exports: [DailyCheckService, DailyCheckPrinter],
 })
