@@ -10,6 +10,7 @@
     "build": "pnpm -r build",
     "collect": "pnpm --filter @toddler/api collect",
     "benefit": "pnpm --filter @toddler/api benefit",
+    "region": "pnpm --filter @toddler/api region",
     "prepare": "husky"
   },
   "packageManager": "pnpm@12.14.0",
