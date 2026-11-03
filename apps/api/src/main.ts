@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
@@ -9,7 +10,9 @@ async function bootstrap() {
   app.enableShutdownHooks();
   const config = app.get(ConfigService);
   app.enableCors({ origin: config.getOrThrow<string>('WEB_ORIGIN') });
-  await app.listen(config.getOrThrow<number>('PORT'));
+  const port = config.getOrThrow<number>('PORT');
+  await app.listen(port);
+  new Logger('Bootstrap').log(`API listening on port ${port}`);
 }
 
 void bootstrap();

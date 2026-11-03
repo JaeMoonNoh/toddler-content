@@ -12,6 +12,7 @@ import { CollectionAlreadyRunningError, CollectService } from '../../../collect/
 import { CollectionReport } from '../../../collect/application/collection-report';
 import { FakeSourceFetcher } from '../../../collect/application/test/fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from '../../../collect/application/test/fakes/in-memory-snapshot.repository';
+import { RecordingCollectionEvents } from '../../../collect/application/test/fakes/recording-collection-events';
 import { type DailyCheckResult, DailyCheckService, requiresAttention } from '../daily-check.service';
 
 import type { SourceRecord } from '../../../collect/domain/source-record';
@@ -35,7 +36,10 @@ describe('DailyCheckService', () => {
   });
 
   const dailyCheck = (fetchers: FakeSourceFetcher[], sourceReader: SourceStateReader = reader) =>
-    new DailyCheckService(new CollectService(new InMemorySnapshotRepository(), fetchers), new BenefitReviewService(benefits, sourceReader));
+    new DailyCheckService(
+      new CollectService(new InMemorySnapshotRepository(), fetchers, new RecordingCollectionEvents()),
+      new BenefitReviewService(benefits, sourceReader),
+    );
 
   it('수집한 뒤 혜택 검토 목록을 함께 돌려준다', async () => {
     const result = await dailyCheck([new FakeSourceFetcher('GOV24', [records(3)])]).run();

@@ -89,4 +89,28 @@ describe('DailyCheckPrinter', () => {
         .at(-1),
     ).toBe('✘ 혜택 검토 실패: DB 연결 끊김');
   });
+
+  describe('summaryLine', () => {
+    it('출처 수, 실패 수, 변경 수, 확인 필요 수를 한 줄로', () => {
+      const collection = new CollectionReport([
+        { source: 'GOV24', status: 'failed', reason: '시간 초과' },
+        { source: 'BOKJIRO_LOCAL', status: 'failed', reason: '인증키 오류' },
+      ]);
+      const line = printer.summaryLine(
+        result({ status: 'succeeded', queue: queue([changed('부모급여', ['지원내용'])], { SOURCE_CHANGED: 1 }) }, collection),
+      );
+      expect(line).toBe('Daily check finished: sources=2 failed=2 changes=0 review=ok attention=1');
+    });
+
+    it('검증 전 혜택은 확인 필요 수에 넣지 않는다', () => {
+      const line = printer.summaryLine(result({ status: 'succeeded', queue: queue([unverified('a')], { UNVERIFIED: 1 }) }));
+      expect(line).toBe('Daily check finished: sources=0 failed=0 changes=0 review=ok attention=0');
+    });
+
+    it('검토에 실패하면 review=failed', () => {
+      expect(printer.summaryLine(result({ status: 'failed', reason: 'DB 연결 끊김' }))).toBe(
+        'Daily check finished: sources=0 failed=0 changes=0 review=failed',
+      );
+    });
+  });
 });

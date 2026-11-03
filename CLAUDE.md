@@ -76,6 +76,9 @@ docker-compose.yml
 - 환경 변수는 `ConfigService`로만 읽는다. `process.env`를 직접 읽지 않고, 새 변수는 `src/config/env.validation.ts`에 추가해 시작할 때 검증한다.
 - 컨트롤러에는 로직을 두지 않는다. 서비스를 부르고, 응답에 내보낼 필드는 서비스가 명시적으로 골라 만든다 (엔티티를 그대로 내보내지 않는다).
 - 로그는 서버에서는 Nest `Logger`, CLI에서는 `console`로 쓴다.
+- 로그 메시지는 영어로, `Collection failed: source=GOV24 run=…`처럼 고정된 문구 + `key=value`로 쓴다 (검색하기 쉽고 어디서 봐도 깨지지 않게). 사람이 읽는 보고서(CLI 출력, 수집 보고서, DB에 남는 실패 이유)는 한글로 둔다.
+- 로그에 인증키와 개인 정보를 남기지 않는다. 주소는 `redactUrl`로 가리고, HTTP 요청 로그에는 쿼리를 빼고 경로만 남긴다.
+- application 층은 Logger를 직접 쓰지 않고 포트로 알린다 (예: `CollectionEvents`). 구현이 Logger로 남긴다.
 - Swagger는 공개 API가 생길 때 붙인다.
 
 ### 이름과 함수

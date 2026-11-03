@@ -17,6 +17,15 @@ export class DailyCheckPrinter {
     private readonly maxItems = 20,
   ) {}
 
+  // 로그에서 검색하기 쉽게 고정된 영어 문구와 숫자만 담은 한 줄
+  summaryLine({ collection, review }: DailyCheckResult): string {
+    const reviewPart = review.status === 'failed' ? 'review=failed' : `review=ok attention=${attentionItemsOf(review.queue).length}`;
+    return (
+      `Daily check finished: sources=${collection.outcomes.length} failed=${collection.failed.length}` +
+      ` changes=${collection.totalChanges} ${reviewPart}`
+    );
+  }
+
   print(result: DailyCheckResult, at: Date): string {
     return [this.reportPrinter.print(result.collection, at), '', ...this.reviewLines(result.review)].join('\n');
   }

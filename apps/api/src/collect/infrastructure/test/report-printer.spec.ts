@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { CollectionReport } from '../../application/collection-report';
 import { ReportPrinter } from '../cli/report-printer';
 
-import type { CollectSourceResult } from '../../application/collect.service';
+import type { CollectSourceResult } from '../../application/collection-report';
 
 const at = new Date('2026-11-02T19:00:00Z'); // 한국 시각 11월 3일 04:00
 

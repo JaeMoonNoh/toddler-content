@@ -3,37 +3,18 @@ import { Inject, Injectable } from '@nestjs/common';
 import { hashPayload } from '../../shared/domain/payload-diff';
 import { diffSnapshot, type SnapshotDiff } from '../domain/snapshot-diff';
 
-import { CollectionReport, type SourceOutcome } from './collection-report';
+import { type ChangedItem, CollectionReport, type CollectSourceResult, type SourceOutcome } from './collection-report';
 import { assertAcceptable, isBaseline } from './policies/collection-policy';
+import { CollectionEvents } from './ports/collection-events';
 import { type SnapshotPlan, SnapshotRepository } from './ports/snapshot.repository';
 import { SOURCE_FETCHERS, type SourceFetcher } from './ports/source-fetcher';
 
-import type { SourceId } from '../../shared/domain/source-id';
 import type { SourceRecord, StoredItem } from '../domain/source-record';
 
 export class CollectionAlreadyRunningError extends Error {
   constructor() {
     super('이미 수집이 진행 중입니다.');
   }
-}
-
-export interface ChangedItem {
-  type: 'ADDED' | 'UPDATED' | 'REMOVED';
-  externalId: string;
-  name: string;
-  fields: string[];
-}
-
-export interface CollectSourceResult {
-  source: SourceId;
-  runId: string;
-  baseline: boolean;
-  itemCount: number;
-  added: number;
-  updated: number;
-  removed: number;
-  duplicateIds: string[];
-  changes: ChangedItem[]; // 첫 수집(기준점)이면 비어 있다
 }
 
 // 공공 API 출처를 수집해서 이전 원본과 비교하고 저장한다
@@ -44,6 +25,7 @@ export class CollectService {
   constructor(
     private readonly repository: SnapshotRepository,
     @Inject(SOURCE_FETCHERS) private readonly fetchers: readonly SourceFetcher[],
+    private readonly events: CollectionEvents,
   ) {}
 
   // 출처를 차례로 수집한다. 한 출처가 실패해도 나머지는 계속한다
@@ -61,13 +43,17 @@ export class CollectService {
 
   async collect(fetcher: SourceFetcher): Promise<CollectSourceResult> {
     const runId = await this.repository.startRun(fetcher.source);
+    this.events.started(fetcher.source, runId);
     try {
       const records = await fetcher.fetchAll();
       const result = await this.applySnapshot(runId, fetcher, records);
       await this.repository.completeRun(runId, result);
+      this.events.succeeded(result);
       return result;
     } catch (error) {
-      await this.repository.failRun(runId, error instanceof Error ? error.message : String(error));
+      const reason = error instanceof Error ? error.message : String(error);
+      await this.repository.failRun(runId, reason);
+      this.events.failed(fetcher.source, runId, reason);
       throw error;
     }
   }

@@ -1,6 +1,23 @@
 import type { SourceId } from '../../shared/domain/source-id';
 
-import type { CollectSourceResult } from './collect.service';
+export interface ChangedItem {
+  type: 'ADDED' | 'UPDATED' | 'REMOVED';
+  externalId: string;
+  name: string;
+  fields: string[];
+}
+
+export interface CollectSourceResult {
+  source: SourceId;
+  runId: string;
+  baseline: boolean;
+  itemCount: number;
+  added: number;
+  updated: number;
+  removed: number;
+  duplicateIds: string[];
+  changes: ChangedItem[]; // 첫 수집(기준점)이면 비어 있다
+}
 
 export type SourceOutcome =
   { source: SourceId; status: 'succeeded'; result: CollectSourceResult } | { source: SourceId; status: 'failed'; reason: string };
