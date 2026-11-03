@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { Benefit } from '../../domain/benefit';
 import { SourceRef } from '../../domain/source-ref';
-import { CatalogError } from '../../application/sync-catalog.use-case';
+import { CatalogError } from '../../application/benefit-catalog.service';
 import { parseCatalog } from '../catalog/json-benefit-catalog';
 
 const entry = (overrides: Record<string, unknown> = {}) => ({

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { BenefitDetail } from '../../application/benefit-detail.use-case';
+import type { BenefitDetail } from '../../application/benefit-review.service';
 import { benefitDetails } from '../../application/test/fakes/benefit-fixtures';
 import { Benefit } from '../../domain/benefit';
 import { CurrentSources } from '../../domain/current-sources';

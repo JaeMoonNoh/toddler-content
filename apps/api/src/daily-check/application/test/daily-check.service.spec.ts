@@ -3,18 +3,16 @@ import { benefitDetails } from '../../../benefit/application/test/fakes/benefit-
 import { FakeSourceStateReader } from '../../../benefit/application/test/fakes/fake-source-state.reader';
 import { InMemoryBenefitRepository } from '../../../benefit/application/test/fakes/in-memory-benefit.repository';
 import { SourceStateReader } from '../../../benefit/application/ports/source-state.reader';
-import { ReviewQueueUseCase } from '../../../benefit/application/review-queue.use-case';
+import { BenefitReviewService, type ReviewQueue } from '../../../benefit/application/benefit-review.service';
 import { Benefit } from '../../../benefit/domain/benefit';
 import { CurrentSources } from '../../../benefit/domain/current-sources';
 import { SourceRef } from '../../../benefit/domain/source-ref';
-import { CollectAllSourcesUseCase, CollectionAlreadyRunningError } from '../../../collect/application/collect-all-sources.use-case';
-import { CollectSourceUseCase } from '../../../collect/application/collect-source.use-case';
+import { CollectService, CollectionAlreadyRunningError } from '../../../collect/application/collect.service';
 import { FakeSourceFetcher } from '../../../collect/application/test/fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from '../../../collect/application/test/fakes/in-memory-snapshot.repository';
 import type { SourceRecord } from '../../../collect/domain/source-record';
 import { CollectionReport } from '../../../collect/application/collection-report';
-import type { ReviewQueue } from '../../../benefit/application/review-queue.use-case';
-import { DailyCheckUseCase, requiresAttention, type DailyCheckResult } from '../daily-check.use-case';
+import { DailyCheckService, requiresAttention, type DailyCheckResult } from '../daily-check.service';
 
 const records = (n: number): SourceRecord[] =>
   Array.from({ length: n }, (_, i) => ({ externalId: String(i + 1), name: `혜택 ${i + 1}`, payload: { 서비스ID: String(i + 1) } }));
@@ -25,7 +23,7 @@ class BrokenReader extends SourceStateReader {
   }
 }
 
-describe('DailyCheckUseCase', () => {
+describe('DailyCheckService', () => {
   let reader: FakeSourceStateReader;
   let benefits: InMemoryBenefitRepository;
 
@@ -35,27 +33,24 @@ describe('DailyCheckUseCase', () => {
   });
 
   const dailyCheck = (fetchers: FakeSourceFetcher[], sourceReader: SourceStateReader = reader) =>
-    new DailyCheckUseCase(
-      new CollectAllSourcesUseCase(new CollectSourceUseCase(new InMemorySnapshotRepository()), fetchers),
-      new ReviewQueueUseCase(benefits, sourceReader),
-    );
+    new DailyCheckService(new CollectService(new InMemorySnapshotRepository(), fetchers), new BenefitReviewService(benefits, sourceReader));
 
   it('수집한 뒤 혜택 검토 목록을 함께 돌려준다', async () => {
-    const result = await dailyCheck([new FakeSourceFetcher('GOV24', [records(3)])]).execute();
+    const result = await dailyCheck([new FakeSourceFetcher('GOV24', [records(3)])]).run();
 
     expect(result.collection.succeeded).toHaveLength(1);
     expect(result.review).toMatchObject({ status: 'succeeded', queue: { counts: { UNVERIFIED: 1 } } });
   });
 
   it('수집이 모두 실패해도 이전에 저장된 원본으로 검토 목록은 만든다', async () => {
-    const result = await dailyCheck([new FakeSourceFetcher('GOV24', [new Error('API 응답 없음')])]).execute();
+    const result = await dailyCheck([new FakeSourceFetcher('GOV24', [new Error('API 응답 없음')])]).run();
 
     expect(result.collection.hasFailures).toBe(true);
     expect(result.review.status).toBe('succeeded');
   });
 
   it('검토 목록을 못 만들어도 수집 결과는 돌려주고 실패 이유를 담는다', async () => {
-    const result = await dailyCheck([new FakeSourceFetcher('GOV24', [records(3)])], new BrokenReader()).execute();
+    const result = await dailyCheck([new FakeSourceFetcher('GOV24', [records(3)])], new BrokenReader()).run();
 
     expect(result.collection.succeeded).toHaveLength(1);
     expect(result.review).toEqual({ status: 'failed', reason: 'DB 연결 끊김' });
@@ -67,8 +62,8 @@ describe('DailyCheckUseCase', () => {
     slow.holdUntil(new Promise<void>((resolve) => (release = resolve)));
     const check = dailyCheck([slow]);
 
-    const first = check.execute();
-    await expect(check.execute()).rejects.toThrow(CollectionAlreadyRunningError);
+    const first = check.run();
+    await expect(check.run()).rejects.toThrow(CollectionAlreadyRunningError);
     release();
     await first;
   });

@@ -1,8 +1,8 @@
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Cron, SchedulerRegistry } from '@nestjs/schedule';
-import { CollectionAlreadyRunningError } from '../../collect/application/collect-all-sources.use-case';
-import { DailyCheckUseCase, requiresAttention } from '../application/daily-check.use-case';
+import { CollectionAlreadyRunningError } from '../../collect/application/collect.service';
+import { DailyCheckService, requiresAttention } from '../application/daily-check.service';
 import { DailyCheckPrinter } from './daily-check-printer';
 
 const DAILY_CHECK_JOB = 'daily-check';
@@ -13,7 +13,7 @@ export class DailyCheckScheduler implements OnApplicationBootstrap {
   private readonly logger = new Logger(DailyCheckScheduler.name);
 
   constructor(
-    private readonly dailyCheck: DailyCheckUseCase,
+    private readonly dailyCheck: DailyCheckService,
     private readonly printer: DailyCheckPrinter,
     private readonly config: ConfigService,
     private readonly schedulerRegistry: SchedulerRegistry,
@@ -28,7 +28,7 @@ export class DailyCheckScheduler implements OnApplicationBootstrap {
   @Cron('0 4 * * *', { name: DAILY_CHECK_JOB, timeZone: 'Asia/Seoul' })
   async runDaily() {
     try {
-      const result = await this.dailyCheck.execute();
+      const result = await this.dailyCheck.run();
       const text = this.printer.print(result, new Date());
       if (requiresAttention(result)) this.logger.warn(text);
       else this.logger.log(text);

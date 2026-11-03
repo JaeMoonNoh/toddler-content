@@ -3,12 +3,12 @@ import { Benefit } from '../../domain/benefit';
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeBenefitCatalog } from './fakes/fake-benefit-catalog';
 import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository';
-import { RetireBenefitsUseCase } from '../retire-benefits.use-case';
+import { BenefitCatalogService } from '../benefit-catalog.service';
 
-describe('RetireBenefitsUseCase', () => {
+describe('BenefitCatalogService.retire', () => {
   let repo: InMemoryBenefitRepository;
   let catalog: FakeBenefitCatalog;
-  const retire = (slugs: string[]) => new RetireBenefitsUseCase(catalog, repo).execute(slugs);
+  const retire = (slugs: string[]) => new BenefitCatalogService(catalog, repo).retire(slugs);
 
   beforeEach(() => {
     repo = new InMemoryBenefitRepository(['1', '2'].map((id) => Benefit.register(benefitDetails(id))));

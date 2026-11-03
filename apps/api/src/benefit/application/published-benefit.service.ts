@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import type { BenefitScope } from '../domain/benefit';
 import type { ApplicationPeriod } from '../domain/application-period';
 import type { Audience } from '../domain/audience';
@@ -5,8 +6,8 @@ import type { BenefitAmount } from '../domain/benefit-amount';
 import type { BenefitSchedule } from '../domain/benefit-schedule';
 import type { EligibilityCondition } from '../domain/eligibility-condition';
 import { isPublishable, type PublishedStatusKind } from '../domain/review-status';
-import type { BenefitRepository } from './ports/benefit.repository';
-import type { SourceStateReader } from './ports/source-state.reader';
+import { BenefitRepository } from './ports/benefit.repository';
+import { SourceStateReader } from './ports/source-state.reader';
 
 export interface PublishedBenefit {
   slug: string;
@@ -25,13 +26,14 @@ export interface PublishedBenefit {
 }
 
 // 사이트에 보여줄 혜택. 원본이 사라졌거나 없는 혜택만 빠진다
-export class ListPublishedBenefitsUseCase {
+@Injectable()
+export class PublishedBenefitService {
   constructor(
     private readonly repository: BenefitRepository,
     private readonly reader: SourceStateReader,
   ) {}
 
-  async execute(): Promise<PublishedBenefit[]> {
+  async list(): Promise<PublishedBenefit[]> {
     const benefits = await this.repository.findAll();
     const current = await this.reader.read(benefits.flatMap((benefit) => benefit.sources));
 

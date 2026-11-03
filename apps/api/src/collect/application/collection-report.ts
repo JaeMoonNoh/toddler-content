@@ -1,5 +1,5 @@
 import type { SourceId } from '../../shared/domain/source-id';
-import type { CollectSourceResult } from './collect-source.use-case';
+import type { CollectSourceResult } from './collect.service';
 
 export type SourceOutcome =
   | { source: SourceId; status: 'succeeded'; result: CollectSourceResult }

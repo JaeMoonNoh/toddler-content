@@ -1,4 +1,4 @@
-import type { ChangedItem } from '../../application/collect-source.use-case';
+import type { ChangedItem } from '../../application/collect.service';
 import type { CollectionReport, SourceOutcome } from '../../application/collection-report';
 import { formatKst } from '../../../shared/format-kst';
 import type { SourceId } from '../../../shared/domain/source-id';

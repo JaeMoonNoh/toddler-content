@@ -1,6 +1,7 @@
+import { Injectable } from '@nestjs/common';
 import { Benefit, type BenefitDetails } from '../domain/benefit';
-import type { BenefitCatalog } from './ports/benefit-catalog';
-import type { BenefitRepository } from './ports/benefit.repository';
+import { BenefitCatalog } from './ports/benefit-catalog';
+import { BenefitRepository } from './ports/benefit.repository';
 
 export class CatalogError extends Error {}
 
@@ -12,16 +13,23 @@ export interface SyncResult {
   notInCatalog: string[]; // DB에는 있지만 목록에서 빠진 혜택. 지우지 않고 알려만 준다
 }
 
-// 혜택 목록 파일을 DB에 반영한다. 목록에 문제가 하나라도 있으면 아무것도 반영하지 않는다
-export class SyncCatalogUseCase {
+export interface RetireResult {
+  retired: string[];
+  failed: { slug: string; reason: string }[];
+}
+
+// 혜택 목록 파일(사람이 정리한 혜택)을 DB와 맞춘다
+@Injectable()
+export class BenefitCatalogService {
   constructor(
     private readonly catalog: BenefitCatalog,
     private readonly repository: BenefitRepository,
   ) {}
 
-  async execute(): Promise<SyncResult> {
+  // 목록 파일을 DB에 반영한다. 목록에 문제가 하나라도 있으면 아무것도 반영하지 않는다
+  async sync(): Promise<SyncResult> {
     const entries = await this.catalog.load();
-    assertUniqueSlugs(entries);
+    rejectDuplicateSlugs(entries);
 
     const existing = new Map((await this.repository.findAll()).map((benefit) => [benefit.slug, benefit]));
     const result: SyncResult = { registered: [], revised: [], regrouped: [], unchanged: 0, notInCatalog: [] };
@@ -52,9 +60,26 @@ export class SyncCatalogUseCase {
     if (toSave.length) await this.repository.saveAll(toSave);
     return result;
   }
+
+  // 목록 파일에서 뺀 혜택을 DB에서도 지운다. sync는 실수로 지우지 않도록 지우지 않으므로 이 명령으로만 지운다
+  async retire(slugs: string[]): Promise<RetireResult> {
+    const wanted = [...new Set(slugs)];
+    const inCatalog = new Set((await this.catalog.load()).map((entry) => entry.slug));
+    const existing = new Set((await this.repository.findBySlugs(wanted)).map((benefit) => benefit.slug));
+
+    const result: RetireResult = { retired: [], failed: [] };
+    for (const slug of wanted) {
+      if (inCatalog.has(slug)) result.failed.push({ slug, reason: '목록 파일에 아직 있습니다. 목록 파일에서 먼저 빼 주세요' });
+      else if (!existing.has(slug)) result.failed.push({ slug, reason: '없는 혜택입니다' });
+      else result.retired.push(slug);
+    }
+
+    if (result.retired.length) await this.repository.deleteBySlugs(result.retired);
+    return result;
+  }
 }
 
-function assertUniqueSlugs(entries: BenefitDetails[]) {
+function rejectDuplicateSlugs(entries: BenefitDetails[]) {
   const seen = new Set<string>();
   const duplicates = new Set(entries.map((entry) => entry.slug).filter((slug) => seen.size === seen.add(slug).size));
   if (duplicates.size) throw new CatalogError(`같은 slug가 두 번 이상 있습니다: ${[...duplicates].join(', ')}`);

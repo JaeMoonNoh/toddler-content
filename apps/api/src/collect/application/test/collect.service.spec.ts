@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import type { SourceRecord } from '../../domain/source-record';
 import type { SourceId } from '../../../shared/domain/source-id';
-import { CollectSourceUseCase } from '../collect-source.use-case';
+import { CollectService } from '../collect.service';
 import { FakeSourceFetcher } from './fakes/fake-source-fetcher';
 import { InMemorySnapshotRepository } from './fakes/in-memory-snapshot.repository';
 import { CollectionRejectedError } from '../policies/collection-policy';
@@ -13,15 +13,15 @@ const rec = (id: string, extra: Record<string, unknown> = {}): SourceRecord => (
 });
 const many = (n: number) => Array.from({ length: n }, (_, i) => rec(String(i + 1)));
 
-describe('CollectSourceUseCase', () => {
+describe('CollectService.collect', () => {
   let repo: InMemorySnapshotRepository;
-  let useCase: CollectSourceUseCase;
+  let service: CollectService;
   const collect = (records: SourceRecord[] | Error, source: SourceId = 'GOV24') =>
-    useCase.execute(new FakeSourceFetcher(source, [records]));
+    service.collect(new FakeSourceFetcher(source, [records]));
 
   beforeEach(() => {
     repo = new InMemorySnapshotRepository();
-    useCase = new CollectSourceUseCase(repo);
+    service = new CollectService(repo, []);
   });
 
   describe('첫 수집', () => {

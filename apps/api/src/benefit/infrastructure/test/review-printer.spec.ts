@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { ReviewItem, ReviewQueue } from '../../application/review-queue.use-case';
+import type { ReviewItem, ReviewQueue } from '../../application/benefit-review.service';
 import { SourceRef } from '../../domain/source-ref';
 import { ReviewPrinter } from '../cli/review-printer';
 

@@ -4,19 +4,19 @@ import { SourceRef } from '../../domain/source-ref';
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeSourceStateReader } from './fakes/fake-source-state.reader';
 import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository';
-import { ReviewQueueUseCase } from '../review-queue.use-case';
+import { BenefitReviewService } from '../benefit-review.service';
 
 const at = new Date('2026-11-02T03:00:00Z');
 const ref = (id: string) => new SourceRef('GOV24', id);
 
-describe('ReviewQueueUseCase', () => {
+describe('BenefitReviewService.queue', () => {
   let reader: FakeSourceStateReader;
 
   beforeEach(() => {
     reader = new FakeSourceStateReader();
   });
 
-  const queueOf = (benefits: Benefit[]) => new ReviewQueueUseCase(new InMemoryBenefitRepository(benefits), reader).execute();
+  const queueOf = (benefits: Benefit[]) => new BenefitReviewService(new InMemoryBenefitRepository(benefits), reader).queue();
   const verifiedNow = async (id: string, name = `혜택 ${id}`) =>
     Benefit.register(benefitDetails(id, { name })).verify(await reader.read([ref(id)]), at);
 

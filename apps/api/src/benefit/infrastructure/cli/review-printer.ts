@@ -1,8 +1,6 @@
 import { formatKstDate } from '../../../shared/format-kst';
-import type { ReviewItem, ReviewQueue } from '../../application/review-queue.use-case';
-import type { RetireResult } from '../../application/retire-benefits.use-case';
-import type { SyncResult } from '../../application/sync-catalog.use-case';
-import type { VerifyResult } from '../../application/verify-benefits.use-case';
+import type { RetireResult, SyncResult } from '../../application/benefit-catalog.service';
+import type { ReviewItem, ReviewQueue, VerifyResult } from '../../application/benefit-review.service';
 import type { ReviewStatusKind } from '../../domain/review-status';
 import type { SourceRef } from '../../domain/source-ref';
 

@@ -1,6 +1,7 @@
-import type { ReviewItem, ReviewQueue, ReviewQueueUseCase } from '../../benefit/application/review-queue.use-case';
+import { Injectable } from '@nestjs/common';
+import { BenefitReviewService, type ReviewItem, type ReviewQueue } from '../../benefit/application/benefit-review.service';
 import { needsAttention } from '../../benefit/domain/review-status';
-import type { CollectAllSourcesUseCase } from '../../collect/application/collect-all-sources.use-case';
+import { CollectService } from '../../collect/application/collect.service';
 import type { CollectionReport } from '../../collect/application/collection-report';
 
 export type ReviewOutcome = { status: 'succeeded'; queue: ReviewQueue } | { status: 'failed'; reason: string };
@@ -12,21 +13,22 @@ export interface DailyCheckResult {
 
 // 매일 할 일: 공공 API를 수집하고, 그 결과로 사람이 확인해야 할 혜택이 생겼는지 본다.
 // 수집과 혜택 검토는 서로를 모르고, 둘을 차례로 부르는 것만 여기서 한다
-export class DailyCheckUseCase {
+@Injectable()
+export class DailyCheckService {
   constructor(
-    private readonly collectAll: CollectAllSourcesUseCase,
-    private readonly reviewQueue: ReviewQueueUseCase,
+    private readonly collect: CollectService,
+    private readonly review: BenefitReviewService,
   ) {}
 
-  async execute(): Promise<DailyCheckResult> {
-    const collection = await this.collectAll.execute();
-    return { collection, review: await this.review() };
+  async run(): Promise<DailyCheckResult> {
+    const collection = await this.collect.collectAll();
+    return { collection, review: await this.toReviewOutcome() };
   }
 
   // 검토 목록을 못 만들어도 수집 결과는 알려야 하므로 오류를 결과로 바꾼다
-  private async review(): Promise<ReviewOutcome> {
+  private async toReviewOutcome(): Promise<ReviewOutcome> {
     try {
-      return { status: 'succeeded', queue: await this.reviewQueue.execute() };
+      return { status: 'succeeded', queue: await this.review.queue() };
     } catch (error) {
       return { status: 'failed', reason: error instanceof Error ? error.message : String(error) };
     }

@@ -4,16 +4,16 @@ import { SourceRef } from '../../domain/source-ref';
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeSourceStateReader } from './fakes/fake-source-state.reader';
 import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository';
-import { VerifyBenefitsUseCase } from '../verify-benefits.use-case';
+import { BenefitReviewService } from '../benefit-review.service';
 
 const at = new Date('2026-11-02T03:00:00Z');
 const later = new Date('2026-11-05T03:00:00Z');
 const ref = (id: string) => new SourceRef('GOV24', id);
 
-describe('VerifyBenefitsUseCase', () => {
+describe('BenefitReviewService.verify', () => {
   let repo: InMemoryBenefitRepository;
   let reader: FakeSourceStateReader;
-  const verify = (slugs: string[], when = at) => new VerifyBenefitsUseCase(repo, reader).execute(slugs, when);
+  const verify = (slugs: string[], when = at) => new BenefitReviewService(repo, reader).verify(slugs, when);
 
   beforeEach(() => {
     repo = new InMemoryBenefitRepository(['1', '2'].map((id) => Benefit.register(benefitDetails(id))));

@@ -4,15 +4,15 @@ import { SourceRef } from '../../domain/source-ref';
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeSourceStateReader } from './fakes/fake-source-state.reader';
 import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository';
-import { ListPublishedBenefitsUseCase } from '../list-published-benefits.use-case';
+import { PublishedBenefitService } from '../published-benefit.service';
 
 const at = new Date('2026-11-02T03:00:00Z');
 const ref = (id: string) => new SourceRef('GOV24', id);
 
-describe('ListPublishedBenefitsUseCase', () => {
+describe('PublishedBenefitService', () => {
   it('혜택이 없으면 빈 목록', async () => {
-    const useCase = new ListPublishedBenefitsUseCase(new InMemoryBenefitRepository(), new FakeSourceStateReader());
-    expect(await useCase.execute()).toEqual([]);
+    const service = new PublishedBenefitService(new InMemoryBenefitRepository(), new FakeSourceStateReader());
+    expect(await service.list()).toEqual([]);
   });
 
   it('원본이 사라진 혜택만 빼고 이름순으로, 검토 상태와 함께 내보낸다', async () => {
@@ -29,7 +29,7 @@ describe('ListPublishedBenefitsUseCase', () => {
     ];
     reader.set(ref('2'), 'h2').remove(ref('3'));
 
-    const published = await new ListPublishedBenefitsUseCase(new InMemoryBenefitRepository(benefits), reader).execute();
+    const published = await new PublishedBenefitService(new InMemoryBenefitRepository(benefits), reader).list();
 
     expect(published).toEqual([
       expect.objectContaining({ slug: 'gov24-5', name: '가 복지로', scope: 'cheongju', sourceName: '복지로', reviewStatus: 'VERIFIED' }),

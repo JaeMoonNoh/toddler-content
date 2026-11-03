@@ -5,7 +5,7 @@ import { SourceRef } from '../../domain/source-ref';
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeBenefitCatalog } from './fakes/fake-benefit-catalog';
 import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository';
-import { CatalogError, SyncCatalogUseCase } from '../sync-catalog.use-case';
+import { BenefitCatalogService, CatalogError } from '../benefit-catalog.service';
 
 const at = new Date('2026-11-02T03:00:00Z');
 const verified = (id: string) =>
@@ -14,10 +14,10 @@ const verified = (id: string) =>
     at,
   );
 
-describe('SyncCatalogUseCase', () => {
+describe('BenefitCatalogService.sync', () => {
   let catalog: FakeBenefitCatalog;
   let repo: InMemoryBenefitRepository;
-  const sync = () => new SyncCatalogUseCase(catalog, repo).execute();
+  const sync = () => new BenefitCatalogService(catalog, repo).sync();
 
   beforeEach(() => {
     catalog = new FakeBenefitCatalog();

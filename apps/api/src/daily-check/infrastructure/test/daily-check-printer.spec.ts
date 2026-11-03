@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import type { ReviewItem, ReviewQueue } from '../../../benefit/application/review-queue.use-case';
+import type { ReviewItem, ReviewQueue } from '../../../benefit/application/benefit-review.service';
 import { SourceRef } from '../../../benefit/domain/source-ref';
 import { CollectionReport } from '../../../collect/application/collection-report';
 import { ReportPrinter } from '../../../collect/infrastructure/cli/report-printer';
-import type { DailyCheckResult } from '../../application/daily-check.use-case';
+import type { DailyCheckResult } from '../../application/daily-check.service';
 import { DailyCheckPrinter } from '../daily-check-printer';
 
 const at = new Date('2026-11-02T19:00:00Z');

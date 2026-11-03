@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { CollectSourceResult } from '../../application/collect-source.use-case';
+import type { CollectSourceResult } from '../../application/collect.service';
 import { CollectionReport } from '../../application/collection-report';
 import { ReportPrinter } from '../cli/report-printer';
 
