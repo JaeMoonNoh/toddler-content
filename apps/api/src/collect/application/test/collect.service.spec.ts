@@ -182,4 +182,56 @@ describe('CollectService.collect', () => {
     expect(result.duplicateIds).toEqual(['1']);
     expect(result.added).toBe(2);
   });
+
+  describe('복지로 지자체의 순서 없는 목록 필드', () => {
+    const listFields = (life: string, thema = '임신·출산, 보육', target = '영유아, 임산부') => ({
+      lifeNmArray: life,
+      intrsThemaNmArray: thema,
+      trgterIndvdlNmArray: target,
+    });
+    const local = (id: string, fields: Record<string, unknown>) => rec(id, fields);
+    const collectLocal = (records: SourceRecord[]) => collect(records, 'BOKJIRO_LOCAL');
+
+    beforeEach(async () => {
+      await collectLocal([
+        local('1', listFields('노년, 청소년, 청년, 중장년')),
+        local('2', listFields('영유아')),
+        local('3', listFields('청년')),
+      ]);
+    });
+
+    it('세 필드의 순서만 바뀌면 변경이 없고 변경 기록도 남지 않는다', async () => {
+      const result = await collectLocal([
+        local('1', listFields('중장년, 청년, 노년, 청소년', '보육, 임신·출산', '임산부, 영유아')),
+        local('2', listFields('영유아')),
+        local('3', listFields('청년')),
+      ]);
+
+      expect(result).toMatchObject({ baseline: false, added: 0, updated: 0, removed: 0 });
+      expect(result.changes).toEqual([]);
+      expect(repo.changes).toHaveLength(0);
+    });
+
+    it('원소가 하나 늘면 변경이고 바뀐 필드는 그 필드 하나다', async () => {
+      const result = await collectLocal([
+        local('1', listFields('노년, 청소년, 청년, 중장년, 영유아')),
+        local('2', listFields('영유아')),
+        local('3', listFields('청년')),
+      ]);
+
+      expect(result.updated).toBe(1);
+      expect(result.changes).toEqual([{ type: 'UPDATED', externalId: '1', name: '혜택 1', fields: ['lifeNmArray'] }]);
+    });
+
+    it('원소가 하나 빠지면 변경이고 바뀐 필드는 그 필드 하나다', async () => {
+      const result = await collectLocal([
+        local('1', listFields('노년, 청소년, 청년')),
+        local('2', listFields('영유아')),
+        local('3', listFields('청년')),
+      ]);
+
+      expect(result.updated).toBe(1);
+      expect(result.changes).toEqual([{ type: 'UPDATED', externalId: '1', name: '혜택 1', fields: ['lifeNmArray'] }]);
+    });
+  });
 });

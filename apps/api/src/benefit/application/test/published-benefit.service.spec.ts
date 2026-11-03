@@ -30,7 +30,7 @@ describe('PublishedBenefitService', () => {
       Benefit.register(benefitDetails('4', { name: '라 확인 전' })),
       await verify(Benefit.register(benefitDetails('5', { name: '가 복지로', regionCode: '4311000000', sources: [bok, ref('1')] }))),
     ];
-    reader.set(ref('2'), 'h2').remove(ref('3'));
+    reader.set(ref('2'), { 지원내용: '바뀜' }).remove(ref('3'));
 
     const published = await new PublishedBenefitService(new InMemoryBenefitRepository(benefits), reader, sampleRegionService()).list();
 

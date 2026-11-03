@@ -12,14 +12,14 @@ const gov = new SourceRef('GOV24', '1');
 const bok = new SourceRef('BOKJIRO_NATIONAL', 'WLF1');
 
 describe('BenefitReviewService.detail', () => {
-  const detailOf = (slug: string, reader = new FakeSourceStateReader().set(gov, 'h1', { 지원내용: '월 10만원' })) =>
+  const detailOf = (slug: string, reader = new FakeSourceStateReader().set(gov, { 지원내용: '월 10만원' })) =>
     new BenefitReviewService(
       new InMemoryBenefitRepository([Benefit.register(benefitDetails('1', { sources: [gov, bok] }))]),
       reader,
     ).detail(slug);
 
   it('혜택, 검토 상태, 연결된 원본의 지금 모습을 함께 돌려준다', async () => {
-    const detail = await detailOf('gov24-1', new FakeSourceStateReader().set(gov, 'h1', { 지원내용: '월 10만원' }).set(bok));
+    const detail = await detailOf('gov24-1', new FakeSourceStateReader().set(gov, { 지원내용: '월 10만원' }).set(bok));
 
     expect(detail?.benefit.slug).toBe('gov24-1');
     expect(detail?.status).toEqual({ kind: 'UNVERIFIED' });
