@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
+import { RegionService } from '../../region/application/region.service';
 import { Benefit, type BenefitDetails } from '../domain/benefit';
 
 import { BenefitCatalog } from './ports/benefit-catalog';
@@ -26,6 +27,7 @@ export class BenefitCatalogService {
   constructor(
     private readonly catalog: BenefitCatalog,
     private readonly repository: BenefitRepository,
+    private readonly regions: RegionService,
   ) {}
 
   // 목록 파일을 DB에 반영한다. 목록에 문제가 하나라도 있으면 아무것도 반영하지 않는다
@@ -36,7 +38,10 @@ export class BenefitCatalogService {
     const existing = new Map((await this.repository.findAll()).map((benefit) => [benefit.slug, benefit]));
     const result: SyncResult = { registered: [], revised: [], regrouped: [], unchanged: 0, notInCatalog: [] };
     const toSave: Benefit[] = [];
-    const problems: string[] = [];
+    const tree = await this.regions.tree();
+    const problems: string[] = entries
+      .filter((entry) => !tree.has(entry.regionCode))
+      .map((entry) => `${entry.slug}: 지역 목록에 없는 지역 코드입니다 (${entry.regionCode})`);
 
     for (const entry of entries) {
       try {

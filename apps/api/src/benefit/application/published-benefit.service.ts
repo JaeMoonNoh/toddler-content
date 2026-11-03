@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
+import { RegionService } from '../../region/application/region.service';
 import { isPublishable, type PublishedStatusKind } from '../domain/review-status';
 
 import { BenefitRepository } from './ports/benefit.repository';
@@ -7,7 +8,6 @@ import { SourceStateReader } from './ports/source-state.reader';
 
 import type { ApplicationPeriod } from '../domain/application-period';
 import type { Audience } from '../domain/audience';
-import type { BenefitScope } from '../domain/benefit';
 import type { BenefitAmount } from '../domain/benefit-amount';
 import type { BenefitSchedule } from '../domain/benefit-schedule';
 import type { EligibilityCondition } from '../domain/eligibility-condition';
@@ -16,7 +16,8 @@ import type { HowToApply } from '../domain/how-to-apply';
 export interface PublishedBenefit {
   slug: string;
   name: string;
-  scope: BenefitScope;
+  regionCode: string;
+  regionName: string; // 예: 청주시, 충청북도, 전국
   sourceName: string;
   sourceUrl: string;
   verifiedAt: Date | null;
@@ -36,11 +37,13 @@ export class PublishedBenefitService {
   constructor(
     private readonly repository: BenefitRepository,
     private readonly reader: SourceStateReader,
+    private readonly regions: RegionService,
   ) {}
 
   async list(): Promise<PublishedBenefit[]> {
     const benefits = await this.repository.findAll();
     const current = await this.reader.read(benefits.flatMap((benefit) => benefit.sources));
+    const tree = await this.regions.tree();
 
     return benefits
       .flatMap((benefit) => {
@@ -49,7 +52,9 @@ export class PublishedBenefitService {
         return {
           slug: benefit.slug,
           name: benefit.name,
-          scope: benefit.scope,
+          regionCode: benefit.regionCode,
+          // NOTE: 지역 목록을 새로 받으면서 코드가 사라졌어도 게시는 멈추지 않는다 (sync가 다시 막는다)
+          regionName: tree.has(benefit.regionCode) ? tree.get(benefit.regionCode).name : benefit.regionCode,
           sourceName: benefit.primarySource.label,
           sourceUrl: benefit.sourceUrl,
           verifiedAt: benefit.verifiedAt,

@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '../../../generated/prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { BenefitRepository } from '../../application/ports/benefit.repository';
-import { Benefit, type BenefitScope } from '../../domain/benefit';
+import { Benefit } from '../../domain/benefit';
 import { SourceRef } from '../../domain/source-ref';
 
 import type { ApplicationPeriod } from '../../domain/application-period';
@@ -41,7 +41,7 @@ export class PrismaBenefitRepository extends BenefitRepository {
       for (const benefit of benefits) {
         const fields = {
           name: benefit.name,
-          scope: benefit.scope,
+          regionCode: benefit.regionCode,
           sourceUrl: benefit.sourceUrl,
           schedule: benefit.schedule ? (benefit.schedule as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
           conditions: benefit.conditions,
@@ -82,7 +82,7 @@ function toBenefit(row: BenefitRow): Benefit {
   const details = {
     slug: row.slug,
     name: row.name,
-    scope: row.scope as BenefitScope,
+    regionCode: row.regionCode,
     sourceUrl: row.sourceUrl,
     sources: sources.map((s) => s.ref),
     schedule: (row.schedule ?? null) as BenefitSchedule | null,

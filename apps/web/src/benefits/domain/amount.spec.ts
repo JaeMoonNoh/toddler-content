@@ -17,7 +17,8 @@ const wage: BenefitAmount = { ...firstMeeting, kind: 'wage', tiers: null, summar
 const benefit = (name: string, amount: BenefitAmount | null): PublishedBenefit => ({
   slug: name,
   name,
-  scope: 'national',
+  regionCode: '0000000000',
+  regionName: '전국',
   sourceName: '보조금24',
   sourceUrl: 'https://plus.gov.kr',
   verifiedAt: null,

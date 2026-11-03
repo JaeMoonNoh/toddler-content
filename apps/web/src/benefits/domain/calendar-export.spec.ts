@@ -4,11 +4,11 @@ import { CalendarDate } from './calendar-date';
 import { deadlineEventsOf } from './deadline-event';
 import { googleCalendarUrl } from './google-calendar';
 import { escapeText, fold, IcsCalendar } from './ics-calendar';
-import { REGIONS } from './region';
+import { RegionTree } from './region';
 import { buildTimeline } from './timeline';
 
 const due = CalendarDate.parse('2027-05-06')!;
-const region = REGIONS.find((r) => r.id === 'other')!;
+const region = new RegionTree([]).choose(null); // 전국만
 const schedule = (fromDays: number, untilDays: number, untilLabel = '소급 신청 마감'): BenefitSchedule => ({
   from: { anchor: 'birth', months: 0, days: fromDays },
   until: { anchor: 'birth', months: 0, days: untilDays },
@@ -19,7 +19,8 @@ const schedule = (fromDays: number, untilDays: number, untilLabel = '소급 신�
 const benefit = (slug: string, name: string, s: BenefitSchedule | null, reviewStatus: PublishedBenefit['reviewStatus'] = 'UNVERIFIED'): PublishedBenefit => ({
   slug,
   name,
-  scope: 'national',
+  regionCode: '0000000000',
+  regionName: '전국',
   sourceName: '복지로',
   sourceUrl: `https://www.bokjiro.go.kr/${slug}`,
   verifiedAt: null,

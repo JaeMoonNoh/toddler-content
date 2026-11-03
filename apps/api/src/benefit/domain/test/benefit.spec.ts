@@ -12,7 +12,7 @@ const bok = new SourceRef('BOKJIRO_LOCAL', 'WLF00003640');
 const details = (overrides: Partial<BenefitDetails> = {}): BenefitDetails => ({
   slug: 'gov24-571000000116',
   name: '셋째 자녀 이상 양육지원금 지원',
-  scope: 'cheongju',
+  regionCode: '4311000000',
   sourceUrl: 'https://plus.gov.kr/portal/benefit?svcId=571000000116',
   sources: [gov],
   schedule: null,
@@ -55,7 +55,8 @@ describe('Benefit', () => {
       ['slug에 한글', { slug: '아동수당' }, 'slug'],
       ['slug가 -로 끝남', { slug: 'gov24-' }, 'slug'],
       ['이름이 공백', { name: '  ' }, '이름'],
-      ['모르는 지역', { scope: 'seoul' as never }, '지역'],
+      ['지역 코드가 10자리가 아님', { regionCode: '43110' }, '법정동코드 10자리'],
+      ['지역 코드에 글자', { regionCode: 'cheongju00' }, '법정동코드 10자리'],
       ['http 링크', { sourceUrl: 'http://plus.gov.kr' }, 'https'],
       ['원본 없음', { sources: [] }, '원본이 없습니다'],
       ['같은 원본 두 번', { sources: [gov, new SourceRef('GOV24', '571000000116')] }, '두 번'],
@@ -238,7 +239,7 @@ describe('Benefit', () => {
 
     it.each([
       ['이름', { name: '셋째아 양육지원금' }],
-      ['지역', { scope: 'chungbuk' as const }],
+      ['지역', { regionCode: '4300000000' }],
       ['원문 링크', { sourceUrl: 'https://www.bokjiro.go.kr/x' }],
       ['연결 원본', { sources: [gov] }],
       ['대표 출처 순서', { sources: [bok, gov] }],

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
+import { sampleRegionService } from '../../../region/application/test/fakes/sample-region-service';
 import { Benefit } from '../../domain/benefit';
 import { CurrentSources } from '../../domain/current-sources';
 import { SourceRef } from '../../domain/source-ref';
@@ -19,7 +20,7 @@ const verified = (id: string) =>
 describe('BenefitCatalogService.sync', () => {
   let catalog: FakeBenefitCatalog;
   let repo: InMemoryBenefitRepository;
-  const sync = () => new BenefitCatalogService(catalog, repo).sync();
+  const sync = () => new BenefitCatalogService(catalog, repo, sampleRegionService()).sync();
 
   beforeEach(() => {
     catalog = new FakeBenefitCatalog();
@@ -78,6 +79,17 @@ describe('BenefitCatalogService.sync', () => {
 
     expect(await sync()).toEqual({ registered: [], revised: [], regrouped: [], unchanged: 0, notInCatalog: ['gov24-1'] });
     expect(repo.saveCount).toBe(0);
+  });
+
+  it('지역 목록에 없는 지역 코드가 있으면 아무것도 반영하지 않는다', async () => {
+    catalog.entries = [benefitDetails('1'), benefitDetails('2', { regionCode: '9900000000' })];
+    await expect(sync()).rejects.toThrow('gov24-2: 지역 목록에 없는 지역 코드입니다 (9900000000)');
+    expect(repo.benefits.size).toBe(0);
+  });
+
+  it('시·군·구, 일반구 코드도 지역 목록에 있으면 받아들인다', async () => {
+    catalog.entries = [benefitDetails('1', { regionCode: '4311000000' }), benefitDetails('2', { regionCode: '4311100000' })];
+    await expect(sync()).resolves.toMatchObject({ registered: ['gov24-1', 'gov24-2'] });
   });
 
   it('같은 slug가 두 번 있으면 아무것도 반영하지 않는다', async () => {

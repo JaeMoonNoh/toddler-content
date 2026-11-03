@@ -7,7 +7,7 @@ import { SourceRef } from '../../domain/source-ref';
 import type { SourceId } from '../../../shared/domain/source-id';
 import type { ApplicationPeriod } from '../../domain/application-period';
 import type { Audience } from '../../domain/audience';
-import type { BenefitDetails, BenefitScope } from '../../domain/benefit';
+import type { BenefitDetails } from '../../domain/benefit';
 import type { AmountKind, AmountTier, BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule, ScheduleAnchor, ScheduleOffset } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
@@ -47,7 +47,7 @@ function toDetails(entry: unknown, index: number): BenefitDetails {
   return {
     slug: text('slug'),
     name: text('name'),
-    scope: text('scope') as BenefitScope,
+    regionCode: text('regionCode'),
     sourceUrl: text('sourceUrl'),
     sources: sourcesOf(e.sources, where),
     schedule: e.schedule === undefined || e.schedule === null ? null : scheduleOf(e.schedule, where),

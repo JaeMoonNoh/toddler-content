@@ -1,6 +1,6 @@
 import type { BenefitSchedule, PublishedBenefit } from './benefit';
 import type { CalendarDate } from './calendar-date';
-import type { Region } from './region';
+import type { RegionChoice } from './region';
 import { ScheduleWindow, type WindowStatus } from './schedule-window';
 
 export interface TimelineItem {
@@ -28,8 +28,8 @@ const PHASES: { label: string; startsBefore: number }[] = [
   { label: '그 이후', startsBefore: Infinity },
 ];
 
-export function buildTimeline(region: Region, benefits: PublishedBenefit[], due: CalendarDate, today: CalendarDate): Timeline {
-  const available = benefits.filter((b) => region.scopes.includes(b.scope));
+export function buildTimeline(region: RegionChoice, benefits: PublishedBenefit[], due: CalendarDate, today: CalendarDate): Timeline {
+  const available = benefits.filter((b) => region.covers(b));
   const items = available
     .flatMap((benefit) => {
       if (!benefit.schedule) return [];

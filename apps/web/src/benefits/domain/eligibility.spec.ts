@@ -5,7 +5,8 @@ import { answeredCount, splitByEligibility, UNANSWERED, unansweredConditions, ty
 const benefit = (name: string, conditions: EligibilityCondition[] = []): PublishedBenefit => ({
   slug: name,
   name,
-  scope: 'national',
+  regionCode: '0000000000',
+  regionName: '전국',
   sourceName: '보조금24',
   sourceUrl: 'https://plus.gov.kr',
   verifiedAt: null,
