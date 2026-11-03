@@ -22,5 +22,6 @@ WORKDIR /app
 COPY --from=build --chown=node:node /out ./
 USER node
 EXPOSE 4000
-# 시작할 때 아직 적용되지 않은 마이그레이션을 먼저 적용한다
-CMD ["sh", "-c", "./node_modules/.bin/prisma migrate deploy && node dist/main.js"]
+# 시작할 때 아직 적용되지 않은 마이그레이션을 먼저 적용한다.
+# exec로 sh를 node로 바꿔야 docker stop의 SIGTERM이 node에 바로 간다
+CMD ["sh", "-c", "./node_modules/.bin/prisma migrate deploy && exec node dist/main.js"]
