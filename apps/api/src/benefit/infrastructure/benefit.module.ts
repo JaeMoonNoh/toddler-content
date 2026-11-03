@@ -2,6 +2,7 @@ import { join } from 'node:path';
 
 import { Module } from '@nestjs/common';
 
+import { RegionModule } from '../../region/infrastructure/region.module';
 import { BenefitCatalogService } from '../application/benefit-catalog.service';
 import { BenefitReviewService } from '../application/benefit-review.service';
 import { BenefitCatalog } from '../application/ports/benefit-catalog';
@@ -20,6 +21,7 @@ import { PrismaSourceStateReader } from './persistence/prisma-source-state.reade
 const CATALOG_PATH = join(process.cwd(), 'data/benefit-catalog.json');
 
 @Module({
+  imports: [RegionModule],
   controllers: [BenefitsController],
   providers: [
     BenefitCatalogService,

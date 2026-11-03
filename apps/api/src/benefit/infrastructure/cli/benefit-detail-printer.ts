@@ -39,7 +39,7 @@ export class BenefitDetailPrinter {
     return [
       `■ ${benefit.name}  (${benefit.slug})`,
       `  상태: ${STATUS_LABEL[status.kind]}${verified}`,
-      `  지역: ${benefit.scope}   원문 링크: ${benefit.sourceUrl}`,
+      `  지역: ${benefit.regionCode}   원문 링크: ${benefit.sourceUrl}`,
       `  조건: ${benefit.conditions.length ? benefit.conditions.join(', ') : '없음'}`,
       '',
       '[우리가 정리한 일정]',

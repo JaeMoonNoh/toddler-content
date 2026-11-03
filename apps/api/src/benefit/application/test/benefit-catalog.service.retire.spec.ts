@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
+import { sampleRegionService } from '../../../region/application/test/fakes/sample-region-service';
 import { Benefit } from '../../domain/benefit';
 import { BenefitCatalogService } from '../benefit-catalog.service';
 
@@ -10,7 +11,7 @@ import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository'
 describe('BenefitCatalogService.retire', () => {
   let repo: InMemoryBenefitRepository;
   let catalog: FakeBenefitCatalog;
-  const retire = (slugs: string[]) => new BenefitCatalogService(catalog, repo).retire(slugs);
+  const retire = (slugs: string[]) => new BenefitCatalogService(catalog, repo, sampleRegionService()).retire(slugs);
 
   beforeEach(() => {
     repo = new InMemoryBenefitRepository(['1', '2'].map((id) => Benefit.register(benefitDetails(id))));

@@ -12,13 +12,10 @@ import { type ChangedSource, isPublishable, type ReviewStatus } from './review-s
 import type { CurrentSources, SourceSnapshot, SourceState } from './current-sources';
 import type { SourceRef } from './source-ref';
 
-export const BENEFIT_SCOPES = ['national', 'chungbuk', 'cheongju'] as const;
-export type BenefitScope = (typeof BENEFIT_SCOPES)[number];
-
 export interface BenefitDetails {
   slug: string;
   name: string;
-  scope: BenefitScope;
+  regionCode: string; // 어느 지역 혜택인지. 법정동코드 10자리 (전국 0000000000). 있는 코드인지는 지역 목록으로 확인한다
   sourceUrl: string; // 사용자에게 보여줄 원문 링크
   sources: SourceRef[]; // 첫 번째가 대표 출처
   schedule: BenefitSchedule | null; // 신청 기간 규칙. 아직 정리하지 않았으면 null
@@ -46,6 +43,7 @@ export class NotVerifiableError extends Error {
 }
 
 const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+const REGION_CODE = /^\d{10}$/;
 
 // 사이트에 올리는 혜택 한 건. 어떤 원본을 근거로 하는지와, 사람이 언제 어떤 원본을 보고 확인했는지를 가진다
 export class Benefit {
@@ -71,8 +69,8 @@ export class Benefit {
     return this.details.name;
   }
 
-  get scope() {
-    return this.details.scope;
+  get regionCode() {
+    return this.details.regionCode;
   }
 
   get sourceUrl() {
@@ -183,7 +181,7 @@ function assertValid(details: BenefitDetails) {
   const problems = [
     !SLUG.test(details.slug) && `slug는 영어 소문자, 숫자, -만 쓸 수 있습니다: "${details.slug}"`,
     !details.name.trim() && '이름이 비어 있습니다',
-    !BENEFIT_SCOPES.includes(details.scope) && `알 수 없는 지역입니다: "${details.scope}"`,
+    !REGION_CODE.test(details.regionCode) && `지역 코드는 법정동코드 10자리여야 합니다: "${details.regionCode}"`,
     !details.sourceUrl.startsWith('https://') && `원문 링크는 https 주소여야 합니다: "${details.sourceUrl}"`,
     details.sources.length === 0 && '연결된 원본이 없습니다',
     new Set(details.sources.map((ref) => ref.key)).size !== details.sources.length && '같은 원본이 두 번 연결돼 있습니다',
@@ -201,7 +199,7 @@ function sameDetails(a: BenefitDetails, b: BenefitDetails) {
   const keys = (d: BenefitDetails) => d.sources.map((ref) => ref.key).join(',');
   return (
     a.name === b.name &&
-    a.scope === b.scope &&
+    a.regionCode === b.regionCode &&
     a.sourceUrl === b.sourceUrl &&
     keys(a) === keys(b) &&
     sameSchedule(a.schedule, b.schedule) &&

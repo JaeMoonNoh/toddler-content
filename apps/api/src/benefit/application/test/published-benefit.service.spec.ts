@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { sampleRegionService } from '../../../region/application/test/fakes/sample-region-service';
 import { Benefit } from '../../domain/benefit';
 import { SourceRef } from '../../domain/source-ref';
 import { PublishedBenefitService } from '../published-benefit.service';
@@ -13,7 +14,7 @@ const ref = (id: string) => new SourceRef('GOV24', id);
 
 describe('PublishedBenefitService', () => {
   it('혜택이 없으면 빈 목록', async () => {
-    const service = new PublishedBenefitService(new InMemoryBenefitRepository(), new FakeSourceStateReader());
+    const service = new PublishedBenefitService(new InMemoryBenefitRepository(), new FakeSourceStateReader(), sampleRegionService());
     expect(await service.list()).toEqual([]);
   });
 
@@ -27,14 +28,21 @@ describe('PublishedBenefitService', () => {
       await verify(Benefit.register(benefitDetails('2', { name: '나 바뀜' }))),
       await verify(Benefit.register(benefitDetails('3', { name: '다 사라짐' }))),
       Benefit.register(benefitDetails('4', { name: '라 확인 전' })),
-      await verify(Benefit.register(benefitDetails('5', { name: '가 복지로', scope: 'cheongju', sources: [bok, ref('1')] }))),
+      await verify(Benefit.register(benefitDetails('5', { name: '가 복지로', regionCode: '4311000000', sources: [bok, ref('1')] }))),
     ];
     reader.set(ref('2'), 'h2').remove(ref('3'));
 
-    const published = await new PublishedBenefitService(new InMemoryBenefitRepository(benefits), reader).list();
+    const published = await new PublishedBenefitService(new InMemoryBenefitRepository(benefits), reader, sampleRegionService()).list();
 
     expect(published).toEqual([
-      expect.objectContaining({ slug: 'gov24-5', name: '가 복지로', scope: 'cheongju', sourceName: '복지로', reviewStatus: 'VERIFIED' }),
+      expect.objectContaining({
+        slug: 'gov24-5',
+        name: '가 복지로',
+        regionCode: '4311000000',
+        regionName: '청주시',
+        sourceName: '복지로',
+        reviewStatus: 'VERIFIED',
+      }),
       expect.objectContaining({ slug: 'gov24-2', sourceName: '보조금24', verifiedAt: at, reviewStatus: 'SOURCE_CHANGED' }),
       expect.objectContaining({ slug: 'gov24-4', name: '라 확인 전', verifiedAt: null, reviewStatus: 'UNVERIFIED' }),
       expect.objectContaining({ slug: 'gov24-1', reviewStatus: 'VERIFIED' }),

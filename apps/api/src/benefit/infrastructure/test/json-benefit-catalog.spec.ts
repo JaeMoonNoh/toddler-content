@@ -11,7 +11,7 @@ import { parseCatalog } from '../catalog/json-benefit-catalog';
 const entry = (overrides: Record<string, unknown> = {}) => ({
   slug: 'gov24-1',
   name: '혜택',
-  scope: 'national',
+  regionCode: '0000000000',
   sourceUrl: 'https://plus.gov.kr/x',
   sources: [{ source: 'GOV24', externalId: '1' }],
   ...overrides,
@@ -24,7 +24,7 @@ describe('parseCatalog', () => {
       {
         slug: 'gov24-1',
         name: '혜택',
-        scope: 'national',
+        regionCode: '0000000000',
         sourceUrl: 'https://plus.gov.kr/x',
         sources: [new SourceRef('GOV24', '1')],
         schedule: null,
