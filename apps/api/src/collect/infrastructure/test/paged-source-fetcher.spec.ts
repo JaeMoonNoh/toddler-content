@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
+
+import { type Page, PagedSourceFetcher, SourceFormatError } from '../sources/paged-source-fetcher';
+
 import type { SourceRecord } from '../../domain/source-record';
-import { PagedSourceFetcher, SourceFormatError, type Page } from '../sources/paged-source-fetcher';
 
 type Item = { id: string; name: string };
 

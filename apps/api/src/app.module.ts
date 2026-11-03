@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
-import { AppConfigModule } from './config/app-config.module';
+
 import { BenefitModule } from './benefit/infrastructure/benefit.module';
+import { AppConfigModule } from './config/app-config.module';
 import { DailyCheckScheduleModule } from './daily-check/infrastructure/daily-check-schedule.module';
 import { HealthController } from './health.controller';
 import { PrismaModule } from './prisma/prisma.module';

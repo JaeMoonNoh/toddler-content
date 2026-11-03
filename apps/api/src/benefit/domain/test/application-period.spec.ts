@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { periodProblems, samePeriod, type ApplicationPeriod } from '../application-period';
+
+import { type ApplicationPeriod, periodProblems, samePeriod } from '../application-period';
 
 const period = (overrides: Partial<ApplicationPeriod> = {}): ApplicationPeriod => ({
   start: '2026-06-15',

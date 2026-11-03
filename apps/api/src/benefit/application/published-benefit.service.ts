@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import type { BenefitScope } from '../domain/benefit';
+
+import { isPublishable, type PublishedStatusKind } from '../domain/review-status';
+
+import { BenefitRepository } from './ports/benefit.repository';
+import { SourceStateReader } from './ports/source-state.reader';
+
 import type { ApplicationPeriod } from '../domain/application-period';
 import type { Audience } from '../domain/audience';
+import type { BenefitScope } from '../domain/benefit';
 import type { BenefitAmount } from '../domain/benefit-amount';
 import type { BenefitSchedule } from '../domain/benefit-schedule';
 import type { EligibilityCondition } from '../domain/eligibility-condition';
-import { isPublishable, type PublishedStatusKind } from '../domain/review-status';
-import { BenefitRepository } from './ports/benefit.repository';
-import { SourceStateReader } from './ports/source-state.reader';
 
 export interface PublishedBenefit {
   slug: string;

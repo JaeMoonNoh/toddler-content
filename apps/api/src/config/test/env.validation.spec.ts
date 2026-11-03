@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { validateEnv } from '../env.validation';
 
 const required = { DATABASE_URL: 'postgres://localhost/toddler', DATA_GO_KR_SERVICE_KEY: 'KEY' };

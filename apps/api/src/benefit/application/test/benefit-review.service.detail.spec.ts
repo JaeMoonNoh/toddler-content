@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
+
 import { Benefit } from '../../domain/benefit';
 import { SourceRef } from '../../domain/source-ref';
 import { BenefitReviewService } from '../benefit-review.service';
+
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeSourceStateReader } from './fakes/fake-source-state.reader';
 import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository';
@@ -11,7 +13,10 @@ const bok = new SourceRef('BOKJIRO_NATIONAL', 'WLF1');
 
 describe('BenefitReviewService.detail', () => {
   const detailOf = (slug: string, reader = new FakeSourceStateReader().set(gov, 'h1', { 지원내용: '월 10만원' })) =>
-    new BenefitReviewService(new InMemoryBenefitRepository([Benefit.register(benefitDetails('1', { sources: [gov, bok] }))]), reader).detail(slug);
+    new BenefitReviewService(
+      new InMemoryBenefitRepository([Benefit.register(benefitDetails('1', { sources: [gov, bok] }))]),
+      reader,
+    ).detail(slug);
 
   it('혜택, 검토 상태, 연결된 원본의 지금 모습을 함께 돌려준다', async () => {
     const detail = await detailOf('gov24-1', new FakeSourceStateReader().set(gov, 'h1', { 지원내용: '월 10만원' }).set(bok));

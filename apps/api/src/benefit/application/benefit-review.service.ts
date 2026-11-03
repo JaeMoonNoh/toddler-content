@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import type { Benefit } from '../domain/benefit';
-import type { SourceState } from '../domain/current-sources';
+
 import { needsReview, type ReviewStatus, type ReviewStatusKind } from '../domain/review-status';
-import type { SourceRef } from '../domain/source-ref';
+
 import { BenefitRepository } from './ports/benefit.repository';
 import { SourceStateReader } from './ports/source-state.reader';
+
+import type { Benefit } from '../domain/benefit';
+import type { SourceState } from '../domain/current-sources';
+import type { SourceRef } from '../domain/source-ref';
 
 export interface ReviewItem {
   slug: string;

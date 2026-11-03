@@ -1,4 +1,5 @@
 import { formatKstDate } from '../../../shared/format-kst';
+
 import type { RetireResult, SyncResult } from '../../application/benefit-catalog.service';
 import type { ReviewItem, ReviewQueue, VerifyResult } from '../../application/benefit-review.service';
 import type { ReviewStatusKind } from '../../domain/review-status';
@@ -60,7 +61,9 @@ export class ReviewPrinter {
   }
 
   printVerify(result: VerifyResult, at: Date): string {
-    const lines = result.verified.length ? [`✔ ${result.verified.length}건 확인 (${formatKstDate(at)}): ${result.verified.join(', ')}`] : [];
+    const lines = result.verified.length
+      ? [`✔ ${result.verified.length}건 확인 (${formatKstDate(at)}): ${result.verified.join(', ')}`]
+      : [];
     lines.push(...result.failed.map(({ slug, reason }) => `✘ ${slug}: ${reason}`));
     return lines.length ? lines.join('\n') : '확인할 slug를 넣어 주세요.';
   }

@@ -1,11 +1,13 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+
 import { Benefit } from '../../domain/benefit';
 import { CurrentSources } from '../../domain/current-sources';
 import { SourceRef } from '../../domain/source-ref';
+import { BenefitCatalogService, CatalogError } from '../benefit-catalog.service';
+
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeBenefitCatalog } from './fakes/fake-benefit-catalog';
 import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository';
-import { BenefitCatalogService, CatalogError } from '../benefit-catalog.service';
 
 const at = new Date('2026-11-02T03:00:00Z');
 const verified = (id: string) =>

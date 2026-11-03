@@ -15,8 +15,12 @@ export function conditionProblems(conditions: readonly string[]): string[] {
   return [
     unknown.length > 0 && `알 수 없는 조건입니다: ${unknown.join(', ')}`,
     new Set(conditions).size !== conditions.length && '같은 조건이 두 번 있습니다',
-    conditions.includes('BIRTH_PARENT_INSURED') && conditions.includes('BIRTH_PARENT_UNINSURED') && '출산하는 분의 고용보험 가입과 미가입을 함께 요구할 수 없습니다',
-    conditions.includes('HOME_CARE') && conditions.includes('USES_CHILDCARE') && '집에서 돌봄과 어린이집·유치원 이용을 함께 요구할 수 없습니다',
+    conditions.includes('BIRTH_PARENT_INSURED') &&
+      conditions.includes('BIRTH_PARENT_UNINSURED') &&
+      '출산하는 분의 고용보험 가입과 미가입을 함께 요구할 수 없습니다',
+    conditions.includes('HOME_CARE') &&
+      conditions.includes('USES_CHILDCARE') &&
+      '집에서 돌봄과 어린이집·유치원 이용을 함께 요구할 수 없습니다',
   ].filter((problem): problem is string => Boolean(problem));
 }
 

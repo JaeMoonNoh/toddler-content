@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
+
 import { hashPayload } from '../../../shared/domain/payload-diff';
 import { diffSnapshot } from '../snapshot-diff';
+
 import type { SourceRecord, StoredItem } from '../source-record';
 
 const IGNORED = ['조회수'];

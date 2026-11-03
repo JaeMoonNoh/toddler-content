@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import type { ReviewItem, ReviewQueue } from '../../../benefit/application/benefit-review.service';
+
 import { SourceRef } from '../../../benefit/domain/source-ref';
 import { CollectionReport } from '../../../collect/application/collection-report';
 import { ReportPrinter } from '../../../collect/infrastructure/cli/report-printer';
-import type { DailyCheckResult } from '../../application/daily-check.service';
 import { DailyCheckPrinter } from '../daily-check-printer';
+
+import type { ReviewItem, ReviewQueue } from '../../../benefit/application/benefit-review.service';
+import type { DailyCheckResult } from '../../application/daily-check.service';
 
 const at = new Date('2026-11-02T19:00:00Z');
 const gov = new SourceRef('GOV24', '135200000120');
@@ -32,7 +34,10 @@ describe('DailyCheckPrinter', () => {
     const text = printer.print(
       result({
         status: 'succeeded',
-        queue: queue([changed('아동수당', ['지원내용', '신청기한']), unverified('가'), unverified('나')], { SOURCE_CHANGED: 1, UNVERIFIED: 2 }),
+        queue: queue([changed('아동수당', ['지원내용', '신청기한']), unverified('가'), unverified('나')], {
+          SOURCE_CHANGED: 1,
+          UNVERIFIED: 2,
+        }),
       }),
       at,
     );
@@ -57,7 +62,9 @@ describe('DailyCheckPrinter', () => {
         ],
       },
     };
-    expect(printer.print(result({ status: 'succeeded', queue: queue([item], { SOURCE_CHANGED: 1 }) }), at)).toContain('부모급여 (servDgst)');
+    expect(printer.print(result({ status: 'succeeded', queue: queue([item], { SOURCE_CHANGED: 1 }) }), at)).toContain(
+      '부모급여 (servDgst)',
+    );
   });
 
   it('사라진 원본은 필드 없이 이름만', () => {
@@ -75,6 +82,11 @@ describe('DailyCheckPrinter', () => {
   });
 
   it('검토에 실패하면 이유를 보여준다', () => {
-    expect(printer.print(result({ status: 'failed', reason: 'DB 연결 끊김' }), at).split('\n').at(-1)).toBe('✘ 혜택 검토 실패: DB 연결 끊김');
+    expect(
+      printer
+        .print(result({ status: 'failed', reason: 'DB 연결 끊김' }), at)
+        .split('\n')
+        .at(-1),
+    ).toBe('✘ 혜택 검토 실패: DB 연결 끊김');
   });
 });

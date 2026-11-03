@@ -1,4 +1,5 @@
 import { formatKstDate } from '../../../shared/format-kst';
+
 import type { BenefitDetail } from '../../application/benefit-review.service';
 import type { ApplicationPeriod } from '../../domain/application-period';
 import type { BenefitAmount } from '../../domain/benefit-amount';
@@ -21,7 +22,12 @@ const STATUS_LABEL: Record<BenefitDetail['status']['kind'], string> = {
   SOURCE_MISSING: '원본 없음',
 };
 
-const KIND_LABEL: Record<BenefitAmount['kind'], string> = { cash: '현금', voucher: '이용권', service: '서비스', wage: '임금 대신 받는 급여' };
+const KIND_LABEL: Record<BenefitAmount['kind'], string> = {
+  cash: '현금',
+  voucher: '이용권',
+  service: '서비스',
+  wage: '임금 대신 받는 급여',
+};
 
 // 우리가 정리한 내용(위)과 지금 원문(아래)을 나란히 보여준다. 위아래가 맞으면 verify하면 된다
 export class BenefitDetailPrinter {
@@ -85,7 +91,12 @@ function amountLines(amount: BenefitAmount | null): string[] {
   const tiers = amount.tiers
     ? amount.tiers.map((t) => `${birthOrderRange(t.minBirthOrder, t.maxBirthOrder)} ${t.won.toLocaleString('ko-KR')}원`).join(', ')
     : '합계에서 뺌 (받는 사람마다 금액이 달라서 숫자로 정하지 않음)';
-  return [`  ${KIND_LABEL[amount.kind]}: ${amount.summary}`, `  합계에 넣는 금액: ${tiers}`, `  근거: ${amount.basis.text}`, `        ${amount.basis.url}`];
+  return [
+    `  ${KIND_LABEL[amount.kind]}: ${amount.summary}`,
+    `  합계에 넣는 금액: ${tiers}`,
+    `  근거: ${amount.basis.text}`,
+    `        ${amount.basis.url}`,
+  ];
 }
 
 const ORDINALS = ['', '첫째', '둘째', '셋째', '넷째', '다섯째'];
@@ -101,6 +112,9 @@ function birthOrderRange(min: number, max: number | null) {
 // "출생일 + 24개월 - 1일", "임신 시작(출산예정일 280일 전)"
 export function describeOffset({ anchor, months, days }: ScheduleOffset): string {
   const base = anchor === 'birth' ? '출생일' : '임신 시작(출산예정일 280일 전)';
-  const parts = [months && `${months > 0 ? '+' : '-'} ${Math.abs(months)}개월`, days && `${days > 0 ? '+' : '-'} ${Math.abs(days)}일`].filter(Boolean);
+  const parts = [
+    months && `${months > 0 ? '+' : '-'} ${Math.abs(months)}개월`,
+    days && `${days > 0 ? '+' : '-'} ${Math.abs(days)}일`,
+  ].filter(Boolean);
   return [base, ...parts].join(' ');
 }

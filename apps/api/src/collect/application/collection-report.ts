@@ -1,9 +1,9 @@
 import type { SourceId } from '../../shared/domain/source-id';
+
 import type { CollectSourceResult } from './collect.service';
 
 export type SourceOutcome =
-  | { source: SourceId; status: 'succeeded'; result: CollectSourceResult }
-  | { source: SourceId; status: 'failed'; reason: string };
+  { source: SourceId; status: 'succeeded'; result: CollectSourceResult } | { source: SourceId; status: 'failed'; reason: string };
 
 export class CollectionReport {
   constructor(readonly outcomes: readonly SourceOutcome[]) {}

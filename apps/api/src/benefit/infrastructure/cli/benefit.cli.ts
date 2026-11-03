@@ -1,7 +1,9 @@
-import { NestFactory } from '@nestjs/core';
 import type { INestApplicationContext } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+
 import { BenefitCatalogService } from '../../application/benefit-catalog.service';
 import { BenefitReviewService } from '../../application/benefit-review.service';
+
 import { BenefitCliModule } from './benefit-cli.module';
 import { BenefitDetailPrinter } from './benefit-detail-printer';
 import { ReviewPrinter } from './review-printer';

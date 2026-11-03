@@ -1,4 +1,5 @@
-import { changedFields, hashPayload, type FieldChange } from '../../shared/domain/payload-diff';
+import { changedFields, type FieldChange, hashPayload } from '../../shared/domain/payload-diff';
+
 import type { SourceRecord, StoredItem } from './source-record';
 
 // 무엇을 "바뀌었다"고 볼지 정하는 규칙. 저장 방식이나 수집 방식과 무관한 순수 함수만 둔다.
@@ -11,11 +12,7 @@ export interface SnapshotDiff {
   duplicateIds: string[]; // 같은 ID가 두 번 이상 온 경우 (첫 번째만 사용)
 }
 
-export function diffSnapshot(
-  previous: StoredItem[],
-  current: SourceRecord[],
-  ignored: readonly string[] = [],
-): SnapshotDiff {
+export function diffSnapshot(previous: StoredItem[], current: SourceRecord[], ignored: readonly string[] = []): SnapshotDiff {
   const prevById = new Map(previous.map((p) => [p.externalId, p]));
   const seen = new Set<string>();
   const diff: SnapshotDiff = { added: [], updated: [], removed: [], unchanged: [], duplicateIds: [] };

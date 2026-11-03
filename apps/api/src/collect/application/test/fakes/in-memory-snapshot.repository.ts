@@ -1,7 +1,8 @@
-import type { StoredItem } from '../../../domain/source-record';
+import { type RunSummary, type SnapshotPlan, SnapshotRepository } from '../../ports/snapshot.repository';
+
 import type { FieldChange } from '../../../../shared/domain/payload-diff';
 import type { SourceId } from '../../../../shared/domain/source-id';
-import { SnapshotRepository, type RunSummary, type SnapshotPlan } from '../../ports/snapshot.repository';
+import type { StoredItem } from '../../../domain/source-record';
 
 // 테스트용 저장소. Prisma 구현과 같은 규칙을 메모리에서 따른다.
 
@@ -75,10 +76,16 @@ export class InMemorySnapshotRepository extends SnapshotRepository {
   }
 
   async completeRun(runId: string, summary: RunSummary): Promise<void> {
-    Object.assign(this.runs.find((r) => r.id === runId)!, { status: 'SUCCEEDED', summary });
+    Object.assign(
+      this.runs.find((r) => r.id === runId)!,
+      { status: 'SUCCEEDED', summary },
+    );
   }
 
   async failRun(runId: string, message: string): Promise<void> {
-    Object.assign(this.runs.find((r) => r.id === runId)!, { status: 'FAILED', error: message });
+    Object.assign(
+      this.runs.find((r) => r.id === runId)!,
+      { status: 'FAILED', error: message },
+    );
   }
 }

@@ -1,8 +1,10 @@
 import { BeforeApplicationShutdown, Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Cron, SchedulerRegistry } from '@nestjs/schedule';
+
 import { CollectionAlreadyRunningError } from '../../collect/application/collect.service';
 import { DailyCheckService, requiresAttention } from '../application/daily-check.service';
+
 import { DailyCheckPrinter } from './daily-check-printer';
 
 const DAILY_CHECK_JOB = 'daily-check';

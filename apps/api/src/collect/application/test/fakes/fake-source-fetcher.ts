@@ -1,6 +1,7 @@
-import type { SourceRecord } from '../../../domain/source-record';
-import type { SourceId } from '../../../../shared/domain/source-id';
 import { SourceFetcher } from '../../ports/source-fetcher';
+
+import type { SourceId } from '../../../../shared/domain/source-id';
+import type { SourceRecord } from '../../../domain/source-record';
 
 type Response = SourceRecord[] | Error;
 

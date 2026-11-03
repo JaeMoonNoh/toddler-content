@@ -1,4 +1,5 @@
 import { SourceFetcher } from '../../application/ports/source-fetcher';
+
 import type { SourceRecord } from '../../domain/source-record';
 
 export interface Page<Item> {

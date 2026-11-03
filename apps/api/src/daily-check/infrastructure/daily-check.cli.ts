@@ -1,5 +1,7 @@
 import { NestFactory } from '@nestjs/core';
+
 import { DailyCheckService } from '../application/daily-check.service';
+
 import { DailyCheckCliModule } from './daily-check-cli.module';
 import { DailyCheckPrinter } from './daily-check-printer';
 

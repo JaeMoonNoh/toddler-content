@@ -1,11 +1,14 @@
-import { Module } from '@nestjs/common';
 import { join } from 'node:path';
+
+import { Module } from '@nestjs/common';
+
 import { BenefitCatalogService } from '../application/benefit-catalog.service';
 import { BenefitReviewService } from '../application/benefit-review.service';
 import { BenefitCatalog } from '../application/ports/benefit-catalog';
 import { BenefitRepository } from '../application/ports/benefit.repository';
 import { SourceStateReader } from '../application/ports/source-state.reader';
 import { PublishedBenefitService } from '../application/published-benefit.service';
+
 import { JsonBenefitCatalog } from './catalog/json-benefit-catalog';
 import { BenefitDetailPrinter } from './cli/benefit-detail-printer';
 import { ReviewPrinter } from './cli/review-printer';

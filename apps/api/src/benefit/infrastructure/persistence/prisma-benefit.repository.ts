@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
+
 import { Prisma } from '../../../generated/prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { BenefitRepository } from '../../application/ports/benefit.repository';
 import { Benefit, type BenefitScope } from '../../domain/benefit';
+import { SourceRef } from '../../domain/source-ref';
+
 import type { ApplicationPeriod } from '../../domain/application-period';
 import type { Audience } from '../../domain/audience';
 import type { BenefitAmount } from '../../domain/benefit-amount';
 import type { BenefitSchedule } from '../../domain/benefit-schedule';
 import type { EligibilityCondition } from '../../domain/eligibility-condition';
-import { SourceRef } from '../../domain/source-ref';
 
 const WITH_SOURCES = { sources: { orderBy: { position: 'asc' } } } satisfies Prisma.BenefitInclude;
 type BenefitRow = Prisma.BenefitGetPayload<{ include: typeof WITH_SOURCES }>;
@@ -47,7 +49,11 @@ export class PrismaBenefitRepository extends BenefitRepository {
           applicationPeriod: benefit.applicationPeriod ? (benefit.applicationPeriod as unknown as Prisma.InputJsonValue) : Prisma.DbNull,
           verifiedAt: benefit.verifiedAt,
         };
-        const { id } = await tx.benefit.upsert({ where: { slug: benefit.slug }, create: { slug: benefit.slug, ...fields }, update: fields });
+        const { id } = await tx.benefit.upsert({
+          where: { slug: benefit.slug },
+          create: { slug: benefit.slug, ...fields },
+          update: fields,
+        });
         await tx.benefitSource.deleteMany({ where: { benefitId: id } });
         await tx.benefitSource.createMany({ data: sourceRowsOf(benefit, id) });
       }

@@ -1,5 +1,6 @@
 import { XMLParser } from 'fast-xml-parser';
-import { SourceFormatError, type Page } from '../paged-source-fetcher';
+
+import { type Page, SourceFormatError } from '../paged-source-fetcher';
 
 export type BokjiroItem = Record<string, string>;
 
@@ -16,7 +17,9 @@ export function parseBokjiroPage(xml: string, source: string): Page<BokjiroItem>
 
   const gatewayError = doc.OpenAPI_ServiceResponse?.cmmMsgHeader;
   if (gatewayError) {
-    throw new SourceApiError(`${source}: ${gatewayError.returnAuthMsg ?? gatewayError.errMsg ?? '알 수 없는 오류'} (코드 ${gatewayError.returnReasonCode ?? '-'})`);
+    throw new SourceApiError(
+      `${source}: ${gatewayError.returnAuthMsg ?? gatewayError.errMsg ?? '알 수 없는 오류'} (코드 ${gatewayError.returnReasonCode ?? '-'})`,
+    );
   }
 
   const list = doc.wantedList;
@@ -32,7 +35,6 @@ export function parseBokjiroPage(xml: string, source: string): Page<BokjiroItem>
   return { items: (list.servList ?? []) as BokjiroItem[], totalCount };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseXml(xml: string, source: string): any {
   if (!xml.trim().startsWith('<')) throw new SourceFormatError(`${source}: XML이 아닌 응답입니다 (${xml.slice(0, 200)})`);
   return parser.parse(xml);

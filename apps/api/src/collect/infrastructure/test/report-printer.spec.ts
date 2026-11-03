@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import type { CollectSourceResult } from '../../application/collect.service';
+
 import { CollectionReport } from '../../application/collection-report';
 import { ReportPrinter } from '../cli/report-printer';
+
+import type { CollectSourceResult } from '../../application/collect.service';
 
 const at = new Date('2026-11-02T19:00:00Z'); // 한국 시각 11월 3일 04:00
 
@@ -61,7 +63,11 @@ describe('ReportPrinter', () => {
 
   it('이름이 비어 있으면 ID로 보여준다', () => {
     const report = new CollectionReport([
-      { source: 'GOV24', status: 'succeeded', result: result({ removed: 1, changes: [{ type: 'REMOVED', externalId: 'X9', name: '', fields: [] }] }) },
+      {
+        source: 'GOV24',
+        status: 'succeeded',
+        result: result({ removed: 1, changes: [{ type: 'REMOVED', externalId: 'X9', name: '', fields: [] }] }),
+      },
     ]);
     expect(new ReportPrinter().print(report, at)).toContain('    삭제  X9');
   });

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { ServiceKey } from '../sources/service-key';
 
 const keyIn = (url: URL) => url.searchParams.get('serviceKey');
