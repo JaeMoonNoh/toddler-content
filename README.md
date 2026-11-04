@@ -113,6 +113,7 @@ docker compose down -v    # DB 데이터까지 지운다 (다시 3~4단계부터
 | `pnpm benefit verify <slug> …` | 원문을 확인한 혜택에 확인일 남기기 |
 | `pnpm benefit retire <slug> …` | 목록 파일에서 뺀 혜택을 DB와 사이트에서도 지우기 |
 | `pnpm benefit candidates <지역코드>` | 그 지역과 아래 지역의 혜택 후보를 md 표로 뽑기 (예: 인천 `2800000000`) |
+| `pnpm benefit add <지역코드> <판단.json>` | 후보 md에서 고른 것을 혜택 목록에 카드로 넣기 (이름 정리, 신청 방법 초안) |
 | `pnpm benefit plan-texts <지역코드> <폴더>` | 일정·금액이 빈 카드의 원문을 md로 나눠 쓰기 (초안 쓸 때 읽는 자료) |
 | `pnpm benefit plan-check <초안.json>` | 일정·금액 초안 검사 (규칙: [docs/benefit-plan-rules.md](docs/benefit-plan-rules.md)) |
 | `pnpm benefit plan-apply <초안.json>` | 검사를 통과한 초안을 혜택 목록 파일에 넣기 |
@@ -139,8 +140,13 @@ Docker 없이 서버를 띄우려면 `docker compose up -d db` 후 `pnpm dev:api
 ### 지역을 넓히는 순서
 
 1. `pnpm benefit candidates <지역코드>`로 후보 md를 뽑는다 (지역코드는 `apps/api/data/regions.json`의 `code`)
-2. 올릴 혜택을 고르고, 혜택 목록 파일에 그 지역 코드로 넣는다. 고른 이유는 `docs/research/`에 남긴다 (예: [인천](docs/research/2026-11-03-incheon-candidates.md))
-3. `pnpm benefit sync` → 원문과 대조 → `pnpm benefit verify`
+2. 넣을 후보를 골라 판단 파일(JSON)로 적고 `pnpm benefit add <지역코드> <판단.json>`으로 카드를 넣는다. 고른 이유는 `docs/research/`에 남긴다 (예: [인천](docs/research/2026-11-03-incheon-candidates.md))
+   ```json
+   [{ "slug": "gov24-641000000137", "merge": ["gov24-641000000136"], "name": "어색할 때만", "audience": "MULTI_CHILD", "conditions": ["USES_CHILDCARE"] }]
+   ```
+   `merge`는 같은 혜택이라 이 카드의 두 번째 원본으로 합칠 후보다. 같은 지역에 같은 이름으로 올라온 원본은 후보 md에서 이미 한 줄로 묶여 있어 적지 않아도 된다
+3. `pnpm benefit plan-texts` → 초안 작성 → `plan-check` → `plan-apply`로 일정·금액을 채운다 ([규칙](docs/benefit-plan-rules.md))
+4. `pnpm benefit sync` → 원문과 대조 → PR 머지 → `pnpm benefit verify`
 
 코드는 고치지 않아도 된다. 화면의 지역 선택은 지역 목록 파일에서 만들어진다.
 

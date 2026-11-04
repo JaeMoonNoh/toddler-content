@@ -6,9 +6,11 @@ import { RecordingCollectionEvents } from '../../../collect/application/test/fak
 import { sampleRegionService } from '../../../region/application/test/fakes/sample-region-service';
 import { SourceRef } from '../../domain/source-ref';
 import { BenefitCandidateService } from '../benefit-candidate.service';
+import { CatalogError } from '../benefit-catalog.service';
 
 import { benefitDetails } from './fakes/benefit-fixtures';
 import { FakeBenefitCatalog } from './fakes/fake-benefit-catalog';
+import { FakeSourceStateReader } from './fakes/fake-source-state.reader';
 
 import type { SourceId } from '../../../shared/domain/source-id';
 
@@ -37,20 +39,20 @@ const bokjiro = (id: string, name: string, ctpvNm: string, sggNm: string, extra:
 describe('BenefitCandidateService', () => {
   let repo: InMemorySnapshotRepository;
   let catalog: FakeBenefitCatalog;
+  let sources: FakeSourceStateReader;
   const seed = (...items: { source: SourceId; externalId: string; payload: Record<string, unknown> }[]) =>
-    items.forEach(({ source, externalId, payload }, i) =>
-      repo.items.set(`${source}:${externalId}`, { source, externalId, name: String(i), payload, removed: false }),
-    );
-  const candidatesFor = (code: string) =>
-    new BenefitCandidateService(
-      catalog,
-      new CollectService(repo, [], new RecordingCollectionEvents()),
-      sampleRegionService(),
-    ).candidatesFor(code);
+    items.forEach(({ source, externalId, payload }, i) => {
+      repo.items.set(`${source}:${externalId}`, { source, externalId, name: String(i), payload, removed: false });
+      sources.set(new SourceRef(source, externalId), payload);
+    });
+  const service = () =>
+    new BenefitCandidateService(catalog, new CollectService(repo, [], new RecordingCollectionEvents()), sampleRegionService(), sources);
+  const candidatesFor = (code: string) => service().candidatesFor(code);
 
   beforeEach(() => {
     repo = new InMemorySnapshotRepository();
     catalog = new FakeBenefitCatalog();
+    sources = new FakeSourceStateReader();
   });
 
   it('고른 지역과 아래 지역의 지자체 혜택을 지역 순서, 신뢰도, 이름순으로', async () => {
@@ -130,5 +132,76 @@ describe('BenefitCandidateService', () => {
     const list = await candidatesFor(CHUNGBUK);
     expect(list.candidates).toEqual([]);
     expect(list.regions).toHaveLength(3);
+  });
+
+  describe('add', () => {
+    it('고른 후보를 지역 머리말을 뗀 이름과 신청 방법 초안을 붙여 목록 끝에 넣는다', async () => {
+      catalog.entries = [benefitDetails('0')];
+      seed(gov24('C1', '(청주시) 산후조리비 지원', '충청북도 청주시', '시군구', { 신청방법: '방문신청', 전화문의: '청주시/043-201-1111' }));
+
+      const [card] = await service().add(CHUNGBUK, [{ slug: 'gov24-c1' }]);
+
+      expect(card).toMatchObject({
+        slug: 'gov24-c1',
+        name: '산후조리비 지원',
+        regionCode: CHEONGJU,
+        sourceUrl: 'https://plus.gov.kr/C1',
+        schedule: null,
+        amount: null,
+        audience: null,
+        conditions: [],
+        howToApply: { summary: '방문 · 문의 043-201-1111' },
+      });
+      expect(catalog.entries.map((e) => e.slug)).toEqual(['gov24-0', 'gov24-c1']);
+    });
+
+    it('같은 이름으로 묶인 원본과 merge로 합친 후보의 원본을 모두 붙인다', async () => {
+      seed(
+        gov24('C1', '산후조리비 지원', '충청북도 청주시'),
+        bokjiro('W1', '산후조리비 지원', '충청북도', '청주시'),
+        gov24('C2', '산후조리 비용 지원(상당구 보건소)', '충청북도 청주시'),
+      );
+
+      const [card] = await service().add(CHUNGBUK, [{ slug: 'gov24-c1', merge: ['gov24-c2'] }]);
+
+      expect(card.sources.map((ref) => ref.key)).toEqual(['GOV24:C1', 'BOKJIRO_LOCAL:W1', 'GOV24:C2']);
+    });
+
+    it('이름, 대상 묶음, 조건을 판단대로 넣는다', async () => {
+      seed(gov24('C1', '다자녀 양육비', '충청북도 청주시'));
+
+      const [card] = await service().add(CHUNGBUK, [
+        { slug: 'gov24-c1', name: '셋째 양육비', audience: 'MULTI_CHILD', conditions: ['HOME_CARE'] },
+      ]);
+
+      expect(card).toMatchObject({ name: '셋째 양육비', audience: 'MULTI_CHILD', conditions: ['HOME_CARE'] });
+    });
+
+    it('후보에 없는 slug나 두 번 나온 slug가 있으면 아무것도 넣지 않는다', async () => {
+      seed(gov24('C1', '산후조리비 지원', '충청북도 청주시'), gov24('C2', '출산축하금', '충청북도 청주시'));
+
+      await expect(
+        service().add(CHUNGBUK, [{ slug: 'gov24-c1', merge: ['gov24-c2'] }, { slug: 'gov24-c2' }, { slug: 'gov24-zz' }]),
+      ).rejects.toThrow(/gov24-zz: 이 지역 후보에 없습니다[\s\S]*gov24-c2: 판단에 두 번 이상 나옵니다/);
+      expect(catalog.entries).toEqual([]);
+    });
+
+    it('이미 목록에 있는 원본은 후보가 아니라서 넣지 않는다', async () => {
+      seed(gov24('C1', '산후조리비 지원', '충청북도 청주시'));
+      catalog.entries = [benefitDetails('C1', { slug: 'gov24-c1', sources: [new SourceRef('GOV24', 'C1')] })];
+
+      await expect(service().add(CHUNGBUK, [{ slug: 'gov24-c1' }])).rejects.toThrow(CatalogError);
+    });
+
+    it('카드 규칙에 어긋나면(알 수 없는 대상 묶음 등) 아무것도 넣지 않는다', async () => {
+      seed(gov24('C1', '산후조리비 지원', '충청북도 청주시'));
+
+      await expect(service().add(CHUNGBUK, [{ slug: 'gov24-c1', audience: 'NOBODY' as never }])).rejects.toThrow('알 수 없는 대상 묶음');
+      expect(catalog.entries).toEqual([]);
+    });
+
+    it('빈 판단이면 아무것도 넣지 않는다', async () => {
+      expect(await service().add(CHUNGBUK, [])).toEqual([]);
+    });
   });
 });

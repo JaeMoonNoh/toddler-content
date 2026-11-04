@@ -10,6 +10,7 @@ import { BenefitCatalogService } from '../../application/benefit-catalog.service
 import { BenefitPlanService, type PlanProblem } from '../../application/benefit-plan.service';
 import { BenefitReviewService } from '../../application/benefit-review.service';
 import { parsePlans } from '../catalog/json-benefit-plans';
+import { parseDecisions } from '../catalog/json-candidate-decisions';
 
 import { BenefitCliModule } from './benefit-cli.module';
 import { BenefitDetailPrinter } from './benefit-detail-printer';
@@ -24,6 +25,8 @@ const USAGE = `사용법: pnpm benefit <명령>
   verify <slug> [...]      원문을 확인한 혜택에 확인일 남기기
   retire <slug> [...]      목록 파일에서 뺀 혜택을 DB에서도 지우기 (사이트에서 사라짐)
   candidates <지역코드>    그 지역과 아래 지역의 혜택 후보를 md로 (예: 인천 2800000000)
+  add <지역코드> <판단.json>
+                           후보 md에서 고른 것을 혜택 목록에 카드로 넣기 (이름 정리, 신청 방법 초안 포함)
   plan-texts <지역코드> <폴더> [건수]
                            일정·금액·올해 기간이 비어 있는 카드의 원문을 md로 나눠 쓰기 (기본 50건씩)
   plan-check <초안.json>   일정·금액 초안 검사 (규칙: docs/benefit-plan-rules.md)
@@ -49,6 +52,15 @@ const COMMANDS: Record<string, Command> = {
     if (!regionCode) return { text: '지역코드를 넣어 주세요 (data/regions.json의 code, 예: 2800000000)', ok: false };
     const list = await app.get(BenefitCandidateService).candidatesFor(regionCode);
     return { text: printCandidates(list, formatKstDate(new Date())), ok: true };
+  },
+  add: async (app, [regionCode, path]) => {
+    if (!regionCode || !path) return { text: '지역코드와 판단 파일을 넣어 주세요 (예: add 4300000000 decisions.json)', ok: false };
+    const cards = await app.get(BenefitCandidateService).add(regionCode, parseDecisions(await readFile(path, 'utf8')));
+    const withoutHowTo = cards.filter((card) => !card.howToApply).length;
+    return {
+      text: `✔ ${cards.length}건을 혜택 목록에 넣었어요 (신청 방법 초안 없음 ${withoutHowTo}건). 다음은 plan-texts로 일정·금액`,
+      ok: true,
+    };
   },
   'plan-texts': async (app, [regionCode, outDir, sizeArg]) => {
     if (!regionCode || !outDir) return { text: '지역코드와 출력 폴더를 넣어 주세요 (예: plan-texts 4100000000 out)', ok: false };
