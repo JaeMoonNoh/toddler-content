@@ -4739,6 +4739,10 @@
       {
         "source": "GOV24",
         "externalId": "611000019610"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006492"
       }
     ],
     "howToApply": {
@@ -4829,6 +4833,10 @@
       {
         "source": "GOV24",
         "externalId": "611000019624"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006181"
       }
     ],
     "howToApply": {
@@ -5125,6 +5133,10 @@
       {
         "source": "GOV24",
         "externalId": "611000019644"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005097"
       }
     ],
     "howToApply": {
@@ -5557,6 +5569,10 @@
       {
         "source": "GOV24",
         "externalId": "301000000126"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002340"
       }
     ],
     "howToApply": {
@@ -5732,6 +5748,10 @@
       {
         "source": "GOV24",
         "externalId": "302000000112"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000980"
       }
     ],
     "audience": "DISABILITY",
@@ -6508,6 +6528,10 @@
       {
         "source": "GOV24",
         "externalId": "305000000102"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002455"
       }
     ],
     "howToApply": {
@@ -6594,6 +6618,10 @@
       {
         "source": "GOV24",
         "externalId": "306000000105"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001806"
       }
     ],
     "audience": "DISABILITY",
@@ -6792,6 +6820,10 @@
       {
         "source": "GOV24",
         "externalId": "307000000109"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002607"
       }
     ],
     "audience": "DISABILITY",
@@ -6910,6 +6942,10 @@
       {
         "source": "GOV24",
         "externalId": "309000000132"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002202"
       }
     ],
     "audience": "DISABILITY",
@@ -7124,6 +7160,10 @@
       {
         "source": "GOV24",
         "externalId": "311000000139"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002418"
       }
     ],
     "audience": "MULTI_CHILD",
@@ -7267,6 +7307,10 @@
       {
         "source": "GOV24",
         "externalId": "311000000106"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001876"
       }
     ],
     "audience": "DISABILITY",
@@ -7344,6 +7388,13 @@
         "externalId": "311000000140"
       }
     ],
+    "howToApply": {
+      "summary": "출산 후 전화로 신청 · 문의 02-351-8216",
+      "basis": {
+        "text": "대여방법 : 자녀출산 후 전화신청 / 전화문의: 은평구보건소 예비맘관리실/02-351-8216",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2100710&bnefType=all&svcId=311000000140"
+      }
+    },
     "amount": {
       "kind": "service",
       "summary": "유축기 대여 1개월 (재대여 불가)",
@@ -7537,6 +7588,10 @@
       {
         "source": "GOV24",
         "externalId": "312000000315"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005645"
       }
     ],
     "conditions": [
@@ -7971,6 +8026,10 @@
       {
         "source": "GOV24",
         "externalId": "315000000114"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004703"
       }
     ],
     "audience": "SINGLE_TEEN_PARENT",
@@ -8000,6 +8059,10 @@
       {
         "source": "GOV24",
         "externalId": "315000000112"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002326"
       }
     ],
     "audience": "ADOPTION_FOSTER",
@@ -8372,6 +8435,10 @@
       {
         "source": "GOV24",
         "externalId": "317000000106"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002819"
       }
     ],
     "audience": "MULTI_CHILD",
@@ -8852,6 +8919,10 @@
       {
         "source": "GOV24",
         "externalId": "320000000302"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006184"
       }
     ],
     "howToApply": {
@@ -8946,6 +9017,10 @@
       {
         "source": "GOV24",
         "externalId": "320000000299"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006186"
       }
     ],
     "howToApply": {
@@ -9059,6 +9134,10 @@
       {
         "source": "GOV24",
         "externalId": "321000000131"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003933"
       }
     ],
     "audience": "MULTI_CHILD",
@@ -9315,6 +9394,10 @@
       {
         "source": "GOV24",
         "externalId": "322000000120"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002204"
       }
     ],
     "audience": "DISABILITY",
@@ -9344,6 +9427,10 @@
       {
         "source": "GOV24",
         "externalId": "322000000109"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004029"
       }
     ],
     "howToApply": {
@@ -9388,6 +9475,10 @@
       {
         "source": "GOV24",
         "externalId": "322000000125"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006357"
       }
     ],
     "conditions": [
@@ -9683,6 +9774,10 @@
       {
         "source": "GOV24",
         "externalId": "641000000671"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006107"
       }
     ],
     "audience": "SPECIAL",
@@ -9738,6 +9833,10 @@
       {
         "source": "GOV24",
         "externalId": "391000000120"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003986"
       }
     ],
     "howToApply": {
@@ -9839,6 +9938,10 @@
       {
         "source": "GOV24",
         "externalId": "641000000144"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003846"
       }
     ],
     "conditions": [
@@ -9882,10 +9985,10 @@
     },
     "amount": {
       "kind": "cash",
-      "summary": "아이돌봄 서비스 본인부담금 30만원 한도 지원",
+      "summary": "아이돌봄 서비스 본인부담금 30만원 한도 지원 (참여 14개 시·군만: 안산, 평택, 시흥, 광명, 이천, 구리, 안성, 양평, 여주, 동두천, 과천, 연천, 광주, 가평)",
       "tiers": null,
       "basis": {
-        "text": "아이돌봄 서비스 본인부담금 30만 원 한도 지원",
+        "text": "아이돌봄 서비스 본인부담금 30만 원 한도 지원 / 참여 시·군(14개) : 안산, 평택, 시흥, 광명, 이천, 구리,안성, 양평, 여주, 동두천, 과천, 연천, 광주, 가평",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2158316&bnefType=all&svcId=641000000725"
       }
     }
@@ -10208,6 +10311,13 @@
       "USES_CHILDCARE"
     ],
     "audience": "LOW_INCOME",
+    "howToApply": {
+      "summary": "문의 031-5191-3214",
+      "basis": {
+        "text": "신청방법: 직접입력 / 전화문의: 수원시 가족정책과/031-5191-3214",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006453&bnefType=all&svcId=374000000143"
+      }
+    },
     "amount": {
       "kind": "cash",
       "summary": "입학준비금 최대 10만원(연 1회), 현장학습비 최대 10만원(연 1회)",
@@ -10424,6 +10534,10 @@
       {
         "source": "GOV24",
         "externalId": "378000000135"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003823"
       }
     ],
     "audience": "MULTI_CHILD",
@@ -10486,6 +10600,10 @@
       {
         "source": "GOV24",
         "externalId": "378000000145"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004041"
       }
     ],
     "howToApply": {
@@ -10548,6 +10666,10 @@
       {
         "source": "GOV24",
         "externalId": "382000000129"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001498"
       }
     ],
     "howToApply": {
@@ -10951,6 +11073,10 @@
       {
         "source": "GOV24",
         "externalId": "383000000114"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002477"
       }
     ],
     "conditions": [
@@ -11043,6 +11169,10 @@
       {
         "source": "GOV24",
         "externalId": "386000000114"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005080"
       }
     ],
     "audience": "DISABILITY",
@@ -11214,6 +11344,10 @@
       {
         "source": "GOV24",
         "externalId": "390000000129"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000893"
       }
     ],
     "audience": "INFERTILITY",
@@ -11405,6 +11539,10 @@
       {
         "source": "GOV24",
         "externalId": "391000000149"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001623"
       }
     ],
     "audience": "MULTI_CHILD",
@@ -11595,6 +11733,10 @@
       {
         "source": "GOV24",
         "externalId": "392000000107"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002593"
       }
     ],
     "audience": "DISABILITY",
@@ -11652,6 +11794,10 @@
       {
         "source": "GOV24",
         "externalId": "392000000106"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002596"
       }
     ],
     "howToApply": {
@@ -11809,6 +11955,10 @@
       {
         "source": "GOV24",
         "externalId": "393000000126"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000572"
       }
     ],
     "audience": "MULTI_CHILD",
@@ -11838,6 +11988,10 @@
       {
         "source": "GOV24",
         "externalId": "393000000136"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002712"
       }
     ],
     "audience": "DISABILITY",
@@ -11917,6 +12071,10 @@
       {
         "source": "BOKJIRO_LOCAL",
         "externalId": "WLF00002807"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004126"
       }
     ],
     "howToApply": {
@@ -12066,6 +12224,10 @@
       {
         "source": "GOV24",
         "externalId": "394000000138"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004691"
       }
     ],
     "howToApply": {
@@ -12122,6 +12284,10 @@
       {
         "source": "GOV24",
         "externalId": "394000000122"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002356"
       }
     ],
     "audience": "DISABILITY",
@@ -12347,6 +12513,10 @@
       {
         "source": "GOV24",
         "externalId": "397000000142"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005139"
       }
     ],
     "howToApply": {
@@ -12736,6 +12906,10 @@
       {
         "source": "GOV24",
         "externalId": "399000000102"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003577"
       }
     ],
     "audience": "DISABILITY",
@@ -12767,6 +12941,13 @@
         "externalId": "399000000105"
       }
     ],
+    "howToApply": {
+      "summary": "문의 031-590-4476",
+      "basis": {
+        "text": "신청방법: 직접입력 / 전화문의: 남양주보건소/031-590-4476",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1001420&bnefType=all&svcId=399000000105"
+      }
+    },
     "schedule": {
       "from": {
         "anchor": "birth",
@@ -12810,6 +12991,10 @@
       {
         "source": "GOV24",
         "externalId": "399000000122"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006417"
       }
     ],
     "audience": "MULTI_CHILD",
@@ -13020,6 +13205,10 @@
       {
         "source": "GOV24",
         "externalId": "401000000113"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005386"
       }
     ],
     "howToApply": {
@@ -13097,6 +13286,10 @@
       {
         "source": "GOV24",
         "externalId": "402000000119"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004284"
       }
     ],
     "howToApply": {
@@ -13248,6 +13441,10 @@
       {
         "source": "GOV24",
         "externalId": "402000000110"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001640"
       }
     ],
     "conditions": [
@@ -13339,6 +13536,10 @@
       {
         "source": "GOV24",
         "externalId": "403000000151"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005090"
       }
     ],
     "howToApply": {
@@ -13517,6 +13718,10 @@
       {
         "source": "GOV24",
         "externalId": "403000000123"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001565"
       }
     ],
     "audience": "DISABILITY",
@@ -13546,6 +13751,10 @@
       {
         "source": "GOV24",
         "externalId": "403000000105"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003887"
       }
     ],
     "howToApply": {
@@ -13669,8 +13878,19 @@
       {
         "source": "GOV24",
         "externalId": "403000000146"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006153"
       }
     ],
+    "howToApply": {
+      "summary": "방문 또는 전화 · 문의 031-345-2455",
+      "basis": {
+        "text": "신청방법: 방문, 전화 / 전화문의: 의왕시 가족아동과/031-345-2455",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2110216&bnefType=all&svcId=403000000146"
+      }
+    },
     "amount": {
       "kind": "cash",
       "summary": "첫 회 1일 2시간 자기부담금 지원, 월 120시간 초과분은 최대 10시간까지 지원",
@@ -13690,9 +13910,20 @@
       {
         "source": "GOV24",
         "externalId": "403000000145"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006152"
       }
     ],
     "audience": "SICK_CHILD",
+    "howToApply": {
+      "summary": "방문 또는 전화 · 문의 031-345-2455",
+      "basis": {
+        "text": "신청방법: 전화, 방문 / 전화문의: 의왕시 가족아동과/031-345-2455",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2110215&bnefType=all&svcId=403000000145"
+      }
+    },
     "amount": {
       "kind": "service",
       "summary": "자녀당 1일 12시간 이내, 연 5일 이내 아이돌봄서비스 비용 일부 무료",
@@ -13815,6 +14046,10 @@
       {
         "source": "GOV24",
         "externalId": "404000000107"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001293"
       }
     ],
     "audience": "DISABILITY",
@@ -13862,6 +14097,10 @@
       {
         "source": "GOV24",
         "externalId": "404000000108"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000862"
       }
     ],
     "howToApply": {
@@ -14124,6 +14363,10 @@
       {
         "source": "GOV24",
         "externalId": "405000000672"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005510"
       }
     ],
     "audience": "DISABILITY",
@@ -14153,8 +14396,19 @@
       {
         "source": "GOV24",
         "externalId": "405000000655"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001494"
       }
     ],
+    "howToApply": {
+      "summary": "방문 또는 온라인 · 문의 031-6193-2608",
+      "basis": {
+        "text": "신청방법: 인터넷, 방문 / 전화문의: 여성가족과/031-6193-2608",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005864&bnefType=all&svcId=405000000655"
+      }
+    },
     "schedule": {
       "from": {
         "anchor": "birth",
@@ -14432,6 +14686,10 @@
       {
         "source": "GOV24",
         "externalId": "406000000538"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006565"
       }
     ],
     "conditions": [
@@ -14491,6 +14749,10 @@
       {
         "source": "GOV24",
         "externalId": "407000000522"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006567"
       }
     ],
     "audience": "SPECIAL",
@@ -14731,6 +14993,10 @@
       {
         "source": "GOV24",
         "externalId": "408000000539"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003366"
       }
     ],
     "audience": "DISABILITY",
@@ -15213,6 +15479,10 @@
       {
         "source": "GOV24",
         "externalId": "554000000103"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000286"
       }
     ],
     "audience": "MULTI_CHILD",
@@ -15288,6 +15558,10 @@
       {
         "source": "GOV24",
         "externalId": "554000000107"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000315"
       }
     ],
     "audience": "DISABILITY",
@@ -15317,6 +15591,10 @@
       {
         "source": "GOV24",
         "externalId": "554000000119"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003153"
       }
     ],
     "howToApply": {
@@ -15468,6 +15746,13 @@
         "externalId": "554000000198"
       }
     ],
+    "howToApply": {
+      "summary": "출산 후 1달 안에 신청 · 문의 031-760-2384",
+      "basis": {
+        "text": "출산 후 1달 이내 신청한 산모 / 전화문의: 오포건강생활지원센터 건강가족팀/031-760-2384",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2161851&bnefType=all&svcId=554000000198"
+      }
+    },
     "schedule": {
       "from": {
         "anchor": "birth",
@@ -15580,6 +15865,10 @@
       {
         "source": "GOV24",
         "externalId": "559000000122"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003125"
       }
     ],
     "howToApply": {
@@ -15752,6 +16041,10 @@
       {
         "source": "GOV24",
         "externalId": "560000000111"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003909"
       }
     ],
     "audience": "DISABILITY",
@@ -15977,6 +16270,10 @@
       {
         "source": "GOV24",
         "externalId": "570000000140"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005933"
       }
     ],
     "howToApply": {
@@ -16034,6 +16331,10 @@
       {
         "source": "GOV24",
         "externalId": "570000000125"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004389"
       }
     ],
     "howToApply": {
@@ -16078,6 +16379,10 @@
       {
         "source": "GOV24",
         "externalId": "570000000126"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004039"
       }
     ],
     "audience": "MULTI_CHILD",
@@ -16107,6 +16412,10 @@
       {
         "source": "GOV24",
         "externalId": "570000000104"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001564"
       }
     ],
     "conditions": [
@@ -16473,6 +16782,10 @@
       {
         "source": "GOV24",
         "externalId": "417000000145"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005269"
       }
     ],
     "howToApply": {
@@ -16615,6 +16928,10 @@
       {
         "source": "GOV24",
         "externalId": "417000000101"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002613"
       }
     ],
     "conditions": [
