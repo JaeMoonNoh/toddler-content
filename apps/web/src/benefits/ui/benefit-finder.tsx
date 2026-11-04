@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { receiptOf } from '../domain/amount';
 import { splitByAudience } from '../domain/audience';
 import type { PublishedBenefit } from '../domain/benefit';
@@ -8,13 +8,14 @@ import { CalendarDate } from '../domain/calendar-date';
 import { answeredCount, splitByEligibility, UNANSWERED } from '../domain/eligibility';
 import { describeStage, pregnancyStage } from '../domain/pregnancy';
 import { type RegionDirectory, RegionTree } from '../domain/region';
-import { buildTimeline } from '../domain/timeline';
+import { ALL_TAB, buildTimeline, OTHER_TAB, tabsOf } from '../domain/timeline';
 import { BenefitGroups } from './benefit-groups';
 import { CalendarDownload } from './calendar-download';
 import { ExcludedBenefits } from './excluded-benefits';
 import { AmountReceipt } from './amount-receipt';
 import { AudienceGroups } from './audience-groups';
 import { BirthOrderField, ChildcareField, HouseholdFields } from './household-fields';
+import { PhaseTabs } from './phase-tabs';
 import { type RegionPick, RegionField } from './region-field';
 import { TimelineCard } from './timeline-card';
 
@@ -24,6 +25,8 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
   const [pick, setPick] = useState<RegionPick>({ provinceCode: '', districtCode: '' });
   const [dueText, setDueText] = useState('');
   const [household, setHousehold] = useState(UNANSWERED);
+  const [tab, setTab] = useState(ALL_TAB);
+  const listRef = useRef<HTMLElement>(null);
 
   const region = tree.choose(pick.districtCode || pick.provinceCode || null);
   const today = CalendarDate.today();
@@ -38,6 +41,18 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
   const rest = splitByAudience((timeline ? timeline.unscheduled : shown).filter((b) => region.covers(b)));
   const listed = region.groupsOf(rest.forEveryone);
   const scheduledCount = timeline?.phases.reduce((sum, phase) => sum + phase.items.length, 0) ?? 0;
+  const listedCount = listed.reduce((sum, group) => sum + group.benefits.length, 0);
+  const otherCount = listedCount + rest.groups.reduce((sum, group) => sum + group.benefits.length, 0);
+  const tabs = timeline ? tabsOf(timeline, otherCount) : [];
+  // 지역이나 날짜를 바꿔 고른 탭이 사라지면 전체로 돌아간다
+  const active = tabs.some((t) => t.label === tab) ? tab : ALL_TAB;
+  const shows = (label: string) => active === ALL_TAB || active === label;
+
+  const selectTab = (label: string) => {
+    setTab(label);
+    const top = listRef.current?.getBoundingClientRect().top ?? 0;
+    if (top < 0) window.scrollTo({ top: window.scrollY + top });
+  };
 
   return (
     <div className="wrap">
@@ -67,15 +82,16 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
         </p>
       </aside>
 
-      <section className="list" aria-label="혜택">
-        {timeline && (
+      <section className="list" aria-label="혜택" ref={listRef}>
+        {timeline && <PhaseTabs tabs={tabs} active={active} onSelect={selectTab} />}
+        {timeline && active !== OTHER_TAB && (
           <section aria-labelledby="timeline-title">
             <div className="listhead">
               <h2 id="timeline-title">신청 타임라인</h2>
               <p>{scheduledCount}건</p>
             </div>
             {timeline.phases.length === 0 && <p className="empty">이 지역에서 일정을 정리한 혜택이 아직 없어요.</p>}
-            {timeline.phases.map((phase) => (
+            {timeline.phases.filter((phase) => shows(phase.tab)).map((phase) => (
               <section key={phase.label} aria-label={phase.label}>
                 <h3 className="phase">{phase.label}</h3>
                 <ol className="tl">
@@ -88,15 +104,19 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
           </section>
         )}
 
-        <div className="listhead">
-          <h2>{timeline ? '그 밖에 받을 수 있는 혜택' : '받을 수 있는 혜택'}</h2>
-          <p>{listed.reduce((sum, group) => sum + group.benefits.length, 0)}건</p>
-        </div>
-        {timeline && <p className="hint">아래 혜택은 신청 일정을 아직 정리하는 중이에요. 원문에서 기간을 확인해 주세요.</p>}
-        {listed.length === 0 && <p className="empty">이 지역에 보여드릴 혜택이 아직 없어요.</p>}
-        <BenefitGroups groups={listed} />
-        <AudienceGroups groups={rest.groups} />
-        <ExcludedBenefits excluded={excluded} />
+        {shows(OTHER_TAB) && (
+          <>
+            <div className="listhead">
+              <h2>{timeline ? '그 밖에 받을 수 있는 혜택' : '받을 수 있는 혜택'}</h2>
+              <p>{listedCount}건</p>
+            </div>
+            {timeline && <p className="hint">아래 혜택은 신청 일정을 아직 정리하는 중이에요. 원문에서 기간을 확인해 주세요.</p>}
+            {listed.length === 0 && <p className="empty">이 지역에 보여드릴 혜택이 아직 없어요.</p>}
+            <BenefitGroups groups={listed} />
+            <AudienceGroups groups={rest.groups} />
+            <ExcludedBenefits excluded={excluded} />
+          </>
+        )}
       </section>
     </div>
   );

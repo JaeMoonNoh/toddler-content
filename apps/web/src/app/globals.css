@@ -66,6 +66,12 @@ select, input[type='date'] { font: inherit; color: var(--ink); background: var(-
 .notice { margin: 0; background: var(--warn-soft); color: var(--warn-ink); border-radius: 10px; padding: 10px 14px; font-size: 13px; }
 
 .list { min-width: 0; display: grid; gap: 8px; }
+/* 시기 탭. 스크롤해도 목록 위에 붙어 따라온다 */
+.tabs { position: sticky; top: 0; z-index: 2; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 10px 0; background: var(--bg); }
+.tab { flex: none; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.tab span { color: var(--muted); font-size: 12px; margin-left: 2px; }
+.tab.on { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.tab.on span { color: inherit; opacity: 0.8; }
 .listhead { display: flex; gap: 12px; align-items: baseline; }
 .listhead h2 { font-family: var(--f-display); font-weight: 400; font-size: 22px; margin: 0; }
 .listhead p { margin: 0; color: var(--muted); font-size: 14px; }

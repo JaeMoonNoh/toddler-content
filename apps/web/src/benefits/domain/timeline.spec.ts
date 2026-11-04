@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { BenefitSchedule, PublishedBenefit } from './benefit';
 import { CalendarDate } from './calendar-date';
 import { RegionTree } from './region';
-import { buildTimeline } from './timeline';
+import { buildTimeline, tabsOf } from './timeline';
 
 const due = CalendarDate.parse('2027-05-06')!;
 const today = CalendarDate.parse('2026-11-02')!;
@@ -94,5 +94,34 @@ describe('buildTimeline', () => {
 
   it('규칙이 있는 혜택이 없으면 시기 묶음이 비어 있다', () => {
     expect(buildTimeline(region(null), [benefit('규칙 없음', null)], due, today).phases).toEqual([]);
+  });
+});
+
+describe('tabsOf', () => {
+  const timeline = buildTimeline(
+    region(null),
+    [benefit('진료비', schedule(0, 730, 'pregnancy')), benefit('부모급여', schedule(0, 59)), benefit('아동수당', schedule(0, 59))],
+    due,
+    today,
+  );
+
+  it('전체, 혜택이 있는 시기, 그 밖의 혜택 순서로 건수와 함께 만든다', () => {
+    expect(tabsOf(timeline, 3)).toEqual([
+      { label: '전체', count: 6 },
+      { label: '임신 중', count: 1 },
+      { label: '출산 직후', count: 2 },
+      { label: '그 밖의 혜택', count: 3 },
+    ]);
+  });
+
+  it('그 밖의 혜택이 없으면 그 탭은 만들지 않는다', () => {
+    expect(tabsOf(timeline, 0).map((tab) => tab.label)).toEqual(['전체', '임신 중', '출산 직후']);
+  });
+
+  it('일정이 있는 혜택이 없으면 전체와 그 밖의 혜택만', () => {
+    expect(tabsOf(buildTimeline(region(null), [], due, today), 2)).toEqual([
+      { label: '전체', count: 2 },
+      { label: '그 밖의 혜택', count: 2 },
+    ]);
   });
 });
