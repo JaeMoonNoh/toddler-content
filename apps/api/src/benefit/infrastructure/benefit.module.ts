@@ -6,6 +6,7 @@ import { CollectModule } from '../../collect/infrastructure/collect.module';
 import { RegionModule } from '../../region/infrastructure/region.module';
 import { BenefitCandidateService } from '../application/benefit-candidate.service';
 import { BenefitCatalogService } from '../application/benefit-catalog.service';
+import { BenefitPlanService } from '../application/benefit-plan.service';
 import { BenefitReviewService } from '../application/benefit-review.service';
 import { BenefitCatalog } from '../application/ports/benefit-catalog';
 import { BenefitRepository } from '../application/ports/benefit.repository';
@@ -28,6 +29,7 @@ const CATALOG_PATH = join(process.cwd(), 'data/benefit-catalog.json');
   providers: [
     BenefitCatalogService,
     BenefitCandidateService,
+    BenefitPlanService,
     BenefitReviewService,
     PublishedBenefitService,
     { provide: BenefitRepository, useClass: PrismaBenefitRepository },
@@ -36,6 +38,6 @@ const CATALOG_PATH = join(process.cwd(), 'data/benefit-catalog.json');
     ReviewPrinter,
     { provide: BenefitDetailPrinter, useFactory: () => new BenefitDetailPrinter() },
   ],
-  exports: [BenefitCatalogService, BenefitCandidateService, BenefitReviewService, ReviewPrinter, BenefitDetailPrinter],
+  exports: [BenefitCatalogService, BenefitCandidateService, BenefitPlanService, BenefitReviewService, ReviewPrinter, BenefitDetailPrinter],
 })
 export class BenefitModule {}
