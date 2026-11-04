@@ -150,3 +150,6 @@ vite.config.ts.timestamp-*
 
 # Next.js가 빌드 때 자동 생성
 next-env.d.ts
+
+.claude/
+skills-lock.json
