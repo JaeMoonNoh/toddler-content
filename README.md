@@ -113,6 +113,9 @@ docker compose down -v    # DB 데이터까지 지운다 (다시 3~4단계부터
 | `pnpm benefit verify <slug> …` | 원문을 확인한 혜택에 확인일 남기기 |
 | `pnpm benefit retire <slug> …` | 목록 파일에서 뺀 혜택을 DB와 사이트에서도 지우기 |
 | `pnpm benefit candidates <지역코드>` | 그 지역과 아래 지역의 혜택 후보를 md 표로 뽑기 (예: 인천 `2800000000`) |
+| `pnpm benefit plan-texts <지역코드> <폴더>` | 일정·금액이 빈 카드의 원문을 md로 나눠 쓰기 (초안 쓸 때 읽는 자료) |
+| `pnpm benefit plan-check <초안.json>` | 일정·금액 초안 검사 (규칙: [docs/benefit-plan-rules.md](docs/benefit-plan-rules.md)) |
+| `pnpm benefit plan-apply <초안.json>` | 검사를 통과한 초안을 혜택 목록 파일에 넣기 |
 | `pnpm region sync` | 행정안전부 법정동코드로 지역 목록(`data/regions.json`) 새로 받기 |
 | `pnpm --filter @toddler/api db:migrate --name <변경내용>` | DB 스키마를 바꾼 뒤 마이그레이션 만들기 |
 
