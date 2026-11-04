@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 
 import { CatalogError } from '../../application/benefit-catalog.service';
 import { BenefitCatalog } from '../../application/ports/benefit-catalog';
@@ -24,6 +24,17 @@ export class JsonBenefitCatalog extends BenefitCatalog {
   async load(): Promise<BenefitDetails[]> {
     return parseCatalog(await readFile(this.path, 'utf8'));
   }
+
+  // 사람이 PR에서 보는 파일이라 바꾼 혜택만 다시 쓰고 나머지는 글자 하나 바꾸지 않는다
+  async update(entries: BenefitDetails[]): Promise<void> {
+    const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+    const raw = JSON.parse(await readFile(this.path, 'utf8')) as { slug: string }[];
+    const updated = raw.map((entry) => {
+      const details = bySlug.get(entry.slug);
+      return details ? toJsonEntry(details) : entry;
+    });
+    await writeFile(this.path, JSON.stringify(updated, null, 2) + '\n');
+  }
 }
 
 export function parseCatalog(text: string): BenefitDetails[] {
@@ -35,6 +46,24 @@ export function parseCatalog(text: string): BenefitDetails[] {
   }
   if (!Array.isArray(raw)) throw new CatalogError('혜택 목록은 배열이어야 합니다');
   return raw.map((entry, index) => toDetails(entry, index));
+}
+
+// 값이 없는 필드는 빼서 목록 파일을 짧게 둔다
+export function toJsonEntry(details: BenefitDetails): Record<string, unknown> {
+  const { slug, name, regionCode, sourceUrl, sources, conditions, audience, howToApply, schedule, amount, applicationPeriod } = details;
+  return {
+    slug,
+    name,
+    regionCode,
+    sourceUrl,
+    sources: sources.map(({ source, externalId }) => ({ source, externalId })),
+    ...(conditions.length > 0 && { conditions }),
+    ...(audience && { audience }),
+    ...(howToApply && { howToApply }),
+    ...(schedule && { schedule }),
+    ...(amount && { amount }),
+    ...(applicationPeriod && { applicationPeriod }),
+  };
 }
 
 function toDetails(entry: unknown, index: number): BenefitDetails {
@@ -71,7 +100,7 @@ function sourcesOf(value: unknown, where: string): SourceRef[] {
 
 const ANCHORS: readonly string[] = ['pregnancy', 'birth'] satisfies ScheduleAnchor[];
 
-function scheduleOf(value: unknown, where: string): BenefitSchedule {
+export function scheduleOf(value: unknown, where: string): BenefitSchedule {
   const s = (value ?? {}) as Record<string, unknown>;
   const basis = (s.basis ?? {}) as Record<string, unknown>;
   const text = (v: unknown, field: string) => {
@@ -106,7 +135,7 @@ function conditionsOf(value: unknown, where: string): EligibilityCondition[] {
 }
 
 // 값이 맞는지는 도메인이 검사하고, 여기서는 모양만 본다
-function amountOf(value: unknown, where: string): BenefitAmount {
+export function amountOf(value: unknown, where: string): BenefitAmount {
   const a = (value ?? {}) as Record<string, unknown>;
   const basis = (a.basis ?? {}) as Record<string, unknown>;
   const text = (v: unknown, field: string) => {
@@ -141,7 +170,7 @@ function howToApplyOf(value: unknown, where: string): HowToApply {
   return { summary: text(h.summary, 'summary'), basis: { text: text(basis.text, 'basis.text'), url: text(basis.url, 'basis.url') } };
 }
 
-function periodOf(value: unknown, where: string): ApplicationPeriod {
+export function periodOf(value: unknown, where: string): ApplicationPeriod {
   const p = (value ?? {}) as Record<string, unknown>;
   const basis = (p.basis ?? {}) as Record<string, unknown>;
   const text = (v: unknown, field: string) => {

@@ -10,4 +10,9 @@ export class FakeBenefitCatalog extends BenefitCatalog {
   async load(): Promise<BenefitDetails[]> {
     return this.entries;
   }
+
+  async update(entries: BenefitDetails[]): Promise<void> {
+    const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+    this.entries = this.entries.map((entry) => bySlug.get(entry.slug) ?? entry);
+  }
 }

@@ -1,4 +1,5 @@
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
@@ -6,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 import { CatalogError } from '../../application/benefit-catalog.service';
 import { Benefit } from '../../domain/benefit';
 import { SourceRef } from '../../domain/source-ref';
-import { parseCatalog } from '../catalog/json-benefit-catalog';
+import { JsonBenefitCatalog, parseCatalog, toJsonEntry } from '../catalog/json-benefit-catalog';
 
 const entry = (overrides: Record<string, unknown> = {}) => ({
   slug: 'gov24-1',
@@ -130,8 +131,42 @@ describe('parseCatalog', () => {
   });
 });
 
+describe('JsonBenefitCatalog.update', () => {
+  const fileWith = (entries: unknown[]) => {
+    const path = join(mkdtempSync(join(tmpdir(), 'catalog-')), 'benefit-catalog.json');
+    writeFileSync(path, JSON.stringify(entries, null, 2) + '\n');
+    return path;
+  };
+
+  it('바꾼 혜택만 다시 쓰고 나머지 항목은 필드 순서까지 그대로 둔다', async () => {
+    const untouched = { name: '순서 다름', slug: 'gov24-2', regionCode: '0000000000', sourceUrl: 'https://plus.gov.kr/y', sources: [] };
+    const path = fileWith([entry(), untouched]);
+    const catalog = new JsonBenefitCatalog(path);
+    const [first] = await catalog.load();
+
+    await catalog.update([{ ...first, name: '바꿈' }]);
+
+    expect(JSON.parse(readFileSync(path, 'utf8'))).toEqual([{ ...entry(), name: '바꿈' }, untouched]);
+    expect(readFileSync(path, 'utf8')).toContain('"name": "순서 다름",\n    "slug": "gov24-2"');
+  });
+
+  it('목록에 없는 slug는 무시한다', async () => {
+    const path = fileWith([entry()]);
+    const before = readFileSync(path, 'utf8');
+    const [first] = await new JsonBenefitCatalog(path).load();
+
+    await new JsonBenefitCatalog(path).update([{ ...first, slug: 'gov24-9' }]);
+
+    expect(readFileSync(path, 'utf8')).toBe(before);
+  });
+});
+
 describe('저장소의 혜택 목록 파일', () => {
   const details = parseCatalog(readFileSync(join(__dirname, '../../../../data/benefit-catalog.json'), 'utf8'));
+
+  it('다시 써도 같은 혜택으로 읽힌다', () => {
+    expect(parseCatalog(JSON.stringify(details.map(toJsonEntry)))).toEqual(details);
+  });
 
   it('모든 항목이 혜택 규칙을 지킨다', () => {
     expect(() => details.forEach((d) => Benefit.register(d))).not.toThrow();
