@@ -4496,5 +4496,404 @@
     "conditions": [
       "USES_CHILDCARE"
     ]
+  },
+  {
+    "slug": "gov24-611000019649",
+    "name": "1인 자영업자, 프리랜서 등 출산휴가급여(임산부, 배우자)",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2161854&bnefType=all&svcId=611000019649",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019649"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005866"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005864"
+      }
+    ],
+    "audience": "SPECIAL",
+    "howToApply": {
+      "summary": "온라인 · 문의 02-2133-5027",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청 / 전화문의: 서울시 저출생담당관/02-2133-5027",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2161854&bnefType=all&svcId=611000019649"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000000135",
+    "name": "남성장애인 출산비용 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003364&bnefType=all&svcId=611000000135",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000000135"
+      }
+    ],
+    "audience": "DISABILITY",
+    "howToApply": {
+      "summary": "방문 · 문의 120",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 관할 주민센터/02-120",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003364&bnefType=all&svcId=611000000135"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000000139",
+    "name": "산모·신생아 건강관리 본인부담금 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004300&bnefType=all&svcId=611000000139",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000000139"
+      }
+    ],
+    "audience": "LOW_INCOME",
+    "howToApply": {
+      "summary": "방문 · 문의 120",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 관할 보건소/02-120",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004300&bnefType=all&svcId=611000000139"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019621",
+    "name": "다태아 안심보험 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2149038&bnefType=all&svcId=611000019621",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019621"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청 / 전화문의: 메리츠화재보험/1522-6545 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2149038&bnefType=all&svcId=611000019621"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019618",
+    "name": "임산부 교통비 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2147867&bnefType=all&svcId=611000019618",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019618"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 온라인 · 문의 120",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청, 방문신청 / 전화문의: 다산콜센터/120",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2147867&bnefType=all&svcId=611000019618"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000000123",
+    "name": "한의약 난임치료 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1001732&bnefType=all&svcId=611000000123",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000000123"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "온라인 · 문의 120",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청 / 전화문의: 관할보건소/02-120",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1001732&bnefType=all&svcId=611000000123"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019610",
+    "name": "서울형 산후조리경비 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2144816&bnefType=all&svcId=611000019610",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019610"
+      }
+    ],
+    "howToApply": {
+      "summary": "온라인 · 문의 120",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청 / 전화문의: 다산콜센터/120",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2144816&bnefType=all&svcId=611000019610"
+      }
+    }
+  },
+  {
+    "slug": "bokjiro-wlf00006653",
+    "name": "서울형 안심 산후조리원 운영 시범사업",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006653&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006653"
+      }
+    ],
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006653&wlfareInfoReldBztpCd=02"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019624",
+    "name": "자녀출산 무주택가구 주거비 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2149821&bnefType=all&svcId=611000019624",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019624"
+      }
+    ],
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청 / 전화문의: 서울시 여성가족재단/1533-1465 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2149821&bnefType=all&svcId=611000019624"
+      }
+    }
+  },
+  {
+    "slug": "bokjiro-wlf00003009",
+    "name": "저소득 출산가정 본인부담금 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003009&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003009"
+      }
+    ],
+    "audience": "LOW_INCOME",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003009&wlfareInfoReldBztpCd=02"
+      }
+    }
+  },
+  {
+    "slug": "bokjiro-wlf00006170",
+    "name": "기후동행카드 다자녀·저소득층 할인제도 운영",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006170&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006170"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006170&wlfareInfoReldBztpCd=02"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019620",
+    "name": "꿈나래통장",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2149019&bnefType=all&svcId=611000019620",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019620"
+      }
+    ],
+    "audience": "LOW_INCOME",
+    "howToApply": {
+      "summary": "방문 또는 온라인 · 문의 1688-1453",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청, 방문신청 / 전화문의: 서울시 자산형성지원사업 콜센터/1688-1453",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2149019&bnefType=all&svcId=611000019620"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019615",
+    "name": "다자녀 가구 하수도사용료 감면",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2148116&bnefType=all&svcId=611000019615",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019615"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문 또는 온라인",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청, 방문신청 / 전화문의: 서울특별시 물순환안전국 물재생계획과/02-2133-3854 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2148116&bnefType=all&svcId=611000019615"
+      }
+    }
+  },
+  {
+    "slug": "bokjiro-wlf00006697",
+    "name": "서울 난자동결 시술비용 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006697&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006697"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006697&wlfareInfoReldBztpCd=02"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019600",
+    "name": "엄마 북(Book)돋움",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2120101&bnefType=all&svcId=611000019600",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019600"
+      }
+    ],
+    "howToApply": {
+      "summary": "온라인 · 문의 02-2133-0224",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청 / 전화문의: 서울도서관 독서문화진흥과/02-2133-0224",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2120101&bnefType=all&svcId=611000019600"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019613",
+    "name": "서울아기 건강 첫걸음(생애초기 건강관리)",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2147826&bnefType=all&svcId=611000019613",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019613"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 온라인 · 문의 02-2133-9485",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청, 방문신청 / 전화문의: 시민건강국 건강관리과/02-2133-9485",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2147826&bnefType=all&svcId=611000019613"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019636",
+    "name": "서울형 가사서비스",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2159251&bnefType=all&svcId=611000019636",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019636"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005849"
+      }
+    ],
+    "howToApply": {
+      "summary": "온라인 · 문의 120",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청 / 전화문의: 다산 콜센터/02-120",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2159251&bnefType=all&svcId=611000019636"
+      }
+    }
+  },
+  {
+    "slug": "gov24-611000019644",
+    "name": "서울형 아이돌봄비 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2159267&bnefType=all&svcId=611000019644",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000019644"
+      }
+    ],
+    "howToApply": {
+      "summary": "온라인 · 문의 120",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청 / 전화문의: 다산 콜센터/02-120",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2159267&bnefType=all&svcId=611000019644"
+      }
+    }
+  },
+  {
+    "slug": "bokjiro-wlf00002815",
+    "name": "일반아동 보육료 차액지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002815&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002815"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ]
+  },
+  {
+    "slug": "gov24-611000000153",
+    "name": "장애인가정 홈헬퍼 지원",
+    "regionCode": "1100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005573&bnefType=all&svcId=611000000153",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "611000000153"
+      }
+    ],
+    "audience": "DISABILITY",
+    "howToApply": {
+      "summary": "방문 · 문의 120",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 자치구 및 사업수행기관/02-120",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005573&bnefType=all&svcId=611000000153"
+      }
+    }
   }
 ]
