@@ -150,6 +150,15 @@ describe('JsonBenefitCatalog.update', () => {
     expect(readFileSync(path, 'utf8')).toContain('"name": "순서 다름",\n    "slug": "gov24-2"');
   });
 
+  it('새 혜택은 목록 끝에 붙이고 빈 필드는 쓰지 않는다', async () => {
+    const path = fileWith([entry()]);
+    const [first] = await new JsonBenefitCatalog(path).load();
+
+    await new JsonBenefitCatalog(path).add([{ ...first, slug: 'gov24-9', audience: 'MULTI_CHILD' }]);
+
+    expect(JSON.parse(readFileSync(path, 'utf8'))).toEqual([entry(), { ...entry(), slug: 'gov24-9', audience: 'MULTI_CHILD' }]);
+  });
+
   it('목록에 없는 slug는 무시한다', async () => {
     const path = fileWith([entry()]);
     const before = readFileSync(path, 'utf8');

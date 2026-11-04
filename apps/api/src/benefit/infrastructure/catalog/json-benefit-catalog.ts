@@ -33,7 +33,16 @@ export class JsonBenefitCatalog extends BenefitCatalog {
       const details = bySlug.get(entry.slug);
       return details ? toJsonEntry(details) : entry;
     });
-    await writeFile(this.path, JSON.stringify(updated, null, 2) + '\n');
+    await this.write(updated);
+  }
+
+  async add(entries: BenefitDetails[]): Promise<void> {
+    const raw = JSON.parse(await readFile(this.path, 'utf8')) as unknown[];
+    await this.write([...raw, ...entries.map(toJsonEntry)]);
+  }
+
+  private async write(entries: unknown[]) {
+    await writeFile(this.path, JSON.stringify(entries, null, 2) + '\n');
   }
 }
 
