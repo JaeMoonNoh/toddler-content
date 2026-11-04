@@ -53,7 +53,8 @@ a { color: var(--accent); }
 .wrap { display: grid; gap: 20px; }
 @media (min-width: 900px) {
   .wrap { grid-template-columns: 340px minmax(0, 1fr); align-items: start; gap: 32px; }
-  .side { position: sticky; top: 16px; }
+  /* 입력이 화면보다 길어져도 혜택 목록과 따로 스크롤되게 높이를 화면에 묶는다 */
+  .side { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 }
 .side { display: grid; gap: 16px; min-width: 0; }
 
