@@ -1,4 +1,4 @@
-import type { FieldChange } from '../../shared/domain/payload-diff';
+import type { FieldChange } from '../../shared/domain/comparison-rule';
 
 import type { SourceRef } from './source-ref';
 

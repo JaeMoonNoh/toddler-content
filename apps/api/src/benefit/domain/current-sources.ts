@@ -1,10 +1,11 @@
+import type { Payload } from '../../shared/domain/comparison-rule';
+
 import type { SourceRef } from './source-ref';
 
 // 원본의 한 시점 모습. 사람이 확인할 때 이 모습을 그대로 남긴다
 export interface SourceSnapshot {
   ref: SourceRef;
-  hash: string;
-  payload: Record<string, unknown>;
+  payload: Payload;
 }
 
 export interface SourceState extends SourceSnapshot {

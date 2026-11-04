@@ -24,12 +24,11 @@ export class PrismaSnapshotRepository extends SnapshotRepository {
   async loadItems(source: SourceId): Promise<StoredItem[]> {
     const rows = await this.prisma.sourceItem.findMany({
       where: { source },
-      select: { externalId: true, name: true, hash: true, payload: true, removedAt: true },
+      select: { externalId: true, name: true, payload: true, removedAt: true },
     });
     return rows.map((r) => ({
       externalId: r.externalId,
       name: r.name,
-      hash: r.hash,
       payload: r.payload as Record<string, unknown>,
       removed: r.removedAt !== null,
     }));
@@ -74,12 +73,11 @@ export class PrismaSnapshotRepository extends SnapshotRepository {
         const brandNew = plan.added.filter((p) => !idOf.has(p.record.externalId));
         for (const part of chunks(brandNew)) {
           await tx.sourceItem.createMany({
-            data: part.map(({ record, hash }) => ({
+            data: part.map(({ record }) => ({
               source,
               externalId: record.externalId,
               name: record.name,
               payload: record.payload as Prisma.InputJsonValue,
-              hash,
               firstSeenAt: now,
               lastSeenAt: now,
             })),
@@ -90,21 +88,21 @@ export class PrismaSnapshotRepository extends SnapshotRepository {
           });
           created.forEach((c) => idOf.set(c.externalId, c.id));
         }
-        for (const { record, hash } of plan.added.filter((p) => !brandNew.includes(p))) {
+        for (const { record } of plan.added.filter((p) => !brandNew.includes(p))) {
           await tx.sourceItem.update({
             where: { id: idOf.get(record.externalId) },
-            data: { name: record.name, payload: record.payload as Prisma.InputJsonValue, hash, lastSeenAt: now, removedAt: null },
+            data: { name: record.name, payload: record.payload as Prisma.InputJsonValue, lastSeenAt: now, removedAt: null },
           });
         }
         if (plan.recordChanges) {
           plan.added.forEach((p) => changes.push({ type: ChangeType.ADDED, itemId: idOf.get(p.record.externalId)!, runId }));
         }
 
-        for (const { record, hash, changedFields } of plan.updated) {
+        for (const { record, changedFields } of plan.updated) {
           const itemId = idOf.get(record.externalId)!;
           await tx.sourceItem.update({
             where: { id: itemId },
-            data: { name: record.name, payload: record.payload as Prisma.InputJsonValue, hash, lastSeenAt: now },
+            data: { name: record.name, payload: record.payload as Prisma.InputJsonValue, lastSeenAt: now },
           });
           if (plan.recordChanges) {
             changes.push({ type: ChangeType.UPDATED, itemId, runId, changedFields: changedFields as unknown as Prisma.InputJsonValue });

@@ -13,7 +13,6 @@ export class FakeSourceFetcher extends SourceFetcher {
   constructor(
     readonly source: SourceId,
     private readonly responses: Response[],
-    readonly ignoredFields: readonly string[] = ['조회수'],
   ) {
     super();
   }

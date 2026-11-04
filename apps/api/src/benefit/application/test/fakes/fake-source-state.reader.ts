@@ -6,8 +6,8 @@ import type { SourceRef } from '../../../domain/source-ref';
 export class FakeSourceStateReader extends SourceStateReader {
   private readonly states = new Map<string, SourceState>();
 
-  set(ref: SourceRef, hash = 'h1', payload: Record<string, unknown> = {}, removed = false) {
-    this.states.set(ref.key, { ref, hash, payload, removed });
+  set(ref: SourceRef, payload: Record<string, unknown> = {}, removed = false) {
+    this.states.set(ref.key, { ref, payload, removed });
     return this;
   }
 

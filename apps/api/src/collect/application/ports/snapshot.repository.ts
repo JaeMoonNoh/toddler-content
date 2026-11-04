@@ -1,4 +1,4 @@
-import type { FieldChange } from '../../../shared/domain/payload-diff';
+import type { FieldChange } from '../../../shared/domain/comparison-rule';
 import type { SourceId } from '../../../shared/domain/source-id';
 import type { SourceRecord, StoredItem } from '../../domain/source-record';
 
@@ -7,7 +7,6 @@ import type { SourceRecord, StoredItem } from '../../domain/source-record';
 
 export interface PlannedRecord {
   record: SourceRecord;
-  hash: string;
 }
 
 // 수집 한 번의 결과를 저장소에 반영하기 위한 계획

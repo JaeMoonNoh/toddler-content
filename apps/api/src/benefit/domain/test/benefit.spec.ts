@@ -33,12 +33,12 @@ const schedule = (overrides: Partial<BenefitSchedule> = {}): BenefitSchedule => 
   ...overrides,
 });
 
-const state = (ref: SourceRef, hash = 'h1', payload: Record<string, unknown> = { 지원내용: '100만원' }, removed = false): SourceState => ({
+const state = (ref: SourceRef, payload: Record<string, unknown> = { 지원내용: '100만원' }, removed = false): SourceState => ({
   ref,
-  hash,
   payload,
   removed,
 });
+const changed = { 지원내용: '200만원' };
 const sources = (...states: SourceState[]) => new CurrentSources(states);
 const at = new Date('2026-11-02T03:00:00Z');
 
@@ -144,8 +144,8 @@ describe('Benefit', () => {
     });
 
     it('확인한 뒤 원본이 바뀌면 바뀐 필드를 알려준다', () => {
-      const benefit = Benefit.register(details()).verify(sources(state(gov, 'h1', { 지원내용: '100만원', 신청기한: '상시' })), at);
-      const status = benefit.reviewStatus(sources(state(gov, 'h2', { 지원내용: '200만원', 신청기한: '상시' })));
+      const benefit = Benefit.register(details()).verify(sources(state(gov, { 지원내용: '100만원', 신청기한: '상시' })), at);
+      const status = benefit.reviewStatus(sources(state(gov, { 지원내용: '200만원', 신청기한: '상시' })));
 
       expect(status).toEqual({
         kind: 'SOURCE_CHANGED',
@@ -154,28 +154,59 @@ describe('Benefit', () => {
     });
 
     it('바뀐 필드에 조회수처럼 매일 바뀌는 필드는 넣지 않는다', () => {
-      const benefit = Benefit.register(details()).verify(sources(state(gov, 'h1', { 지원내용: 'a', 조회수: 1 })), at);
-      const status = benefit.reviewStatus(sources(state(gov, 'h2', { 지원내용: 'b', 조회수: 99 })));
+      const benefit = Benefit.register(details()).verify(sources(state(gov, { 지원내용: 'a', 조회수: 1 })), at);
+      const status = benefit.reviewStatus(sources(state(gov, { 지원내용: 'b', 조회수: 99 })));
 
       expect(status.kind === 'SOURCE_CHANGED' && status.changes[0].fields.map((f) => f.field)).toEqual(['지원내용']);
     });
 
     it('원본이 둘이면 바뀐 원본만 알려준다', () => {
-      const benefit = Benefit.register(details({ sources: [gov, bok] })).verify(sources(state(gov), state(bok, 'b1')), at);
-      const status = benefit.reviewStatus(sources(state(gov), state(bok, 'b2', { servDgst: '바뀜' })));
+      const benefit = Benefit.register(details({ sources: [gov, bok] })).verify(sources(state(gov), state(bok)), at);
+      const status = benefit.reviewStatus(sources(state(gov), state(bok, { servDgst: '바뀜' })));
 
       expect(status.kind).toBe('SOURCE_CHANGED');
       expect(status.kind === 'SOURCE_CHANGED' && status.changes.map((c) => c.ref)).toEqual([bok]);
     });
 
     it('원본이 바뀌었다가 확인 당시 내용으로 돌아오면 다시 확인됨', () => {
-      const benefit = Benefit.register(details()).verify(sources(state(gov, 'h1')), at);
-      expect(benefit.reviewStatus(sources(state(gov, 'h2'))).kind).toBe('SOURCE_CHANGED');
-      expect(benefit.reviewStatus(sources(state(gov, 'h1'))).kind).toBe('VERIFIED');
+      const benefit = Benefit.register(details()).verify(sources(state(gov)), at);
+      expect(benefit.reviewStatus(sources(state(gov, changed))).kind).toBe('SOURCE_CHANGED');
+      expect(benefit.reviewStatus(sources(state(gov))).kind).toBe('VERIFIED');
+    });
+
+    describe('복지로 지자체의 순서 없는 목록 필드', () => {
+      const local = new SourceRef('BOKJIRO_LOCAL', 'L1');
+      const lists = (life: string) => ({ lifeNmArray: life, intrsThemaNmArray: '임신·출산, 보육', trgterIndvdlNmArray: '영유아, 임산부' });
+      const verifiedWith = (life: string) => Benefit.register(details({ sources: [local] })).verify(sources(state(local, lists(life))), at);
+
+      it('확인한 뒤 순서만 바뀌면 확인됨', () => {
+        const benefit = verifiedWith('노년, 청소년, 청년');
+        expect(benefit.reviewStatus(sources(state(local, lists('청년, 노년, 청소년')))).kind).toBe('VERIFIED');
+      });
+
+      it('확인 당시 어떤 순서로 저장됐든 지금 같은 원소면 확인됨', () => {
+        const benefit = verifiedWith('청년, 노년, 청소년');
+        expect(benefit.reviewStatus(sources(state(local, lists('노년, 청소년, 청년')))).kind).toBe('VERIFIED');
+      });
+
+      it('원소가 추가되면 그 필드만 바뀐 것으로 알려준다', () => {
+        const benefit = verifiedWith('노년, 청년');
+        const status = benefit.reviewStatus(sources(state(local, lists('청년, 노년, 영유아'))));
+
+        expect(status).toEqual({
+          kind: 'SOURCE_CHANGED',
+          changes: [{ ref: local, fields: [{ field: 'lifeNmArray', before: '노년, 청년', after: '청년, 노년, 영유아' }] }],
+        });
+      });
+
+      it('원소가 빠져도 원본이 바뀐 것이다', () => {
+        const benefit = verifiedWith('노년, 청년, 영유아');
+        expect(benefit.reviewStatus(sources(state(local, lists('청년, 노년')))).kind).toBe('SOURCE_CHANGED');
+      });
     });
 
     it('원본이 출처에서 사라지면 확인 여부와 상관없이 원본 사라짐', () => {
-      const removed = sources(state(gov, 'h1', {}, true));
+      const removed = sources(state(gov, {}, true));
       expect(Benefit.register(details()).reviewStatus(removed)).toEqual({ kind: 'SOURCE_REMOVED', refs: [gov] });
       expect(
         Benefit.register(details())
@@ -190,7 +221,7 @@ describe('Benefit', () => {
 
     it('원본 없음이 원본 사라짐보다 먼저다', () => {
       const benefit = Benefit.register(details({ sources: [gov, bok] }));
-      expect(benefit.reviewStatus(sources(state(gov, 'h1', {}, true))).kind).toBe('SOURCE_MISSING');
+      expect(benefit.reviewStatus(sources(state(gov, {}, true))).kind).toBe('SOURCE_MISSING');
     });
 
     it('확인 기록에 없는 원본이 연결돼 있으면 확인 전', () => {
@@ -203,8 +234,8 @@ describe('Benefit', () => {
 
   describe('확인', () => {
     it('확인 시각과 그때 원본 모습을 남긴다', () => {
-      const benefit = Benefit.register(details()).verify(sources(state(gov, 'h1', { 지원내용: 'a' })), at);
-      expect(benefit.verification).toEqual({ verifiedAt: at, snapshots: [{ ref: gov, hash: 'h1', payload: { 지원내용: 'a' } }] });
+      const benefit = Benefit.register(details()).verify(sources(state(gov, { 지원내용: 'a' })), at);
+      expect(benefit.verification).toEqual({ verifiedAt: at, snapshots: [{ ref: gov, payload: { 지원내용: 'a' } }] });
     });
 
     it('원래 혜택은 바꾸지 않고 새 혜택을 돌려준다', () => {
@@ -216,16 +247,16 @@ describe('Benefit', () => {
     it('원본이 바뀐 혜택을 다시 확인하면 확인됨이 되고 확인일이 바뀐다', () => {
       const later = new Date('2026-11-03T03:00:00Z');
       const benefit = Benefit.register(details())
-        .verify(sources(state(gov, 'h1')), at)
-        .verify(sources(state(gov, 'h2')), later);
+        .verify(sources(state(gov)), at)
+        .verify(sources(state(gov, changed)), later);
 
-      expect(benefit.reviewStatus(sources(state(gov, 'h2'))).kind).toBe('VERIFIED');
+      expect(benefit.reviewStatus(sources(state(gov, changed))).kind).toBe('VERIFIED');
       expect(benefit.verifiedAt).toBe(later);
     });
 
     it('원본이 사라졌거나 없으면 확인할 수 없다', () => {
       const benefit = Benefit.register(details());
-      expect(() => benefit.verify(sources(state(gov, 'h1', {}, true)), at)).toThrow(NotVerifiableError);
+      expect(() => benefit.verify(sources(state(gov, {}, true)), at)).toThrow(NotVerifiableError);
       expect(() => benefit.verify(sources(), at)).toThrow('수집돼 있지 않아서');
     });
   });
@@ -312,14 +343,14 @@ describe('Benefit', () => {
   });
 
   describe('게시', () => {
-    const verified = () => Benefit.register(details()).verify(sources(state(gov, 'h1')), at);
+    const verified = () => Benefit.register(details()).verify(sources(state(gov)), at);
 
     it('확인된 혜택은 게시한다', () => {
-      expect(verified().isPublished(sources(state(gov, 'h1')))).toBe(true);
+      expect(verified().isPublished(sources(state(gov)))).toBe(true);
     });
 
     it('원본이 바뀌어도 마지막 확인 내용으로 계속 게시한다', () => {
-      expect(verified().isPublished(sources(state(gov, 'h2')))).toBe(true);
+      expect(verified().isPublished(sources(state(gov, changed)))).toBe(true);
     });
 
     it('확인 전 혜택도 게시한다 (화면에 "검증 전"으로 표시)', () => {
@@ -327,8 +358,8 @@ describe('Benefit', () => {
     });
 
     it('원본이 사라졌거나 없으면 확인 여부와 상관없이 게시하지 않는다', () => {
-      expect(Benefit.register(details()).isPublished(sources(state(gov, 'h1', {}, true)))).toBe(false);
-      expect(verified().isPublished(sources(state(gov, 'h1', {}, true)))).toBe(false);
+      expect(Benefit.register(details()).isPublished(sources(state(gov, {}, true)))).toBe(false);
+      expect(verified().isPublished(sources(state(gov, {}, true)))).toBe(false);
       expect(Benefit.register(details()).isPublished(sources())).toBe(false);
       expect(verified().isPublished(sources())).toBe(false);
     });

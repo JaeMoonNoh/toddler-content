@@ -1,5 +1,4 @@
-import { changedFields } from '../../shared/domain/payload-diff';
-import { VOLATILE_FIELDS } from '../../shared/domain/source-id';
+import { ComparisonRule } from '../../shared/domain/comparison-rule';
 
 import { type ApplicationPeriod, periodProblems, samePeriod } from './application-period';
 import { type Audience, audienceProblems } from './audience';
@@ -154,8 +153,8 @@ export class Benefit {
     if (status.kind === 'SOURCE_MISSING' || status.kind === 'SOURCE_REMOVED') throw new NotVerifiableError(this.slug, status);
 
     const snapshots = this.sources.map((ref) => {
-      const { hash, payload } = current.of(ref)!;
-      return { ref, hash, payload };
+      const { payload } = current.of(ref)!;
+      return { ref, payload };
     });
     return new Benefit(this.details, { verifiedAt: at, snapshots });
   }
@@ -173,8 +172,9 @@ export class Benefit {
 }
 
 function changeBetween(verified: SourceSnapshot, now: SourceState): ChangedSource | null {
-  if (verified.hash === now.hash) return null;
-  return { ref: verified.ref, fields: changedFields(verified.payload, now.payload, VOLATILE_FIELDS[verified.ref.source]) };
+  const rule = ComparisonRule.of(verified.ref.source);
+  if (rule.isSame(verified.payload, now.payload)) return null;
+  return { ref: verified.ref, fields: rule.changedFields(verified.payload, now.payload) };
 }
 
 function assertValid(details: BenefitDetails) {

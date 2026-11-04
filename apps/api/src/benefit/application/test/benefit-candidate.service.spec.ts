@@ -39,7 +39,7 @@ describe('BenefitCandidateService', () => {
   let catalog: FakeBenefitCatalog;
   const seed = (...items: { source: SourceId; externalId: string; payload: Record<string, unknown> }[]) =>
     items.forEach(({ source, externalId, payload }, i) =>
-      repo.items.set(`${source}:${externalId}`, { source, externalId, name: String(i), hash: 'h', payload, removed: false }),
+      repo.items.set(`${source}:${externalId}`, { source, externalId, name: String(i), payload, removed: false }),
     );
   const candidatesFor = (code: string) =>
     new BenefitCandidateService(

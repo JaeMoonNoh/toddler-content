@@ -46,10 +46,6 @@ describe('복지로 fetcher', () => {
     expect((await national(fake).fetchAll())[0].payload.servDtlLink).toBe('https://b.kr?x=1&y=2');
   });
 
-  it('조회수(inqNum)는 비교에서 빼도록 알려준다', () => {
-    expect(national(new FakeFetch()).ignoredFields).toEqual(['inqNum']);
-  });
-
   it('중앙부처는 목록 조회 고정 파라미터를 붙여 요청한다', async () => {
     const fake = new FakeFetch().on(any, wanted(1, serv('A')));
     await national(fake).fetchAll();

@@ -40,7 +40,7 @@ describe('BenefitReviewService.queue', () => {
     ['1', '2', '3', '4', '5'].forEach((id) => reader.set(ref(id)));
     const changed = await verifiedNow('2', '나 바뀜');
     const removed = await verifiedNow('3', '다 사라짐');
-    reader.set(ref('2'), 'h2').remove(ref('3'));
+    reader.set(ref('2'), { 지원내용: '바뀜' }).remove(ref('3'));
 
     const queue = await queueOf([
       Benefit.register(benefitDetails('1', { name: '하 확인 전' })),
@@ -63,8 +63,40 @@ describe('BenefitReviewService.queue', () => {
   it('바뀐 혜택에는 마지막 확인일이 함께 나온다', async () => {
     reader.set(ref('1'));
     const benefit = await verifiedNow('1');
-    reader.set(ref('1'), 'h2');
+    reader.set(ref('1'), { 지원내용: '바뀜' });
 
     expect((await queueOf([benefit])).items[0].verifiedAt).toBe(at);
+  });
+
+  describe('복지로 지자체의 순서 없는 목록 필드', () => {
+    const local = new SourceRef('BOKJIRO_LOCAL', 'l1');
+    const lists = (life: string) => ({ lifeNmArray: life, intrsThemaNmArray: '임신·출산, 보육', trgterIndvdlNmArray: '영유아, 임산부' });
+    const verifiedLocal = async () => {
+      reader.set(local, lists('노년, 청소년, 청년'));
+      return Benefit.register(benefitDetails('l1', { sources: [local] })).verify(await reader.read([local]), at);
+    };
+
+    it('확인한 뒤 순서만 바뀌면 대기열에 없고 확인된 상태다', async () => {
+      const benefit = await verifiedLocal();
+      reader.set(local, {
+        lifeNmArray: '청년, 노년, 청소년',
+        intrsThemaNmArray: '보육, 임신·출산',
+        trgterIndvdlNmArray: '임산부, 영유아',
+      });
+
+      const queue = await queueOf([benefit]);
+
+      expect(queue.items).toEqual([]);
+      expect(queue.counts.VERIFIED).toBe(1);
+    });
+
+    it('확인한 뒤 원소가 바뀌면 원본이 바뀐 것으로 본다', async () => {
+      const benefit = await verifiedLocal();
+      reader.set(local, lists('노년, 청소년, 영유아'));
+
+      const queue = await queueOf([benefit]);
+
+      expect(queue.items.map((item) => item.status.kind)).toEqual(['SOURCE_CHANGED']);
+    });
   });
 });

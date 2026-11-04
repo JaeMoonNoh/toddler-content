@@ -9,7 +9,6 @@ export interface SourceRecord {
 export interface StoredItem {
   externalId: string;
   name: string;
-  hash: string;
   payload: Record<string, unknown>;
   removed: boolean;
 }

@@ -19,7 +19,7 @@ describe('BenefitReviewService.verify', () => {
 
   beforeEach(() => {
     repo = new InMemoryBenefitRepository(['1', '2'].map((id) => Benefit.register(benefitDetails(id))));
-    reader = new FakeSourceStateReader().set(ref('1'), 'h1', { 지원내용: 'a' }).set(ref('2'));
+    reader = new FakeSourceStateReader().set(ref('1'), { 지원내용: 'a' }).set(ref('2'));
   });
 
   it('확인일과 그때 원본 모습을 저장한다', async () => {
@@ -27,7 +27,7 @@ describe('BenefitReviewService.verify', () => {
 
     const saved = repo.benefits.get('gov24-1')!;
     expect(saved.verifiedAt).toBe(at);
-    expect(saved.verification!.snapshots[0]).toMatchObject({ hash: 'h1', payload: { 지원내용: 'a' } });
+    expect(saved.verification!.snapshots[0]).toMatchObject({ payload: { 지원내용: 'a' } });
     expect(repo.benefits.get('gov24-2')!.verifiedAt).toBeNull();
   });
 
@@ -59,11 +59,11 @@ describe('BenefitReviewService.verify', () => {
 
   it('원본이 바뀐 혜택을 다시 확인하면 새 원본 모습과 확인일로 바뀐다', async () => {
     await verify(['gov24-1']);
-    reader.set(ref('1'), 'h2', { 지원내용: 'b' });
+    reader.set(ref('1'), { 지원내용: 'b' });
     await verify(['gov24-1'], later);
 
     const saved = repo.benefits.get('gov24-1')!;
     expect(saved.verifiedAt).toBe(later);
-    expect(saved.verification!.snapshots[0]).toMatchObject({ hash: 'h2', payload: { 지원내용: 'b' } });
+    expect(saved.verification!.snapshots[0]).toMatchObject({ payload: { 지원내용: 'b' } });
   });
 });

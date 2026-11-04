@@ -12,10 +12,7 @@ import { InMemoryBenefitRepository } from './fakes/in-memory-benefit.repository'
 
 const at = new Date('2026-11-02T03:00:00Z');
 const verified = (id: string) =>
-  Benefit.register(benefitDetails(id)).verify(
-    new CurrentSources([{ ref: new SourceRef('GOV24', id), hash: 'h', payload: {}, removed: false }]),
-    at,
-  );
+  Benefit.register(benefitDetails(id)).verify(new CurrentSources([{ ref: new SourceRef('GOV24', id), payload: {}, removed: false }]), at);
 
 describe('BenefitCatalogService.sync', () => {
   let catalog: FakeBenefitCatalog;
