@@ -12,21 +12,21 @@ datasource db {
 
 // 사이트에 올리는 혜택 한 건. 목록은 data/benefit-catalog.json에서 관리하고 pnpm benefit sync로 반영한다
 model Benefit {
-  id         String          @id @default(cuid())
-  slug       String          @unique
-  name       String
-  regionCode String          // 어느 지역 혜택인지. 법정동코드 10자리 (전국 0000000000)
-  sourceUrl  String          // 사용자에게 보여줄 원문 링크
-  schedule   Json?           // 신청 기간 규칙 (BenefitSchedule). 출산예정일로 날짜를 계산하는 건 브라우저가 한다
-  conditions String[]        @default([]) // 받기 위한 조건 (EligibilityCondition). 예: BIRTH_PARENT_INSURED
-  amount     Json?           // 받는 금액 (BenefitAmount). 출생 순위별 구간, 근거
-  applicationPeriod Json?    // 해마다 공고하는 사업의 올해 신청 기간 (ApplicationPeriod). 상시 신청이면 null
-  howToApply Json?           // 어디서 어떻게 신청하는지 (HowToApply). 아직 정리하지 않았으면 null
-  audience   String?         // 특정 대상만 받는 혜택의 묶음 (Audience). 화면에서 접어 보여준다. 누구나 받으면 null
-  verifiedAt DateTime?       // 사람이 마지막으로 확인한 시각. null이면 확인 전이라 게시하지 않는다
-  sources    BenefitSource[]
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
+  id                String          @id @default(cuid())
+  slug              String          @unique
+  name              String
+  regionCode        String // 어느 지역 혜택인지. 법정동코드 10자리 (전국 0000000000)
+  sourceUrl         String // 사용자에게 보여줄 원문 링크
+  schedule          Json? // 신청 기간 규칙 (BenefitSchedule). 출산예정일로 날짜를 계산하는 건 브라우저가 한다
+  conditions        String[]        @default([]) // 받기 위한 조건 (EligibilityCondition). 예: BIRTH_PARENT_INSURED
+  amount            Json? // 받는 금액 (BenefitAmount). 출생 순위별 구간, 근거
+  applicationPeriod Json? // 해마다 공고하는 사업의 올해 신청 기간 (ApplicationPeriod). 상시 신청이면 null
+  howToApply        Json? // 어디서 어떻게 신청하는지 (HowToApply). 아직 정리하지 않았으면 null
+  audience          String? // 특정 대상만 받는 혜택의 묶음 (Audience). 화면에서 접어 보여준다. 누구나 받으면 null
+  verifiedAt        DateTime? // 사람이 마지막으로 확인한 시각. null이면 확인 전이라 게시하지 않는다
+  sources           BenefitSource[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
 }
 
 // 혜택이 근거로 삼는 공공 API 원본. 수집 전 ID일 수도 있어서 SourceItem에 외래키를 걸지 않는다
@@ -34,10 +34,10 @@ model BenefitSource {
   id              String     @id @default(cuid())
   benefitId       String
   benefit         Benefit    @relation(fields: [benefitId], references: [id], onDelete: Cascade)
-  position        Int        // 0이 대표 출처
+  position        Int // 0이 대표 출처
   source          DataSource
   externalId      String
-  verifiedPayload Json?      // 확인할 때 원본 그대로. 무엇이 바뀌었는지 보여줄 때 쓴다
+  verifiedPayload Json? // 확인할 때 원본 그대로. 무엇이 바뀌었는지 보여줄 때 쓴다
 
   @@unique([benefitId, source, externalId])
   @@index([source, externalId])
@@ -46,9 +46,9 @@ model BenefitSource {
 // ── 공공 API 원본과 변경 감지 ─────────────────────────────
 
 enum DataSource {
-  GOV24            // 보조금24 (행정안전부 공공서비스 정보)
+  GOV24 // 보조금24 (행정안전부 공공서비스 정보)
   BOKJIRO_NATIONAL // 복지로 중앙부처 복지서비스
-  BOKJIRO_LOCAL    // 복지로 지자체 복지서비스
+  BOKJIRO_LOCAL // 복지로 지자체 복지서비스
 }
 
 enum ChangeType {
@@ -65,14 +65,14 @@ enum RunStatus {
 
 // 출처에서 받은 항목의 최신 원본. 출처 + 출처의 ID로 한 건을 식별한다
 model SourceItem {
-  id          String     @id @default(cuid())
+  id          String         @id @default(cuid())
   source      DataSource
   externalId  String
   name        String
-  payload     Json       // API가 준 그대로 (비교에서 빼는 필드 포함)
-  firstSeenAt DateTime   @default(now())
-  lastSeenAt  DateTime   @default(now())
-  removedAt   DateTime?  // 출처 목록에서 사라진 시각. 다시 나타나면 null로 되돌린다
+  payload     Json // API가 준 그대로 (비교에서 빼는 필드 포함)
+  firstSeenAt DateTime       @default(now())
+  lastSeenAt  DateTime       @default(now())
+  removedAt   DateTime? // 출처 목록에서 사라진 시각. 다시 나타나면 null로 되돌린다
   changes     SourceChange[]
 
   @@unique([source, externalId])
@@ -86,7 +86,7 @@ model SourceChange {
   item          SourceItem    @relation(fields: [itemId], references: [id])
   runId         String
   run           CollectionRun @relation(fields: [runId], references: [id])
-  changedFields Json?         // UPDATED일 때 [{ field, before, after }]
+  changedFields Json? // UPDATED일 때 [{ field, before, after }]
   detectedAt    DateTime      @default(now())
 
   @@index([runId])
@@ -119,8 +119,9 @@ enum SocialProvider {
 // 로그인한 사람. 이름·이메일·전화번호는 받지 않는다
 model User {
   id        String          @id @default(cuid())
-  accounts  SocialAccount[]
-  sessions  Session[]
+  accounts   SocialAccount[]
+  sessions   Session[]
+  conditions UserConditions?
   createdAt DateTime        @default(now())
 }
 
@@ -130,7 +131,7 @@ model SocialAccount {
   userId         String
   user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   provider       SocialProvider
-  providerUserId String         // 수단 안의 회원번호
+  providerUserId String // 수단 안의 회원번호
   createdAt      DateTime       @default(now())
 
   @@unique([provider, providerUserId])
@@ -146,4 +147,13 @@ model Session {
   createdAt DateTime @default(now())
 
   @@index([userId])
+}
+
+// 로그인한 사람이 동의하고 저장한 조건. 서버는 이 값으로 찾거나 거르지 않아서 통째로 JSON에 둔다
+model UserConditions {
+  userId      String   @id
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conditions  Json     // SavedConditions: 사는 곳, 고용보험, 어린이집, 아이별 출산예정일·출생일·태명·이름·몇째
+  consentedAt DateTime // 처음 저장에 동의한 시각
+  updatedAt   DateTime
 }

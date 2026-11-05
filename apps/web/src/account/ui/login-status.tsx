@@ -6,6 +6,7 @@ import { fetchLoginState, type LoginState, loginUrl, logout } from '../api/auth-
 const PROVIDER_LABELS: Record<string, string> = { kakao: '카카오로 로그인' };
 
 // 로그인은 선택이다. 로그인하지 않아도 모든 혜택을 그대로 볼 수 있다
+// 로그아웃하면 화면을 새로 열어, 저장한 조건으로 채운 입력을 지운다
 export function LoginStatus() {
   const [state, setState] = useState<LoginState | null>(null);
   const [failed, setFailed] = useState(false);
@@ -25,7 +26,7 @@ export function LoginStatus() {
     return (
       <div className="login">
         <span>로그인했어요</span>
-        <button type="button" className="linkbtn" onClick={() => void logout().then(() => setState({ ...state, loggedIn: false }))}>
+        <button type="button" className="linkbtn" onClick={() => void logout().then(() => window.location.reload())}>
           로그아웃
         </button>
       </div>
