@@ -17,4 +17,8 @@ export class InMemorySessionStore extends SessionStore {
   async delete(token: string): Promise<void> {
     this.sessions.delete(token);
   }
+
+  async deleteAllOf(userId: string): Promise<void> {
+    for (const [token, session] of this.sessions) if (session.userId === userId) this.sessions.delete(token);
+  }
 }

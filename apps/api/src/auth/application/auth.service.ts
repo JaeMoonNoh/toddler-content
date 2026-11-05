@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { OAuthProviders } from './oauth-providers';
-import { AccountRepository } from './ports/account-repository';
+import { AccountRepository, type AccountSummary } from './ports/account-repository';
 import { SessionStore } from './ports/session-store';
 
 import type { SocialProvider } from '../domain/social-identity';
@@ -45,6 +45,16 @@ export class AuthService {
 
   logout(token: string): Promise<void> {
     return this.sessions.delete(token);
+  }
+
+  accountOf(userId: string): Promise<AccountSummary | null> {
+    return this.accounts.summaryOf(userId);
+  }
+
+  // 탈퇴: 되돌릴 수 없다. 다시 로그인하면 새 계정이 된다
+  async withdraw(userId: string): Promise<void> {
+    await this.sessions.deleteAllOf(userId);
+    await this.accounts.deleteUser(userId);
   }
 
   private providerOf(provider: SocialProvider) {

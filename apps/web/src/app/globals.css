@@ -54,6 +54,14 @@ a { color: var(--accent); }
 /* 카카오 로그인 버튼 가이드의 색 (배경 #FEE500, 글자 검정 85%) */
 .login-kakao { background: #fee500; color: rgba(0, 0, 0, 0.85); }
 .login-failed { color: var(--now); }
+.login a { font-weight: 600; text-decoration: none; }
+.page.narrow { max-width: 640px; }
+.mypage { display: grid; gap: 12px; }
+.mypage h2 { margin: 0; font-size: 16px; }
+.mypage p { margin: 0; }
+.mypage small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+.mypage .linkbtn { justify-self: start; }
+.linkbtn.danger { color: var(--now); }
 .keep { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; font-size: 14px; }
 .keep p { margin: 0; }
 .keep small { display: block; color: var(--muted); font-size: 12px; }

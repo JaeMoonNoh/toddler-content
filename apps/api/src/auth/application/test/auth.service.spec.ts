@@ -78,6 +78,34 @@ describe('AuthService', () => {
     await expect(auth.finishLogin('KAKAO', '123', now)).rejects.toThrow(UnavailableProviderError);
   });
 
+  it('계정 정보: 이어 둔 로그인 수단과 가입일', async () => {
+    const { auth } = setup();
+    const { token } = await auth.finishLogin('KAKAO', '123', now);
+    const userId = (await auth.userIdOf(token, now))!;
+    expect(await auth.accountOf(userId)).toEqual({ providers: ['KAKAO'], joinedAt: expect.any(Date) as Date });
+    expect(await auth.accountOf('nobody')).toBeNull();
+  });
+
+  it('탈퇴하면 모든 기기의 로그인이 풀리고, 다시 로그인하면 새 계정이 된다', async () => {
+    const { auth, accounts } = setup();
+    const phone = await auth.finishLogin('KAKAO', '123', now);
+    const laptop = await auth.finishLogin('KAKAO', '123', now);
+    await auth.withdraw('user-1');
+
+    expect([await auth.userIdOf(phone.token, now), await auth.userIdOf(laptop.token, now)]).toEqual([null, null]);
+    expect(accounts.deleted).toEqual(['user-1']);
+    const again = await auth.finishLogin('KAKAO', '123', now);
+    expect(await auth.userIdOf(again.token, now)).toBe('user-2');
+  });
+
+  it('탈퇴해도 다른 사람의 로그인은 그대로', async () => {
+    const { auth } = setup();
+    await auth.finishLogin('KAKAO', '1', now);
+    const other = await auth.finishLogin('KAKAO', '2', now);
+    await auth.withdraw('user-1');
+    expect(await auth.userIdOf(other.token, now)).toBe('user-2');
+  });
+
   it('로그인 주소에 state를 넣는다', () => {
     expect(setup().auth.loginUrl('KAKAO', 'abc')).toBe('https://login.example/KAKAO?state=abc');
   });

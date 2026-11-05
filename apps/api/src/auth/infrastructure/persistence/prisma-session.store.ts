@@ -31,6 +31,10 @@ export class PrismaSessionStore extends SessionStore {
   async delete(token: string): Promise<void> {
     await this.prisma.session.deleteMany({ where: { tokenHash: hashOf(token) } });
   }
+
+  async deleteAllOf(userId: string): Promise<void> {
+    await this.prisma.session.deleteMany({ where: { userId } });
+  }
 }
 
 function hashOf(token: string): string {
