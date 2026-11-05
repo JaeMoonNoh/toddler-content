@@ -6,6 +6,7 @@ import { OAuthProviders } from '../application/oauth-providers';
 import { AccountRepository } from '../application/ports/account-repository';
 import { SessionStore } from '../application/ports/session-store';
 
+import { AccountController } from './http/account.controller';
 import { AuthCookies } from './http/auth-cookies';
 import { AuthController } from './http/auth.controller';
 import { LoggedInGuard } from './http/logged-in.guard';
@@ -33,7 +34,7 @@ function configuredProviders(config: ConfigService) {
 }
 
 @Module({
-  controllers: [AuthController],
+  controllers: [AuthController, AccountController],
   providers: [
     AuthService,
     LoggedInGuard,

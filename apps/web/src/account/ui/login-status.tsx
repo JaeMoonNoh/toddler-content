@@ -25,7 +25,7 @@ export function LoginStatus() {
   if (state.loggedIn) {
     return (
       <div className="login">
-        <span>로그인했어요</span>
+        <a href="/mypage">마이페이지</a>
         <button type="button" className="linkbtn" onClick={() => void logout().then(() => window.location.reload())}>
           로그아웃
         </button>

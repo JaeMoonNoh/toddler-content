@@ -6,4 +6,7 @@ export abstract class SessionStore {
   abstract userIdOf(token: string, now: Date): Promise<null | string>;
 
   abstract delete(token: string): Promise<void>;
+
+  // 모든 기기의 로그인을 푼다
+  abstract deleteAllOf(userId: string): Promise<void>;
 }
