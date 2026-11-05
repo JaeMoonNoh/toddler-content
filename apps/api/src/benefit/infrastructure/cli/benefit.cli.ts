@@ -9,13 +9,16 @@ import { BenefitCandidateService } from '../../application/benefit-candidate.ser
 import { BenefitCatalogService } from '../../application/benefit-catalog.service';
 import { BenefitPlanService, type PlanProblem } from '../../application/benefit-plan.service';
 import { BenefitReviewService } from '../../application/benefit-review.service';
+import { judgmentDifferences } from '../../domain/candidate-judgment';
 import { parsePlans } from '../catalog/json-benefit-plans';
-import { parseDecisions } from '../catalog/json-candidate-decisions';
+import { parseDecisions, parseJudgments } from '../catalog/json-candidate-decisions';
 
 import { BenefitCliModule } from './benefit-cli.module';
 import { BenefitDetailPrinter } from './benefit-detail-printer';
 import { printCandidates } from './candidate-printer';
+import { printJudgmentDifferences } from './judgment-printer';
 import { printCardsToPlan } from './plan-text-printer';
+import { needsCrossCheck, printPlanVerify } from './plan-verify-printer';
 import { ReviewPrinter } from './review-printer';
 
 const USAGE = `사용법: pnpm benefit <명령>
@@ -29,10 +32,17 @@ const USAGE = `사용법: pnpm benefit <명령>
                            후보 md에서 고른 것을 혜택 목록에 카드로 넣기 (이름 정리, 신청 방법 초안 포함)
   plan-texts <지역코드> <폴더> [건수]
                            일정·금액·올해 기간이 비어 있는 카드의 원문을 md로 나눠 쓰기 (기본 50건씩)
-  plan-check <초안.json>   일정·금액 초안 검사 (규칙: docs/benefit-plan-rules.md)
+  compare-decisions <판단A.json> <판단B.json>
+                           두 판단에서 갈린 후보만 보기 (같은 후보를 둘이 따로 골랐을 때)
+  plan-check <초안.json> [...]
+                           일정·금액 초안 검사 (규칙: docs/benefit-plan-rules.md)와 근거 인용이 원문에 있는지
+  plan-verify <폴더> <초안.json> [...]
+                           날짜·합계 금액이 있는 초안을 원문과 나란히 모아 대조용 md로 쓰기
   plan-apply <초안.json>   검사를 통과한 초안을 data/benefit-catalog.json에 넣기`;
 
 const DEFAULT_PLAN_TEXT_SIZE = 50;
+// 대조 subagent 하나가 한 번에 읽기 알맞은 양
+const CROSS_CHECK_FILE_SIZE = 25;
 
 type Command = (app: INestApplicationContext, args: string[]) => Promise<{ text: string; ok: boolean }>;
 
@@ -75,11 +85,32 @@ const COMMANDS: Record<string, Command> = {
     }
     return { text: `카드 ${cards.length}건을 ${outDir}에 ${total}개 파일로 썼어요`, ok: true };
   },
-  'plan-check': async (app, [path]) => {
-    if (!path) return { text: '초안 파일을 넣어 주세요', ok: false };
-    const plans = parsePlans(await readFile(path, 'utf8'));
-    const problems = await app.get(BenefitPlanService).check(plans, thisYear());
+  'compare-decisions': async (_, [pathA, pathB]) => {
+    if (!pathA || !pathB) return { text: '판단 파일 두 개를 넣어 주세요', ok: false };
+    const [a, b] = [parseJudgments(await readFile(pathA, 'utf8')), parseJudgments(await readFile(pathB, 'utf8'))];
+    const differences = judgmentDifferences(a, b);
+    return { text: printJudgmentDifferences(differences, new Set([...a, ...b].map((j) => j.slug)).size), ok: true };
+  },
+  'plan-check': async (app, paths) => {
+    if (!paths.length) return { text: '초안 파일을 넣어 주세요', ok: false };
+    const plans = await readPlans(paths);
+    const service = app.get(BenefitPlanService);
+    const problems = [...(await service.check(plans, thisYear())), ...(await service.quoteProblems(plans))];
     return problems.length ? { text: printPlanProblems(problems), ok: false } : { text: `✔ 문제 없음 (${plans.length}건)`, ok: true };
+  },
+  'plan-verify': async (app, [outDir, ...paths]) => {
+    if (!outDir || !paths.length) return { text: '출력 폴더와 초안 파일을 넣어 주세요 (예: plan-verify out draft-1.json)', ok: false };
+    const items = (await app.get(BenefitPlanService).withSources(await readPlans(paths))).filter(needsCrossCheck);
+    const total = Math.ceil(items.length / CROSS_CHECK_FILE_SIZE);
+    await mkdir(outDir, { recursive: true });
+    for (let part = 0; part < total; part++) {
+      const title = `일정·금액 대조 ${part + 1}/${total}`;
+      await writeFile(
+        join(outDir, `verify-${part + 1}.md`),
+        printPlanVerify(items.slice(part * CROSS_CHECK_FILE_SIZE, (part + 1) * CROSS_CHECK_FILE_SIZE), title),
+      );
+    }
+    return { text: `대조할 카드 ${items.length}건을 ${outDir}에 ${total}개 파일로 썼어요`, ok: true };
   },
   'plan-apply': async (app, [path]) => {
     if (!path) return { text: '초안 파일을 넣어 주세요', ok: false };
@@ -91,6 +122,10 @@ const COMMANDS: Record<string, Command> = {
     return { text: app.get(ReviewPrinter).printRetire(result), ok: result.failed.length === 0 && slugs.length > 0 };
   },
 };
+
+async function readPlans(paths: string[]) {
+  return (await Promise.all(paths.map(async (path) => parsePlans(await readFile(path, 'utf8'))))).flat();
+}
 
 function thisYear() {
   return formatKstDate(new Date()).slice(0, 4);
