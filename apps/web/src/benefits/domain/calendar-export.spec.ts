@@ -2,10 +2,11 @@ import { describe, expect, it } from 'vitest';
 import type { BenefitSchedule, PublishedBenefit } from './benefit';
 import { CalendarDate } from './calendar-date';
 import { ChildDates } from './child-dates';
-import { deadlineEventsOf } from './deadline-event';
+import { deadlineEventsOf, deadlineEventsOfSaved } from './deadline-event';
 import { googleCalendarUrl } from './google-calendar';
 import { escapeText, fold, IcsCalendar } from './ics-calendar';
 import { RegionTree } from './region';
+import { SavedBenefits } from './saved-benefits';
 import { buildTimeline } from './timeline';
 
 const due = ChildDates.of(CalendarDate.parse('2027-05-06'), null)!;
@@ -85,6 +86,40 @@ describe('deadlineEventsOf', () => {
   it('확인된 혜택에는 검증 전 안내를 넣지 않는다', () => {
     const [event] = eventsOn('2026-11-02', [benefit('parent', '부모급여', schedule(0, 59), 'VERIFIED')]);
     expect(event.description).not.toContain('검증 전');
+  });
+});
+
+describe('deadlineEventsOfSaved', () => {
+  const today = CalendarDate.parse('2026-11-05')!;
+  const period = (start: string, end: string) => ({ start, end, basis: { text: '근거', url: 'https://a.kr' } });
+  const benefits = [
+    benefit('parent', '부모급여 지원', schedule(0, 59)),
+    { ...benefit('yearly', '올해 공고', null), applicationPeriod: period('2026-03-01', '2026-12-31') },
+    { ...benefit('past', '지난 공고', null), applicationPeriod: period('2026-01-01', '2026-06-30') },
+    benefit('unknown', '기간 모름', null),
+    benefit('done', '신청함', schedule(0, 30)),
+    benefit('unsaved', '저장 안 함', schedule(0, 10)),
+  ];
+  const saved = ['parent', 'yearly', 'past', 'unknown', 'done'].reduce((list, slug) => list.save(slug), SavedBenefits.empty()).markApplied('done');
+  const events = deadlineEventsOfSaved(saved.listOf(benefits, buildTimeline(region, benefits, due, today), today), today);
+
+  it('저장한 것 중 신청 전이고 마감이 남은 것만 마감일 순으로 넣는다', () => {
+    expect(events.map((e) => [e.date.toIso(), e.title])).toEqual([
+      ['2026-12-31', '[신청 마감] 올해 공고'],
+      ['2027-07-04', '[소급 신청 마감] 부모급여 지원'],
+    ]);
+  });
+
+  it('출산예정일 일정이 없는 공고는 올해 신청 기간을 설명에 쓴다', () => {
+    expect(events[0].description.split('\n')).toEqual([
+      '올해 신청 기간: 2026.3.1(일) ~ 2026.12.31(목)',
+      '아직 검증 전인 정보예요. 신청 전에 원문을 확인해 주세요.',
+      '원문: https://www.bokjiro.go.kr/yearly',
+    ]);
+  });
+
+  it('저장한 게 없으면 빈 목록', () => {
+    expect(deadlineEventsOfSaved([], today)).toEqual([]);
   });
 });
 
