@@ -704,6 +704,10 @@
       {
         "source": "GOV24",
         "externalId": "135200000005"
+      },
+      {
+        "source": "BOKJIRO_NATIONAL",
+        "externalId": "WLF00006239"
       }
     ],
     "amount": {
@@ -1083,7 +1087,7 @@
   },
   {
     "slug": "gov24-135200005058",
-    "name": "2025 영구 불임예상 난자·정자 냉동 지원",
+    "name": "영구 불임예상 난자·정자 냉동 지원",
     "regionCode": "0000000000",
     "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2156131&bnefType=all&svcId=135200005058",
     "sources": [
@@ -1158,6 +1162,10 @@
       {
         "source": "GOV24",
         "externalId": "138300000065"
+      },
+      {
+        "source": "BOKJIRO_NATIONAL",
+        "externalId": "WLF00005856"
       }
     ],
     "audience": "SINGLE_TEEN_PARENT",
@@ -1178,6 +1186,10 @@
       {
         "source": "GOV24",
         "externalId": "138300000066"
+      },
+      {
+        "source": "BOKJIRO_NATIONAL",
+        "externalId": "WLF00003186"
       }
     ],
     "audience": "SINGLE_TEEN_PARENT",
@@ -1543,6 +1555,10 @@
       {
         "source": "GOV24",
         "externalId": "B55092800042"
+      },
+      {
+        "source": "BOKJIRO_NATIONAL",
+        "externalId": "WLF00006300"
       }
     ],
     "amount": {
@@ -1809,6 +1825,10 @@
       {
         "source": "GOV24",
         "externalId": "SCH000000070"
+      },
+      {
+        "source": "BOKJIRO_NATIONAL",
+        "externalId": "WLF00001147"
       }
     ],
     "conditions": [
@@ -1851,6 +1871,10 @@
       {
         "source": "GOV24",
         "externalId": "SCY000000050"
+      },
+      {
+        "source": "BOKJIRO_NATIONAL",
+        "externalId": "WLF00001021"
       }
     ],
     "audience": "ADOPTION_FOSTER",
@@ -1972,6 +1996,10 @@
       {
         "source": "GOV24",
         "externalId": "SD0000007672"
+      },
+      {
+        "source": "BOKJIRO_NATIONAL",
+        "externalId": "WLF00006313"
       }
     ],
     "schedule": {
@@ -2516,44 +2544,6 @@
     ]
   },
   {
-    "slug": "bokjiro-wlf00006313",
-    "name": "건강보험 임신출산 진료비(국민행복카드)",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006313&wlfareInfoReldBztpCd=01",
-    "sources": [
-      {
-        "source": "BOKJIRO_NATIONAL",
-        "externalId": "WLF00006313"
-      }
-    ]
-  },
-  {
-    "slug": "bokjiro-wlf00006300",
-    "name": "조산아 및 저체중출생아 본인부담금 경감",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006300&wlfareInfoReldBztpCd=01",
-    "sources": [
-      {
-        "source": "BOKJIRO_NATIONAL",
-        "externalId": "WLF00006300"
-      }
-    ],
-    "audience": "SICK_CHILD"
-  },
-  {
-    "slug": "bokjiro-wlf00003186",
-    "name": "양육비 이행 원스톱 종합서비스",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003186&wlfareInfoReldBztpCd=01",
-    "sources": [
-      {
-        "source": "BOKJIRO_NATIONAL",
-        "externalId": "WLF00003186"
-      }
-    ],
-    "audience": "SINGLE_TEEN_PARENT"
-  },
-  {
     "slug": "bokjiro-wlf00000028",
     "name": "공동육아나눔터 운영",
     "regionCode": "0000000000",
@@ -2566,47 +2556,6 @@
     ]
   },
   {
-    "slug": "bokjiro-wlf00005856",
-    "name": "양육비 선지급",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005856&wlfareInfoReldBztpCd=01",
-    "sources": [
-      {
-        "source": "BOKJIRO_NATIONAL",
-        "externalId": "WLF00005856"
-      }
-    ],
-    "audience": "SINGLE_TEEN_PARENT"
-  },
-  {
-    "slug": "bokjiro-wlf00001147",
-    "name": "그 밖의 연장형 보육료 등 지원",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001147&wlfareInfoReldBztpCd=01",
-    "sources": [
-      {
-        "source": "BOKJIRO_NATIONAL",
-        "externalId": "WLF00001147"
-      }
-    ],
-    "conditions": [
-      "USES_CHILDCARE"
-    ]
-  },
-  {
-    "slug": "bokjiro-wlf00001021",
-    "name": "장애아동입양 양육보조금",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001021&wlfareInfoReldBztpCd=01",
-    "sources": [
-      {
-        "source": "BOKJIRO_NATIONAL",
-        "externalId": "WLF00001021"
-      }
-    ],
-    "audience": "ADOPTION_FOSTER"
-  },
-  {
     "slug": "bokjiro-wlf00000030",
     "name": "육아종합지원서비스 제공",
     "regionCode": "0000000000",
@@ -2616,21 +2565,6 @@
         "source": "BOKJIRO_NATIONAL",
         "externalId": "WLF00000030"
       }
-    ]
-  },
-  {
-    "slug": "bokjiro-wlf00003226",
-    "name": "모성보호육아지원(출산전후휴가(유산ㆍ사산휴가 포함) 급여, 육아휴직등 급여)",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003226&wlfareInfoReldBztpCd=01",
-    "sources": [
-      {
-        "source": "BOKJIRO_NATIONAL",
-        "externalId": "WLF00003226"
-      }
-    ],
-    "conditions": [
-      "EITHER_PARENT_INSURED"
     ]
   },
   {
@@ -2650,26 +2584,6 @@
       "basis": {
         "text": "신청방법: 방문신청 / 접수기관: 시·군·구청 / 전화문의: 지방세 one call 서비스/1577-5700",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999002&bnefType=all&svcId=131200000008"
-      }
-    }
-  },
-  {
-    "slug": "gov24-135200000006",
-    "name": "소년소녀가정 지원",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999140&bnefType=all&svcId=135200000006",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "135200000006"
-      }
-    ],
-    "audience": "LOW_INCOME",
-    "howToApply": {
-      "summary": "주민센터 방문 또는 온라인 · 문의 129",
-      "basis": {
-        "text": "신청방법: 기타 온라인신청, 방문신청 / 접수기관: 주민센터 / 전화문의: 보건복지상담센터/129",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999140&bnefType=all&svcId=135200000006"
       }
     }
   },
@@ -2710,26 +2624,6 @@
       "basis": {
         "text": "신청방법: 방문신청 / 접수기관: 보건소 / 전화문의: 질병관리청 콜센터/1339 외",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=749131&bnefType=all&svcId=135200000115"
-      }
-    }
-  },
-  {
-    "slug": "gov24-179038700004",
-    "name": "HPV 국가예방접종사업",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2103203&bnefType=all&svcId=179038700004",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "179038700004"
-      }
-    ],
-    "audience": "SPECIAL",
-    "howToApply": {
-      "summary": "따로 신청하지 않아도 돼요 · 문의 1339",
-      "basis": {
-        "text": "신청방법: 신청불필요 / 전화문의: 질병관리청 콜센터/1339",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2103203&bnefType=all&svcId=179038700004"
       }
     }
   },
@@ -2808,45 +2702,6 @@
       "basis": {
         "text": "신청방법: 기타 온라인신청, 방문신청, 직접입력 / 전화문의: 한전 고객센터 (국번없이)/123",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2000928&bnefType=all&svcId=B41000200003"
-      }
-    }
-  },
-  {
-    "slug": "gov24-b55271300007",
-    "name": "청소년 성장 지원 서비스",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2001209&bnefType=all&svcId=B55271300007",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "B55271300007"
-      }
-    ],
-    "audience": "LOW_INCOME",
-    "howToApply": {
-      "summary": "온라인 · 문의 041-620-7743",
-      "basis": {
-        "text": "신청방법: 기타 온라인신청 / 전화문의: 활동운영기획부/041-620-7743",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2001209&bnefType=all&svcId=B55271300007"
-      }
-    }
-  },
-  {
-    "slug": "gov24-b55288100003",
-    "name": "학부모온누리",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2002089&bnefType=all&svcId=B55288100003",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "B55288100003"
-      }
-    ],
-    "howToApply": {
-      "summary": "온라인 · 문의 02-3780-9936",
-      "basis": {
-        "text": "신청방법: 기타 온라인신청 / 전화문의: 전국학부모지원센터/02-3780-9936",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2002089&bnefType=all&svcId=B55288100003"
       }
     }
   },
@@ -2937,25 +2792,6 @@
       "basis": {
         "text": "신청방법: 방문신청 / 접수기관: 시·군·구청 / 전화문의: 보건복지상담센터/129",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=999135&bnefType=all&svcId=SCY000000170"
-      }
-    }
-  },
-  {
-    "slug": "gov24-sd0000003474",
-    "name": "온가족보듬사업",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=549102&bnefType=all&svcId=SD0000003474",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "SD0000003474"
-      }
-    ],
-    "howToApply": {
-      "summary": "시·군·구 가족센터 방문 · 문의 1577-9337",
-      "basis": {
-        "text": "신청방법: 방문신청 / 접수기관: 시·군·구 가족센터 / 전화문의: 시·군·구 가족센터/1577-9337",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=549102&bnefType=all&svcId=SD0000003474"
       }
     }
   },
@@ -3104,19 +2940,6 @@
       }
     ],
     "audience": "ADOPTION_FOSTER"
-  },
-  {
-    "slug": "bokjiro-wlf00006239",
-    "name": "영양플러스 사업",
-    "regionCode": "0000000000",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006239&wlfareInfoReldBztpCd=01",
-    "sources": [
-      {
-        "source": "BOKJIRO_NATIONAL",
-        "externalId": "WLF00006239"
-      }
-    ],
-    "audience": "LOW_INCOME"
   },
   {
     "slug": "gov24-628000000744",
@@ -3807,64 +3630,6 @@
     }
   },
   {
-    "slug": "gov24-351050000128",
-    "name": "영유아 발달 정밀검사비 지원",
-    "regionCode": "2817700000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2177016&bnefType=all&svcId=351050000128",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "351050000128"
-      }
-    ],
-    "audience": "SICK_CHILD",
-    "howToApply": {
-      "summary": "방문 또는 정부24 온라인 · 문의 032-880-5471",
-      "basis": {
-        "text": "신청방법: 정부24온라인신청, 방문신청, 직접입력 / 전화문의: 미추홀구보건소 건강증진과 모자보건팀/032-880-5471",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2177016&bnefType=all&svcId=351050000128"
-      }
-    },
-    "amount": {
-      "kind": "service",
-      "summary": "영유아 건강검진 발달평가에서 \"심화평가 권고\"를 받으면 정밀검사비",
-      "tiers": null,
-      "basis": {
-        "text": "영유아 건강검진 발달 평가 결과 '심화평가 권고' 판정자에게 발달 정밀 검사비 지원",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2177016&bnefType=all&svcId=351050000128"
-      }
-    }
-  },
-  {
-    "slug": "gov24-351050000104",
-    "name": "여성장애인 출산비용 지원",
-    "regionCode": "2817700000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003042&bnefType=all&svcId=351050000104",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "351050000104"
-      }
-    ],
-    "audience": "DISABILITY",
-    "howToApply": {
-      "summary": "방문 또는 정부24 온라인 또는 온라인 · 문의 032-880-4294",
-      "basis": {
-        "text": "신청방법: 정부24온라인신청, 기타 온라인신청, 방문신청 / 전화문의: 노인장애인복지과/032-880-4294",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003042&bnefType=all&svcId=351050000104"
-      }
-    },
-    "amount": {
-      "kind": "cash",
-      "summary": "태아 1인 기준 120만원 (2026년 출생아 기준)",
-      "tiers": null,
-      "basis": {
-        "text": "등록 여성 장애인이 출산(유산,사산 포함) 시 태아 1인 기준 120만원 지급(2026년 1월 출생아 기준)",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003042&bnefType=all&svcId=351050000104"
-      }
-    }
-  },
-  {
     "slug": "bokjiro-wlf00002680",
     "name": "민간가정 어린이집 부모부담 보육료지원",
     "regionCode": "2817700000",
@@ -3912,72 +3677,6 @@
       "basis": {
         "text": "난임부부 시술비 지원대상자(인공, 체외)에게 지원금액 한도내에서 시술과 직접적 관련 있는 원외약 처방 약제비 지급",
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2119301&bnefType=all&svcId=352000000117"
-      }
-    }
-  },
-  {
-    "slug": "gov24-352000000120",
-    "name": "영유아 발달장애 정밀검사비 지원",
-    "regionCode": "2818500000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2119704&bnefType=all&svcId=352000000120",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "352000000120"
-      }
-    ],
-    "audience": "SICK_CHILD",
-    "howToApply": {
-      "summary": "방문 또는 정부24 온라인 · 문의 032-749-8154",
-      "basis": {
-        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 연수구보건소 건강증진과 모자건강팀/032-749-8154",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2119704&bnefType=all&svcId=352000000120"
-      }
-    },
-    "amount": {
-      "kind": "service",
-      "summary": "영유아 건강검진 발달평가에서 \"심화평가 권고\"를 받으면 정밀검사비",
-      "tiers": null,
-      "basis": {
-        "text": "영유아 건강검진 발달 평가 결과 '심화평가 권고' 판정자에게 발달 정밀 검사비 지원",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2119704&bnefType=all&svcId=352000000120"
-      }
-    }
-  },
-  {
-    "slug": "gov24-352000000123",
-    "name": "여성장애인 출산비용 지원",
-    "regionCode": "2818500000",
-    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2142317&bnefType=all&svcId=352000000123",
-    "sources": [
-      {
-        "source": "GOV24",
-        "externalId": "352000000123"
-      }
-    ],
-    "audience": "DISABILITY",
-    "howToApply": {
-      "summary": "방문 또는 정부24 온라인 또는 온라인 · 문의 032-749-7703",
-      "basis": {
-        "text": "신청방법: 정부24온라인신청, 기타 온라인신청, 방문신청 / 전화문의: 연수구청 노인장애인과/032-749-7703",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2142317&bnefType=all&svcId=352000000123"
-      }
-    },
-    "amount": {
-      "kind": "cash",
-      "summary": "태아 1인 기준 120만원 (2026년 출생아 기준)",
-      "tiers": null,
-      "basis": {
-        "text": "출산 (유산,사산 포함) 시 태아 1인 기준 120만원 지원",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2142317&bnefType=all&svcId=352000000123"
-      }
-    },
-    "applicationPeriod": {
-      "start": "2026-01-01",
-      "end": "2026-12-31",
-      "basis": {
-        "text": "신청기한: 2026.1.1. ~2026.12.31.",
-        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2142317&bnefType=all&svcId=352000000123"
       }
     }
   },
@@ -4469,7 +4168,7 @@
   },
   {
     "slug": "bokjiro-wlf00000957",
-    "name": "2025년 어린이집 교재비 지원",
+    "name": "어린이집 교재비 지원",
     "regionCode": "2872000000",
     "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000957&wlfareInfoReldBztpCd=02",
     "sources": [
@@ -19110,5 +18809,56 @@
         "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2168571&bnefType=all&svcId=448000000676"
       }
     }
+  },
+  {
+    "slug": "gov24-326000000053",
+    "name": "어린이 국가예방접종",
+    "regionCode": "0000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=588799&bnefType=all&svcId=326000000053",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "326000000053"
+      },
+      {
+        "source": "BOKJIRO_NATIONAL",
+        "externalId": "WLF00003242"
+      }
+    ],
+    "howToApply": {
+      "summary": "보건소나 위탁의료기관 방문 · 문의 1339",
+      "basis": {
+        "text": "신청방법: 방문신청 / 접수기관: 관할 보건소 또는 어린이 국가예방접종 위탁의료기관",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=588799&bnefType=all&svcId=326000000053"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 156,
+        "days": -1
+      },
+      "untilLabel": "만 12세까지",
+      "summary": "태어나서 만 12세까지 국가예방접종 17종을 보건소나 지정 병원에서 무료로 맞아요. 백신마다 맞는 시기가 달라서 의사와 일정을 상담해요",
+      "basis": {
+        "text": "12세 이하 어린이 / 접종시기가 지연될 경우 접종일정(횟수)이 달라지거나, 생략되므로 세부적인 접종일정은 의사와 상담 필요",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=588799&bnefType=all&svcId=326000000053"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "17종 예방접종비 전액 무료",
+      "tiers": null,
+      "basis": {
+        "text": "국가예방접종 17종 감염병에 대한 예방접종비용을 전액 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=588799&bnefType=all&svcId=326000000053"
+      }
+    },
+    "plannedOn": "2026-11-05"
   }
 ]
