@@ -6,10 +6,12 @@ import { splitByAudience } from '../domain/audience';
 import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { answeredCount, splitByEligibility, UNANSWERED } from '../domain/eligibility';
-import { describeStage, pregnancyStage } from '../domain/pregnancy';
+import { ChildDates } from '../domain/child-dates';
+import { childStage, describeStage, hasSchedule } from '../domain/pregnancy';
 import { type RegionDirectory, RegionTree } from '../domain/region';
 import { ALL_TAB, buildTimeline, OTHER_TAB, SAVED_TAB, tabsOf, withoutBenefits } from '../domain/timeline';
 import { BenefitGroups } from './benefit-groups';
+import { ChildDatesField } from './child-dates-field';
 import { CalendarDownload } from './calendar-download';
 import { ExcludedBenefits } from './excluded-benefits';
 import { AmountReceipt } from './amount-receipt';
@@ -21,26 +23,26 @@ import { SavedBenefitsContext, useSavedBenefitsStore } from './saved-benefits-st
 import { SavedList } from './saved-list';
 import { TimelineCard } from './timeline-card';
 
-// 사는 곳, 출산예정일, 고용보험 답은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다
+// 사는 곳, 출산예정일·출생일, 고용보험 답은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다
 export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefit[]; regions: RegionDirectory }) {
   const store = useSavedBenefitsStore();
   const { saved } = store;
   const tree = useMemo(() => new RegionTree(regions.regions), [regions]);
   const [pick, setPick] = useState<RegionPick>({ provinceCode: '', districtCode: '' });
-  const [dueText, setDueText] = useState('');
+  const [childInput, setChildInput] = useState({ dueText: '', born: false, birthText: '' });
   const [household, setHousehold] = useState(UNANSWERED);
   const [tab, setTab] = useState(ALL_TAB);
   const listRef = useRef<HTMLElement>(null);
 
   const region = tree.choose(pick.districtCode || pick.provinceCode || null);
   const today = CalendarDate.today();
-  const due = CalendarDate.parse(dueText);
-  const stage = due ? pregnancyStage(due, today) : null;
+  const dates = ChildDates.of(CalendarDate.parse(childInput.dueText), childInput.born ? CalendarDate.parse(childInput.birthText) : null);
+  const stage = dates ? childStage(dates, today) : null;
   const { shown, excluded } = splitByEligibility(
     benefits.filter((b) => region.covers(b)),
     household,
   );
-  const fullTimeline = due && stage?.kind !== 'too-far' ? buildTimeline(region, shown, due, today) : null;
+  const fullTimeline = dates && stage && hasSchedule(stage) ? buildTimeline(region, shown, dates, today) : null;
   // 저장한 혜택은 저장한 혜택 탭에만 보여주고 시기별 목록에서는 뺀다. 합계와 캘린더에는 그대로 넣는다
   const isSaved = (benefit: PublishedBenefit) => saved.has(benefit.slug);
   const savedItems = saved.listOf(shown, fullTimeline, today);
@@ -69,13 +71,12 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
         <aside className="side">
           <form className="form" autoComplete="off" onSubmit={(e) => e.preventDefault()}>
             <RegionField tree={tree} pick={pick} choice={region} prepared={region.isPrepared(benefits)} onChange={setPick} />
-            <div className="field">
-              <label htmlFor="due">출산예정일</label>
-              <input id="due" type="date" value={dueText} onChange={(e) => setDueText(e.target.value)} />
-              <p className="stage" aria-live="polite">
-                {stage ? describeStage(stage) : '출산예정일을 넣으면 신청 일정을 날짜로 계산해 드려요'}
-              </p>
-            </div>
+            <ChildDatesField
+              input={childInput}
+              today={today}
+              stageText={stage ? describeStage(stage) : '출산예정일을 넣으면 신청 일정을 날짜로 계산해 드려요'}
+              onChange={setChildInput}
+            />
             <details className="more-fields">
               <summary>
                 더 정확하게 보기 <span>{answeredCount(household) ? `${answeredCount(household)}개 답함` : '선택'}</span>
@@ -88,7 +89,9 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
           <AmountReceipt receipt={receipt} birthOrderKnown={household.birthOrder !== null} />
           {fullTimeline && <CalendarDownload timeline={fullTimeline} />}
           <p className="notice">
-            일정은 아이가 출산예정일에 태어난다고 보고 계산해요. 실제 출생일이 다르면 그만큼 밀리거나 당겨져요.
+            {dates?.isBorn
+              ? '일정은 실제 출생일로 계산했어요.'
+              : '일정은 아이가 출산예정일에 태어난다고 보고 계산해요. 태어나면 "아이가 태어났어요"에 출생일을 넣어 주세요.'}
           </p>
         </aside>
 

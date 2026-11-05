@@ -1,7 +1,7 @@
 export type ReviewStatus = 'VERIFIED' | 'UNVERIFIED' | 'SOURCE_CHANGED';
 
 export interface ScheduleOffset {
-  anchor: 'pregnancy' | 'birth'; // pregnancy: 임신 시작(출산예정일 280일 전), birth: 출생일
+  anchor: 'pregnancy' | 'birth'; // pregnancy: 임신 시작(출산예정일 280일 전), birth: 출생일(태어나기 전에는 출산예정일)
   months: number;
   days: number;
 }

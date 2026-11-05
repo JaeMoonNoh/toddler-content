@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import type { BenefitSchedule, PublishedBenefit } from './benefit';
 import { CalendarDate } from './calendar-date';
+import { ChildDates } from './child-dates';
 import { deadlineEventsOf } from './deadline-event';
 import { googleCalendarUrl } from './google-calendar';
 import { escapeText, fold, IcsCalendar } from './ics-calendar';
 import { RegionTree } from './region';
 import { buildTimeline } from './timeline';
 
-const due = CalendarDate.parse('2027-05-06')!;
+const due = ChildDates.of(CalendarDate.parse('2027-05-06'), null)!;
 const region = new RegionTree([]).choose(null); // 전국만
 const schedule = (fromDays: number, untilDays: number, untilLabel = '소급 신청 마감'): BenefitSchedule => ({
   from: { anchor: 'birth', months: 0, days: fromDays },
@@ -66,6 +67,13 @@ describe('deadlineEventsOf', () => {
       '출산예정일에 태어난다고 보고 계산한 날짜예요.',
       '원문: https://www.bokjiro.go.kr/parent',
     ]);
+  });
+
+  it('태어난 뒤에는 출생일로 계산하고 출산예정일 기준 안내를 넣지 않는다', () => {
+    const born = ChildDates.of(due.due, CalendarDate.parse('2027-04-30'))!;
+    const timeline = buildTimeline(region, [benefit('parent', '부모급여 지원', schedule(0, 59))], born, CalendarDate.parse('2027-05-01')!);
+    const [event] = deadlineEventsOf(timeline);
+    expect([event.date.toIso(), event.description.includes('출산예정일')]).toEqual(['2027-06-28', false]);
   });
 
   it('임신 0주에 시작하는 혜택은 기간을 "임신 확인 후"부터로 쓴다', () => {

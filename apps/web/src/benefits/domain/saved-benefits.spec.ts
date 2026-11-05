@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import type { ApplicationPeriod, BenefitSchedule, PublishedBenefit } from './benefit';
 import { CalendarDate } from './calendar-date';
+import { ChildDates } from './child-dates';
 import { RegionTree } from './region';
 import { SavedBenefits } from './saved-benefits';
 import { buildTimeline } from './timeline';
 
-const due = CalendarDate.parse('2027-05-06')!;
+const due = ChildDates.of(CalendarDate.parse('2027-05-06'), null)!;
 const today = CalendarDate.parse('2026-11-05')!;
 const region = new RegionTree([{ code: '0000000000', name: '전국', fullName: '전국', parentCode: null }]).choose(null);
 
