@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { BenefitSchedule, PublishedBenefit } from './benefit';
 import { CalendarDate } from './calendar-date';
 import { RegionTree } from './region';
-import { buildTimeline, tabsOf } from './timeline';
+import { buildTimeline, tabsOf, withoutBenefits } from './timeline';
 
 const due = CalendarDate.parse('2027-05-06')!;
 const today = CalendarDate.parse('2026-11-02')!;
@@ -106,7 +106,7 @@ describe('tabsOf', () => {
   );
 
   it('전체, 혜택이 있는 시기, 그 밖의 혜택 순서로 건수와 함께 만든다', () => {
-    expect(tabsOf(timeline, 3)).toEqual([
+    expect(tabsOf(timeline, 3, 0)).toEqual([
       { label: '전체', count: 6 },
       { label: '임신 중', count: 1 },
       { label: '출산 직후', count: 2 },
@@ -115,13 +115,45 @@ describe('tabsOf', () => {
   });
 
   it('그 밖의 혜택이 없으면 그 탭은 만들지 않는다', () => {
-    expect(tabsOf(timeline, 0).map((tab) => tab.label)).toEqual(['전체', '임신 중', '출산 직후']);
+    expect(tabsOf(timeline, 0, 0).map((tab) => tab.label)).toEqual(['전체', '임신 중', '출산 직후']);
   });
 
   it('일정이 있는 혜택이 없으면 전체와 그 밖의 혜택만', () => {
-    expect(tabsOf(buildTimeline(region(null), [], due, today), 2)).toEqual([
+    expect(tabsOf(buildTimeline(region(null), [], due, today), 2, 0)).toEqual([
       { label: '전체', count: 2 },
       { label: '그 밖의 혜택', count: 2 },
     ]);
+  });
+
+  it('저장한 혜택이 있으면 맨 앞에 저장한 혜택 탭을 둔다', () => {
+    expect(tabsOf(timeline, 3, 2).map((tab) => [tab.label, tab.count])).toEqual([
+      ['저장한 혜택', 2],
+      ['전체', 6],
+      ['임신 중', 1],
+      ['출산 직후', 2],
+      ['그 밖의 혜택', 3],
+    ]);
+  });
+
+  it('출산예정일이 없으면 저장한 혜택이 있을 때만 저장한 혜택과 전체로 나눈다', () => {
+    expect(tabsOf(null, 5, 0)).toEqual([]);
+    expect(tabsOf(null, 5, 1)).toEqual([
+      { label: '저장한 혜택', count: 1 },
+      { label: '전체', count: 5 },
+    ]);
+  });
+});
+
+describe('withoutBenefits', () => {
+  it('뺀 혜택이 없는 시기는 남기고, 모두 빠진 시기는 지운다', () => {
+    const timeline = buildTimeline(
+      region(null),
+      [benefit('진료비', schedule(0, 730, 'pregnancy')), benefit('부모급여', schedule(0, 59)), benefit('규칙 없음', null)],
+      due,
+      today,
+    );
+    const rest = withoutBenefits(timeline, (b) => b.slug === '진료비' || b.slug === '규칙 없음');
+    expect(rest.phases.map((p) => [p.tab, p.items.map((i) => i.benefit.slug)])).toEqual([['출산 직후', ['부모급여']]]);
+    expect(rest.unscheduled).toEqual([]);
   });
 });

@@ -5,12 +5,14 @@ import type { TimelineItem } from '../domain/timeline';
 import { BenefitChips } from './benefit-chips';
 import { CardFooter } from './card-footer';
 import { HowToApplyLine } from './how-to-apply-line';
+import { useIsApplied } from './save-controls';
 
 // 한눈에 볼 것(기간, 설명, 금액)만 펼치고, 근거는 접어 둔다
 export function TimelineCard({ item }: { item: TimelineItem }) {
   const { benefit, schedule, window, status } = item;
+  const applied = useIsApplied(benefit.slug);
   return (
-    <li className={`ev s-${emphasisOf(status)}`}>
+    <li className={applied ? 'ev is-done' : `ev s-${emphasisOf(status)}`}>
       <div className="when">
         <b>{window.formatStartShort()}</b>
         <span>{describeStatus(status)}</span>
