@@ -1,5 +1,5 @@
 import { plainToInstance, Transform } from 'class-transformer';
-import { IsIn, IsInt, IsNotEmpty, IsString, IsUrl, Max, Min, validateSync } from 'class-validator';
+import { IsIn, IsInt, IsNotEmpty, IsOptional, IsString, IsUrl, Max, Min, validateSync } from 'class-validator';
 
 const DEFAULT_PORT = 4000;
 const DEFAULT_WEB_ORIGIN = 'http://localhost:3000';
@@ -29,6 +29,18 @@ export class EnvironmentVariables {
 
   @IsUrl({ require_tld: false, require_protocol: true })
   WEB_ORIGIN: string = DEFAULT_WEB_ORIGIN;
+
+  // 카카오 로그인 REST API 키. 비워 두면 카카오 로그인 버튼이 나오지 않는다
+  @Transform(unquote)
+  @IsOptional()
+  @IsString()
+  KAKAO_REST_API_KEY?: string;
+
+  // 카카오 개발자 콘솔에서 Client Secret을 켰을 때만 넣는다
+  @Transform(unquote)
+  @IsOptional()
+  @IsString()
+  KAKAO_CLIENT_SECRET?: string;
 
   // off면 새벽 자동 수집을 끈다
   @IsIn(['on', 'off'])

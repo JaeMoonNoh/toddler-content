@@ -1,6 +1,7 @@
 import { BeforeApplicationShutdown, Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 
+import { AuthModule } from './auth/infrastructure/auth.module';
 import { BenefitModule } from './benefit/infrastructure/benefit.module';
 import { AppConfigModule } from './config/app-config.module';
 import { DailyCheckScheduleModule } from './daily-check/infrastructure/daily-check-schedule.module';
@@ -10,7 +11,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { RegionModule } from './region/infrastructure/region.module';
 
 @Module({
-  imports: [AppConfigModule, ScheduleModule.forRoot(), PrismaModule, BenefitModule, RegionModule, DailyCheckScheduleModule],
+  imports: [AppConfigModule, ScheduleModule.forRoot(), PrismaModule, AuthModule, BenefitModule, RegionModule, DailyCheckScheduleModule],
   controllers: [HealthController],
 })
 export class AppModule implements NestModule, BeforeApplicationShutdown {
