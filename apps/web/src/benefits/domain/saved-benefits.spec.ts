@@ -62,6 +62,16 @@ describe('SavedBenefits', () => {
     expect(SavedBenefits.fromJSON(value).toJSON().items).toEqual([]);
   });
 
+  it('withState: 상태를 바꾸거나 null이면 뺀다', () => {
+    const saved = SavedBenefits.empty().withState('a', 'todo').withState('b', 'applied').withState('a', null);
+    expect(saved.items).toEqual([{ slug: 'b', state: 'applied' }]);
+  });
+
+  it('서버가 준 목록으로 만들고, 모양이 틀린 항목은 버린다', () => {
+    const saved = SavedBenefits.fromItems([{ slug: 'a', state: 'applied' }, { slug: 'b', state: 'x' as 'todo' }]);
+    expect(saved.items).toEqual([{ slug: 'a', state: 'applied' }]);
+  });
+
   it('모양이 틀린 항목만 버린다', () => {
     const restored = SavedBenefits.fromJSON({ version: 1, items: [{ slug: 'a', state: 'todo' }, { slug: 'b', state: 'x' }, { state: 'todo' }] });
     expect(restored.toJSON().items).toEqual([{ slug: 'a', state: 'todo' }]);

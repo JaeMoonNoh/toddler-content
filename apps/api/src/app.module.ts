@@ -10,6 +10,7 @@ import { HealthController } from './health.controller';
 import { RequestLoggingMiddleware } from './logging/request-logging.middleware';
 import { PrismaModule } from './prisma/prisma.module';
 import { RegionModule } from './region/infrastructure/region.module';
+import { SavedBenefitModule } from './saved-benefit/infrastructure/saved-benefit.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RegionModule } from './region/infrastructure/region.module';
     PrismaModule,
     AuthModule,
     ConditionsModule,
+    SavedBenefitModule,
     BenefitModule,
     RegionModule,
     DailyCheckScheduleModule,

@@ -118,11 +118,12 @@ enum SocialProvider {
 
 // 로그인한 사람. 이름·이메일·전화번호는 받지 않는다
 model User {
-  id        String          @id @default(cuid())
-  accounts   SocialAccount[]
-  sessions   Session[]
-  conditions UserConditions?
-  createdAt DateTime        @default(now())
+  id            String          @id @default(cuid())
+  accounts      SocialAccount[]
+  sessions      Session[]
+  conditions    UserConditions?
+  savedBenefits SavedBenefit[]
+  createdAt     DateTime        @default(now())
 }
 
 // 계정에 이은 로그인 수단. 한 계정에 카카오·네이버·구글을 여러 개 이을 수 있다
@@ -153,7 +154,24 @@ model Session {
 model UserConditions {
   userId      String   @id
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  conditions  Json     // SavedConditions: 사는 곳, 고용보험, 어린이집, 아이별 출산예정일·출생일·태명·이름·몇째
+  conditions  Json // SavedConditions: 사는 곳, 고용보험, 어린이집, 아이별 출산예정일·출생일·태명·이름·몇째
   consentedAt DateTime // 처음 저장에 동의한 시각
   updatedAt   DateTime
+}
+
+enum SavedBenefitState {
+  TODO // 챙길 것
+  APPLIED // 신청을 마침
+}
+
+// 로그인한 사람이 챙기려고 저장한 혜택. 혜택이 목록에서 빠져도 지우지 않고 화면에서만 숨는다
+model SavedBenefit {
+  userId    String
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slug      String // Benefit.slug
+  state     SavedBenefitState
+  createdAt DateTime
+  updatedAt DateTime
+
+  @@id([userId, slug])
 }

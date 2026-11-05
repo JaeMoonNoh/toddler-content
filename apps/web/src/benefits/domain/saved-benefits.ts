@@ -27,8 +27,16 @@ export class SavedBenefits {
     return new SavedBenefits(new Map(value.items.filter(isEntry).map(({ slug, state }) => [slug, state])));
   }
 
+  static fromItems(items: { slug: string; state: SavedState }[]): SavedBenefits {
+    return SavedBenefits.fromJSON({ version: FORMAT_VERSION, items });
+  }
+
+  get items(): { slug: string; state: SavedState }[] {
+    return [...this.states].map(([slug, state]) => ({ slug, state }));
+  }
+
   toJSON() {
-    return { version: FORMAT_VERSION, items: [...this.states].map(([slug, state]) => ({ slug, state })) };
+    return { version: FORMAT_VERSION, items: this.items };
   }
 
   stateOf(slug: string): SavedState | null {
@@ -45,6 +53,11 @@ export class SavedBenefits {
 
   markApplied(slug: string): SavedBenefits {
     return this.with(slug, 'applied');
+  }
+
+  // null이면 뺀다
+  withState(slug: string, state: SavedState | null): SavedBenefits {
+    return state === null ? this.remove(slug) : this.with(slug, state);
   }
 
   remove(slug: string): SavedBenefits {
