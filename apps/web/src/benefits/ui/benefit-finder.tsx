@@ -10,6 +10,7 @@ import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { answeredCount, splitByEligibility, UNANSWERED } from '../domain/eligibility';
 import { ChildDates } from '../domain/child-dates';
+import { deadlineEventsOf } from '../domain/deadline-event';
 import { childStage, hasSchedule } from '../domain/pregnancy';
 import { type RegionDirectory, RegionTree } from '../domain/region';
 import { ALL_TAB, buildTimeline, OTHER_TAB, SAVED_TAB, tabsOf, withoutBenefits } from '../domain/timeline';
@@ -98,7 +99,7 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
             />
           </form>
           <AmountReceipt receipt={receipt} birthOrderKnown={household.birthOrder !== null} />
-          {fullTimeline && <CalendarDownload timeline={fullTimeline} />}
+          {fullTimeline && <CalendarDownload events={deadlineEventsOf(fullTimeline)} fileName="출산-혜택-마감일.ics" />}
           <p className="notice">
             {dates?.isBorn
               ? '일정은 실제 출생일로 계산했어요.'

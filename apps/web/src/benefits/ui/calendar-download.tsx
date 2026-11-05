@@ -1,19 +1,17 @@
 'use client';
 
-import { deadlineEventsOf } from '../domain/deadline-event';
+import type { DeadlineEvent } from '../domain/deadline-event';
 import { IcsCalendar } from '../domain/ics-calendar';
-import type { Timeline } from '../domain/timeline';
 
 // 파일은 브라우저 안에서 만들어 바로 내려받는다 (서버를 거치지 않는다)
-export function CalendarDownload({ timeline }: { timeline: Timeline }) {
-  const events = deadlineEventsOf(timeline);
+export function CalendarDownload({ events, fileName }: { events: DeadlineEvent[]; fileName: string }) {
   if (events.length === 0) return null;
 
   const download = () => {
     const file = new Blob([new IcsCalendar(events, new Date()).toString()], { type: 'text/calendar;charset=utf-8' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(file);
-    link.download = '출산-혜택-마감일.ics';
+    link.download = fileName;
     link.click();
     URL.revokeObjectURL(link.href);
   };
