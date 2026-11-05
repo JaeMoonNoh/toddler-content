@@ -59,7 +59,8 @@ export function parseCatalog(text: string): BenefitDetails[] {
 
 // 값이 없는 필드는 빼서 목록 파일을 짧게 둔다
 export function toJsonEntry(details: BenefitDetails): Record<string, unknown> {
-  const { slug, name, regionCode, sourceUrl, sources, conditions, audience, howToApply, schedule, amount, applicationPeriod } = details;
+  const { slug, name, regionCode, sourceUrl, sources, conditions, audience, howToApply, schedule, amount, applicationPeriod, plannedOn } =
+    details;
   return {
     slug,
     name,
@@ -72,6 +73,7 @@ export function toJsonEntry(details: BenefitDetails): Record<string, unknown> {
     ...(schedule && { schedule }),
     ...(amount && { amount }),
     ...(applicationPeriod && { applicationPeriod }),
+    ...(plannedOn && { plannedOn }),
   };
 }
 
@@ -94,7 +96,15 @@ function toDetails(entry: unknown, index: number): BenefitDetails {
     applicationPeriod: e.applicationPeriod === undefined || e.applicationPeriod === null ? null : periodOf(e.applicationPeriod, where),
     howToApply: e.howToApply === undefined || e.howToApply === null ? null : howToApplyOf(e.howToApply, where),
     audience: audienceOf(e.audience, where),
+    plannedOn: plannedOnOf(e.plannedOn, where),
   };
+}
+
+function plannedOnOf(value: unknown, where: string): null | string {
+  if (value === undefined || value === null) return null;
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value))
+    throw new CatalogError(`${where}: plannedOn은 YYYY-MM-DD여야 합니다`);
+  return value;
 }
 
 function sourcesOf(value: unknown, where: string): SourceRef[] {

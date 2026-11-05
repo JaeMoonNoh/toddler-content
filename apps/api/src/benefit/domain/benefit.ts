@@ -23,6 +23,8 @@ export interface BenefitDetails {
   applicationPeriod: ApplicationPeriod | null; // 해마다 공고하는 사업의 올해 신청 기간. 상시 신청이면 null
   howToApply: HowToApply | null; // 어디서 어떻게 신청하는지. 아직 정리하지 않았으면 null
   audience: Audience | null; // 특정 대상만 받는 혜택의 묶음. 누구나 받을 수 있으면 null
+  // 원문을 읽고 일정·금액·올해 신청 기간을 정리한 날 (YYYY-MM-DD). 정리했는데 정할 것이 없으면 세 값은 null이고 이 날짜만 있다
+  plannedOn: string | null;
 }
 
 export interface Verification {

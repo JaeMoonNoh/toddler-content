@@ -1,6 +1,6 @@
 # 혜택 일정·금액 초안 규칙
 
-`pnpm benefit plan-texts <지역코드> <폴더>`로 만든 원문 md를 읽고 초안을 쓸 때 따르는 규칙. 초안은 `pnpm benefit plan-check`로 검사하고 `pnpm benefit plan-apply`로 혜택 목록에 넣는다.
+`pnpm benefit plan-texts <지역코드> <폴더>`로 만든 원문 md를 읽고 초안을 쓸 때 따르는 규칙. 초안은 `pnpm benefit plan-check`로 검사하고 `pnpm benefit plan-apply`로 혜택 목록에 넣는다. 넣은 카드에는 정리한 날(`plannedOn`)이 남는다. 그래서 정할 것이 없어 세 값을 모두 `null`로 적은 카드도 다음 `plan-texts`에 다시 나오지 않는다.
 
 ## 목표
 

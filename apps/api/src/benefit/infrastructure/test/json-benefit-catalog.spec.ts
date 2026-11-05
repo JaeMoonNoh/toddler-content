@@ -34,8 +34,14 @@ describe('parseCatalog', () => {
         applicationPeriod: null,
         howToApply: null,
         audience: null,
+        plannedOn: null,
       },
     ]);
+  });
+
+  it('일정·금액을 정리한 날을 읽고, 날짜 모양이 아니면 거절한다', () => {
+    expect(parse([entry({ plannedOn: '2026-11-05' })])[0].plannedOn).toBe('2026-11-05');
+    expect(() => parse([entry({ plannedOn: '11월 5일' })])).toThrow('plannedOn은 YYYY-MM-DD');
   });
 
   it('신청 방법을 읽는다', () => {
@@ -157,6 +163,15 @@ describe('JsonBenefitCatalog.update', () => {
     await new JsonBenefitCatalog(path).add([{ ...first, slug: 'gov24-9', audience: 'MULTI_CHILD' }]);
 
     expect(JSON.parse(readFileSync(path, 'utf8'))).toEqual([entry(), { ...entry(), slug: 'gov24-9', audience: 'MULTI_CHILD' }]);
+  });
+
+  it('정리한 날은 다른 값 뒤에 쓴다', async () => {
+    const path = fileWith([entry()]);
+    const [first] = await new JsonBenefitCatalog(path).load();
+
+    await new JsonBenefitCatalog(path).update([{ ...first, plannedOn: '2026-11-05' }]);
+
+    expect(Object.keys((JSON.parse(readFileSync(path, 'utf8')) as Record<string, unknown>[])[0]).at(-1)).toBe('plannedOn');
   });
 
   it('목록에 없는 slug는 무시한다', async () => {

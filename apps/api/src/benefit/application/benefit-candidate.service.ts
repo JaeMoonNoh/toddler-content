@@ -112,6 +112,7 @@ export class BenefitCandidateService {
         applicationPeriod: null,
         howToApply: draftHowToApply(drafts, main.url, main.regionCode),
         audience: decision.audience ?? null,
+        plannedOn: null,
       };
       try {
         Benefit.register(card);

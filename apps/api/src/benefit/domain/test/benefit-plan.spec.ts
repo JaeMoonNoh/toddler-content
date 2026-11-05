@@ -20,6 +20,7 @@ const card = (overrides: Partial<BenefitDetails> = {}): BenefitDetails => ({
   applicationPeriod: null,
   howToApply: null,
   audience: null,
+  plannedOn: null,
   ...overrides,
 });
 const schedule = (overrides: Partial<BenefitSchedule> = {}): BenefitSchedule => ({
@@ -102,8 +103,12 @@ describe('BenefitPlan.problemsFor', () => {
 describe('BenefitPlan.applyTo', () => {
   it('일정·금액·올해 기간만 바꾸고 null이면 비운다', () => {
     const before = card({ name: '그대로', amount: amount() });
-    const after = new BenefitPlan('gov24-1', schedule(), null, null, '메모').applyTo(before);
+    const after = new BenefitPlan('gov24-1', schedule(), null, null, '메모').applyTo(before, '2026-11-05');
 
-    expect(after).toEqual({ ...before, schedule: schedule(), amount: null, applicationPeriod: null });
+    expect(after).toEqual({ ...before, schedule: schedule(), amount: null, applicationPeriod: null, plannedOn: '2026-11-05' });
+  });
+
+  it('정할 것이 없어 모두 null이어도 정리한 날을 남긴다', () => {
+    expect(new BenefitPlan('gov24-1', null, null, null, '').applyTo(card(), '2026-11-05').plannedOn).toBe('2026-11-05');
   });
 });

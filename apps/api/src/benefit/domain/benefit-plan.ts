@@ -34,8 +34,9 @@ export class BenefitPlan {
     ];
   }
 
-  applyTo(card: BenefitDetails): BenefitDetails {
-    return { ...card, schedule: this.schedule, amount: this.amount, applicationPeriod: this.applicationPeriod };
+  // today: 정리한 날 (YYYY-MM-DD). 정할 것이 없어서 세 값이 모두 null이어도 정리한 카드로 남는다
+  applyTo(card: BenefitDetails, today: string): BenefitDetails {
+    return { ...card, schedule: this.schedule, amount: this.amount, applicationPeriod: this.applicationPeriod, plannedOn: today };
   }
 
   private basisProblems(field: string, url: string, card: BenefitDetails): string[] {

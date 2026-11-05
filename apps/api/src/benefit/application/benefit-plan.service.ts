@@ -31,7 +31,7 @@ export class BenefitPlanService {
     private readonly regions: RegionService,
   ) {}
 
-  // 그 지역과 아래 지역의 카드 중 일정·금액·올해 신청 기간이 모두 비어 있는 것
+  // 그 지역과 아래 지역의 카드 중 아직 일정·금액을 정리하지 않은 것
   async cardsToPlan(regionCode: string): Promise<CardToPlan[]> {
     const area = new Set((await this.regions.tree()).selfAndDescendantsOf(regionCode).map((region) => region.code));
     const cards = (await this.catalog.load()).filter((card) => area.has(card.regionCode) && !isPlanned(card));
@@ -51,19 +51,21 @@ export class BenefitPlanService {
   }
 
   // 초안에 문제가 하나라도 있으면 아무것도 넣지 않는다
-  async apply(plans: BenefitPlan[], year: string): Promise<string[]> {
-    const problems = await this.check(plans, year);
+  // today: YYYY-MM-DD. 올해는 today의 앞 네 자리
+  async apply(plans: BenefitPlan[], today: string): Promise<string[]> {
+    const problems = await this.check(plans, today.slice(0, 4));
     if (problems.length)
       throw new CatalogError(
         `초안에 문제가 있어 넣지 않았습니다\n- ${problems.map(({ slug, problem }) => `${slug}: ${problem}`).join('\n- ')}`,
       );
 
     const cards = new Map((await this.catalog.load()).map((card) => [card.slug, card]));
-    await this.catalog.update(plans.map((plan) => plan.applyTo(cards.get(plan.slug)!)));
+    await this.catalog.update(plans.map((plan) => plan.applyTo(cards.get(plan.slug)!, today)));
     return plans.map((plan) => plan.slug);
   }
 }
 
+// NOTE: plannedOn을 남기기 전에 정리한 카드는 날짜가 없어서, 값이 하나라도 있으면 정리한 것으로 본다
 function isPlanned(card: BenefitDetails) {
-  return card.schedule !== null || card.amount !== null || card.applicationPeriod !== null;
+  return card.plannedOn !== null || card.schedule !== null || card.amount !== null || card.applicationPeriod !== null;
 }

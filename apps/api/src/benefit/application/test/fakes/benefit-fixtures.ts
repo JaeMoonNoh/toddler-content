@@ -16,6 +16,7 @@ export function benefitDetails(id: string, overrides: Partial<BenefitDetails> = 
     applicationPeriod: null,
     howToApply: null,
     audience: null,
+    plannedOn: null,
     ...overrides,
   };
 }

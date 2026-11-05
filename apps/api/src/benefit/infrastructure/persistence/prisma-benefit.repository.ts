@@ -90,6 +90,7 @@ function toBenefit(row: BenefitRow): Benefit {
     applicationPeriod: (row.applicationPeriod ?? null) as ApplicationPeriod | null,
     howToApply: (row.howToApply ?? null) as HowToApply | null,
     audience: (row.audience ?? null) as Audience | null,
+    plannedOn: null, // NOTE: 정리 작업에만 쓰는 값이라 DB에 두지 않는다 (목록 파일에만 있다)
   };
   const snapshots = sources
     .filter((s) => s.row.verifiedPayload !== null)

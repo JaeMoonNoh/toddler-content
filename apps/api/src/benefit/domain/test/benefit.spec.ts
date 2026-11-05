@@ -21,6 +21,7 @@ const details = (overrides: Partial<BenefitDetails> = {}): BenefitDetails => ({
   applicationPeriod: null,
   howToApply: null,
   audience: null,
+  plannedOn: null,
   ...overrides,
 });
 
