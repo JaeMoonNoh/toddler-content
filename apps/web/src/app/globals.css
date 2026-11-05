@@ -61,8 +61,12 @@ a { color: var(--accent); }
 .form { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 14px; }
 .field { display: grid; gap: 6px; }
 .field label { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--muted); }
-select, input[type='date'] { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; }
+select, input[type='date'], input[type='text'] { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; }
 .field label.check { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 400; letter-spacing: 0; color: var(--ink); cursor: pointer; }
+.baby { display: flex; align-items: center; gap: 12px; background: var(--accent-soft); border-radius: 12px; padding: 10px 14px; }
+.baby-fruit { font-size: 36px; line-height: 1; }
+.baby p { margin: 0; font-size: 15px; line-height: 1.5; }
+.baby small { display: block; color: var(--muted); font-size: 12px; }
 .stage { margin: 0; font-size: 14px; color: var(--muted); }
 .notice { margin: 0; background: var(--warn-soft); color: var(--warn-ink); border-radius: 10px; padding: 10px 14px; font-size: 13px; }
 

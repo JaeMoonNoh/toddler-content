@@ -7,7 +7,7 @@ import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { answeredCount, splitByEligibility, UNANSWERED } from '../domain/eligibility';
 import { ChildDates } from '../domain/child-dates';
-import { childStage, describeStage, hasSchedule } from '../domain/pregnancy';
+import { childStage, hasSchedule } from '../domain/pregnancy';
 import { type RegionDirectory, RegionTree } from '../domain/region';
 import { ALL_TAB, buildTimeline, OTHER_TAB, SAVED_TAB, tabsOf, withoutBenefits } from '../domain/timeline';
 import { BenefitGroups } from './benefit-groups';
@@ -29,7 +29,7 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
   const { saved } = store;
   const tree = useMemo(() => new RegionTree(regions.regions), [regions]);
   const [pick, setPick] = useState<RegionPick>({ provinceCode: '', districtCode: '' });
-  const [childInput, setChildInput] = useState({ dueText: '', born: false, birthText: '' });
+  const [childInput, setChildInput] = useState({ dueText: '', nickname: '', born: false, birthText: '', name: '' });
   const [household, setHousehold] = useState(UNANSWERED);
   const [tab, setTab] = useState(ALL_TAB);
   const listRef = useRef<HTMLElement>(null);
@@ -71,12 +71,7 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
         <aside className="side">
           <form className="form" autoComplete="off" onSubmit={(e) => e.preventDefault()}>
             <RegionField tree={tree} pick={pick} choice={region} prepared={region.isPrepared(benefits)} onChange={setPick} />
-            <ChildDatesField
-              input={childInput}
-              today={today}
-              stageText={stage ? describeStage(stage) : '출산예정일을 넣으면 신청 일정을 날짜로 계산해 드려요'}
-              onChange={setChildInput}
-            />
+            <ChildDatesField input={childInput} today={today} stage={stage} onChange={setChildInput} />
             <details className="more-fields">
               <summary>
                 더 정확하게 보기 <span>{answeredCount(household) ? `${answeredCount(household)}개 답함` : '선택'}</span>
