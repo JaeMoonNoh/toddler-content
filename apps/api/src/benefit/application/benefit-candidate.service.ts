@@ -13,6 +13,7 @@ import { BenefitCatalog } from './ports/benefit-catalog';
 import { SourceStateReader } from './ports/source-state.reader';
 
 import type { SourceRecord } from '../../collect/domain/source-record';
+import type { Payload } from '../../shared/domain/comparison-rule';
 import type { Audience } from '../domain/audience';
 import type { EligibilityCondition } from '../domain/eligibility-condition';
 
@@ -25,6 +26,12 @@ export interface BenefitCandidate {
   strength: CandidateStrength;
   sources: SourceRef[]; // 보조금24가 있으면 앞에
   suggestedSlug: string;
+}
+
+// 고를 때 읽는 후보 하나와 그 원문들
+export interface CandidateWithSources {
+  candidate: BenefitCandidate;
+  sources: { ref: SourceRef; payload: Payload | null }[];
 }
 
 export interface CandidateList {
@@ -80,6 +87,16 @@ export class BenefitCandidateService {
           a.name.localeCompare(b.name, 'ko'),
       ),
     };
+  }
+
+  // 후보마다 원문을 붙인다. 고르는 사람(또는 subagent)이 지원대상·지원내용을 보고 판단한다
+  async candidatesWithSources(regionCode: string): Promise<CandidateWithSources[]> {
+    const { candidates } = await this.candidatesFor(regionCode);
+    const current = await this.sources.read(candidates.flatMap((candidate) => candidate.sources));
+    return candidates.map((candidate) => ({
+      candidate,
+      sources: candidate.sources.map((ref) => ({ ref, payload: current.of(ref)?.payload ?? null })),
+    }));
   }
 
   // 고른 후보를 혜택 목록 끝에 카드로 넣는다. 일정·금액은 비워 두고 plan 명령으로 채운다.

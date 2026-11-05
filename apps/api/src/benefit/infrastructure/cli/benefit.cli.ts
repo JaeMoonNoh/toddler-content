@@ -16,6 +16,7 @@ import { parseDecisions, parseJudgments } from '../catalog/json-candidate-decisi
 import { BenefitCliModule } from './benefit-cli.module';
 import { BenefitDetailPrinter } from './benefit-detail-printer';
 import { printCandidates } from './candidate-printer';
+import { printCandidateTexts } from './candidate-text-printer';
 import { printJudgmentDifferences } from './judgment-printer';
 import { printCardsToPlan } from './plan-text-printer';
 import { needsCrossCheck, printPlanVerify } from './plan-verify-printer';
@@ -32,6 +33,8 @@ const USAGE = `사용법: pnpm benefit <명령>
                            후보 md에서 고른 것을 혜택 목록에 카드로 넣기 (이름 정리, 신청 방법 초안 포함)
   plan-texts <지역코드> <폴더> [건수]
                            일정·금액·올해 기간이 비어 있는 카드의 원문을 md로 나눠 쓰기 (기본 50건씩)
+  candidate-texts <지역코드> <폴더> [건수]
+                           후보마다 원문(지원대상·지원내용)을 붙여 md로 나눠 쓰기 (고를 때 읽는 자료, 기본 60건씩)
   compare-decisions <판단A.json> <판단B.json>
                            두 판단에서 갈린 후보만 보기 (같은 후보를 둘이 따로 골랐을 때)
   plan-check <초안.json> [...]
@@ -41,6 +44,7 @@ const USAGE = `사용법: pnpm benefit <명령>
   plan-apply <초안.json>   검사를 통과한 초안을 data/benefit-catalog.json에 넣기`;
 
 const DEFAULT_PLAN_TEXT_SIZE = 50;
+const DEFAULT_CANDIDATE_TEXT_SIZE = 60;
 // 대조 subagent 하나가 한 번에 읽기 알맞은 양
 const CROSS_CHECK_FILE_SIZE = 25;
 
@@ -84,6 +88,24 @@ const COMMANDS: Record<string, Command> = {
       await writeFile(join(outDir, `texts-${part + 1}.md`), printCardsToPlan(cards.slice(part * size, (part + 1) * size), title));
     }
     return { text: `카드 ${cards.length}건을 ${outDir}에 ${total}개 파일로 썼어요`, ok: true };
+  },
+  'candidate-texts': async (app, [regionCode, outDir, sizeArg]) => {
+    if (!regionCode || !outDir) return { text: '지역코드와 출력 폴더를 넣어 주세요 (예: candidate-texts 2600000000 out)', ok: false };
+    const size = Number(sizeArg ?? DEFAULT_CANDIDATE_TEXT_SIZE);
+    if (!Number.isInteger(size) || size < 1) return { text: `파일당 건수는 1 이상의 정수여야 해요: ${sizeArg}`, ok: false };
+    const service = app.get(BenefitCandidateService);
+    const regionNames = new Map((await service.candidatesFor(regionCode)).regions.map(({ code, fullName }) => [code, fullName]));
+    const items = await service.candidatesWithSources(regionCode);
+    const total = Math.ceil(items.length / size);
+    await mkdir(outDir, { recursive: true });
+    for (let part = 0; part < total; part++) {
+      const title = `${regionCode} 후보 원문 ${part + 1}/${total}`;
+      await writeFile(
+        join(outDir, `candidates-${part + 1}.md`),
+        printCandidateTexts(items.slice(part * size, (part + 1) * size), title, regionNames),
+      );
+    }
+    return { text: `후보 ${items.length}건을 ${outDir}에 ${total}개 파일로 썼어요`, ok: true };
   },
   'compare-decisions': async (_, [pathA, pathB]) => {
     if (!pathA || !pathB) return { text: '판단 파일 두 개를 넣어 주세요', ok: false };
