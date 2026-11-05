@@ -3,7 +3,7 @@ import type { SavedItem } from '../domain/saved-benefits';
 import { BenefitCard } from './benefit-card';
 import { TimelineCard } from './timeline-card';
 
-// 신청 마감이 빠른 것부터. 출산예정일로 일정을 계산한 혜택은 타임라인 카드로 보여준다
+// 신청 마감이 빠른 것부터. 출생일·출산예정일로 일정을 계산한 혜택은 타임라인 카드로 보여준다
 export function SavedList({ items }: { items: SavedItem[] }) {
   return (
     <section aria-labelledby="saved-title">

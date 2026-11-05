@@ -62,6 +62,7 @@ a { color: var(--accent); }
 .field { display: grid; gap: 6px; }
 .field label { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--muted); }
 select, input[type='date'] { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; }
+.field label.check { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 400; letter-spacing: 0; color: var(--ink); cursor: pointer; }
 .stage { margin: 0; font-size: 14px; color: var(--muted); }
 .notice { margin: 0; background: var(--warn-soft); color: var(--warn-ink); border-radius: 10px; padding: 10px 14px; font-size: 13px; }
 

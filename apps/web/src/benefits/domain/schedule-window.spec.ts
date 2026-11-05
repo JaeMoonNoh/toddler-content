@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import type { BenefitSchedule } from './benefit';
 import { CalendarDate } from './calendar-date';
+import { ChildDates } from './child-dates';
 import { describeStatus, emphasisOf, ScheduleWindow } from './schedule-window';
 
 const date = (text: string) => CalendarDate.parse(text)!;
-const due = date('2027-05-06');
+const due = ChildDates.of(date('2027-05-06'), null)!;
 const schedule = (from: BenefitSchedule['from'], until: BenefitSchedule['until']): BenefitSchedule => ({
   from,
   until,
@@ -60,7 +61,29 @@ describe('ScheduleWindow', () => {
   });
 
   it('출산예정일이 월말이면 개월 계산은 그 달 말일로 맞춘다', () => {
-    expect(ScheduleWindow.of(schedule(at('birth', 1), at('birth', 1)), date('2027-01-31')).start.toIso()).toBe('2027-02-28');
+    expect(ScheduleWindow.of(schedule(at('birth', 1), at('birth', 1)), ChildDates.of(date('2027-01-31'), null)!).start.toIso()).toBe('2027-02-28');
+  });
+
+  describe('실제 출생일', () => {
+    const born = ChildDates.of(date('2027-05-06'), date('2027-04-20'))!;
+
+    it('출생 기준 날짜는 출생일로 계산한다', () => {
+      const window = ScheduleWindow.of(schedule(at('birth'), at('birth', 0, 59)), born);
+      expect([window.start.toIso(), window.end.toIso()]).toEqual(['2027-04-20', '2027-06-18']);
+    });
+
+    it('임신 기준 날짜는 그대로 출산예정일로 계산한다', () => {
+      expect(ScheduleWindow.of(schedule(at('pregnancy', 4), at('birth')), born).start.toIso()).toBe('2026-11-30');
+    });
+
+    it('출생일로 계산하면 추정이 아니다', () => {
+      expect(ScheduleWindow.of(schedule(at('birth'), at('birth', 0, 59)), born).isEstimated).toBe(false);
+      expect(ScheduleWindow.of(schedule(at('birth'), at('birth', 0, 59)), due).isEstimated).toBe(true);
+    });
+
+    it('임신 기준 날짜만 쓰면 태어나기 전에도 추정이 아니다', () => {
+      expect(ScheduleWindow.of(schedule(at('pregnancy'), at('pregnancy', 3)), due).isEstimated).toBe(false);
+    });
   });
 
   describe('상태', () => {
@@ -77,7 +100,7 @@ describe('ScheduleWindow', () => {
 
     it('시작과 끝이 같은 날이면 그날 하루만 가능', () => {
       const oneDay = ScheduleWindow.of(schedule(at('birth'), at('birth')), due);
-      expect(oneDay.statusOn(due)).toEqual({ kind: 'open', daysLeft: 0 });
+      expect(oneDay.statusOn(due.due)).toEqual({ kind: 'open', daysLeft: 0 });
     });
   });
 

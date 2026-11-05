@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import type { BenefitSchedule, PublishedBenefit } from './benefit';
 import { CalendarDate } from './calendar-date';
+import { ChildDates } from './child-dates';
 import { RegionTree } from './region';
 import { buildTimeline, tabsOf, withoutBenefits } from './timeline';
 
-const due = CalendarDate.parse('2027-05-06')!;
+const due = ChildDates.of(CalendarDate.parse('2027-05-06'), null)!;
 const today = CalendarDate.parse('2026-11-02')!;
 const tree = new RegionTree([
   { code: '0000000000', name: '전국', fullName: '전국', parentCode: null },
@@ -90,6 +91,15 @@ describe('buildTimeline', () => {
   it('지금 날짜 기준 상태를 붙인다', () => {
     const [item] = buildTimeline(region(null), [benefit('진료비', schedule(0, 730, 'pregnancy'))], due, today).phases[0].items;
     expect(item.status).toEqual({ kind: 'open', daysLeft: 915 });
+  });
+
+  it('태어났으면 시기를 출생일 기준으로 나눈다', () => {
+    const bornEarly = ChildDates.of(due.due, due.due.addDays(-30))!;
+    const timeline = buildTimeline(region(null), [benefit('a', schedule(10, 90)), benefit('b', schedule(70, 90))], bornEarly, today);
+    expect(timeline.phases.map((p) => [p.tab, p.items.map((i) => i.window.start.toIso())])).toEqual([
+      ['출산 직후', ['2027-04-16']],
+      ['그 이후', ['2027-06-15']],
+    ]);
   });
 
   it('규칙이 있는 혜택이 없으면 시기 묶음이 비어 있다', () => {

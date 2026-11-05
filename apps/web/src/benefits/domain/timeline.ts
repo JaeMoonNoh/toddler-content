@@ -1,5 +1,6 @@
 import type { BenefitSchedule, PublishedBenefit } from './benefit';
 import type { CalendarDate } from './calendar-date';
+import type { ChildDates } from './child-dates';
 import type { RegionChoice } from './region';
 import { ScheduleWindow, type WindowStatus } from './schedule-window';
 
@@ -21,7 +22,7 @@ export interface Timeline {
   unscheduled: PublishedBenefit[]; // 신청 기간 규칙을 아직 정리하지 않은 혜택
 }
 
-// 시작일이 출산예정일 기준 어디쯤인지로 묶는다
+// 시작일이 출생일(태어나기 전에는 출산예정일) 기준 어디쯤인지로 묶는다
 const PHASES: { label: string; tab: string; startsBefore: number }[] = [
   { label: '임신 중', tab: '임신 중', startsBefore: -45 },
   { label: '출산 준비 (출산 45일 전부터)', tab: '출산 준비', startsBefore: 0 },
@@ -60,12 +61,12 @@ export function withoutBenefits(timeline: Timeline, isOmitted: (benefit: Publish
   return { phases, unscheduled: timeline.unscheduled.filter((benefit) => !isOmitted(benefit)) };
 }
 
-export function buildTimeline(region: RegionChoice, benefits: PublishedBenefit[], due: CalendarDate, today: CalendarDate): Timeline {
+export function buildTimeline(region: RegionChoice, benefits: PublishedBenefit[], dates: ChildDates, today: CalendarDate): Timeline {
   const available = benefits.filter((b) => region.covers(b));
   const items = available
     .flatMap((benefit) => {
       if (!benefit.schedule) return [];
-      const window = ScheduleWindow.of(benefit.schedule, due);
+      const window = ScheduleWindow.of(benefit.schedule, dates);
       return { benefit, schedule: benefit.schedule, window, status: window.statusOn(today) };
     })
     .sort((a, b) => a.window.start.daysSince(b.window.start) || a.window.end.daysSince(b.window.end) || a.benefit.name.localeCompare(b.benefit.name, 'ko'));
@@ -73,7 +74,7 @@ export function buildTimeline(region: RegionChoice, benefits: PublishedBenefit[]
   const phases = PHASES.map(({ label, tab }, index) => ({
     label,
     tab,
-    items: items.filter((item) => phaseIndexOf(item.window.start.daysSince(due)) === index),
+    items: items.filter((item) => phaseIndexOf(item.window.start.daysSince(dates.birthOrDue)) === index),
   })).filter((phase) => phase.items.length > 0);
 
   return { phases, unscheduled: available.filter((b) => !b.schedule) };

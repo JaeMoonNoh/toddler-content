@@ -7,7 +7,7 @@ export type SavedState = 'todo' | 'applied';
 export interface SavedItem {
   benefit: PublishedBenefit;
   state: SavedState;
-  scheduled: TimelineItem | null; // 출산예정일로 신청 기간을 계산한 혜택이면 그 일정
+  scheduled: TimelineItem | null; // 출생일·출산예정일로 신청 기간을 계산한 혜택이면 그 일정
   deadline: CalendarDate | null;
 }
 

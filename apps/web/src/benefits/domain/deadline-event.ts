@@ -24,7 +24,7 @@ export function deadlineEventOf({ benefit, schedule, window }: TimelineItem): De
     schedule.summary,
     `기간: ${window.formatPeriod()}`,
     benefit.reviewStatus === 'VERIFIED' ? null : '아직 검증 전인 정보예요. 신청 전에 원문을 확인해 주세요.',
-    '출산예정일에 태어난다고 보고 계산한 날짜예요.',
+    window.isEstimated ? '출산예정일에 태어난다고 보고 계산한 날짜예요.' : null,
     `원문: ${benefit.sourceUrl}`,
   ];
   return {
