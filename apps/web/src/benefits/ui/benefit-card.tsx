@@ -4,16 +4,18 @@ import { CalendarDate } from '../domain/calendar-date';
 import { BenefitChips } from './benefit-chips';
 import { CardFooter } from './card-footer';
 import { HowToApplyLine } from './how-to-apply-line';
+import { useIsApplied } from './save-controls';
 
-export function BenefitCard({ benefit }: { benefit: PublishedBenefit }) {
+export function BenefitCard({ benefit, as: Tag = 'li' }: { benefit: PublishedBenefit; as?: 'li' | 'div' }) {
+  const applied = useIsApplied(benefit.slug);
   return (
-    <li className={isClosed(benefit) ? 'card is-closed' : 'card'}>
+    <Tag className={['card', isClosed(benefit) && 'is-closed', applied && 'is-done'].filter(Boolean).join(' ')}>
       <BenefitChips benefit={benefit} />
       <h3>{benefit.name}</h3>
       {benefit.amount && <p className="amt">{benefit.amount.summary}</p>}
       <HowToApplyLine benefit={benefit} />
       <CardFooter benefit={benefit} />
-    </li>
+    </Tag>
   );
 }
 
