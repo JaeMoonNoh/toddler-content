@@ -114,7 +114,7 @@ const COMMANDS: Record<string, Command> = {
   },
   'plan-apply': async (app, [path]) => {
     if (!path) return { text: '초안 파일을 넣어 주세요', ok: false };
-    const applied = await app.get(BenefitPlanService).apply(parsePlans(await readFile(path, 'utf8')), thisYear());
+    const applied = await app.get(BenefitPlanService).apply(parsePlans(await readFile(path, 'utf8')), formatKstDate(new Date()));
     return { text: `✔ ${applied.length}건을 혜택 목록에 넣었어요. 확인 뒤 pnpm benefit sync`, ok: true };
   },
   retire: async (app, slugs) => {

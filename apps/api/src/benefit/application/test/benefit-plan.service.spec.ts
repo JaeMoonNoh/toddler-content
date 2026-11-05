@@ -35,11 +35,12 @@ describe('BenefitPlanService', () => {
   });
 
   describe('cardsToPlan', () => {
-    it('그 지역과 아래 지역의 카드 중 아직 정리하지 않은 것만 원문과 함께 준다', async () => {
+    it('그 지역과 아래 지역의 카드 중 아직 정리하지 않은 것만 원문과 함께 준다 (정할 것이 없다고 정리한 카드도 뺀다)', async () => {
       catalog.entries = [
         benefitDetails('1', { regionCode: CHUNGBUK }),
         benefitDetails('2', { regionCode: CHEONGJU }),
         benefitDetails('3', { regionCode: CHEONGJU, amount: amountFor('3') }),
+        benefitDetails('5', { regionCode: CHEONGJU, plannedOn: '2026-11-04' }),
         benefitDetails('4', { regionCode: SEJONG }),
       ];
       sources.set(new SourceRef('GOV24', '1'), { 신청기한: '상시' }).set(new SourceRef('GOV24', '2'), {});
@@ -90,22 +91,30 @@ describe('BenefitPlanService', () => {
     it('초안의 카드만 바꾸고 나머지 카드는 그대로 둔다', async () => {
       catalog.entries = [benefitDetails('1'), benefitDetails('2', { amount: amountFor('2', 300000) })];
 
-      expect(await service().apply([planOf('1')], '2026')).toEqual(['gov24-1']);
+      expect(await service().apply([planOf('1')], '2026-11-05')).toEqual(['gov24-1']);
       expect(catalog.entries.map((entry) => entry.amount)).toEqual([amountFor('1'), amountFor('2', 300000)]);
     });
 
     it('null로 적은 필드는 비운다', async () => {
       catalog.entries = [benefitDetails('1', { amount: amountFor('1') })];
 
-      await service().apply([planOf('1', null)], '2026');
+      await service().apply([planOf('1', null)], '2026-11-05');
 
       expect(catalog.entries[0].amount).toBeNull();
+    });
+
+    it('넣은 카드에 정리한 날을 남긴다 (정할 것이 없어도)', async () => {
+      catalog.entries = [benefitDetails('1'), benefitDetails('2')];
+
+      await service().apply([planOf('1', null)], '2026-11-05');
+
+      expect(catalog.entries.map((entry) => entry.plannedOn)).toEqual(['2026-11-05', null]);
     });
 
     it('문제가 하나라도 있으면 아무것도 넣지 않는다', async () => {
       catalog.entries = [benefitDetails('1'), benefitDetails('2', { audience: 'LOW_INCOME' })];
 
-      await expect(service().apply([planOf('1'), planOf('2')], '2026')).rejects.toThrow(CatalogError);
+      await expect(service().apply([planOf('1'), planOf('2')], '2026-11-05')).rejects.toThrow(CatalogError);
       expect(catalog.entries.every((entry) => entry.amount === null)).toBe(true);
     });
   });
