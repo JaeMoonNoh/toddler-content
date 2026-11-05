@@ -1,7 +1,7 @@
 // 브라우저가 부르는 API는 웹 주소(/api/*)를 거쳐 넘긴다. 로그인 쿠키를 웹 주소에 두고, 다른 주소로 부르는 CORS를 피하려고
 const API_BASE = process.env.API_INTERNAL_URL ?? 'http://localhost:4000';
 // 브라우저에서 부를 일이 있는 경로만 연다
-const ALLOWED_ROOTS = ['auth'];
+const ALLOWED_ROOTS = ['auth', 'me'];
 const FORWARDED_REQUEST_HEADERS = ['cookie', 'content-type', 'accept'];
 // fetch가 이미 풀어 준 본문이라 길이·압축 헤더를 그대로 넘기면 깨진다
 const DROPPED_RESPONSE_HEADERS = ['content-encoding', 'content-length', 'transfer-encoding', 'connection', 'set-cookie'];
@@ -42,4 +42,4 @@ function responseHeadersOf(response: Response): Headers {
   return headers;
 }
 
-export { forward as GET, forward as POST };
+export { forward as DELETE, forward as GET, forward as POST, forward as PUT };

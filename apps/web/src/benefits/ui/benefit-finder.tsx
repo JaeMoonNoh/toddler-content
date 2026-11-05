@@ -1,6 +1,9 @@
 'use client';
 
 import { useMemo, useRef, useState } from 'react';
+import { type FinderInput, toSavedConditions } from '../../account/domain/saved-conditions';
+import { ConditionsSaveBox } from '../../account/ui/conditions-save-box';
+import { useAccountConditions } from '../../account/ui/use-account-conditions';
 import { receiptOf } from '../domain/amount';
 import { splitByAudience } from '../domain/audience';
 import type { PublishedBenefit } from '../domain/benefit';
@@ -23,7 +26,8 @@ import { SavedBenefitsContext, useSavedBenefitsStore } from './saved-benefits-st
 import { SavedList } from './saved-list';
 import { TimelineCard } from './timeline-card';
 
-// 사는 곳, 출산예정일·출생일, 고용보험 답은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다
+// 사는 곳, 출산예정일·출생일, 고용보험 답은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다.
+// 로그인한 사람이 동의하고 "저장"을 누를 때만 서버에 저장한다
 export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefit[]; regions: RegionDirectory }) {
   const store = useSavedBenefitsStore();
   const { saved } = store;
@@ -31,6 +35,12 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
   const [pick, setPick] = useState<RegionPick>({ provinceCode: '', districtCode: '' });
   const [childInput, setChildInput] = useState({ dueText: '', nickname: '', born: false, birthText: '', name: '' });
   const [household, setHousehold] = useState(UNANSWERED);
+  const fill = ({ pick, child, household }: FinderInput) => {
+    setPick(pick);
+    setChildInput(child);
+    setHousehold(household);
+  };
+  const account = useAccountConditions(tree, fill);
   const [tab, setTab] = useState(ALL_TAB);
   const listRef = useRef<HTMLElement>(null);
 
@@ -80,6 +90,12 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
               <HouseholdFields household={household} onChange={setHousehold} />
               <ChildcareField household={household} onChange={setHousehold} />
             </details>
+            <ConditionsSaveBox
+              state={account.state}
+              current={toSavedConditions({ pick, child: childInput, household })}
+              onSave={account.save}
+              onRemove={account.remove}
+            />
           </form>
           <AmountReceipt receipt={receipt} birthOrderKnown={household.birthOrder !== null} />
           {fullTimeline && <CalendarDownload timeline={fullTimeline} />}

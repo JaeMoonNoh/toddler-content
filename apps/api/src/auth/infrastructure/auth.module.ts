@@ -8,6 +8,7 @@ import { SessionStore } from '../application/ports/session-store';
 
 import { AuthCookies } from './http/auth-cookies';
 import { AuthController } from './http/auth.controller';
+import { LoggedInGuard } from './http/logged-in.guard';
 import { PrismaAccountRepository } from './persistence/prisma-account.repository';
 import { PrismaSessionStore } from './persistence/prisma-session.store';
 import { KakaoOAuthProvider } from './providers/kakao-oauth-provider';
@@ -35,6 +36,7 @@ function configuredProviders(config: ConfigService) {
   controllers: [AuthController],
   providers: [
     AuthService,
+    LoggedInGuard,
     {
       provide: OAuthProviders,
       useFactory: (config: ConfigService) => new OAuthProviders(configuredProviders(config)),
@@ -48,6 +50,6 @@ function configuredProviders(config: ConfigService) {
       inject: [ConfigService],
     },
   ],
-  exports: [AuthService],
+  exports: [AuthService, LoggedInGuard],
 })
 export class AuthModule {}
