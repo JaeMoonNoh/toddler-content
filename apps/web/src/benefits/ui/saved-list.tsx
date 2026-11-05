@@ -1,17 +1,21 @@
 import { CalendarDate } from '../domain/calendar-date';
 import type { SavedItem } from '../domain/saved-benefits';
 import { BenefitCard } from './benefit-card';
+import { useSavedBenefits } from './saved-benefits-store';
 import { TimelineCard } from './timeline-card';
 
 // 신청 마감이 빠른 것부터. 출생일·출산예정일로 일정을 계산한 혜택은 타임라인 카드로 보여준다
 export function SavedList({ items }: { items: SavedItem[] }) {
+  const inAccount = useSavedBenefits()?.place === 'account';
   return (
     <section aria-labelledby="saved-title">
       <div className="listhead">
         <h2 id="saved-title">저장한 혜택</h2>
         <p>{items.length}건</p>
       </div>
-      <p className="hint">신청 마감이 빠른 순서예요. 저장한 목록은 이 기기(브라우저)에만 남아요.</p>
+      <p className="hint">
+        신청 마감이 빠른 순서예요. {inAccount ? '로그인한 계정에 저장돼서 다른 기기에서도 보여요.' : '저장한 목록은 이 기기(브라우저)에만 남아요. 로그인하면 계정으로 옮겨요.'}
+      </p>
       <ol className="tl">
         {items.map((item) =>
           item.scheduled ? <TimelineCard key={item.benefit.slug} item={item.scheduled} /> : <UnscheduledItem key={item.benefit.slug} item={item} />,

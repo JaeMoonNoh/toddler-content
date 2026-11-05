@@ -6,12 +6,12 @@ import { useSavedBenefits } from './saved-benefits-store';
 export function SaveControls({ slug }: { slug: string }) {
   const context = useSavedBenefits();
   if (!context) return null;
-  const { saved, update } = context;
+  const { saved, change } = context;
   const state = saved.stateOf(slug);
 
   if (!state) {
     return (
-      <button type="button" className="linkbtn" onClick={() => update((s) => s.save(slug))}>
+      <button type="button" className="linkbtn" onClick={() => change(slug, 'todo')}>
         저장
       </button>
     );
@@ -19,15 +19,15 @@ export function SaveControls({ slug }: { slug: string }) {
   return (
     <>
       {state === 'todo' ? (
-        <button type="button" className="linkbtn" onClick={() => update((s) => s.markApplied(slug))}>
+        <button type="button" className="linkbtn" onClick={() => change(slug, 'applied')}>
           신청했어요
         </button>
       ) : (
-        <button type="button" className="linkbtn" onClick={() => update((s) => s.save(slug))}>
+        <button type="button" className="linkbtn" onClick={() => change(slug, 'todo')}>
           신청 전으로
         </button>
       )}
-      <button type="button" className="linkbtn" onClick={() => update((s) => s.remove(slug))}>
+      <button type="button" className="linkbtn" onClick={() => change(slug, null)}>
         빼기
       </button>
     </>
