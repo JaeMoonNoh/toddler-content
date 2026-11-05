@@ -1,3 +1,4 @@
+import { LoginStatus } from '@/account/ui/login-status';
 import { fetchPublishedBenefits } from '@/benefits/api/fetch-benefits';
 import { fetchRegionDirectory } from '@/benefits/api/fetch-regions';
 import { BenefitFinder } from '@/benefits/ui/benefit-finder';
@@ -10,8 +11,9 @@ export default async function Home() {
   return (
     <main className="page">
       <header className="top">
+        <LoginStatus />
         <h1>출산예정일만 넣으면, 받을 수 있는 혜택을 한눈에</h1>
-        <p>회원가입 없이, 입력한 정보는 이 화면 밖으로 나가지 않아요.</p>
+        <p>로그인 없이 바로 볼 수 있어요. 입력한 정보는 이 화면 밖으로 나가지 않아요.</p>
       </header>
       {result.ok && regions.ok ? (
         <BenefitFinder benefits={result.benefits} regions={regions.directory} />

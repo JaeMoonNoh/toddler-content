@@ -109,3 +109,41 @@ model CollectionRun {
 
   @@index([source, startedAt])
 }
+
+// ── 회원 ─────────────────────────────────────────────
+
+enum SocialProvider {
+  KAKAO
+}
+
+// 로그인한 사람. 이름·이메일·전화번호는 받지 않는다
+model User {
+  id        String          @id @default(cuid())
+  accounts  SocialAccount[]
+  sessions  Session[]
+  createdAt DateTime        @default(now())
+}
+
+// 계정에 이은 로그인 수단. 한 계정에 카카오·네이버·구글을 여러 개 이을 수 있다
+model SocialAccount {
+  id             String         @id @default(cuid())
+  userId         String
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider       SocialProvider
+  providerUserId String         // 수단 안의 회원번호
+  createdAt      DateTime       @default(now())
+
+  @@unique([provider, providerUserId])
+  @@index([userId])
+}
+
+// 로그인 세션. 쿠키의 토큰은 해시로만 저장한다
+model Session {
+  tokenHash String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
