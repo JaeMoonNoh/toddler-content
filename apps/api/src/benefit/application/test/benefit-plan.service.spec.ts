@@ -119,3 +119,32 @@ describe('BenefitPlanService', () => {
     });
   });
 });
+
+describe('BenefitPlanService.quoteProblems', () => {
+  const catalog = new FakeBenefitCatalog();
+  const sources = new FakeSourceStateReader();
+  catalog.entries = [benefitDetails('1'), benefitDetails('2')];
+  sources.set(new SourceRef('GOV24', '1'), { 지원내용: '출생아 1인당 500000원 지급', 신청기한: '상시' });
+  const service = new BenefitPlanService(catalog, sources, sampleRegionService());
+
+  it('근거 문구가 원문에 있으면 문제가 없다', async () => {
+    expect(await service.quoteProblems([planOf('1')])).toEqual([]);
+  });
+
+  it('원문에 없는 근거 문구를 알린다', async () => {
+    const plan = planOf('1', { ...amountFor('1'), basis: { text: '1인당 300000원', url: 'https://plus.gov.kr/benefit?svcId=1' } });
+    expect(await service.quoteProblems([plan])).toEqual([{ slug: 'gov24-1', problem: 'amount: 원문에 없는 인용 "1인당 300000원"' }]);
+  });
+
+  it('원문이 수집돼 있지 않으면 모든 인용을 알린다', async () => {
+    expect((await service.quoteProblems([planOf('2')])).map((p) => p.slug)).toEqual(['gov24-2']);
+  });
+
+  it('혜택 목록에 없는 slug는 건너뛴다 (check가 따로 알린다)', async () => {
+    expect(await service.quoteProblems([planOf('9')])).toEqual([]);
+  });
+
+  it('근거가 없는 초안(모두 null)은 볼 것이 없다', async () => {
+    expect(await service.quoteProblems([planOf('1', null)])).toEqual([]);
+  });
+});
