@@ -126,7 +126,9 @@ docker compose down -v    # DB 데이터까지 지운다 (다시 3~4단계부터
 | `pnpm benefit candidates <지역코드>` | 그 지역과 아래 지역의 혜택 후보를 md 표로 뽑기 (예: 인천 `2800000000`) |
 | `pnpm benefit add <지역코드> <판단.json>` | 후보 md에서 고른 것을 혜택 목록에 카드로 넣기 (이름 정리, 신청 방법 초안) |
 | `pnpm benefit plan-texts <지역코드> <폴더>` | 일정·금액이 빈 카드의 원문을 md로 나눠 쓰기 (초안 쓸 때 읽는 자료) |
-| `pnpm benefit plan-check <초안.json>` | 일정·금액 초안 검사 (규칙: [docs/benefit-plan-rules.md](docs/benefit-plan-rules.md)) |
+| `pnpm benefit compare-decisions <A.json> <B.json>` | 같은 후보를 따로 고른 두 판단에서 갈린 것만 보기 |
+| `pnpm benefit plan-check <초안.json> [...]` | 일정·금액 초안 검사 (규칙: [docs/benefit-plan-rules.md](docs/benefit-plan-rules.md))와 근거 인용이 원문에 그대로 있는지 |
+| `pnpm benefit plan-verify <폴더> <초안.json> [...]` | 날짜·합계 금액이 있는 초안만 원문과 나란히 모아 대조용 md로 쓰기 (25건씩) |
 | `pnpm benefit plan-apply <초안.json>` | 검사를 통과한 초안을 혜택 목록 파일에 넣기 |
 | `pnpm region sync` | 행정안전부 법정동코드로 지역 목록(`data/regions.json`) 새로 받기 |
 | `pnpm --filter @toddler/api db:migrate --name <변경내용>` | DB 스키마를 바꾼 뒤 마이그레이션 만들기 |
@@ -151,13 +153,10 @@ Docker 없이 서버를 띄우려면 `docker compose up -d db` 후 `pnpm dev:api
 ### 지역을 넓히는 순서
 
 1. `pnpm benefit candidates <지역코드>`로 후보 md를 뽑는다 (지역코드는 `apps/api/data/regions.json`의 `code`)
-2. 넣을 후보를 골라 판단 파일(JSON)로 적고 `pnpm benefit add <지역코드> <판단.json>`으로 카드를 넣는다. 고른 이유는 `docs/research/`에 남긴다 (예: [인천](docs/research/2026-11-03-incheon-candidates.md))
-   ```json
-   [{ "slug": "gov24-641000000137", "merge": ["gov24-641000000136"], "name": "어색할 때만", "audience": "MULTI_CHILD", "conditions": ["USES_CHILDCARE"] }]
-   ```
-   `merge`는 같은 혜택이라 이 카드의 두 번째 원본으로 합칠 후보다. 같은 지역에 같은 이름으로 올라온 원본은 후보 md에서 이미 한 줄로 묶여 있어 적지 않아도 된다
-3. `pnpm benefit plan-texts` → 초안 작성 → `plan-check` → `plan-apply`로 일정·금액을 채운다 ([규칙](docs/benefit-plan-rules.md))
-4. `pnpm benefit sync` → 원문과 대조 → PR 머지 → `pnpm benefit verify`
+2. subagent 둘이 [고르기 규칙](docs/benefit-candidate-rules.md)대로 각자 판단 파일(JSON)을 쓴다. `pnpm benefit compare-decisions`로 갈린 것만 보고 main이 원문으로 판정해 판단 파일 하나로 합친다
+3. `pnpm benefit add <지역코드> <판단.json>`으로 카드를 넣는다. 판단 파일을 그대로 넣으면 된다 (`merge`로 합친 후보는 대표 카드의 두 번째 원본이 된다). 고른 이유는 `docs/research/`에 남긴다 (예: [인천](docs/research/2026-11-03-incheon-candidates.md))
+4. `pnpm benefit plan-texts`로 원문 md를 만들고 초안을 쓴다 → `plan-check`(형식·합계 규칙·인용)를 통과시킨다 → `plan-verify`로 만든 md를 다른 subagent가 원문과 대조하고, 갈린 것만 main이 판정한다 → `plan-apply` ([규칙](docs/benefit-plan-rules.md))
+5. PR 머지 → `pnpm benefit sync` → `pnpm benefit verify`
 
 코드는 고치지 않아도 된다. 화면의 지역 선택은 지역 목록 파일에서 만들어진다.
 

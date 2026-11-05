@@ -44,7 +44,7 @@ function toSection({ card, sources }: CardToPlan, index: number): string {
   ].join('\n');
 }
 
-function toSource(source: SourceId, externalId: string, payload: Payload | null): string {
+export function toSource(source: SourceId, externalId: string, payload: Payload | null): string {
   if (!payload) return `### 원문 ${SOURCE_LABEL[source]} ${externalId}: 수집돼 있지 않음\n`;
   return [
     `### 원문 (${SOURCE_LABEL[source]} ${externalId})`,

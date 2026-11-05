@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { RegionService } from '../../region/application/region.service';
+import { missingQuotes } from '../domain/plan-quote';
 
 import { CatalogError } from './benefit-catalog.service';
 import { BenefitCatalog } from './ports/benefit-catalog';
@@ -15,6 +16,10 @@ import type { SourceRef } from '../domain/source-ref';
 export interface CardToPlan {
   card: BenefitDetails;
   sources: { ref: SourceRef; payload: Payload | null }[]; // 수집돼 있지 않으면 payload가 null
+}
+
+export interface PlanWithSources extends CardToPlan {
+  plan: BenefitPlan;
 }
 
 export interface PlanProblem {
@@ -50,6 +55,37 @@ export class BenefitPlanService {
     });
   }
 
+  // 근거로 적은 문구가 원문에 그대로 있는지. 넣는 것을 막지는 않고, 다시 보라고 알린다
+  async quoteProblems(plans: BenefitPlan[]): Promise<PlanProblem[]> {
+    const sourceTexts = new Map((await this.withSources(plans)).map(({ plan, sources }) => [plan.slug, sourceTextOf(sources)]));
+    return plans.flatMap((plan) =>
+      (['schedule', 'amount', 'applicationPeriod'] as const).flatMap((field) => {
+        const basis = plan[field]?.basis.text;
+        const source = sourceTexts.get(plan.slug);
+        if (!basis || source === undefined) return [];
+        return missingQuotes(basis, source).map((quote) => ({
+          slug: plan.slug,
+          problem: `${field}: 원문에 없는 인용 "${quote.slice(0, 60)}"`,
+        }));
+      }),
+    );
+  }
+
+  // 초안과 그 카드, 원문을 함께 준다. 다른 검토자가 원문과 대조할 때 쓴다. 혜택 목록에 없는 slug는 뺀다
+  async withSources(plans: BenefitPlan[]): Promise<PlanWithSources[]> {
+    const cards = new Map((await this.catalog.load()).map((card) => [card.slug, card]));
+    const known = plans.flatMap((plan) => {
+      const card = cards.get(plan.slug);
+      return card ? [{ plan, card }] : [];
+    });
+    const current = await this.sources.read(known.flatMap(({ card }) => card.sources));
+    return known.map(({ plan, card }) => ({
+      plan,
+      card,
+      sources: card.sources.map((ref) => ({ ref, payload: current.of(ref)?.payload ?? null })),
+    }));
+  }
+
   // 초안에 문제가 하나라도 있으면 아무것도 넣지 않는다
   async apply(plans: BenefitPlan[], year: string): Promise<string[]> {
     const problems = await this.check(plans, year);
@@ -62,6 +98,10 @@ export class BenefitPlanService {
     await this.catalog.update(plans.map((plan) => plan.applyTo(cards.get(plan.slug)!)));
     return plans.map((plan) => plan.slug);
   }
+}
+
+function sourceTextOf(sources: CardToPlan['sources']): string {
+  return sources.flatMap(({ payload }) => Object.values(payload ?? {}).filter((value) => typeof value === 'string')).join('\n');
 }
 
 function isPlanned(card: BenefitDetails) {
