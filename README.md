@@ -100,6 +100,7 @@ http://localhost:3000 에서
 신청 타임라인, 받을 수 있는 금액 합계, 지역별 혜택이 나오면 성공이다.
 
 > 처음 받은 환경에서는 모든 혜택이 **"검증 전"**으로 보인다. 원문을 확인한 기록(`pnpm benefit verify`)은 git이 아니라 각자의 DB에 남기 때문이다. 화면 확인이나 개발에는 문제없다.
+> 확인 기록까지 그대로 보려면 [다른 맥으로 옮기기](#다른-맥으로-옮기기)대로 DB를 통째로 옮긴다.
 
 ### 끄기
 
@@ -107,6 +108,60 @@ http://localhost:3000 에서
 docker compose down       # 컨테이너만 끈다 (DB 데이터는 남는다)
 docker compose down -v    # DB 데이터까지 지운다 (다시 3~4단계부터)
 ```
+
+## 다른 맥으로 옮기기
+
+git에는 코드와 혜택 목록 파일만 있다. 아래 두 가지는 지금 쓰는 맥에만 있으므로 직접 옮겨야 한다.
+
+| 옮길 것 | 들어 있는 것 | 없으면 |
+|---|---|---|
+| DB | 수집한 원본, 변경 기록, **원문 확인 기록(최종 확인일)**, 로그인 계정·저장한 조건 | 모든 혜택이 "검증 전"으로 보이고, 다음 수집이 "첫 수집"이 된다 |
+| `apps/api/.env`, 루트 `.env`(있으면) | 공공데이터포털 인증키, 카카오 키, 바꾼 포트 | API가 시작하지 않는다 |
+
+`pnpm collect`로 원본을 새로 받아도 확인 기록은 돌아오지 않는다. DB를 통째로 옮긴다.
+
+### 1. 지금 맥에서 백업하기
+
+```bash
+docker compose up -d db
+docker compose exec -T db pg_dump -U toddler -d toddler --clean --if-exists > backup-$(date +%F).sql
+```
+
+- 파일은 수십 MB다. 저장소 맨 위에 두어도 git에는 올라가지 않는다 (`.gitignore`)
+- 백업 파일과 `.env`에는 인증키, 카카오 회원번호, 저장한 출산예정일이 들어 있다. AirDrop이나 USB로 옮기고 git, 메신저, 공유 드라이브에 올리지 않는다
+
+### 2. 새 맥에서 받고 설치하기
+
+[처음 실행하기](#처음-실행하기)의 1단계(clone, `pnpm install`)를 한다. `.env`는 새로 만들지 않고 가져온 파일을 같은 자리(`apps/api/.env`, 루트 `.env`)에 넣는다.
+
+### 3. DB 복원하기
+
+```bash
+docker compose up -d db
+docker compose exec -T db psql -q -v ON_ERROR_STOP=1 -U toddler -d toddler < backup-2026-11-06.sql
+```
+
+- 복원은 꼭 컨테이너 안의 `psql`로 한다. 맥에 설치한 `psql`은 버전이 달라 백업 파일을 읽지 못할 수 있다
+- `--clean`으로 만든 백업이라 같은 DB에 다시 복원해도 된다 (있던 테이블을 지우고 다시 만든다)
+
+### 4. 띄우고 맞추기
+
+```bash
+docker compose up -d --build
+pnpm benefit sync      # 백업 뒤에 main에 머지된 혜택이 있으면 반영된다
+```
+
+API는 시작할 때 백업 뒤에 생긴 마이그레이션만 적용한다. 수집(`pnpm collect`)은 다시 하지 않아도 된다. 다음 수집은 백업 때 원본과 비교해 바뀐 것만 알려준다.
+
+### 5. 확인하기
+
+```bash
+docker compose exec -T db psql -U toddler -d toddler -c 'select count(*) as "혜택", count("verifiedAt") as "확인됨" from "Benefit"'
+```
+
+옛 맥에서 같은 명령을 돌린 결과와 같으면 된다. http://localhost:3000 에서 혜택에 "최종 확인 YYYY.MM.DD"가 보이면 성공이다.
+
+- 카카오 로그인은 같은 키와 같은 주소(`localhost:3000`)라 콘솔을 바꾸지 않아도 된다
 
 ## 자주 쓰는 명령
 
