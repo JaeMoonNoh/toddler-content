@@ -45206,5 +45206,3181 @@
       }
     },
     "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00003921",
+    "name": "난임부부 시술비 지원",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003921&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003921"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "방문 또는 온라인",
+      "basis": {
+        "text": "신청방법: 인터넷, 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003921&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-642000000703",
+    "name": "산모·신생아 건강관리 본인부담금 지원",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003931&bnefType=all&svcId=642000000703",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "642000000703"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001990"
+      }
+    ],
+    "audience": "LOW_INCOME",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 주소지 관할 보건소/-",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003931&bnefType=all&svcId=642000000703"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "표준서비스 본인부담금 1인 10일 최대 20만원 지원 (90% 지원, 10% 자부담)",
+      "tiers": null,
+      "basis": {
+        "text": "1인 10일 최대 20만원(90% 지원, 10% 자부담원칙)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003931&bnefType=all&svcId=642000000703"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-642000000684",
+    "name": "산모·신생아 건강관리 지원",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002020&bnefType=all&svcId=642000000684",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "642000000684"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 주소지 관할 보건소/-",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002020&bnefType=all&svcId=642000000684"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": -40
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 59
+      },
+      "untilLabel": "바우처 신청 마감 (출산 후 60일)",
+      "summary": "출산예정일 40일 전부터 출산 후 60일 안에 바우처를 신청해요",
+      "basis": {
+        "text": "출산 예정일 40일 전부터 출산일로부터 60일까지 바우처 신청",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002020&bnefType=all&svcId=642000000684"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "산모 및 신생아 건강관리, 산모정보제공, 가사활동지원, 정서지원 등",
+      "tiers": null,
+      "basis": {
+        "text": "산모 및 신생아 건강관리, 산모정보제공, 가사활동지원, 정서지원 등",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002020&bnefType=all&svcId=642000000684"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-642000000685",
+    "name": "산후 건강관리 지원",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002021&bnefType=all&svcId=642000000685",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "642000000685"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001849"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 주소지 관할 보건소/-",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002021&bnefType=all&svcId=642000000685"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 6,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (출산 후 6개월)",
+      "summary": "출산 후 6개월 안에 방문해서 신청해요. 도내에 6개월 이상 살아야 해요",
+      "basis": {
+        "text": "출산일로부터 6개월 이내",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002021&bnefType=all&svcId=642000000685"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "산후 의료비·약제비 지원 (첫째 최대 15만원, 둘째 최대 20만원, 셋째 이상 최대 30만원)",
+      "tiers": null,
+      "basis": {
+        "text": "(첫째 최대 15만원, 둘째 최대 20만원, 셋째이상 최대 30만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002021&bnefType=all&svcId=642000000685"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-653000000022",
+    "name": "안전한 출산 인프라 지원",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2156159&bnefType=all&svcId=653000000022",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "653000000022"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청, 직접입력 / 전화문의: 안전한출산인프라구축사업단/033-256-35458",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2156159&bnefType=all&svcId=653000000022"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "고위험 임산부 선별 검사, 의료기기 무료 대여, 응급 이송비 지원 등 (홍천·철원·화천·양구·인제 분만 취약지 임산부)",
+      "tiers": null,
+      "basis": {
+        "text": "맞춤형 의료기기 무료 대여 사업",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2156159&bnefType=all&svcId=653000000022"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-642000000715",
+    "name": "육아기본수당",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005117&bnefType=all&svcId=642000000715",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "642000000715"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002254"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-249-2438",
+      "basis": {
+        "text": "신청방법: 방문신청, 직접입력 / 전화문의: 복지정책과/033-249-2438",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005117&bnefType=all&svcId=642000000715"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "매월 최대 50만원 (12개월부터 95개월까지)",
+      "tiers": null,
+      "basis": {
+        "text": "1인당 최대 매월 50만원 지원, 2019년생부터 12개월부터 95개월까지 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005117&bnefType=all&svcId=642000000715"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-653000000017",
+    "name": "다자녀 우대카드 안내",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2154331&bnefType=all&svcId=653000000017",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "653000000017"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문 · 문의 033-249-2503",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 복지정책과/033-249-2503",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2154331&bnefType=all&svcId=653000000017"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "참여업체 할인·우대 (강원FC 티켓 20% 할인, 도립화목원 입장료 무료 등)",
+      "tiers": null,
+      "basis": {
+        "text": "카드소지자에게 참여업체가 협약한 할인 등 우대",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2154331&bnefType=all&svcId=653000000017"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-642000000710",
+    "name": "보육료 부모부담금 지원",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004761&bnefType=all&svcId=642000000710",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "642000000710"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001846"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-249-2277",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 복지정책과/033-249-2277",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004761&bnefType=all&svcId=642000000710"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "정부지원 보육료와 어린이집 수납한도액의 차액 지원",
+      "tiers": null,
+      "basis": {
+        "text": "정부지원 보육료와 어린이집 수납한도액의 차액 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004761&bnefType=all&svcId=642000000710"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-642000000686",
+    "name": "어린이집 입학준비금 지원",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002022&bnefType=all&svcId=642000000686",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "642000000686"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001872"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "audience": "SPECIAL",
+    "howToApply": {
+      "summary": "방문 · 문의 033-249-2277",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 복지정책과/033-249-2277",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002022&bnefType=all&svcId=642000000686"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "저소득층, 둘째아 이상, 다문화, 장애아 어린이집 입학준비금 지원 (금액은 원문에 없어요)",
+      "tiers": null,
+      "basis": {
+        "text": "저소득층, 다자녀 가정의 둘째아 이상, 다문화 가정 아동, 장애아 입학준비금 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002022&bnefType=all&svcId=642000000686"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-642000000713",
+    "name": "찾아가는 산부인과 운영",
+    "regionCode": "5100000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004870&bnefType=all&svcId=642000000713",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "642000000713"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 공공의료과/033-249-2181 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004870&bnefType=all&svcId=642000000713"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "고성군 보건소 산부인과 진료실에서 월 2회 산전진찰·부인과 질환 검사",
+      "tiers": null,
+      "basis": {
+        "text": "장소 : 고성군 보건소 내 산부인과 진료실 / 일시: 월2회 운영",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004870&bnefType=all&svcId=642000000713"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-418000000255",
+    "name": "산후조리비 지원",
+    "regionCode": "5111000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2104598&bnefType=all&svcId=418000000255",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "418000000255"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005497"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-250-3993",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 보건소 건강관리과/033-250-3993",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2104598&bnefType=all&svcId=418000000255"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "산후조리비 산모 1인당 50만원 (다태아 출산 산모 100만원)",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": null,
+          "won": 500000
+        }
+      ],
+      "basis": {
+        "text": "산모 1인당 50만원 지원(다태아 출산 산모 100만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2104598&bnefType=all&svcId=418000000255"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00005758",
+    "name": "임산부 안전벨트 지원",
+    "regionCode": "5111000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005758&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005758"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005758&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "임산부 차량 안전벨트 지원",
+      "tiers": null,
+      "basis": {
+        "text": "임신부에게 차량 안전벨트를 지원함으로써 차량 급정거 및 사고 발생 시 임신부와 태아를 보호",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005758&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-418100000005",
+    "name": "임산부 지원",
+    "regionCode": "5111000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153720&bnefType=all&svcId=418100000005",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "418100000005"
+      }
+    ],
+    "amount": {
+      "kind": "service",
+      "summary": "임산부 검진 쿠폰, 임신 초기 산전검사, 엽산제·철분제 지급, 유축기 1개월 대여",
+      "tiers": null,
+      "basis": {
+        "text": "임산부 검진지 쿠폰 지원 / 유축기 대여",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153720&bnefType=all&svcId=418100000005"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-418100000003",
+    "name": "한방난임 지원",
+    "regionCode": "5111000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153325&bnefType=all&svcId=418100000003",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "418100000003"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003603"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "방문 · 문의 033-250-4663",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건소 건강관리과/033-250-4663",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153325&bnefType=all&svcId=418100000003"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "한약(첩약) 200천원 x 6회 = 1,200천원, 침·뜸 등 특별프로그램 (10명 모집)",
+      "tiers": null,
+      "basis": {
+        "text": "시술비: 첩약 200천원 x 6회 = 1,200천원/1인",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153325&bnefType=all&svcId=418100000003"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006143",
+    "name": "아이돌봄서비스 이용자 본인부담금 지원",
+    "regionCode": "5111000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006143&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006143"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006143&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00005628",
+    "name": "어린이집 특별활동비 지원",
+    "regionCode": "5111000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005628&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005628"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00002947",
+    "name": "산모 출산 축하 지역 농축산물 지원 사업",
+    "regionCode": "5113000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002947&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002947"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 온라인",
+      "basis": {
+        "text": "신청방법: 방문, 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002947&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "출산한 산모에게 산후조리용 지역 농축산물 공급",
+      "tiers": null,
+      "basis": {
+        "text": "출산한 산모에게 산후 조리용 지역 농축산물을 공급하여 농업인의 농가소득 증대 및 지역 경제 상생 활성화 기여",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002947&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-419000000126",
+    "name": "셋째아 이후 출생아 건강보험료 지원",
+    "regionCode": "5113000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005813&bnefType=all&svcId=419000000126",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "419000000126"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003033"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문 · 문의 033-737-2583",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 원주시보육아동과/033-737-2583",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005813&bnefType=all&svcId=419000000126"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "셋째아 이후 출생아 건강보험료 60개월 지원",
+      "tiers": null,
+      "basis": {
+        "text": "셋째아 이후 출생아에 대한 건강보험료를 60개월 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005813&bnefType=all&svcId=419000000126"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-419100000013",
+    "name": "산후조리비 지원",
+    "regionCode": "5113000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2140817&bnefType=all&svcId=419100000013",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "419100000013"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-737-5216",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 건강증진과/033-737-5216",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2140817&bnefType=all&svcId=419100000013"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 12,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (출산 후 12개월)",
+      "summary": "출산(사산) 후 12개월 안에 신청해요. 원주시에 출생 등록한 원주시 산모예요",
+      "basis": {
+        "text": "출산(사산)일로부터 12개월 이내",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2140817&bnefType=all&svcId=419100000013"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "산후조리비 50만원 한도 내 실비 지원 (원주 업체만 사용 가능)",
+      "tiers": null,
+      "basis": {
+        "text": "산모 1인당 산후조리비 50만원 한도 내 실비 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2140817&bnefType=all&svcId=419100000013"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006052",
+    "name": "어린이집 특별활동비 지원",
+    "regionCode": "5113000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006052&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006052"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-420000000176",
+    "name": "출산지원금 지원",
+    "regionCode": "5115000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006357&bnefType=all&svcId=420000000176",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "420000000176"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-640-5771",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 강릉시 인구가족과/033-640-5771",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006357&bnefType=all&svcId=420000000176"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 12,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (출산 후 1년)",
+      "summary": "출산(입양) 후 1년 안에 방문해서 신청해요. 출생신고일부터 신청일까지 강릉시에 주민등록이 있어야 해요",
+      "basis": {
+        "text": "※ 출산(입양)일로부터 1년 이내",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006357&bnefType=all&svcId=420000000176"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산지원금 첫째 30만원, 둘째 50만원, 셋째 이상 100만원",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": 1,
+          "won": 300000
+        },
+        {
+          "minBirthOrder": 2,
+          "maxBirthOrder": 2,
+          "won": 500000
+        },
+        {
+          "minBirthOrder": 3,
+          "maxBirthOrder": null,
+          "won": 1000000
+        }
+      ],
+      "basis": {
+        "text": "출산지원금 지급(첫째아 30만원, 둘째아 50만원, 셋째아 이상 100만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006357&bnefType=all&svcId=420000000176"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006188",
+    "name": "아이돌봄서비스 본인부담금 추가 지원",
+    "regionCode": "5115000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006188&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006188"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006188&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-420000000162",
+    "name": "정(난)관 복원수술비 지원",
+    "regionCode": "5115000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002189&bnefType=all&svcId=420000000162",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "420000000162"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "방문 · 문의 033-640-5997",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 강릉시 인구가족과/033-640-5997",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002189&bnefType=all&svcId=420000000162"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "정·난관 복원 시술 요양급여 본인부담금 최대 50만원 (1회 한정)",
+      "tiers": null,
+      "basis": {
+        "text": "요양급여 중 본인부담금 최대 50만원 지원(1회 한정)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002189&bnefType=all&svcId=420000000162"
+      }
+    },
+    "applicationPeriod": {
+      "start": "2026-01-01",
+      "end": "2026-11-30",
+      "basis": {
+        "text": "2026.01.01~2026.11.30",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002189&bnefType=all&svcId=420000000162"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-421100000005",
+    "name": "산후조리비 지원",
+    "regionCode": "5117000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2146216&bnefType=all&svcId=421100000005",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "421100000005"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-530-2404",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 동해시보건소 보건정책과 보건사업팀/033-530-2404",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2146216&bnefType=all&svcId=421100000005"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 12,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (출생 후 12개월)",
+      "summary": "신생아 출생 후 12개월 안에 신청해요. 동해시에 6개월 이상 살아야 해요",
+      "basis": {
+        "text": "신청기간 : 신생아의 출생일로부터 12개월 이내",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2146216&bnefType=all&svcId=421100000005"
+      }
+    },
+    "amount": {
+      "kind": "voucher",
+      "summary": "산후조리 관련 업종 이용 비용 산모 1인당 최대 50만원 (지역화폐)",
+      "tiers": null,
+      "basis": {
+        "text": "산모 1인당 최대 50만원 지역화폐로 지급",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2146216&bnefType=all&svcId=421100000005"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-421000000642",
+    "name": "임산부 교통비 지원",
+    "regionCode": "5117000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=806471&bnefType=all&svcId=421000000642",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "421000000642"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건소 보건정책과/033-530-2403 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=806471&bnefType=all&svcId=421000000642"
+      }
+    },
+    "amount": {
+      "kind": "voucher",
+      "summary": "임산부 교통카드 10만원",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": null,
+          "won": 100000
+        }
+      ],
+      "basis": {
+        "text": "교통카드 지급(10만 원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=806471&bnefType=all&svcId=421000000642"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-421000000627",
+    "name": "임산부 및 영유아 관리 지원",
+    "regionCode": "5117000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000382&bnefType=all&svcId=421000000627",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "421000000627"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-530-2403",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건소 보건정책과/033-530-2403",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000382&bnefType=all&svcId=421000000627"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "임산부 영양제, 산전검사 쿠폰, 건강관리용품 등 제공",
+      "tiers": null,
+      "basis": {
+        "text": "임산부 영양제 및 산전검사 쿠폰, 건강관리용품 등 제공",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000382&bnefType=all&svcId=421000000627"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00003777",
+    "name": "출산장려금 지원",
+    "regionCode": "5117000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003777&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003777"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003777&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-421100000007",
+    "name": "다둥e카드(다자녀가정 지원)",
+    "regionCode": "5117000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2179516&bnefType=all&svcId=421100000007",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "421100000007"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "온라인 · 문의 033-530-2098",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청 / 전화문의: 동해시청 행정과/033-530-2098",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2179516&bnefType=all&svcId=421100000007"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "모바일 카드 한 장으로 공공시설·민간 할인가맹업소 다자녀가정 혜택",
+      "tiers": null,
+      "basis": {
+        "text": "별도의 증빙서류 없이 모바일 카드 한 장으로 공공시설 및 민간할인가맹업소에서 다자녀가정에 제공되는 다양한 혜택을 받을 수 있는 카드",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2179516&bnefType=all&svcId=421100000007"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-422000000121",
+    "name": "임산부 산전건강관리 지원",
+    "regionCode": "5119000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004335&bnefType=all&svcId=422000000121",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "422000000121"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-550-3033",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 태백시보건소/033-550-3033",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004335&bnefType=all&svcId=422000000121"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "산전 기형아검사 쿠폰 1회, 초음파검사 쿠폰 5회, 엽산제·철분제, 임신 축하용품, 모성혈액검사",
+      "tiers": null,
+      "basis": {
+        "text": "임산부 산전 기형아검사 쿠폰 1회(관내 산부인과) / 임산부 산전 초음파검사 쿠폰 5회(관내 산부인과)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004335&bnefType=all&svcId=422000000121"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-422000000124",
+    "name": "출산양육비 지원",
+    "regionCode": "5119000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005118&bnefType=all&svcId=422000000124",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "422000000124"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003285"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-550-3033",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 태백시보건소 모성실/033-550-3033",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005118&bnefType=all&svcId=422000000124"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산양육비 첫째 50만원, 둘째 100만원, 셋째 이상 360만원 (12회 분할)",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": 1,
+          "won": 500000
+        },
+        {
+          "minBirthOrder": 2,
+          "maxBirthOrder": 2,
+          "won": 1000000
+        },
+        {
+          "minBirthOrder": 3,
+          "maxBirthOrder": null,
+          "won": 3600000
+        }
+      ],
+      "basis": {
+        "text": "첫째아 50만원(1회), 둘째아 100만원(1회), 셋째아 이상 360만원(12회 분할)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005118&bnefType=all&svcId=422000000124"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-422000000107",
+    "name": "무료 독감 예방접종",
+    "regionCode": "5119000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000740&bnefType=all&svcId=422000000107",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "422000000107"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-550-3034",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 태백시 보건소/033-550-3034",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000740&bnefType=all&svcId=422000000107"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "임신부 무료 독감 예방접종",
+      "tiers": null,
+      "basis": {
+        "text": "임신부 무료독감 예방접종",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000740&bnefType=all&svcId=422000000107"
+      }
+    },
+    "applicationPeriod": {
+      "start": "2026-10-01",
+      "end": "2027-04-30",
+      "basis": {
+        "text": "2026. 10.~2027. 4.",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000740&bnefType=all&svcId=422000000107"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-422000000117",
+    "name": "청소년 및 다자녀가정 여성 보건위생물품 지원",
+    "regionCode": "5119000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002786&bnefType=all&svcId=422000000117",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "422000000117"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-550-2073",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 사회복지과/033-550-2073",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002786&bnefType=all&svcId=422000000117"
+      }
+    },
+    "amount": {
+      "kind": "voucher",
+      "summary": "여성 보건위생물품 탄탄페이 연 156,000원 (1인)",
+      "tiers": null,
+      "basis": {
+        "text": "여성 보건위생물품 탄탄페이 지원(연 156,000원/1인)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002786&bnefType=all&svcId=422000000117"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00004818",
+    "name": "다자녀 가정 교육비 지원",
+    "regionCode": "5119000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004818&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004818"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004818&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-423000000481",
+    "name": "출산장려금 및 출산축하물품 지원",
+    "regionCode": "5121000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003852&bnefType=all&svcId=423000000481",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "423000000481"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003376"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-639-1659",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 속초시 자치행정과/033-639-1659",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003852&bnefType=all&svcId=423000000481"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 6,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (출생신고 후 6개월)",
+      "summary": "출생신고 후 6개월 안에 신청해요. 속초시에 6개월 이상 살아야 해요. 마감은 출생일 기준으로 계산했어요",
+      "basis": {
+        "text": "출생아 출생신고를 한 날부터 6개월 이내에 신청",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003852&bnefType=all&svcId=423000000481"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산장려금 첫째 50만원, 둘째 70만원, 셋째 100만원, 넷째 이상 200만원 + 출산축하물품 육아용품 1회",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": 1,
+          "won": 500000
+        },
+        {
+          "minBirthOrder": 2,
+          "maxBirthOrder": 2,
+          "won": 700000
+        },
+        {
+          "minBirthOrder": 3,
+          "maxBirthOrder": 3,
+          "won": 1000000
+        },
+        {
+          "minBirthOrder": 4,
+          "maxBirthOrder": null,
+          "won": 2000000
+        }
+      ],
+      "basis": {
+        "text": "출산장려금 : 첫째아(50만원), 둘째아(70만원), 셋째아(100만원), 넷째아 이상(200만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003852&bnefType=all&svcId=423000000481"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-423000000491",
+    "name": "다자녀 가구 상하수도 요금 감면",
+    "regionCode": "5121000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=810108&bnefType=all&svcId=423000000491",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "423000000491"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문 · 문의 033-639-2981",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 맑은물관리사업소/033-639-2981",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=810108&bnefType=all&svcId=423000000491"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "상하수도 요금 30% 감면 (19세 이하 자녀 3명 이상)",
+      "tiers": null,
+      "basis": {
+        "text": "상하수도 요금의 100분의 30에 대하여 감면",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=810108&bnefType=all&svcId=423000000491"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00003156",
+    "name": "발달장애아동 지원사업",
+    "regionCode": "5121000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003156&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003156"
+      }
+    ],
+    "audience": "DISABILITY",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003156&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-424000000167",
+    "name": "공공산후조리원 이용료 지급",
+    "regionCode": "5123000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005130&bnefType=all&svcId=424000000167",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "424000000167"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000320"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005130&bnefType=all&svcId=424000000167"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "공공산후조리원 이용료 지급 (14일 기준 180만원)",
+      "tiers": null,
+      "basis": {
+        "text": "공공산후조리원 이용료 지급(14일 기준 180만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005130&bnefType=all&svcId=424000000167"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00000350",
+    "name": "엽산제·철분제 지원",
+    "regionCode": "5123000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000350&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000350"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000350&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006711",
+    "name": "차상위계층 산후조리경비 지원사업",
+    "regionCode": "5123000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006711&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006711"
+      }
+    ],
+    "audience": "LOW_INCOME",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006711&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-424000000164",
+    "name": "출산장려금 지원",
+    "regionCode": "5123000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004594&bnefType=all&svcId=424000000164",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "424000000164"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004117"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-570-4631",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 건강증진과/033-570-4631",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004594&bnefType=all&svcId=424000000164"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 6,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (출산 후 6개월)",
+      "summary": "출산 후 6개월 안에 방문해서 신청해요. 삼척시에 주소를 두고 출산해야 해요",
+      "basis": {
+        "text": "출산 후 6개월 이내",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004594&bnefType=all&svcId=424000000164"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산장려금 첫째 100만원, 둘째 150만원, 셋째 이상 200만원 (2년 이상 주민등록 유지 시 100% 추가 지급)",
+      "tiers": null,
+      "basis": {
+        "text": "기존 : 첫째 100만원, 둘째 150만원, 셋째이상 200만원 계좌지급",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004594&bnefType=all&svcId=424000000164"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00005498",
+    "name": "출산축하용품 지원",
+    "regionCode": "5123000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005498&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005498"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005498&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00002856",
+    "name": "출생아 건강보장보험료 지원",
+    "regionCode": "5123000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002856&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002856"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002856&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00002971",
+    "name": "산전검진비 지원",
+    "regionCode": "5123000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002971&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002971"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002971&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00000349",
+    "name": "아동치과주치의 의료지원",
+    "regionCode": "5123000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000349&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000349"
+      }
+    ],
+    "audience": "LOW_INCOME",
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006751",
+    "name": "책꾸러미 배부사업",
+    "regionCode": "5123000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006751&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006751"
+      }
+    ],
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: E-mail, 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006751&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00005710",
+    "name": "난임부부 교통비 지원",
+    "regionCode": "5172000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005710&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005710"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005710&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-425000000650",
+    "name": "임산부 및 영유아 영양제 지원",
+    "regionCode": "5172000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006333&bnefType=all&svcId=425000000650",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "425000000650"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 온라인",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청, 방문신청 / 전화문의: 홍천군보건소/033-430-4048~9",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006333&bnefType=all&svcId=425000000650"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "출산 전 엽산제·철분제, 출산 후 임산부 영양제, 영유아 정장제 지원",
+      "tiers": null,
+      "basis": {
+        "text": "출산전 엽산제, 철분제 지원 / 출산후 임산부 영양제 지원 / 출산후 3개월이후 영유아 정장제 지원 (등본지참)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006333&bnefType=all&svcId=425000000650"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-425000000633",
+    "name": "출산 축하물품 지원",
+    "regionCode": "5172000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1001852&bnefType=all&svcId=425000000633",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "425000000633"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 홍천군보건소/033-430-4048~9",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1001852&bnefType=all&svcId=425000000633"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 6,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (출생 후 6개월)",
+      "summary": "출생 후 6개월 안에 신청해요. 홍천군에 6개월 이상 살아야 해요",
+      "basis": {
+        "text": "출생일 기준 6개월 이내 신청 가능",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1001852&bnefType=all&svcId=425000000633"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "출산축하물품 지원 (예산 상황에 따라 물품이 달라질 수 있어요)",
+      "tiers": null,
+      "basis": {
+        "text": "출산축하물품 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1001852&bnefType=all&svcId=425000000633"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-425000000648",
+    "name": "출산장려금 지원",
+    "regionCode": "5172000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006010&bnefType=all&svcId=425000000648",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "425000000648"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002855"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-430-2148",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 홍천군청 행복나눔과/033-430-2148",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006010&bnefType=all&svcId=425000000648"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-425000000641",
+    "name": "출생아 안전보험 가입 지원",
+    "regionCode": "5172000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003773&bnefType=all&svcId=425000000641",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "425000000641"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006209"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문 · 문의 033-430-2148",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 홍천군청 행복나눔과/033-430-2148",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003773&bnefType=all&svcId=425000000641"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "둘째 이상 자녀 보장성·실비보험 가입 지원",
+      "tiers": null,
+      "basis": {
+        "text": "홍천군에 주민등록을 두고 거주하고 있는 둘째 이상의 자녀에게 보장성 또는 실비보험가입 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003773&bnefType=all&svcId=425000000641"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006050",
+    "name": "산후조리비용 지원사업",
+    "regionCode": "5172000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006050&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006050"
+      }
+    ],
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006364",
+    "name": "난임부부 시술비 본인부담금 지원사업",
+    "regionCode": "5173000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006364&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006364"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006364&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-426100000005",
+    "name": "임산부 영양제 지원",
+    "regionCode": "5173000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153716&bnefType=all&svcId=426100000005",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "426100000005"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 횡성군보건소 건강관리팀/033-340-5674 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153716&bnefType=all&svcId=426100000005"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "엽산제·철분제 지급, 유산균·산후영양제 추가 지급",
+      "tiers": null,
+      "basis": {
+        "text": "○ 엽산제 및 철분제 지급",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153716&bnefType=all&svcId=426100000005"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00002034",
+    "name": "임신·출산축하용품 지원 사업",
+    "regionCode": "5173000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002034&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002034"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002034&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "임신·출산 축하용품 지원 (현물)",
+      "tiers": null,
+      "basis": {
+        "text": "임산부와 영아의 건강관리 및 양육에 도움을 주기 위하여 용품 지원",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002034&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-426100000006",
+    "name": "출산·육아용품 대여",
+    "regionCode": "5173000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2155316&bnefType=all&svcId=426100000006",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "426100000006"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002035"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 횡성군보건소 건강관리팀/033-340-5674 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2155316&bnefType=all&svcId=426100000006"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "출산·육아용품 무료 대여 (1가구당 2점)",
+      "tiers": null,
+      "basis": {
+        "text": "○ 출산·육아용품 무료대여 / - 1가구당 2점",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2155316&bnefType=all&svcId=426100000006"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-426000000112",
+    "name": "출산장려금 및 산후관리비 지원",
+    "regionCode": "5173000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002170&bnefType=all&svcId=426000000112",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "426000000112"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004381"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006367"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건소/033-340-5676 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002170&bnefType=all&svcId=426000000112"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산장려금 첫째 100만원, 둘째 200만원(연 100만원씩 2년), 셋째 이상 1,080만원 + 산후관리비 200만원. 총액은 첫째 300만원, 둘째 400만원, 셋째 이상 1,280만원",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": 1,
+          "won": 3000000
+        },
+        {
+          "minBirthOrder": 2,
+          "maxBirthOrder": 2,
+          "won": 4000000
+        },
+        {
+          "minBirthOrder": 3,
+          "maxBirthOrder": null,
+          "won": 12800000
+        }
+      ],
+      "basis": {
+        "text": "첫째아: 100만원(1회) / 둘째아: 200만원(만0세~1세: 연 100만원) / 셋째아 이상: 1,080만원(만0세~3세: 연 120만원, 만4세~5세: 연 300만원) / ○ 산후관리비지원 : 200만원(출산 시 마다)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002170&bnefType=all&svcId=426000000112"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-426100000004",
+    "name": "한방 난임 의료비 지원",
+    "regionCode": "5173000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153616&bnefType=all&svcId=426100000004",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "426100000004"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006365"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 횡성군보건소 건강관리팀/033-340-5674 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153616&bnefType=all&svcId=426100000004"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "한방 난임 치료비 1인당 150만원 이내 (연 1회)",
+      "tiers": null,
+      "basis": {
+        "text": "○ 지원 대상자 1인당 150만원 이내 지원(1인당 연 1회)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153616&bnefType=all&svcId=426100000004"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00003854",
+    "name": "어린이집 부모부담금(특성화 및 특별활동비) 지원",
+    "regionCode": "5173000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003854&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003854"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "amount": {
+      "kind": "service",
+      "summary": "어린이집 특성화·특별활동 프로그램 필요경비를 어린이집에 지원",
+      "tiers": null,
+      "basis": {
+        "text": "어린이집 이용아동의 특성화 및 특별활동 프로그램 운영에 소요되는 필요경비를 어린이집에 지원하여 부모부담 경감",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003854&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-427000000242",
+    "name": "산후 건강관리비 지원",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005815&bnefType=all&svcId=427000000242",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "427000000242"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001688"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 영월군보건소 모자보건팀/033-370-5454 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005815&bnefType=all&svcId=427000000242"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "공공산후조리원을 이용하지 않으면 산후건강관리비 100만원 (이용하면 이용료 감면, 지급 안 함)",
+      "tiers": null,
+      "basis": {
+        "text": "영월군 공공산후조리원 미이용 / : 산후건강관리비(출산가정에 100만원) 지급",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005815&bnefType=all&svcId=427000000242"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-427000000195",
+    "name": "임신 및 출산 축하기념품 지원",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000333&bnefType=all&svcId=427000000195",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "427000000195"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 영월군보건소 모자보건팀/033-370-5452 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000333&bnefType=all&svcId=427000000195"
+      }
+    },
+    "amount": {
+      "kind": "voucher",
+      "summary": "임신 20주 이후 지역화폐 7만원, 출산 축하꾸러미(미역·소고기 등) 별도",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": null,
+          "won": 70000
+        }
+      ],
+      "basis": {
+        "text": "임신 20주 이후 임신축하기념품(지역화폐 7만원) 제공",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000333&bnefType=all&svcId=427000000195"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-427000000269",
+    "name": "출산 육아용품 대여 지원",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2104514&bnefType=all&svcId=427000000269",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "427000000269"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-370-2683",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 여성가족과/033-370-2683",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2104514&bnefType=all&svcId=427000000269"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "7세 이하 미취학 아동 출산·육아용품 대여 (최대 2점, 택배 가능)",
+      "tiers": null,
+      "basis": {
+        "text": "최대 2점까지 대여 가능(택배배송 가능)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2104514&bnefType=all&svcId=427000000269"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-427000000207",
+    "name": "출산·입양장려금 지원",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002082&bnefType=all&svcId=427000000207",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "427000000207"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 영월군보건소 모자보건팀/033-370-5454 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002082&bnefType=all&svcId=427000000207"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산장려금 첫째 100만원, 둘째 300만원(0세 200만원 + 만1세 100만원), 셋째 이상 1,000만원(0세 200만원 + 만1~3세 120만원x3 + 만4~5세 220만원x2)",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": 1,
+          "won": 1000000
+        },
+        {
+          "minBirthOrder": 2,
+          "maxBirthOrder": 2,
+          "won": 3000000
+        },
+        {
+          "minBirthOrder": 3,
+          "maxBirthOrder": null,
+          "won": 10000000
+        }
+      ],
+      "basis": {
+        "text": "-- 첫째: 100만원(1회) / -- 둘째: 300만원(2년간 분할지급): 200만원(0세), 100만원(만1세) / -- 셋째이상: 1,000만원(6회 분할 지급): 200만원(0세), 120만원(만1세~3세), 220만원(만4세~5세)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002082&bnefType=all&svcId=427000000207"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-427000000208",
+    "name": "누리과정 아동 특별활동비 지원",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002083&bnefType=all&svcId=427000000208",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "427000000208"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "amount": {
+      "kind": "cash",
+      "summary": "어린이집·사립유치원 누리과정(3~5세) 아동 특별활동비 월 8만원",
+      "tiers": null,
+      "basis": {
+        "text": "특별활동비 지원(월 8만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002083&bnefType=all&svcId=427000000208"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006102",
+    "name": "다자녀가정 아이돌봄서비스 본인부담금 지원",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006102&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006102"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006102&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006101",
+    "name": "다자녀가정 양육비 지원 사업",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006101&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006101"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006101&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00001984",
+    "name": "사립유치원 누리과정 아동 특별활동비 지원",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001984&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001984"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "amount": {
+      "kind": "service",
+      "summary": "사립유치원 아동 특별활동비 지원",
+      "tiers": null,
+      "basis": {
+        "text": "사립유치원 아동 특별활동비 지원으로 부모의 교육부담 경감",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001984&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00001636",
+    "name": "어린이집 누리과정 특별활동비 지원",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001636&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001636"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001636&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "누리과정 아동 특별활동비 지원",
+      "tiers": null,
+      "basis": {
+        "text": "누리과정 아동 특별활동비 지원으로 부모의 양육부담 경감",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001636&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006104",
+    "name": "영월형 놀이돌봄서비스",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006104&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006104"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 전화",
+      "basis": {
+        "text": "신청방법: 방문, 전화",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006104&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "가족센터 실내놀이시설(키즈카페) 아동 일시돌봄",
+      "tiers": null,
+      "basis": {
+        "text": "영월군 가족센터 내 실내놀이시설(키즈카페)을 이용하여 아동의 일시돌봄을 제공함으로써 보호자의 양육 부담을 해소하고 아동의 놀이활동을 지원",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006104&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-427100000007",
+    "name": "유축기 대여",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153418&bnefType=all&svcId=427100000007",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "427100000007"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-370-5453",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 영월군보건소 모자보건팀/033-370-5453",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153418&bnefType=all&svcId=427100000007"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "보건소 등록 임산부 유축기 3개월 대여",
+      "tiers": null,
+      "basis": {
+        "text": "관내 보건소 등록임산부 대상 유축기 대여(3개월 대여)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153418&bnefType=all&svcId=427100000007"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-427000000219",
+    "name": "풍진검사 지원",
+    "regionCode": "5175000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002630&bnefType=all&svcId=427000000219",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "427000000219"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-370-5453",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 영월군 보건소 모자보건실/033-370-5453",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002630&bnefType=all&svcId=427000000219"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "가임기 여성·임산부 산전검사, 풍진검사 지원",
+      "tiers": null,
+      "basis": {
+        "text": "가임기여성 및 임산부 산전검사 및 풍진검사 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002630&bnefType=all&svcId=427000000219"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-428000000119",
+    "name": "출산축하금 지원",
+    "regionCode": "5176000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006602&bnefType=all&svcId=428000000119",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "428000000119"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003622"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-330-2178",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 가족복지과/033-330-2178",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006602&bnefType=all&svcId=428000000119"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산축하금 첫째 100만원, 둘째 200만원(100만원 + 분기 50만원 2회), 셋째 300만원(100만원 + 분기 50만원 4회)",
+      "tiers": null,
+      "basis": {
+        "text": "1. 첫째아 : 1회 100만원 / 2. 둘째아 : 1회 100만원과 분기 50만원 2회지급 (2분기 지급) / 3. 셋째아 : 1회 100만원과 분기 50만원 4회지급 (4분기 지급) ....",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006602&bnefType=all&svcId=428000000119"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00000116",
+    "name": "출생아 건강보험료 지원",
+    "regionCode": "5176000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000116&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000116"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000116&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00005681",
+    "name": "출산산후조리비 지원",
+    "regionCode": "5176000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005681&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005681"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005681&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00004677",
+    "name": "어린이집 특별활동비 부모부담금 지원",
+    "regionCode": "5176000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004677&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004677"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004677&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-429000000765",
+    "name": "출생아 양육비 지원",
+    "regionCode": "5177000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006392&bnefType=all&svcId=429000000765",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "429000000765"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003646"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-560-2815",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 가족행복과/033-560-2815",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006392&bnefType=all&svcId=429000000765"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "정선군 출생 첫째·둘째 생후 1년간 월 10만원(120만원), 셋째 이상 생후 12년간 월 10만원(1,440만원)",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": 2,
+          "won": 1200000
+        },
+        {
+          "minBirthOrder": 3,
+          "maxBirthOrder": null,
+          "won": 14400000
+        }
+      ],
+      "basis": {
+        "text": "정선군 출생 첫째, 둘째 생후1년간 월 10만원 양육비지원 / 정선군 출생 셋째아 이상 생후 12년간 월 10만원 양육비지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006392&bnefType=all&svcId=429000000765"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-429000000758",
+    "name": "출산용품 상품권 지원",
+    "regionCode": "5177000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003346&bnefType=all&svcId=429000000758",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "429000000758"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-560-2060",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 보건소/033-560-2060",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003346&bnefType=all&svcId=429000000758"
+      }
+    },
+    "amount": {
+      "kind": "voucher",
+      "summary": "지역상품권 첫째 10만원, 둘째 20만원, 셋째 30만원",
+      "tiers": null,
+      "basis": {
+        "text": "첫째아 10만원, 둘째아 20만원, 셋째아 30만원 지역상품권 지급",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003346&bnefType=all&svcId=429000000758"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006755",
+    "name": "긴급 아이돌봄 서비스",
+    "regionCode": "5177000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006755&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006755"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006755&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "긴급 아이돌봄 서비스 이용 비용 일부 지원",
+      "tiers": null,
+      "basis": {
+        "text": "긴급 상황 발생시 신속하게 돌봄서비스를 제공하고 이용에 따른 일부비용을 지원함으로써",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006755&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-429100000004",
+    "name": "예비부모 건강검진",
+    "regionCode": "5177000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153336&bnefType=all&svcId=429100000004",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "429100000004"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-560-2060",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 모자보건실/033-560-2060",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153336&bnefType=all&svcId=429100000004"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "예비부부·출산 준비 부모 무료 건강검진 (혈액·간기능·신장·풍진·A형간염 등)",
+      "tiers": null,
+      "basis": {
+        "text": "#무료 건강검진",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153336&bnefType=all&svcId=429100000004"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006045",
+    "name": "공공산후조리원 이용료 환급제도",
+    "regionCode": "5178000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006045&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006045"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006045&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "voucher",
+      "summary": "공공산후조리원 이용료 환급 (지역화폐)",
+      "tiers": null,
+      "basis": {
+        "text": "산후회복을 위한 출산가정에 이용자 및 이용요금을 확대 지원하여 경제적부담 경감으로 출산 장려에 기여하고자 함 / 제공유형: 지역화폐",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006045&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-430000000147",
+    "name": "출산장려금 지원",
+    "regionCode": "5178000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004589&bnefType=all&svcId=430000000147",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "430000000147"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00000381"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-450-5413",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 인구정책과/033-450-5413",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004589&bnefType=all&svcId=430000000147"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산장려금 첫째 50만원, 둘째 150만원, 셋째 이상 200만원 + 첫돌축하금 20만원, 30만원, 50만원. 총액은 70만원, 180만원, 250만원",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": 1,
+          "won": 700000
+        },
+        {
+          "minBirthOrder": 2,
+          "maxBirthOrder": 2,
+          "won": 1800000
+        },
+        {
+          "minBirthOrder": 3,
+          "maxBirthOrder": null,
+          "won": 2500000
+        }
+      ],
+      "basis": {
+        "text": "출산장려금지원(첫째아 50만원, 둘째아 150만원, 셋째아 이상 200만원) / 첫돌축하금지원(첫째아 20만원, 둘째아 30만원, 셋째아 이상 50만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004589&bnefType=all&svcId=430000000147"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00004672",
+    "name": "어린이집 특별활동비 지원",
+    "regionCode": "5178000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004672&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004672"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004672&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-431000000103",
+    "name": "다자녀 가정 기저귀 지원",
+    "regionCode": "5179000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000485&bnefType=all&svcId=431000000103",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "431000000103"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003719"
+      }
+    ],
+    "audience": "MULTI_CHILD",
+    "howToApply": {
+      "summary": "방문 · 문의 033-440-2832",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건사업과/033-440-2832",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000485&bnefType=all&svcId=431000000103"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "다자녀(셋째 이상) 가구 기저귀 월 9만원, 최대 24개월",
+      "tiers": null,
+      "basis": {
+        "text": "○ 다자녀(셋째아 이상)가구 기저귀 지원(월 90,000원, 최대 24개월)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000485&bnefType=all&svcId=431000000103"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-431000000122",
+    "name": "산전 검사비 및 임신축하용품 지원",
+    "regionCode": "5179000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006617&bnefType=all&svcId=431000000122",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "431000000122"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-440-2832",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건사업과/033-440-2832",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006617&bnefType=all&svcId=431000000122"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "등록 임산부 축하용품 지급, 예비·임산부 산전검사비 지원",
+      "tiers": null,
+      "basis": {
+        "text": "○ 등록 임산부 축하용품 지급, 예비 및 임산부 산전검사비 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006617&bnefType=all&svcId=431000000122"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-431000000118",
+    "name": "장애인가정 출산·양육 지원금",
+    "regionCode": "5179000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005102&bnefType=all&svcId=431000000118",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "431000000118"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006740"
+      }
+    ],
+    "audience": "DISABILITY",
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-440-2323",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 주민복지과/033-440-2323",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005102&bnefType=all&svcId=431000000118"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "장애인가정 출산지원금, 양육지원금 지급",
+      "tiers": null,
+      "basis": {
+        "text": "○ 장애인가정출산지원 및 양육지원금지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005102&bnefType=all&svcId=431000000118"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-432000000243",
+    "name": "공공산후조리원 감면이용료 지원",
+    "regionCode": "5180000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004031&bnefType=all&svcId=432000000243",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "432000000243"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-480-2792",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 건강증진과/033-480-2792",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004031&bnefType=all&svcId=432000000243"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "공공산후조리원 이용료 감면 (셋째·다문화·장애인 등 100%, 1년 미만 거주 70%, 조부모 거주 시 30%)",
+      "tiers": null,
+      "basis": {
+        "text": "양구관내 1년 이상 거주 산모와 그 배우자는 100% 감면 / 양구군 관내 1년 미만 거주자 70% 감면",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004031&bnefType=all&svcId=432000000243"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-432000000232",
+    "name": "난임부부 시술비 지원",
+    "regionCode": "5180000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002076&bnefType=all&svcId=432000000232",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "432000000232"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "방문 또는 온라인 · 문의 033-480-2812",
+      "basis": {
+        "text": "신청방법: 기타 온라인신청, 방문신청 / 전화문의: 건강증진과/033-480-2812",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002076&bnefType=all&svcId=432000000232"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "난임 시술비 지원 (체외수정 1회 최대 110만원, 인공수정 최대 30만원 등)",
+      "tiers": null,
+      "basis": {
+        "text": "체외수정(신선배아) , 체외수정(동결배아)/ 1 ~ 20회 / 최대 110만원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002076&bnefType=all&svcId=432000000232"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00005088",
+    "name": "난임부부 시술비 추가지원",
+    "regionCode": "5180000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005088&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005088"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005088&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "난임 시술비 추가 지원",
+      "tiers": null,
+      "basis": {
+        "text": "아이를 희망하는 난임부부에게 난임시술비를 추가지원하여 경제적 부담을 경감시키고 출산율 도모",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005088&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-432000000244",
+    "name": "출산장려금 지원",
+    "regionCode": "5180000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004647&bnefType=all&svcId=432000000244",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "432000000244"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-480-2813",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건소 건강증진과/033-480-2813",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004647&bnefType=all&svcId=432000000244"
+      }
+    },
+    "amount": {
+      "kind": "voucher",
+      "summary": "양구사랑 배꼽페이로 첫째 100만원, 둘째 200만원, 셋째 300만원",
+      "tiers": null,
+      "basis": {
+        "text": "첫째 100만원 / 둘째 200만원 / 셋째 300만원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004647&bnefType=all&svcId=432000000244"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-432000000240",
+    "name": "출생아 건강보험가입 지원",
+    "regionCode": "5180000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003680&bnefType=all&svcId=432000000240",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "432000000240"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-480-2813",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건소 건강증진과/033-480-2813",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003680&bnefType=all&svcId=432000000240"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 12,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (생후 12개월)",
+      "summary": "둘째 자녀가 생후 12개월 안일 때 신청해요. 관내에 주민등록이 있어야 해요",
+      "basis": {
+        "text": "관내에 주민등록이 되어 있는 생후 12개월 이하의 둘째 자녀",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003680&bnefType=all&svcId=432000000240"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출생아 건강보험료 월 2만원 지원 (둘째 자녀)",
+      "tiers": null,
+      "basis": {
+        "text": "○ 1인당 월 2만원의 출생아 건강보험료 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003680&bnefType=all&svcId=432000000240"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006705",
+    "name": "아이돌봄서비스 이용자 본인부담금 지원",
+    "regionCode": "5180000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006705&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006705"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006705&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00003149",
+    "name": "어린이집 특별활동비 지원",
+    "regionCode": "5180000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003149&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003149"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "howToApply": {
+      "summary": "방문 또는 온라인",
+      "basis": {
+        "text": "신청방법: 방문, 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003149&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-433100000003",
+    "name": "산모 산후조리비 지원",
+    "regionCode": "5181000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2117327&bnefType=all&svcId=433100000003",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "433100000003"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006369"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-460-2540",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 인제군보건소 건강증진과 모자보건팀/033-460-2540",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2117327&bnefType=all&svcId=433100000003"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 6,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (출산 후 6개월)",
+      "summary": "출산 후 6개월 안에 신청해요. 출산 6개월 전부터 부모 모두 인제군에 살아야 해요",
+      "basis": {
+        "text": "신청기간: 출산일로부터 6개월 이내",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2117327&bnefType=all&svcId=433100000003"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "산후조리 비용 실비 최대 50만원 지원",
+      "tiers": null,
+      "basis": {
+        "text": "산후조리 비용 실비 최대 50만원 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2117327&bnefType=all&svcId=433100000003"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-433100000001",
+    "name": "산모·신생아 건강관리 서비스 본인부담금 지원",
+    "regionCode": "5181000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2108901&bnefType=all&svcId=433100000001",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "433100000001"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006758"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-460-2540",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 보건소 건강증진과/033-460-2540",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2108901&bnefType=all&svcId=433100000001"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "산모·신생아 건강관리 서비스 본인부담금 90% 지원 (표준서비스 최대 10일 기준)",
+      "tiers": null,
+      "basis": {
+        "text": "표준서비스(신생아) 최대10일 기준, 본인부담금 90%지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2108901&bnefType=all&svcId=433100000001"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-433000000137",
+    "name": "출산장려금 지원",
+    "regionCode": "5181000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005131&bnefType=all&svcId=433000000137",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "433000000137"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인 · 문의 033-461-4190",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 인제군 보건소/033-461-4190",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005131&bnefType=all&svcId=433000000137"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산장려금 첫째 200만원(2년), 둘째 300만원(2년), 셋째 500만원(3년), 넷째 이상 700만원(3년)",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": 1,
+          "won": 2000000
+        },
+        {
+          "minBirthOrder": 2,
+          "maxBirthOrder": 2,
+          "won": 3000000
+        },
+        {
+          "minBirthOrder": 3,
+          "maxBirthOrder": 3,
+          "won": 5000000
+        },
+        {
+          "minBirthOrder": 4,
+          "maxBirthOrder": null,
+          "won": 7000000
+        }
+      ],
+      "basis": {
+        "text": "첫째자녀 : 200만원(연 100만원씩 2년간 지급) / 둘째자녀 : 300만원(연 150만원씩 2년간 지급) / 셋째자녀 : 500만원(1년차 200만원, 2~3년차 각각 150만원 지급) / 넷째자녀 이상 : 700만원(1년차 300만원, 2~3년차 각각200만원 지급)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1005131&bnefType=all&svcId=433000000137"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00003726",
+    "name": "저소득한부모가정 지원",
+    "regionCode": "5181000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003726&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00003726"
+      }
+    ],
+    "audience": "SINGLE_TEEN_PARENT",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003726&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "저소득 한부모가정 생활안정비 지원",
+      "tiers": null,
+      "basis": {
+        "text": "저소득 한부모가정에 생활안정비를 지원함으로써 자녀 양육비 경감 도모",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003726&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00001788",
+    "name": "출산장려금 지원",
+    "regionCode": "5182000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001788&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001788"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 온라인",
+      "basis": {
+        "text": "신청방법: 인터넷, 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001788&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00005700",
+    "name": "공공산후조리원 이용료 지원 사업",
+    "regionCode": "5183000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005700&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005700"
+      }
+    ],
+    "amount": {
+      "kind": "service",
+      "summary": "공공산후조리원 이용료 감면",
+      "tiers": null,
+      "basis": {
+        "text": "출산모 및 취약계층(모자보건법 시행령 감면대상)에게 공공산후조리원 이용료를 지원하여",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005700&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-435000000129",
+    "name": "임산부 영양제 지원",
+    "regionCode": "5183000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000332&bnefType=all&svcId=435000000129",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "435000000129"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-670-1721",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건소/033-670-1721",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000332&bnefType=all&svcId=435000000129"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "엽산제, 철분제(임신 15주부터 분만 후 3개월), 유산균제, 비타민D 지원",
+      "tiers": null,
+      "basis": {
+        "text": "○ 관내 주소를 둔 임산부로 임신 15주부터 분만후 3개월까지 철분제 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000332&bnefType=all&svcId=435000000129"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-435000000131",
+    "name": "출산장려금 지원",
+    "regionCode": "5183000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000714&bnefType=all&svcId=435000000131",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "435000000131"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002050"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-670-2559",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 보건소/033-670-2559",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000714&bnefType=all&svcId=435000000131"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "출산축하금 100만원 + 출산장려금 첫째 월 10만원 1년, 둘째 월 20만원 1년, 셋째 월 30만원 2년, 넷째 월 50만원 3년",
+      "tiers": null,
+      "basis": {
+        "text": "출산축하금 : 자녀수 상관없이 출산시 1회 100만원 / ․ 첫째아 : 1년간 월10만원 / ․ 둘째아 : 1년간 월20만원 / ․ 셋째아 : 2년간 월30만원 / ․ 넷째아 : 3년간 월50만원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1000714&bnefType=all&svcId=435000000131"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00005678",
+    "name": "어린이집 급간식비 지원",
+    "regionCode": "5183000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005678&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005678"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005678&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "어린이집 영유아 급·간식비 지원",
+      "tiers": null,
+      "basis": {
+        "text": "어린이집 영유아에게 균형 잡힌 양질의 급·간식을 제공하고",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005678&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00004568",
+    "name": "어린이집 누리과정 특별활동비 지원",
+    "regionCode": "5183000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004568&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00004568"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004568&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "bokjiro-wlf00006733",
+    "name": "어린이집 특별활동비 지원",
+    "regionCode": "5183000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006733&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006733"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 인터넷",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006733&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-435100000004",
+    "name": "유축기 대여지원",
+    "regionCode": "5183000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153323&bnefType=all&svcId=435100000004",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "435100000004"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 033-670-2548",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 양양군보건소/033-670-2548",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153323&bnefType=all&svcId=435100000004"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "임산부·출산모(신생아~12개월) 유축기 무료 대여",
+      "tiers": null,
+      "basis": {
+        "text": "양양군에 주소지를 둔 임산부 또는 출산모(신생아~12개월)에게 무료로 유축기 대여",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153323&bnefType=all&svcId=435100000004"
+      }
+    },
+    "plannedOn": "2026-11-06"
   }
 ]
