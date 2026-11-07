@@ -3043,6 +3043,35 @@
     }
   },
   {
+    "slug": "bokjiro-wlf00003242",
+    "name": "어린이 국가예방접종 지원",
+    "regionCode": "0000000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003242&wlfareInfoReldBztpCd=01",
+    "sources": [
+      {
+        "source": "BOKJIRO_NATIONAL",
+        "externalId": "WLF00003242"
+      }
+    ],
+    "howToApply": {
+      "summary": "문의 1339 (질병관리청 콜센터)",
+      "basis": {
+        "text": "국번없이 1339",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003242&wlfareInfoReldBztpCd=01"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "영유아·아동 국가예방접종 비용 지원",
+      "tiers": null,
+      "basis": {
+        "text": "국가예방접종 비용을 지원하여 경제적 부담을 경감",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003242&wlfareInfoReldBztpCd=01"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
     "slug": "gov24-423000000362",
     "name": "아이돌봄 서비스",
     "regionCode": "0000000000",
@@ -3623,7 +3652,7 @@
   },
   {
     "slug": "gov24-628000000781",
-    "name": "2026년 천사지원금 지급",
+    "name": "천사지원금 지급",
     "regionCode": "2800000000",
     "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2171418&bnefType=all&svcId=628000000781",
     "sources": [
@@ -7842,7 +7871,7 @@
       }
     ],
     "conditions": [
-      "EITHER_PARENT_INSURED"
+      "PARTNER_INSURED"
     ],
     "howToApply": {
       "summary": "방문 또는 정부24 온라인 · 문의 02-330-1834",
@@ -9474,7 +9503,7 @@
       }
     ],
     "conditions": [
-      "EITHER_PARENT_INSURED"
+      "PARTNER_INSURED"
     ],
     "howToApply": {
       "summary": "방문 또는 온라인 · 문의 02-2155-6687",
@@ -9730,7 +9759,7 @@
       }
     ],
     "conditions": [
-      "EITHER_PARENT_INSURED"
+      "PARTNER_INSURED"
     ],
     "howToApply": {
       "summary": "방문 또는 정부24 온라인 · 문의 02-3423-5855",
@@ -11745,7 +11774,7 @@
       }
     ],
     "conditions": [
-      "EITHER_PARENT_INSURED"
+      "PARTNER_INSURED"
     ],
     "howToApply": {
       "summary": "방문",
@@ -14459,7 +14488,7 @@
       }
     ],
     "conditions": [
-      "EITHER_PARENT_INSURED"
+      "PARTNER_INSURED"
     ],
     "howToApply": {
       "summary": "방문 또는 정부24 온라인 · 문의 031-790-5635",
@@ -14948,7 +14977,7 @@
       }
     ],
     "conditions": [
-      "EITHER_PARENT_INSURED"
+      "PARTNER_INSURED"
     ],
     "howToApply": {
       "summary": "정부24 온라인",
@@ -16674,7 +16703,7 @@
       }
     ],
     "conditions": [
-      "EITHER_PARENT_INSURED"
+      "PARTNER_INSURED"
     ],
     "howToApply": {
       "summary": "정부24 온라인 · 문의 031-887-2592",
@@ -17155,7 +17184,7 @@
       }
     ],
     "conditions": [
-      "EITHER_PARENT_INSURED"
+      "PARTNER_INSURED"
     ],
     "howToApply": {
       "summary": "방문 · 문의 031-770-2261",
@@ -46268,27 +46297,6 @@
     "plannedOn": "2026-11-06"
   },
   {
-    "slug": "bokjiro-wlf00004818",
-    "name": "다자녀 가정 교육비 지원",
-    "regionCode": "5119000000",
-    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004818&wlfareInfoReldBztpCd=02",
-    "sources": [
-      {
-        "source": "BOKJIRO_LOCAL",
-        "externalId": "WLF00004818"
-      }
-    ],
-    "audience": "MULTI_CHILD",
-    "howToApply": {
-      "summary": "방문",
-      "basis": {
-        "text": "신청방법: 방문",
-        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004818&wlfareInfoReldBztpCd=02"
-      }
-    },
-    "plannedOn": "2026-11-06"
-  },
-  {
     "slug": "gov24-423000000481",
     "name": "출산장려금 및 출산축하물품 지원",
     "regionCode": "5121000000",
@@ -48572,7 +48580,7 @@
   },
   {
     "slug": "gov24-647000000176",
-    "name": "2026년 다자녀 가정 이사비 지원",
+    "name": "다자녀 가정 이사비 지원",
     "regionCode": "4700000000",
     "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2122932&bnefType=all&svcId=647000000176",
     "sources": [
