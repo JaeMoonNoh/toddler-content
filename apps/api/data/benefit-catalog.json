@@ -53419,5 +53419,571 @@
       }
     },
     "plannedOn": "2026-11-06"
+  },
+  {
+    "slug": "gov24-650000000283",
+    "name": "산모·신생아 건강관리 서비스 본인부담금 지원",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003935&bnefType=all&svcId=650000000283",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000000283"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 서귀포시 서귀포보건소/064-760-6082 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003935&bnefType=all&svcId=650000000283"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "본인부담금의 50% 지원, 최대 40만원",
+      "tiers": null,
+      "basis": {
+        "text": "본인부담금의 50%지원: 최대 40만원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003935&bnefType=all&svcId=650000000283"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000000274",
+    "name": "임산부 건강관리 서비스",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003038&bnefType=all&svcId=650000000274",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000000274"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 · 문의 064-728-4093",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 제주시 제주보건소 보건행정과 모자보건팀/064-728-4093",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003038&bnefType=all&svcId=650000000274"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "취약 출산가정 임산부 방문 교육과 상담",
+      "tiers": null,
+      "basis": {
+        "text": "취약 출산가정 임산부 방문 교육 및 상담 실시",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1003038&bnefType=all&svcId=650000000274"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000000297",
+    "name": "입양아동 축하금 지원",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004694&bnefType=all&svcId=650000000297",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000000297"
+      },
+      {
+        "source": "GOV24",
+        "externalId": "650000000281"
+      }
+    ],
+    "audience": "ADOPTION_FOSTER",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 제주시 주민복지과/064-728-2682",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004694&bnefType=all&svcId=650000000297"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "입양아동 축하금 일반입양 500만원, 장애입양 700만원",
+      "tiers": null,
+      "basis": {
+        "text": "일반입양아동 500만원 / 장애입양아동 700만원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1004694&bnefType=all&svcId=650000000297"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000001132",
+    "name": "산후조리비 지원",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2154326&bnefType=all&svcId=650000001132",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000001132"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005523"
+      },
+      {
+        "source": "GOV24",
+        "externalId": "650000001096"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 제주시 제주보건소/064-728-4027 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2154326&bnefType=all&svcId=650000001132"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "birth",
+        "months": 0,
+        "days": 0
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 12,
+        "days": -1
+      },
+      "untilLabel": "신청 마감 (출생 후 1년)",
+      "summary": "출산 후 아이가 태어난 지 12개월이 지나기 전에 신청해요. 부모 중 한 명이 출생일 기준 제주에 6개월 이상 살아야 해요",
+      "basis": {
+        "text": "지원신청일 현재 영아의 출생일이 12개월이 지나지 않았을 것",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2154326&bnefType=all&svcId=650000001132"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "산후조리원에 쓴 금액 중 최대 40만원 지원",
+      "tiers": null,
+      "basis": {
+        "text": "출산 후 제주특별자치도내 산후조리원을 이용한 경우 지출한 금액의 최대 40만원 이내 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2154326&bnefType=all&svcId=650000001132"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000000271",
+    "name": "출산 농가도우미 지원",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002589&bnefType=all&svcId=650000000271",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000000271"
+      }
+    ],
+    "audience": "SPECIAL",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 제주특별자치도 친환경농업정책과/064-710-4093 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002589&bnefType=all&svcId=650000000271"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "출산 전후 영농도우미 이용 금액 정액 지원, 인당 최대 5,779,200원 (1일 82,560원, 최대 70일)",
+      "tiers": null,
+      "basis": {
+        "text": "기준단가: 1일 82,560원(인당 최대 5,779,200원 지원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002589&bnefType=all&svcId=650000000271"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000001130",
+    "name": "출산·육아용품 대여사업",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153817&bnefType=all&svcId=650000001130",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000001130"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 제주도청 복지정책과/064-710-2875 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153817&bnefType=all&svcId=650000001130"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "출산·육아용품 대여, 임산부 안전벨트 무상 대여",
+      "tiers": null,
+      "basis": {
+        "text": "출산, 육아용품 대여 / 도내 거주 임산부 안전벨트 무상대여",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153817&bnefType=all&svcId=650000001130"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000001129",
+    "name": "출산여성 한약지원 사업",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153816&bnefType=all&svcId=650000001129",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000001129"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001674"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 제주도청 복지정책과/064-710-2875 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153816&bnefType=all&svcId=650000001129"
+      }
+    },
+    "schedule": {
+      "from": {
+        "anchor": "pregnancy",
+        "months": 0,
+        "days": 210
+      },
+      "until": {
+        "anchor": "birth",
+        "months": 4,
+        "days": -1
+      },
+      "untilLabel": "증서 교부 마감 (출산 후 4개월)",
+      "summary": "임신 30주부터 출산 후 4개월 안에 증서를 받아요",
+      "basis": {
+        "text": "증서의 교부 기간은 임신 30주 ~ 출산일로부터 4개월까지",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153816&bnefType=all&svcId=650000001129"
+      }
+    },
+    "amount": {
+      "kind": "voucher",
+      "summary": "출산여성 한약 구입비 지원 (증서 교부)",
+      "tiers": null,
+      "basis": {
+        "text": "출산여성 한약 구입비 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2153816&bnefType=all&svcId=650000001129"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "bokjiro-wlf00005451",
+    "name": "난자동결 시술비 지원",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005451&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005451"
+      }
+    ],
+    "audience": "INFERTILITY",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005451&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000000266",
+    "name": "아이돌봄서비스 본인부담금 지원",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002565&bnefType=all&svcId=650000000266",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000000266"
+      }
+    ],
+    "howToApply": {
+      "summary": "따로 신청하지 않아도 돼요 · 문의 064-710-2874",
+      "basis": {
+        "text": "신청방법: 신청불필요 / 전화문의: 복지가족국 복지정책과/064-710-2874",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002565&bnefType=all&svcId=650000000266"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "아이돌봄서비스 본인부담금의 20~40%를 도비로 지원",
+      "tiers": null,
+      "basis": {
+        "text": "본인부담금의 20~40% 도비로 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002565&bnefType=all&svcId=650000000266"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000000325",
+    "name": "아토피 환아 보습제 제공",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006641&bnefType=all&svcId=650000000325",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000000325"
+      }
+    ],
+    "audience": "SICK_CHILD",
+    "howToApply": {
+      "summary": "방문 · 문의 064-760-6026",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 서귀포보건소/064-760-6026",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006641&bnefType=all&svcId=650000000325"
+      }
+    },
+    "amount": {
+      "kind": "service",
+      "summary": "아토피 보습제(로션, 크림 등) 2개월에 1회 제공",
+      "tiers": null,
+      "basis": {
+        "text": "아토피 보습제(로션, 크림 등) / 제공기준 : 1회/2개월",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1006641&bnefType=all&svcId=650000000325"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000001136",
+    "name": "어린이집 입학준비금 지원",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2159752&bnefType=all&svcId=650000001136",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000001136"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "howToApply": {
+      "summary": "따로 신청하지 않아도 돼요",
+      "basis": {
+        "text": "신청방법: 신청불필요 / 전화문의: 제주 만덕 콜센터/064-120",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2159752&bnefType=all&svcId=650000001136"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "생애 최초 어린이집 입학 영유아 1인당 연 7만 5천원 (상해보험료 1만원 차감)",
+      "tiers": null,
+      "basis": {
+        "text": "생애 최초 어린이집 입학 영유아 1인 당 연 7만 5천원 지원",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2159752&bnefType=all&svcId=650000001136"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000000269",
+    "name": "신혼부부·자녀출산 가구 주거비 지원(전세이자·주거임차비)",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002587&bnefType=all&svcId=650000000269",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000000269"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006090"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문신청 / 전화문의: 도시건설국 주택토지과/064-710-4252 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002587&bnefType=all&svcId=650000000269"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "주거임차비 연 280만원 5년간 1,400만원, 전세 대출이자 지원 최대 150만원, 연월세 대출 연 600만원 최대 2년 1,200만원",
+      "tiers": null,
+      "basis": {
+        "text": "주거임차비 지원(연 280만원, 5년간 1,400만원) / 주택 전세자금 대출잔액의 1.5% 지원(최대 150만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002587&bnefType=all&svcId=650000000269"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000001122",
+    "name": "하영드림 주택마련 지원",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2146116&bnefType=all&svcId=650000001122",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000001122"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00006077"
+      }
+    ],
+    "howToApply": {
+      "summary": "온라인",
+      "basis": {
+        "text": "신청방법: 인터넷",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2146116&bnefType=all&svcId=650000001122"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "주택 구입자금 대출이자 최대 1.5% 지원 (3억원 이내)",
+      "tiers": null,
+      "basis": {
+        "text": "대출이자 최대 1.5%* 지원(3억원 이내)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2146116&bnefType=all&svcId=650000001122"
+      }
+    },
+    "applicationPeriod": {
+      "start": "2026-05-04",
+      "end": "2026-06-22",
+      "basis": {
+        "text": "2026.05.04~2026.06.22",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=2146116&bnefType=all&svcId=650000001122"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "gov24-650000000263",
+    "name": "해피아이 육아지원금 지원",
+    "regionCode": "5000000000",
+    "sourceUrl": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002562&bnefType=all&svcId=650000000263",
+    "sources": [
+      {
+        "source": "GOV24",
+        "externalId": "650000000263"
+      },
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00005762"
+      }
+    ],
+    "howToApply": {
+      "summary": "방문 또는 정부24 온라인",
+      "basis": {
+        "text": "신청방법: 정부24온라인신청, 방문신청 / 전화문의: 복지가족국 복지정책과/064-710-2875 외",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002562&bnefType=all&svcId=650000000263"
+      }
+    },
+    "amount": {
+      "kind": "cash",
+      "summary": "첫째 5년간 500만원(0세 50만·1~2세 해마다 120만·3세 110만·4세 100만원), 둘째 이상 9년간 1,000만원(0세 50만·1~7세 해마다 120만·8세 110만원)",
+      "tiers": [
+        {
+          "minBirthOrder": 1,
+          "maxBirthOrder": 1,
+          "won": 5000000
+        },
+        {
+          "minBirthOrder": 2,
+          "maxBirthOrder": null,
+          "won": 10000000
+        }
+      ],
+      "basis": {
+        "text": "첫째아 육아지원금 : 5년간 500만원(0세 50만원, 1~2세120만원,3세 110만원, 4세100만원) / 둘째아 이상 육아지원금 : 9년간 1,000만원(0세 50만원, 1~7세 120만원, 8세 110만원)",
+        "url": "https://plus.gov.kr/portal/benefitV2/benefitTotalSrvcList/benefitSrvcDtl?svcSeq=1002562&bnefType=all&svcId=650000000263"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "bokjiro-wlf00002955",
+    "name": "차액보육료 지원",
+    "regionCode": "5011000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002955&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002955"
+      }
+    ],
+    "conditions": [
+      "USES_CHILDCARE"
+    ],
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "bokjiro-wlf00001724",
+    "name": "저소득 한부모가족 월동준비금",
+    "regionCode": "5013000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001724&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001724"
+      }
+    ],
+    "audience": "SINGLE_TEEN_PARENT",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001724&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "bokjiro-wlf00001726",
+    "name": "저소득 한부모가족 자립정착금",
+    "regionCode": "5013000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001726&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00001726"
+      }
+    ],
+    "audience": "SINGLE_TEEN_PARENT",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001726&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-07"
+  },
+  {
+    "slug": "bokjiro-wlf00002052",
+    "name": "조손가정 수당",
+    "regionCode": "5013000000",
+    "sourceUrl": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002052&wlfareInfoReldBztpCd=02",
+    "sources": [
+      {
+        "source": "BOKJIRO_LOCAL",
+        "externalId": "WLF00002052"
+      }
+    ],
+    "audience": "SPECIAL",
+    "howToApply": {
+      "summary": "방문",
+      "basis": {
+        "text": "신청방법: 방문",
+        "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002052&wlfareInfoReldBztpCd=02"
+      }
+    },
+    "plannedOn": "2026-11-07"
   }
 ]
