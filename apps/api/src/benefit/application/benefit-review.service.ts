@@ -5,9 +5,10 @@ import { needsReview, type ReviewStatus, type ReviewStatusKind } from '../domain
 import { BenefitRepository } from './ports/benefit.repository';
 import { SourceStateReader } from './ports/source-state.reader';
 
-import type { Benefit } from '../domain/benefit';
+import type { Benefit, BenefitDetails } from '../domain/benefit';
 import type { SourceState } from '../domain/current-sources';
 import type { DetailAdoption } from '../domain/detail-adoption';
+import type { ChangedSource } from '../domain/review-status';
 import type { SourceRef } from '../domain/source-ref';
 
 export interface ReviewItem {
@@ -26,6 +27,12 @@ export interface BenefitDetail {
   benefit: Benefit;
   status: ReviewStatus;
   sources: { ref: SourceRef; state: SourceState | null }[]; // 연결된 원본의 지금 모습. 수집된 적 없으면 null
+}
+
+// 확인한 뒤로 원본이 바뀐 카드와 바뀐 필드. 카드를 고쳐야 하는지 판단할 때 읽는다
+export interface ChangedCard {
+  card: BenefitDetails;
+  changes: ChangedSource[];
 }
 
 export interface VerifyResult {
@@ -84,6 +91,18 @@ export class BenefitReviewService {
       status: benefit.reviewStatus(current),
       sources: benefit.sources.map((ref) => ({ ref, state: current.of(ref) ?? null })),
     };
+  }
+
+  // 원본이 바뀐 카드만, 이름순으로
+  async changedCards(): Promise<ChangedCard[]> {
+    const benefits = await this.repository.findAll();
+    const current = await this.reader.read(benefits.flatMap((benefit) => benefit.sources));
+    return benefits
+      .toSorted((a, b) => a.name.localeCompare(b.name, 'ko'))
+      .flatMap((benefit) => {
+        const status = benefit.reviewStatus(current);
+        return status.kind === 'SOURCE_CHANGED' ? [{ card: benefit.details, changes: status.changes }] : [];
+      });
   }
 
   // 사람이 원문을 보고 확인한 혜택에 확인일과 그때 원본 모습을 남긴다. 확인할 수 없는 것만 빼고 나머지는 반영한다

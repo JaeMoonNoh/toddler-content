@@ -48,7 +48,7 @@ function offsetText({ anchor, months, days }: ScheduleOffset): string {
   return `${base}${months ? ` + ${months}개월` : ''}${days ? ` ${days > 0 ? '+' : '-'} ${Math.abs(days)}일` : ''}`;
 }
 
-function tierText({ minBirthOrder, maxBirthOrder, won }: AmountTier): string {
+export function tierText({ minBirthOrder, maxBirthOrder, won }: AmountTier): string {
   const who =
     maxBirthOrder === null
       ? minBirthOrder === 1
