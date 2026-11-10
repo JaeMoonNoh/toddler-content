@@ -4,6 +4,8 @@ import { join } from 'node:path';
 import type { INestApplicationContext } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
+import { SourceDetailService } from '../../../collect/application/source-detail.service';
+import { printDetailRefresh } from '../../../collect/infrastructure/cli/detail-refresh-printer';
 import { formatKstDate } from '../../../shared/format-kst';
 import { BenefitCandidateService } from '../../application/benefit-candidate.service';
 import { BenefitCatalogService } from '../../application/benefit-catalog.service';
@@ -41,7 +43,9 @@ const USAGE = `사용법: pnpm benefit <명령>
                            일정·금액 초안 검사 (규칙: docs/benefit-plan-rules.md)와 근거 인용이 원문에 있는지
   plan-verify <폴더> <초안.json> [...]
                            날짜·합계 금액이 있는 초안을 원문과 나란히 모아 대조용 md로 쓰기
-  plan-apply <초안.json>   검사를 통과한 초안을 data/benefit-catalog.json에 넣기`;
+  plan-apply <초안.json>   검사를 통과한 초안을 data/benefit-catalog.json에 넣기
+  fetch-details [건수]     혜택 목록이 가리키는 복지로 원본의 상세(지원대상·선정기준·지원내용)를 받아 이전과 비교
+                           (건수를 주면 앞에서부터 그만큼만)`;
 
 const DEFAULT_PLAN_TEXT_SIZE = 50;
 const DEFAULT_CANDIDATE_TEXT_SIZE = 60;
@@ -138,6 +142,17 @@ const COMMANDS: Record<string, Command> = {
     if (!path) return { text: '초안 파일을 넣어 주세요', ok: false };
     const applied = await app.get(BenefitPlanService).apply(parsePlans(await readFile(path, 'utf8')), formatKstDate(new Date()));
     return { text: `✔ ${applied.length}건을 혜택 목록에 넣었어요. 확인 뒤 pnpm benefit sync`, ok: true };
+  },
+  'fetch-details': async (app, [limitArg]) => {
+    const limit = limitArg === undefined ? Infinity : Number(limitArg);
+    if (limitArg !== undefined && (!Number.isInteger(limit) || limit < 1)) {
+      return { text: `건수는 1 이상의 정수여야 해요: ${limitArg}`, ok: false };
+    }
+    const service = app.get(SourceDetailService);
+    const targets = (await app.get(BenefitCatalogService).linkedSources(service.detailSources)).slice(0, limit);
+    const at = new Date();
+    const report = await service.refresh(targets, at);
+    return { text: printDetailRefresh(report, at), ok: report.failed.length === 0 };
   },
   retire: async (app, slugs) => {
     const result = await app.get(BenefitCatalogService).retire(slugs);

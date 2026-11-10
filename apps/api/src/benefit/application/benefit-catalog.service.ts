@@ -2,9 +2,12 @@ import { Injectable } from '@nestjs/common';
 
 import { RegionService } from '../../region/application/region.service';
 import { Benefit, type BenefitDetails } from '../domain/benefit';
+import { type SourceRef } from '../domain/source-ref';
 
 import { BenefitCatalog } from './ports/benefit-catalog';
 import { BenefitRepository } from './ports/benefit.repository';
+
+import type { SourceId } from '../../shared/domain/source-id';
 
 export class CatalogError extends Error {}
 
@@ -66,6 +69,12 @@ export class BenefitCatalogService {
 
     if (toSave.length) await this.repository.saveAll(toSave);
     return result;
+  }
+
+  // 목록 파일의 혜택들이 가리키는 원본 중 이 출처들의 것. 같은 원본은 한 번만, 목록 순서대로
+  async linkedSources(sources: readonly SourceId[]): Promise<SourceRef[]> {
+    const refs = (await this.catalog.load()).flatMap((entry) => entry.sources).filter((ref) => sources.includes(ref.source));
+    return [...new Map(refs.map((ref) => [ref.key, ref])).values()];
   }
 
   // 목록 파일에서 뺀 혜택을 DB에서도 지운다. sync는 실수로 지우지 않도록 지우지 않으므로 이 명령으로만 지운다

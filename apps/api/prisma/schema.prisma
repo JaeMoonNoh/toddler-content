@@ -110,6 +110,32 @@ model CollectionRun {
   @@index([source, startedAt])
 }
 
+// 출처 항목의 최신 상세 원본. 복지로는 목록에 요약만 있어서 지원대상·선정기준·지원내용을 상세 API로 따로 받는다
+model SourceDetail {
+  id         String               @id @default(cuid())
+  source     DataSource
+  externalId String
+  name       String
+  payload    Json // API가 준 그대로 (비교에서 빼는 필드 포함)
+  fetchedAt  DateTime // 마지막으로 받은 시각
+  changedAt  DateTime? // 마지막으로 바뀐 것을 발견한 시각. 처음 받은 뒤 바뀐 적이 없으면 null
+  changes    SourceDetailChange[]
+
+  @@unique([source, externalId])
+}
+
+// 상세를 다시 받았을 때 발견한 변경 한 건
+model SourceDetailChange {
+  id            String       @id @default(cuid())
+  detailId      String
+  detail        SourceDetail @relation(fields: [detailId], references: [id], onDelete: Cascade)
+  changedFields Json // [{ field, before, after }]
+  detectedAt    DateTime
+
+  @@index([detailId])
+  @@index([detectedAt])
+}
+
 // ── 회원 ─────────────────────────────────────────────
 
 enum SocialProvider {

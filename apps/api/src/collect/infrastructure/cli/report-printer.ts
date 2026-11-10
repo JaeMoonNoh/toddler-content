@@ -3,7 +3,7 @@ import { formatKst } from '../../../shared/format-kst';
 import type { SourceId } from '../../../shared/domain/source-id';
 import type { ChangedItem, CollectionReport, SourceOutcome } from '../../application/collection-report';
 
-const SOURCE_LABEL: Record<SourceId, string> = {
+export const SOURCE_LABEL: Record<SourceId, string> = {
   GOV24: '보조금24',
   BOKJIRO_NATIONAL: '복지로 중앙부처',
   BOKJIRO_LOCAL: '복지로 지자체',
