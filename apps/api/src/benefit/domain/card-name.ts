@@ -6,7 +6,8 @@ const PROVINCE =
   '(서울특별시|부산광역시|대구광역시|인천광역시|광주광역시|대전광역시|울산광역시|세종특별자치시|경기도|강원특별자치도|강원도|' +
   '충청북도|충청남도|전북특별자치도|전라북도|전라남도|경상북도|경상남도|제주특별자치도)';
 const PLACE = `((${PROVINCE}|서울) )?[가-힣]+(시|군|구)( [가-힣]+(시|군|구))?`;
-const LEADING = new RegExp(`^(\\(${PLACE}\\)|\\[${PLACE}\\]|${PLACE}\\]|\\(${PROVINCE}\\)|${PROVINCE} ?|서울시 ?)\\s*`);
+// 머리말 뒤 이음표도 같이 뗀다. "전라남도-시군 출생기본소득 지원"이 "-시군 …"으로 남지 않게
+const LEADING = new RegExp(`^(\\(${PLACE}\\)|\\[${PLACE}\\]|${PLACE}\\]|\\(${PROVINCE}\\)|${PROVINCE} ?|서울시 ?)\\s*([-·:]\\s*)?`);
 const TRAILING = new RegExp(`\\s*\\(${PLACE}\\)\\s*$`);
 
 export function toCardName(sourceName: string): string {
