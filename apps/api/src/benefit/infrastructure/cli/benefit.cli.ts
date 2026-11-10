@@ -6,6 +6,7 @@ import { NestFactory } from '@nestjs/core';
 
 import { SourceDetailService } from '../../../collect/application/source-detail.service';
 import { printDetailRefresh } from '../../../collect/infrastructure/cli/detail-refresh-printer';
+import { RegionService } from '../../../region/application/region.service';
 import { formatKstDate } from '../../../shared/format-kst';
 import { BenefitCandidateService } from '../../application/benefit-candidate.service';
 import { BenefitCatalogService } from '../../application/benefit-catalog.service';
@@ -19,6 +20,7 @@ import { BenefitCliModule } from './benefit-cli.module';
 import { BenefitDetailPrinter } from './benefit-detail-printer';
 import { printCandidates } from './candidate-printer';
 import { printCandidateTexts } from './candidate-text-printer';
+import { fieldCountOf, toChangeTextFiles } from './change-text-printer';
 import { printJudgmentDifferences } from './judgment-printer';
 import { printCardsToPlan } from './plan-text-printer';
 import { needsCrossCheck, printPlanVerify } from './plan-verify-printer';
@@ -28,6 +30,7 @@ const USAGE = `사용법: pnpm benefit <명령>
   sync                     data/benefit-catalog.json을 DB에 반영
   review                   확인이 필요한 혜택 보기
   review <slug>            혜택 하나를 검증할 때 볼 내용 (정리한 일정·금액과 지금 원문)
+  change-texts <폴더>      원본이 바뀐 카드마다 지금 카드 값과 바뀐 말만 md로 나눠 쓰기 (25건씩, 판단 규칙: docs/benefit-change-rules.md)
   verify <slug> [...]      원문을 확인한 혜택에 확인일 남기기
   adopt-details            상세 본문을 비교하기 전에 확인한 혜택에 지금 상세를 확인 기록으로 채우기 (한 번만, 다시 해도 같음)
   retire <slug> [...]      목록 파일에서 뺀 혜택을 DB에서도 지우기 (사이트에서 사라짐)
@@ -63,6 +66,19 @@ const COMMANDS: Record<string, Command> = {
     if (!slug) return { text: app.get(ReviewPrinter).printQueue(await app.get(BenefitReviewService).queue()), ok: true };
     const detail = await app.get(BenefitReviewService).detail(slug);
     return detail ? { text: app.get(BenefitDetailPrinter).print(detail), ok: true } : { text: `✘ ${slug}: 없는 혜택입니다`, ok: false };
+  },
+  'change-texts': async (app, [outDir]) => {
+    if (!outDir) return { text: '출력 폴더를 넣어 주세요 (예: change-texts /tmp/change-texts)', ok: false };
+    const items = await app.get(BenefitReviewService).changedCards();
+    if (!items.length) return { text: '원본이 바뀐 카드가 없어요. 파일을 쓰지 않았어요', ok: true };
+    const regionNames = new Map((await app.get(RegionService).directory()).regions.map(({ code, fullName }) => [code, fullName]));
+    const files = toChangeTextFiles(items, regionNames);
+    await mkdir(outDir, { recursive: true });
+    for (const { name, text } of files) await writeFile(join(outDir, name), text);
+    return {
+      text: `원본이 바뀐 카드 ${items.length}건 (바뀐 필드 ${fieldCountOf(items)}개)을 ${outDir}에 ${files.length}개 파일로 썼어요`,
+      ok: true,
+    };
   },
   verify: async (app, slugs) => {
     const at = new Date();
