@@ -1,8 +1,6 @@
-import { babySizeOf } from '../domain/baby-size';
 import type { CalendarDate } from '../domain/calendar-date';
-import { callNameOf, NAME_MAX_LENGTH } from '../domain/child-name';
+import { NAME_MAX_LENGTH } from '../domain/child-name';
 import { type ChildStage, describeStage } from '../domain/pregnancy';
-import { BabySizeCard } from './baby-size-card';
 
 export interface ChildDatesInput {
   dueText: string;
@@ -14,7 +12,6 @@ export interface ChildDatesInput {
 
 // 태어나기 전에는 출산예정일만, 태어나면 실제 출생일로 일정을 다시 계산한다. 태명과 이름은 부를 때만 쓴다
 export function ChildDatesField({ input, today, stage, onChange }: { input: ChildDatesInput; today: CalendarDate; stage: ChildStage | null; onChange: (next: ChildDatesInput) => void }) {
-  const size = stage && babySizeOf(stage);
   return (
     <div className="field">
       <label htmlFor="due">출산예정일</label>
@@ -36,7 +33,6 @@ export function ChildDatesField({ input, today, stage, onChange }: { input: Chil
       <p className="stage" aria-live="polite">
         {stage ? describeStage(stage) : '출산예정일을 넣으면 신청 일정을 날짜로 계산해 드려요'}
       </p>
-      {size && <BabySizeCard size={size} callName={callNameOf(input)} weeks={stage.kind === 'pregnant' ? stage.weeks : null} />}
     </div>
   );
 }
