@@ -1,9 +1,11 @@
-import { ComparisonRule } from '../../shared/domain/comparison-rule';
+import { ComparisonRule, type FieldChange } from '../../shared/domain/comparison-rule';
+import { isDetailSource } from '../../shared/domain/source-id';
 
 import { type ApplicationPeriod, periodProblems, samePeriod } from './application-period';
 import { type Audience, audienceProblems } from './audience';
 import { amountProblems, type BenefitAmount, sameAmount } from './benefit-amount';
 import { type BenefitSchedule, sameSchedule, scheduleProblems } from './benefit-schedule';
+import { type AdoptedRef, detailAdoptionOf } from './detail-adoption';
 import { conditionProblems, type EligibilityCondition, sameConditions } from './eligibility-condition';
 import { type HowToApply, howToApplyProblems, sameHowToApply } from './how-to-apply';
 import { type ChangedSource, isPublishable, type ReviewStatus } from './review-status';
@@ -30,6 +32,11 @@ export interface BenefitDetails {
 export interface Verification {
   verifiedAt: Date;
   snapshots: SourceSnapshot[];
+}
+
+export interface DetailAdoptionResult {
+  benefit: Benefit;
+  adopted: AdoptedRef[]; // 확인 당시 상세가 비어 있고 지금 상세가 있던 원본만
 }
 
 export class InvalidBenefitError extends Error {}
@@ -155,10 +162,26 @@ export class Benefit {
     if (status.kind === 'SOURCE_MISSING' || status.kind === 'SOURCE_REMOVED') throw new NotVerifiableError(this.slug, status);
 
     const snapshots = this.sources.map((ref) => {
-      const { payload } = current.of(ref)!;
-      return { ref, payload };
+      const { payload, detail } = current.of(ref)!;
+      return { ref, payload, detail };
     });
     return new Benefit(this.details, { verifiedAt: at, snapshots });
+  }
+
+  // 상세를 비교하기 전에 확인한 원본에, 확인 뒤로 바뀌지 않았다고 볼 수 있는 지금 상세를 채운다. 확인일은 그대로 둔다
+  adoptDetails(current: CurrentSources): DetailAdoptionResult {
+    if (!this.verification) return { benefit: this, adopted: [] };
+
+    const adopted: AdoptedRef[] = [];
+    const snapshots = this.verification.snapshots.map((snapshot) => {
+      const now = current.of(snapshot.ref);
+      if (snapshot.detail || !now?.detail) return snapshot;
+      const adoption = detailAdoptionOf(snapshot, now);
+      adopted.push({ ref: snapshot.ref, adoption });
+      return adoption === 'NEEDS_CHECK' ? snapshot : { ...snapshot, detail: now.detail };
+    });
+    const changed = adopted.some(({ adoption }) => adoption !== 'NEEDS_CHECK');
+    return { benefit: changed ? new Benefit(this.details, { ...this.verification, snapshots }) : this, adopted };
   }
 
   isPublished(current: CurrentSources) {
@@ -173,10 +196,26 @@ export class Benefit {
   }
 }
 
+// 상세 필드는 목록 필드와 이름이 겹칠 수 있어(servNm 등) 앞에 붙여 구분한다
+export const DETAIL_FIELD_PREFIX = '상세.';
+
 function changeBetween(verified: SourceSnapshot, now: SourceState): ChangedSource | null {
-  const rule = ComparisonRule.of(verified.ref.source);
-  if (rule.isSame(verified.payload, now.payload)) return null;
-  return { ref: verified.ref, fields: rule.changedFields(verified.payload, now.payload) };
+  const fields = [...listChanges(verified, now), ...detailChanges(verified, now)];
+  return fields.length ? { ref: verified.ref, fields } : null;
+}
+
+function listChanges(verified: SourceSnapshot, now: SourceState): FieldChange[] {
+  return ComparisonRule.forReview(verified.ref.source).changedFields(verified.payload, now.payload);
+}
+
+// NOTE: 상세를 비교하기 전에 확인한 원본은 확인 당시 상세가 없다(null). 없다고 바뀐 것으로 보면 복지로 카드가 한꺼번에
+// "원본 바뀜"이 되므로 비교하지 않고, pnpm benefit adopt-details로 한 번 채운다. 채울 수 없는 것은 그 명령이 "확인 필요"로 알려준다
+function detailChanges(verified: SourceSnapshot, now: SourceState): FieldChange[] {
+  const { source } = verified.ref;
+  if (!verified.detail || !now.detail || !isDetailSource(source)) return [];
+  return ComparisonRule.forDetailReview(source)
+    .changedFields(verified.detail, now.detail)
+    .map((change) => ({ ...change, field: `${DETAIL_FIELD_PREFIX}${change.field}` }));
 }
 
 function assertValid(details: BenefitDetails) {

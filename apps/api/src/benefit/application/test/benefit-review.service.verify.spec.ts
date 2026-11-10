@@ -31,6 +31,19 @@ describe('BenefitReviewService.verify', () => {
     expect(repo.benefits.get('gov24-2')!.verifiedAt).toBeNull();
   });
 
+  it('복지로 원본은 상세 본문도 함께 저장한다', async () => {
+    const bok = new SourceRef('BOKJIRO_LOCAL', 'WLF1');
+    repo = new InMemoryBenefitRepository([Benefit.register(benefitDetails('3', { slug: 'bokjiro-wlf1', sources: [bok] }))]);
+    reader.set(bok, { servDgst: '요약' }).setDetail(bok, { alwServCn: '월 10만원' });
+
+    await verify(['bokjiro-wlf1']);
+
+    expect(repo.benefits.get('bokjiro-wlf1')!.verification!.snapshots[0]).toMatchObject({
+      payload: { servDgst: '요약' },
+      detail: { alwServCn: '월 10만원' },
+    });
+  });
+
   it('없는 혜택은 실패로 알려주고 나머지는 확인한다', async () => {
     expect(await verify(['gov24-1', 'gov24-404'])).toEqual({
       verified: ['gov24-1'],

@@ -54,9 +54,27 @@ export class BenefitDetailPrinter {
       '[우리가 정리한 신청 방법]',
       ...howToApplyLines(benefit.howToApply),
       '',
+      ...this.changeLines(status),
       ...sources.flatMap(({ ref, state }) => this.sourceLines(ref, state)),
       `원문과 맞으면: pnpm benefit verify ${benefit.slug}`,
     ].join('\n');
+  }
+
+  // 원본 바뀜이면 확인 당시와 지금이 다른 필드를 먼저 보여준다. 상세 본문 필드는 이름 앞에 "상세."가 붙는다
+  private changeLines(status: BenefitDetail['status']): string[] {
+    if (status.kind !== 'SOURCE_CHANGED') return [];
+    return [
+      '[확인 뒤 바뀐 것]',
+      ...status.changes.flatMap(({ ref, fields }) => [
+        `  ${ref.label} ${ref.externalId}`,
+        ...fields.flatMap(({ field, before, after }) => [
+          `    ${field}`,
+          `      전: ${this.shorten(before ?? '(없음)')}`,
+          `      후: ${this.shorten(after ?? '(없음)')}`,
+        ]),
+      ]),
+      '',
+    ];
   }
 
   private sourceLines(ref: SourceRef, state: SourceState | null): string[] {
