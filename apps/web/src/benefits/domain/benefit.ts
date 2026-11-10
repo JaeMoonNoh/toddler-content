@@ -94,6 +94,6 @@ export function reviewBadge(benefit: PublishedBenefit): ReviewBadge {
   }
 }
 
-function koreanDate(iso: string) {
+export function koreanDate(iso: string) {
   return new Date(iso).toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }).replaceAll('-', '.');
 }
