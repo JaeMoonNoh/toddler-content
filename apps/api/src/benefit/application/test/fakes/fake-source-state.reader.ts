@@ -7,7 +7,12 @@ export class FakeSourceStateReader extends SourceStateReader {
   private readonly states = new Map<string, SourceState>();
 
   set(ref: SourceRef, payload: Record<string, unknown> = {}, removed = false) {
-    this.states.set(ref.key, { ref, payload, removed });
+    this.states.set(ref.key, { ref, payload, detail: this.states.get(ref.key)?.detail ?? null, removed });
+    return this;
+  }
+
+  setDetail(ref: SourceRef, detail: Record<string, unknown> | null) {
+    this.states.get(ref.key)!.detail = detail;
     return this;
   }
 

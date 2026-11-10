@@ -1,7 +1,7 @@
 import { formatKstDate } from '../../../shared/format-kst';
 
 import type { RetireResult, SyncResult } from '../../application/benefit-catalog.service';
-import type { ReviewItem, ReviewQueue, VerifyResult } from '../../application/benefit-review.service';
+import type { AdoptedSource, DetailAdoptionReport, ReviewItem, ReviewQueue, VerifyResult } from '../../application/benefit-review.service';
 import type { ReviewStatusKind } from '../../domain/review-status';
 import type { SourceRef } from '../../domain/source-ref';
 
@@ -60,6 +60,25 @@ export class ReviewPrinter {
     return lines.length ? lines.join('\n') : '지울 slug를 넣어 주세요.';
   }
 
+  printAdoption(report: DetailAdoptionReport): string {
+    const lines = [
+      `상세 본문 채우기: 채움 ${report.adopted.length} · 가정하고 채움 ${report.assumed.length} · 확인 필요 ${report.needsCheck.length}`,
+    ];
+    if (report.assumed.length) {
+      lines.push('', '가정: 확인 뒤 본문이 안 바뀌었다고 봄 (수정일이 없는 출처라 목록이 그대로인 것만 보고 채움)');
+      lines.push(...report.assumed.map(adoptedLine));
+    }
+    if (report.needsCheck.length) {
+      lines.push('', '확인 필요: 확인 뒤 본문이 바뀌었을 수 있어 채우지 않음. 원문을 보고 다시 확인해 주세요');
+      lines.push(...report.needsCheck.map(adoptedLine));
+      lines.push(
+        '',
+        `pnpm benefit review <slug>로 보고, 맞으면 pnpm benefit verify ${unique(report.needsCheck.map((a) => a.slug)).join(' ')}`,
+      );
+    }
+    return lines.join('\n');
+  }
+
   printVerify(result: VerifyResult, at: Date): string {
     const lines = result.verified.length
       ? [`✔ ${result.verified.length}건 확인 (${formatKstDate(at)}): ${result.verified.join(', ')}`]
@@ -87,6 +106,14 @@ function linesOf(item: ReviewItem): string[] {
     ];
   }
   return [head];
+}
+
+function adoptedLine({ slug, ref }: AdoptedSource) {
+  return `  ${slug}  (${describeRef(ref)})`;
+}
+
+function unique(values: string[]) {
+  return [...new Set(values)];
 }
 
 function describeRef(ref: SourceRef) {

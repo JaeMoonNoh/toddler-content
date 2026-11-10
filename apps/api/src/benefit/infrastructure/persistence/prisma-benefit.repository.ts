@@ -72,6 +72,7 @@ function sourceRowsOf(benefit: Benefit, benefitId: string): Prisma.BenefitSource
       source: ref.source,
       externalId: ref.externalId,
       verifiedPayload: snapshot ? (snapshot.payload as Prisma.InputJsonValue) : Prisma.DbNull,
+      verifiedDetail: snapshot?.detail ? (snapshot.detail as Prisma.InputJsonValue) : Prisma.DbNull,
     };
   });
 }
@@ -94,7 +95,11 @@ function toBenefit(row: BenefitRow): Benefit {
   };
   const snapshots = sources
     .filter((s) => s.row.verifiedPayload !== null)
-    .map((s) => ({ ref: s.ref, payload: s.row.verifiedPayload as Record<string, unknown> }));
+    .map((s) => ({
+      ref: s.ref,
+      payload: s.row.verifiedPayload as Record<string, unknown>,
+      detail: (s.row.verifiedDetail ?? null) as Record<string, unknown> | null,
+    }));
 
   return Benefit.restore(details, row.verifiedAt ? { verifiedAt: row.verifiedAt, snapshots } : null);
 }

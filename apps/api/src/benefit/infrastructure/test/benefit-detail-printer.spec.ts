@@ -35,6 +35,7 @@ const benefit = Benefit.register(
 const state = {
   ref: gov,
   payload: { 지원내용: '첫째아 200만원,\n\n둘째아 이상 300만원', 신청기한: '상시신청', 조회수: 10 },
+  detail: null,
   removed: false,
 };
 const detail = (overrides: Partial<BenefitDetail> = {}): BenefitDetail => ({
@@ -109,6 +110,42 @@ describe('BenefitDetailPrinter', () => {
     expect(new BenefitDetailPrinter().print(detail({ sources: [{ ref: gov, state: { ...state, removed: true } }] }))).toContain(
       '⚠ 출처 목록에서 사라졌어요',
     );
+  });
+
+  it('원본이 바뀌었으면 확인 당시와 지금 값을 필드마다 보여준다', () => {
+    const out = new BenefitDetailPrinter(10).print(
+      detail({
+        status: {
+          kind: 'SOURCE_CHANGED',
+          changes: [
+            {
+              ref: gov,
+              fields: [
+                { field: '상세.alwServCn', before: '월\n10만원', after: '나'.repeat(20) },
+                { field: '신청기한', before: null, after: '상시' },
+              ],
+            },
+          ],
+        },
+      }),
+    );
+
+    expect(out).toContain(
+      [
+        '[확인 뒤 바뀐 것]',
+        '  보조금24 135200005015',
+        '    상세.alwServCn',
+        '      전: 월 10만원',
+        `      후: ${'나'.repeat(10)}…`,
+        '    신청기한',
+        '      전: (없음)',
+        '      후: 상시',
+      ].join('\n'),
+    );
+  });
+
+  it('원본이 바뀌지 않았으면 바뀐 것을 보여주지 않는다', () => {
+    expect(text).not.toContain('[확인 뒤 바뀐 것]');
   });
 
   it('긴 원문 필드는 잘라서 보여준다', () => {

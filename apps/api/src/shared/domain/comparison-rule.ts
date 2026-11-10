@@ -28,6 +28,18 @@ export class ComparisonRule {
     return DETAIL_RULES[source];
   }
 
+  static forReview(source: SourceId): ComparisonRule {
+    return REVIEW_RULES[source];
+  }
+
+  static forDetailReview(source: DetailSourceId): ComparisonRule {
+    return DETAIL_REVIEW_RULES[source];
+  }
+
+  ignoring(fields: readonly string[]): ComparisonRule {
+    return new ComparisonRule({ ...this.spec, volatile: [...this.spec.volatile, ...fields] });
+  }
+
   isSame(before: Payload, after: Payload): boolean {
     return stableStringify(this.toComparable(before)) === stableStringify(this.toComparable(after));
   }
@@ -97,4 +109,18 @@ const DETAIL_RULES: Record<DetailSourceId, ComparisonRule> = {
     volatile: DETAIL_VOLATILE,
     unorderedLists: ['lifeNmArray', 'intrsThemaNmArray', 'trgterIndvdlNmArray'],
   }),
+};
+
+// NOTE: 수정일·등록일은 출처가 글을 손봤다는 표시일 뿐 내용이 아니다. 수집은 이 값으로 상세를 다시 받을지 정하므로
+// 변경으로 잡아야 하지만, 사람이 확인한 내용이 바뀌었는지 볼 때는 빼야 한다. 빼지 않으면 날짜만 바뀐 카드가 "원본 바뀜"이 된다
+// (2026-11-10: 원본 바뀜 3건이 모두 lastModYmd만 바뀐 것이었다)
+const REVIEW_RULES: Record<SourceId, ComparisonRule> = {
+  GOV24: RULES.GOV24.ignoring(['수정일시', '등록일시']),
+  BOKJIRO_NATIONAL: RULES.BOKJIRO_NATIONAL,
+  BOKJIRO_LOCAL: RULES.BOKJIRO_LOCAL.ignoring(['lastModYmd']),
+};
+
+const DETAIL_REVIEW_RULES: Record<DetailSourceId, ComparisonRule> = {
+  BOKJIRO_NATIONAL: DETAIL_RULES.BOKJIRO_NATIONAL,
+  BOKJIRO_LOCAL: DETAIL_RULES.BOKJIRO_LOCAL.ignoring(['lastModYmd']),
 };

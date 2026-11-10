@@ -37,6 +37,7 @@ const schedule = (overrides: Partial<BenefitSchedule> = {}): BenefitSchedule => 
 const state = (ref: SourceRef, payload: Record<string, unknown> = { 지원내용: '100만원' }, removed = false): SourceState => ({
   ref,
   payload,
+  detail: null,
   removed,
 });
 const changed = { 지원내용: '200만원' };
@@ -231,12 +232,67 @@ describe('Benefit', () => {
 
       expect(withNewSource.reviewStatus(sources(state(gov), state(bok))).kind).toBe('UNVERIFIED');
     });
+
+    describe('날짜만 바뀐 목록', () => {
+      it('복지로 지자체 목록의 수정일만 바뀌면 확인됨', () => {
+        const benefit = Benefit.register(details({ sources: [bok] })).verify(
+          sources(state(bok, { servDgst: 'a', lastModYmd: '20260716' })),
+          at,
+        );
+        expect(benefit.reviewStatus(sources(state(bok, { servDgst: 'a', lastModYmd: '20261105' }))).kind).toBe('VERIFIED');
+      });
+
+      it('보조금24의 수정일시만 바뀌면 확인됨', () => {
+        const benefit = Benefit.register(details()).verify(sources(state(gov, { 지원내용: 'a', 수정일시: '20260101' })), at);
+        expect(benefit.reviewStatus(sources(state(gov, { 지원내용: 'a', 수정일시: '20261105' }))).kind).toBe('VERIFIED');
+      });
+    });
+
+    describe('복지로 상세 본문', () => {
+      const listed = { servDgst: '요약', lastModYmd: '20261001' };
+      const withDetail = (detail: Record<string, unknown> | null): SourceState => ({ ...state(bok, listed), detail });
+      const verifiedWith = (detail: Record<string, unknown> | null) =>
+        Benefit.register(details({ sources: [bok] })).verify(sources(withDetail(detail)), at);
+
+      it('확인할 때 상세도 함께 남긴다', () => {
+        expect(verifiedWith({ alwServCn: '월 10만원' }).verification!.snapshots[0].detail).toEqual({ alwServCn: '월 10만원' });
+      });
+
+      it('상세 본문이 바뀌면 "상세."을 붙인 필드로 알려준다', () => {
+        const status = verifiedWith({ alwServCn: '월 10만원' }).reviewStatus(sources(withDetail({ alwServCn: '월 20만원' })));
+        expect(status).toEqual({
+          kind: 'SOURCE_CHANGED',
+          changes: [{ ref: bok, fields: [{ field: '상세.alwServCn', before: '월 10만원', after: '월 20만원' }] }],
+        });
+      });
+
+      it('목록과 상세가 함께 바뀌면 한 원본 아래 둘 다 알려준다', () => {
+        const benefit = verifiedWith({ alwServCn: 'a' });
+        const status = benefit.reviewStatus(sources({ ...state(bok, { ...listed, servDgst: '새 요약' }), detail: { alwServCn: 'b' } }));
+        expect(status.kind === 'SOURCE_CHANGED' && status.changes[0].fields.map((f) => f.field)).toEqual(['servDgst', '상세.alwServCn']);
+      });
+
+      it('상세의 수정일·결과 코드만 바뀌면 확인됨', () => {
+        const benefit = verifiedWith({ alwServCn: 'a', lastModYmd: '20261001', resultCode: '0' });
+        expect(benefit.reviewStatus(sources(withDetail({ alwServCn: 'a', lastModYmd: '20261105', resultCode: '1' }))).kind).toBe(
+          'VERIFIED',
+        );
+      });
+
+      it('상세를 비교하기 전에 확인했으면 지금 상세가 있어도 상태를 바꾸지 않는다', () => {
+        expect(verifiedWith(null).reviewStatus(sources(withDetail({ alwServCn: 'a' }))).kind).toBe('VERIFIED');
+      });
+
+      it('지금 상세를 아직 받지 않았으면 목록만 비교한다', () => {
+        expect(verifiedWith({ alwServCn: 'a' }).reviewStatus(sources(withDetail(null))).kind).toBe('VERIFIED');
+      });
+    });
   });
 
   describe('확인', () => {
     it('확인 시각과 그때 원본 모습을 남긴다', () => {
       const benefit = Benefit.register(details()).verify(sources(state(gov, { 지원내용: 'a' })), at);
-      expect(benefit.verification).toEqual({ verifiedAt: at, snapshots: [{ ref: gov, payload: { 지원내용: 'a' } }] });
+      expect(benefit.verification).toEqual({ verifiedAt: at, snapshots: [{ ref: gov, payload: { 지원내용: 'a' }, detail: null }] });
     });
 
     it('원래 혜택은 바꾸지 않고 새 혜택을 돌려준다', () => {
@@ -259,6 +315,64 @@ describe('Benefit', () => {
       const benefit = Benefit.register(details());
       expect(() => benefit.verify(sources(state(gov, {}, true)), at)).toThrow(NotVerifiableError);
       expect(() => benefit.verify(sources(), at)).toThrow('수집돼 있지 않아서');
+    });
+  });
+
+  describe('상세 채우기', () => {
+    const national = new SourceRef('BOKJIRO_NATIONAL', 'WLF00000001');
+    const localListed = { servDgst: '요약', lastModYmd: '20261001' };
+    const detailNow = { alwServCn: '월 10만원', lastModYmd: '20261001' };
+    const verifiedBefore = (ref: SourceRef, payload: Record<string, unknown>) =>
+      Benefit.register(details({ sources: [ref] })).verify(sources(state(ref, payload)), at);
+    const now = (ref: SourceRef, payload: Record<string, unknown>, detail: Record<string, unknown> | null = detailNow) =>
+      sources({ ...state(ref, payload), detail });
+
+    it('목록 수정일이 지금 상세 수정일과 같으면 채운다', () => {
+      const { benefit, adopted } = verifiedBefore(bok, localListed).adoptDetails(now(bok, localListed));
+
+      expect(adopted).toEqual([{ ref: bok, adoption: 'ADOPTED' }]);
+      expect(benefit.verification).toEqual({ verifiedAt: at, snapshots: [{ ref: bok, payload: localListed, detail: detailNow }] });
+    });
+
+    it('수정일이 다르면 채우지 않고 확인 필요로 알려준다', () => {
+      const original = verifiedBefore(bok, localListed);
+      const { benefit, adopted } = original.adoptDetails(now(bok, localListed, { ...detailNow, lastModYmd: '20261105' }));
+
+      expect(adopted).toEqual([{ ref: bok, adoption: 'NEEDS_CHECK' }]);
+      expect(benefit).toBe(original);
+    });
+
+    it('수정일이 없는 출처는 목록이 확인 당시 그대로일 때만 가정하고 채운다', () => {
+      const listed = { servDgst: '요약', inqNum: '1' };
+      const assumed = verifiedBefore(national, listed).adoptDetails(now(national, { ...listed, inqNum: '99' }, { alwServCn: 'a' }));
+      const changed = verifiedBefore(national, listed).adoptDetails(now(national, { servDgst: '새 요약' }, { alwServCn: 'a' }));
+
+      expect(assumed.adopted).toEqual([{ ref: national, adoption: 'ASSUMED' }]);
+      expect(assumed.benefit.verification!.snapshots[0].detail).toEqual({ alwServCn: 'a' });
+      expect(changed.adopted).toEqual([{ ref: national, adoption: 'NEEDS_CHECK' }]);
+      expect(changed.benefit.verification!.snapshots[0].detail).toBeNull();
+    });
+
+    it('이미 상세가 있으면 건너뛴다', () => {
+      const verified = Benefit.register(details({ sources: [bok] })).verify(now(bok, localListed), at);
+      const result = verified.adoptDetails(now(bok, localListed, { alwServCn: '바뀜' }));
+
+      expect(result).toEqual({ benefit: verified, adopted: [] });
+    });
+
+    it('지금 상세가 없거나 상세가 없는 출처면 건너뛴다', () => {
+      expect(verifiedBefore(bok, localListed).adoptDetails(now(bok, localListed, null)).adopted).toEqual([]);
+      expect(verifiedBefore(gov, { 지원내용: 'a' }).adoptDetails(sources(state(gov))).adopted).toEqual([]);
+    });
+
+    it('확인한 적 없는 혜택은 건너뛴다', () => {
+      expect(Benefit.register(details({ sources: [bok] })).adoptDetails(now(bok, localListed)).adopted).toEqual([]);
+    });
+
+    it('채운 뒤로는 확인일을 그대로 두고 상세가 바뀌면 원본 바뀜이 된다', () => {
+      const { benefit } = verifiedBefore(bok, localListed).adoptDetails(now(bok, localListed));
+      expect(benefit.verifiedAt).toBe(at);
+      expect(benefit.reviewStatus(now(bok, localListed, { ...detailNow, alwServCn: '월 20만원' })).kind).toBe('SOURCE_CHANGED');
     });
   });
 

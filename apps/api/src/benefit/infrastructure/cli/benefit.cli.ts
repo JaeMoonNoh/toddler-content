@@ -29,6 +29,7 @@ const USAGE = `사용법: pnpm benefit <명령>
   review                   확인이 필요한 혜택 보기
   review <slug>            혜택 하나를 검증할 때 볼 내용 (정리한 일정·금액과 지금 원문)
   verify <slug> [...]      원문을 확인한 혜택에 확인일 남기기
+  adopt-details            상세 본문을 비교하기 전에 확인한 혜택에 지금 상세를 확인 기록으로 채우기 (한 번만, 다시 해도 같음)
   retire <slug> [...]      목록 파일에서 뺀 혜택을 DB에서도 지우기 (사이트에서 사라짐)
   candidates <지역코드>    그 지역과 아래 지역의 혜택 후보를 md로 (예: 인천 2800000000)
   add <지역코드> <판단.json>
@@ -68,6 +69,10 @@ const COMMANDS: Record<string, Command> = {
     const result = await app.get(BenefitReviewService).verify(slugs, at);
     return { text: app.get(ReviewPrinter).printVerify(result, at), ok: result.failed.length === 0 && slugs.length > 0 };
   },
+  'adopt-details': async (app) => ({
+    text: app.get(ReviewPrinter).printAdoption(await app.get(BenefitReviewService).adoptDetails()),
+    ok: true,
+  }),
   candidates: async (app, [regionCode]) => {
     if (!regionCode) return { text: '지역코드를 넣어 주세요 (data/regions.json의 code, 예: 2800000000)', ok: false };
     const list = await app.get(BenefitCandidateService).candidatesFor(regionCode);

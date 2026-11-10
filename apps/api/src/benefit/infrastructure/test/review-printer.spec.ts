@@ -79,6 +79,34 @@ describe('ReviewPrinter', () => {
     });
   });
 
+  describe('상세 채우기', () => {
+    const local = new SourceRef('BOKJIRO_LOCAL', 'WLF00004802');
+    const national = new SourceRef('BOKJIRO_NATIONAL', 'WLF00000001');
+
+    it('건수와 함께 가정한 것과 확인이 필요한 것을 따로 보여준다', () => {
+      const text = printer.printAdoption({
+        adopted: [{ slug: 'a', ref: local }],
+        assumed: [{ slug: 'bokjiro-wlf00000001', ref: national }],
+        needsCheck: [
+          { slug: 'bokjiro-wlf00004802', ref: local },
+          { slug: 'bokjiro-wlf00004802', ref: national },
+        ],
+      });
+
+      expect(text.split('\n')[0]).toBe('상세 본문 채우기: 채움 1 · 가정하고 채움 1 · 확인 필요 2');
+      expect(text).toContain('가정: 확인 뒤 본문이 안 바뀌었다고 봄');
+      expect(text).toContain('  bokjiro-wlf00000001  (복지로 WLF00000001)');
+      expect(text).toContain('  bokjiro-wlf00004802  (복지로 WLF00004802)');
+      expect(text.split('\n').at(-1)).toBe('pnpm benefit review <slug>로 보고, 맞으면 pnpm benefit verify bokjiro-wlf00004802');
+    });
+
+    it('채울 것이 없으면 건수만 보여준다', () => {
+      expect(printer.printAdoption({ adopted: [], assumed: [], needsCheck: [] })).toBe(
+        '상세 본문 채우기: 채움 0 · 가정하고 채움 0 · 확인 필요 0',
+      );
+    });
+  });
+
   describe('확인 결과', () => {
     it('확인한 것과 실패한 것을 함께 보여준다', () => {
       const text = printer.printVerify({ verified: ['a', 'b'], failed: [{ slug: 'c', reason: '없는 혜택입니다' }] }, verifiedAt);

@@ -38,6 +38,7 @@ model BenefitSource {
   source          DataSource
   externalId      String
   verifiedPayload Json? // 확인할 때 원본 그대로. 무엇이 바뀌었는지 보여줄 때 쓴다
+  verifiedDetail  Json? // 확인할 때 상세 본문 그대로 (복지로). 상세가 없는 출처이거나 상세를 비교하기 전에 확인했으면 null
 
   @@unique([benefitId, source, externalId])
   @@index([source, externalId])

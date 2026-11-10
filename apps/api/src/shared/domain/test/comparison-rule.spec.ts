@@ -161,3 +161,51 @@ describe('ComparisonRule.ofDetail', () => {
     expect(ComparisonRule.of('BOKJIRO_LOCAL').isSame({ resultCode: '0' }, { resultCode: '1' })).toBe(false);
   });
 });
+
+describe('ComparisonRule.forReview', () => {
+  it('복지로 지자체 목록의 수정일만 바뀌면 같다', () => {
+    expect(
+      ComparisonRule.forReview('BOKJIRO_LOCAL').isSame({ servNm: 'A', lastModYmd: '20260716' }, { servNm: 'A', lastModYmd: '20261105' }),
+    ).toBe(true);
+  });
+
+  it('보조금24의 수정일시·등록일시만 바뀌면 같다', () => {
+    const before = { 지원내용: 'A', 수정일시: '20260101000000', 등록일시: '20250101000000' };
+    expect(ComparisonRule.forReview('GOV24').changedFields(before, { 지원내용: 'A', 수정일시: '20261105000000' })).toEqual([]);
+  });
+
+  it('수정일과 함께 내용이 바뀌면 내용 필드만 알려준다', () => {
+    expect(
+      ComparisonRule.forReview('BOKJIRO_LOCAL').changedFields({ servDgst: 'A', lastModYmd: '1' }, { servDgst: 'B', lastModYmd: '2' }),
+    ).toEqual([{ field: 'servDgst', before: 'A', after: 'B' }]);
+  });
+
+  it('조회수와 순서 없는 목록 규칙은 목록 규칙 그대로 따른다', () => {
+    const rule = ComparisonRule.forReview('BOKJIRO_LOCAL');
+    expect(rule.isSame({ inqNum: '1', lifeNmArray: '청년, 노년' }, { inqNum: '2', lifeNmArray: '노년, 청년' })).toBe(true);
+  });
+
+  it('수집의 변경 감지는 여전히 수정일 변경을 잡는다', () => {
+    expect(ComparisonRule.of('BOKJIRO_LOCAL').isSame({ lastModYmd: '1' }, { lastModYmd: '2' })).toBe(false);
+    expect(ComparisonRule.of('GOV24').isSame({ 수정일시: '1' }, { 수정일시: '2' })).toBe(false);
+  });
+});
+
+describe('ComparisonRule.forDetailReview', () => {
+  it('복지로 지자체 상세의 수정일만 바뀌면 같다', () => {
+    const rule = ComparisonRule.forDetailReview('BOKJIRO_LOCAL');
+    expect(rule.isSame({ alwServCn: 'A', lastModYmd: '1', resultCode: '0' }, { alwServCn: 'A', lastModYmd: '2', resultCode: '1' })).toBe(
+      true,
+    );
+  });
+
+  it('본문이 바뀌면 그 필드를 알려준다', () => {
+    expect(ComparisonRule.forDetailReview('BOKJIRO_NATIONAL').changedFields({ alwServCn: 'A' }, { alwServCn: 'B' })).toEqual([
+      { field: 'alwServCn', before: 'A', after: 'B' },
+    ]);
+  });
+
+  it('상세 수집의 변경 감지는 여전히 수정일 변경을 잡는다', () => {
+    expect(ComparisonRule.ofDetail('BOKJIRO_LOCAL').isSame({ lastModYmd: '1' }, { lastModYmd: '2' })).toBe(false);
+  });
+});
