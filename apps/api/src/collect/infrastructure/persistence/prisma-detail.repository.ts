@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { Prisma } from '../../../generated/prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
-import { DetailRepository, type DetailSnapshot } from '../../application/ports/detail.repository';
+import { DetailRepository, type DetailSnapshot, type StoredDetail } from '../../application/ports/detail.repository';
 
 import type { Payload } from '../../../shared/domain/comparison-rule';
 import type { SourceId } from '../../../shared/domain/source-id';
@@ -19,6 +19,14 @@ export class PrismaDetailRepository extends DetailRepository {
       select: { payload: true },
     });
     return row ? (row.payload as Payload) : null;
+  }
+
+  async findBySources(sources: readonly SourceId[]): Promise<StoredDetail[]> {
+    const rows = await this.prisma.sourceDetail.findMany({
+      where: { source: { in: [...sources] } },
+      select: { source: true, externalId: true, payload: true, fetchedAt: true },
+    });
+    return rows.map((row) => ({ ...row, payload: row.payload as Payload }));
   }
 
   // 최신 상세와 변경 내역을 한 트랜잭션으로 남겨서, 상세만 바뀌고 변경 내역이 빠지는 일이 없게 한다

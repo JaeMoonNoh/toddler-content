@@ -3,9 +3,11 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ComparisonRule } from '../../shared/domain/comparison-rule';
 
 import { type DetailOutcome, DetailRefreshReport, type DetailTarget, type RefreshedDetail } from './detail-refresh-report';
+import { detailKeyOf, type KnownDetails, planDetailRefresh } from './policies/detail-refresh-policy';
 import { DetailEvents } from './ports/detail-events';
 import { DETAIL_FETCHERS, type DetailFetcher } from './ports/detail-fetcher';
 import { DetailRepository } from './ports/detail.repository';
+import { SnapshotRepository } from './ports/snapshot.repository';
 
 import type { DetailSourceId, SourceId } from '../../shared/domain/source-id';
 
@@ -21,6 +23,7 @@ export class UnsupportedDetailSourceError extends Error {
 export class SourceDetailService {
   constructor(
     private readonly repository: DetailRepository,
+    private readonly snapshots: SnapshotRepository,
     @Inject(DETAIL_FETCHERS) private readonly fetchers: readonly DetailFetcher[],
     private readonly events: DetailEvents,
   ) {}
@@ -34,6 +37,24 @@ export class SourceDetailService {
     const outcomes: DetailOutcome[] = [];
     for (const target of uniqueTargets(targets)) outcomes.push(await this.toOutcome(target, at));
     return new DetailRefreshReport(outcomes);
+  }
+
+  // 매일 확인용. 바뀌었을 것 같은 상세만 다시 받는다 (규칙: policies/detail-refresh-policy)
+  async refreshStale(watched: readonly DetailTarget[], at: Date): Promise<DetailRefreshReport> {
+    const plan = planDetailRefresh(uniqueTargets(watched), await this.knownDetails(), at);
+    const { outcomes } = await this.refresh(plan.due, at);
+    return new DetailRefreshReport(outcomes, { upToDate: plan.upToDate.length, unlisted: plan.unlisted.length });
+  }
+
+  private async knownDetails(): Promise<KnownDetails> {
+    const detailSources = this.detailSources;
+    const listed = await Promise.all(
+      detailSources.map(async (source) =>
+        (await this.snapshots.loadItems(source)).map((item) => [detailKeyOf({ source, ...item }), item] as const),
+      ),
+    );
+    const stored = await this.repository.findBySources(detailSources);
+    return { detailSources, listed: new Map(listed.flat()), stored: new Map(stored.map((detail) => [detailKeyOf(detail), detail])) };
   }
 
   private async toOutcome(target: DetailTarget, at: Date): Promise<DetailOutcome> {
@@ -69,6 +90,6 @@ export class SourceDetailService {
 }
 
 function uniqueTargets(targets: readonly DetailTarget[]): DetailTarget[] {
-  const byKey = new Map(targets.map((target) => [`${target.source}:${target.externalId}`, target]));
+  const byKey = new Map(targets.map((target) => [detailKeyOf(target), target]));
   return [...byKey.values()];
 }

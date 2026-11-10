@@ -28,4 +28,16 @@ describe('printDetailRefresh', () => {
       '    복지로 지자체  D: BOKJIRO_LOCAL: 시간 초과',
     ]);
   });
+
+  it('바뀌었을 것 같은 것만 받았으면 건너뛴 수를 함께 알려준다', () => {
+    const report = new DetailRefreshReport([{ source: 'BOKJIRO_LOCAL', externalId: 'A', name: '출산축하금', status: 'unchanged' }], {
+      upToDate: 957,
+      unlisted: 1,
+    });
+
+    expect(printDetailRefresh(report, at).split('\n').slice(1)).toEqual([
+      '대상 1건: 받음 1 (처음 받음 0 · 그대로 1 · 변경 0) · 실패 0',
+      '건너뜀 958건: 바뀌지 않았을 것 957 · 목록에 없음 1',
+    ]);
+  });
 });
