@@ -10,6 +10,7 @@ import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { answeredCount, splitByEligibility, UNANSWERED } from '../domain/eligibility';
 import { ChildDates } from '../domain/child-dates';
+import { callNameOf } from '../domain/child-name';
 import { deadlineEventsOf } from '../domain/deadline-event';
 import { childStage, hasSchedule } from '../domain/pregnancy';
 import { type RegionDirectory, RegionTree } from '../domain/region';
@@ -25,6 +26,7 @@ import { PhaseTabs } from './phase-tabs';
 import { type RegionPick, RegionField } from './region-field';
 import { SavedBenefitsContext, useSavedBenefitsStore } from './saved-benefits-store';
 import { SavedList } from './saved-list';
+import { ThisWeekPanel } from './this-week-panel';
 import { TimelineCard } from './timeline-card';
 
 // 사는 곳, 출산예정일·출생일, 고용보험 답은 이 화면(브라우저) 안에서만 쓰고 서버로 보내지 않는다.
@@ -106,6 +108,10 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
               : '일정은 아이가 출산예정일에 태어난다고 보고 계산해요. 태어나면 "아이가 태어났어요"에 출생일을 넣어 주세요.'}
           </p>
         </aside>
+
+        {fullTimeline && stage && dates && (
+          <ThisWeekPanel timeline={fullTimeline} stage={stage} dates={dates} callName={callNameOf(childInput)} today={today} />
+        )}
 
         <section className="list" aria-label="혜택" ref={listRef}>
           {tabs.length > 0 && <PhaseTabs tabs={tabs} active={active} onSelect={selectTab} />}
