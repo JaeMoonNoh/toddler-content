@@ -1,4 +1,4 @@
-import type { SourceId } from './source-id';
+import type { DetailSourceId, SourceId } from './source-id';
 
 export type Payload = Record<string, unknown>;
 
@@ -22,6 +22,10 @@ export class ComparisonRule {
 
   static of(source: SourceId): ComparisonRule {
     return RULES[source];
+  }
+
+  static ofDetail(source: DetailSourceId): ComparisonRule {
+    return DETAIL_RULES[source];
   }
 
   isSame(before: Payload, after: Payload): boolean {
@@ -77,6 +81,20 @@ const RULES: Record<SourceId, ComparisonRule> = {
   BOKJIRO_NATIONAL: new ComparisonRule({ volatile: ['inqNum'] }),
   BOKJIRO_LOCAL: new ComparisonRule({
     volatile: ['inqNum'],
+    unorderedLists: ['lifeNmArray', 'intrsThemaNmArray', 'trgterIndvdlNmArray'],
+  }),
+};
+
+// NOTE: 상세 응답에는 결과 코드와 메시지가 본문과 함께 온다. 원본 그대로 저장하되 비교에서는 뺀다
+const DETAIL_VOLATILE = ['inqNum', 'resultCode', 'resultMessage'];
+
+const DETAIL_RULES: Record<DetailSourceId, ComparisonRule> = {
+  BOKJIRO_NATIONAL: new ComparisonRule({
+    volatile: DETAIL_VOLATILE,
+    unorderedLists: ['lifeArray', 'intrsThemaArray', 'trgterIndvdlArray'],
+  }),
+  BOKJIRO_LOCAL: new ComparisonRule({
+    volatile: DETAIL_VOLATILE,
     unorderedLists: ['lifeNmArray', 'intrsThemaNmArray', 'trgterIndvdlNmArray'],
   }),
 };

@@ -140,3 +140,24 @@ describe('ComparisonRule.changedFields', () => {
     ]);
   });
 });
+
+describe('ComparisonRule.ofDetail', () => {
+  const nationalDetail = ComparisonRule.ofDetail('BOKJIRO_NATIONAL');
+  const localDetail = ComparisonRule.ofDetail('BOKJIRO_LOCAL');
+
+  it('결과 코드·메시지와 조회수는 비교에서 뺀다', () => {
+    expect(
+      nationalDetail.changedFields({ tgtrDtlCn: 'A', resultCode: '0', inqNum: '1' }, { tgtrDtlCn: 'A', resultMessage: 'OK', inqNum: '2' }),
+    ).toEqual([]);
+  });
+
+  it('출처마다 순서 없는 목록 필드 이름이 다르다', () => {
+    expect(nationalDetail.isSame({ lifeArray: '아동, 영유아' }, { lifeArray: '영유아, 아동' })).toBe(true);
+    expect(localDetail.isSame({ lifeNmArray: '아동, 영유아' }, { lifeNmArray: '영유아, 아동' })).toBe(true);
+    expect(localDetail.isSame({ lifeArray: '아동, 영유아' }, { lifeArray: '영유아, 아동' })).toBe(false);
+  });
+
+  it('목록 규칙은 그대로다', () => {
+    expect(ComparisonRule.of('BOKJIRO_LOCAL').isSame({ resultCode: '0' }, { resultCode: '1' })).toBe(false);
+  });
+});
