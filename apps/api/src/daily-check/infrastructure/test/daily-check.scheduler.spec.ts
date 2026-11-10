@@ -3,14 +3,20 @@ import { SchedulerRegistry } from '@nestjs/schedule';
 
 import { describe, expect, it } from 'vitest';
 
+import { BenefitCatalogService } from '../../../benefit/application/benefit-catalog.service';
 import { BenefitReviewService } from '../../../benefit/application/benefit-review.service';
+import { FakeBenefitCatalog } from '../../../benefit/application/test/fakes/fake-benefit-catalog';
 import { FakeSourceStateReader } from '../../../benefit/application/test/fakes/fake-source-state.reader';
 import { InMemoryBenefitRepository } from '../../../benefit/application/test/fakes/in-memory-benefit.repository';
 import { CollectService } from '../../../collect/application/collect.service';
+import { SourceDetailService } from '../../../collect/application/source-detail.service';
 import { FakeSourceFetcher } from '../../../collect/application/test/fakes/fake-source-fetcher';
+import { InMemoryDetailRepository } from '../../../collect/application/test/fakes/in-memory-detail.repository';
 import { InMemorySnapshotRepository } from '../../../collect/application/test/fakes/in-memory-snapshot.repository';
 import { RecordingCollectionEvents } from '../../../collect/application/test/fakes/recording-collection-events';
+import { RecordingDetailEvents } from '../../../collect/application/test/fakes/recording-detail-events';
 import { ReportPrinter } from '../../../collect/infrastructure/cli/report-printer';
+import { sampleRegionService } from '../../../region/application/test/fakes/sample-region-service';
 import { DailyCheckService } from '../../application/daily-check.service';
 import { DailyCheckPrinter } from '../daily-check-printer';
 import { DailyCheckScheduler } from '../daily-check.scheduler';
@@ -19,9 +25,12 @@ const record = { externalId: '1', name: '혜택 1', payload: { id: '1' } };
 
 function schedulerWith(fetcher: FakeSourceFetcher) {
   const snapshots = new InMemorySnapshotRepository();
+  const benefits = new InMemoryBenefitRepository();
   const dailyCheck = new DailyCheckService(
     new CollectService(snapshots, [fetcher], new RecordingCollectionEvents()),
-    new BenefitReviewService(new InMemoryBenefitRepository(), new FakeSourceStateReader()),
+    new SourceDetailService(new InMemoryDetailRepository(), snapshots, [], new RecordingDetailEvents()),
+    new BenefitCatalogService(new FakeBenefitCatalog(), benefits, sampleRegionService()),
+    new BenefitReviewService(benefits, new FakeSourceStateReader()),
   );
   const scheduler = new DailyCheckScheduler(
     dailyCheck,

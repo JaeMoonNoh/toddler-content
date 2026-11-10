@@ -15,8 +15,19 @@ export type FailedDetail = DetailTarget & { status: 'failed'; reason: string };
 
 export type DetailOutcome = RefreshedDetail | FailedDetail;
 
+// 받지 않고 넘어간 대상. 전부 받을 때는 비어 있다
+export interface SkippedDetails {
+  upToDate: number; // 이전에 받은 뒤로 바뀌었을 것 같지 않다
+  unlisted: number; // 출처 목록에서 사라졌거나 목록에 없다
+}
+
+const NONE_SKIPPED: SkippedDetails = { upToDate: 0, unlisted: 0 };
+
 export class DetailRefreshReport {
-  constructor(readonly outcomes: readonly DetailOutcome[]) {}
+  constructor(
+    readonly outcomes: readonly DetailOutcome[],
+    readonly skipped: SkippedDetails = NONE_SKIPPED,
+  ) {}
 
   get fetched() {
     return this.outcomes.filter((o): o is RefreshedDetail => o.status !== 'failed');

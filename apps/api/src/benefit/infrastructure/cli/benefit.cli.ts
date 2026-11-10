@@ -45,10 +45,12 @@ const USAGE = `사용법: pnpm benefit <명령>
                            날짜·합계 금액이 있는 초안을 원문과 나란히 모아 대조용 md로 쓰기
   plan-apply <초안.json>   검사를 통과한 초안을 data/benefit-catalog.json에 넣기
   fetch-details [건수]     혜택 목록이 가리키는 복지로 원본의 상세(지원대상·선정기준·지원내용)를 받아 이전과 비교
-                           (건수를 주면 앞에서부터 그만큼만)`;
+                           (건수를 주면 앞에서부터 그만큼만)
+  fetch-details --stale    그중 바뀌었을 것 같은 것만 다시 받기 (매일 확인과 같은 규칙: 처음 받음, 목록 수정일 바뀜, 받은 지 7일)`;
 
 const DEFAULT_PLAN_TEXT_SIZE = 50;
 const DEFAULT_CANDIDATE_TEXT_SIZE = 60;
+const STALE_ONLY = '--stale';
 // 대조 subagent 하나가 한 번에 읽기 알맞은 양
 const CROSS_CHECK_FILE_SIZE = 25;
 
@@ -144,6 +146,12 @@ const COMMANDS: Record<string, Command> = {
     return { text: `✔ ${applied.length}건을 혜택 목록에 넣었어요. 확인 뒤 pnpm benefit sync`, ok: true };
   },
   'fetch-details': async (app, [limitArg]) => {
+    if (limitArg === STALE_ONLY) {
+      const service = app.get(SourceDetailService);
+      const at = new Date();
+      const report = await service.refreshStale(await app.get(BenefitCatalogService).linkedSources(service.detailSources), at);
+      return { text: printDetailRefresh(report, at), ok: report.failed.length === 0 };
+    }
     const limit = limitArg === undefined ? Infinity : Number(limitArg);
     if (limitArg !== undefined && (!Number.isInteger(limit) || limit < 1)) {
       return { text: `건수는 1 이상의 정수여야 해요: ${limitArg}`, ok: false };

@@ -1,9 +1,11 @@
-import { DetailRepository, type DetailSnapshot } from '../../ports/detail.repository';
+import { DetailRepository, type DetailSnapshot, type StoredDetail } from '../../ports/detail.repository';
 
 import type { FieldChange, Payload } from '../../../../shared/domain/comparison-rule';
 import type { SourceId } from '../../../../shared/domain/source-id';
 
 export interface MemoryDetail {
+  source: SourceId;
+  externalId: string;
   name: string;
   payload: Payload;
   fetchedAt: Date;
@@ -29,11 +31,17 @@ export class InMemoryDetailRepository extends DetailRepository {
     return this.details.get(InMemoryDetailRepository.keyOf(source, externalId))?.payload ?? null;
   }
 
+  async findBySources(sources: readonly SourceId[]): Promise<StoredDetail[]> {
+    return [...this.details.values()]
+      .filter((detail) => sources.includes(detail.source))
+      .map(({ source, externalId, payload, fetchedAt }) => ({ source, externalId, payload, fetchedAt }));
+  }
+
   async save({ source, record, fetchedAt, changedFields }: DetailSnapshot): Promise<void> {
     const key = InMemoryDetailRepository.keyOf(source, record.externalId);
     const changed = changedFields.length > 0;
     const changedAt = changed ? fetchedAt : (this.details.get(key)?.changedAt ?? null);
-    this.details.set(key, { name: record.name, payload: record.payload, fetchedAt, changedAt });
+    this.details.set(key, { source, externalId: record.externalId, name: record.name, payload: record.payload, fetchedAt, changedAt });
     if (changed) this.changes.push({ key, changedFields, detectedAt: fetchedAt });
   }
 }

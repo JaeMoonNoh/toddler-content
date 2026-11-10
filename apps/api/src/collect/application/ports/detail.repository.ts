@@ -9,8 +9,17 @@ export interface DetailSnapshot {
   changedFields: FieldChange[]; // 비어 있으면 변경 내역을 남기지 않는다 (처음 받았거나 바뀐 것이 없음)
 }
 
+// 다시 받을지 정할 때 보는 마지막으로 받은 상세
+export interface StoredDetail {
+  source: SourceId;
+  externalId: string;
+  payload: Payload;
+  fetchedAt: Date;
+}
+
 // 항목마다 가장 최근에 받은 상세 하나만 둔다. 바뀐 필드는 따로 쌓는다
 export abstract class DetailRepository {
   abstract findPayload(source: SourceId, externalId: string): Promise<Payload | null>;
+  abstract findBySources(sources: readonly SourceId[]): Promise<StoredDetail[]>;
   abstract save(snapshot: DetailSnapshot): Promise<void>;
 }

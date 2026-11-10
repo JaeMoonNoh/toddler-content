@@ -35,6 +35,12 @@ export class InMemorySnapshotRepository extends SnapshotRepository {
     return `${source}:${externalId}`;
   }
 
+  // 이전 수집으로 이미 알고 있는 항목을 넣어 둔다
+  seed(source: SourceId, items: StoredItem[]) {
+    for (const item of items) this.items.set(this.key(source, item.externalId), { source, ...item });
+    return this;
+  }
+
   async loadItems(source: SourceId): Promise<StoredItem[]> {
     return [...this.items.values()]
       .filter((i) => i.source === source)

@@ -4,6 +4,7 @@ import { SourceDetailService } from '../source-detail.service';
 
 import { FakeDetailFetcher } from './fakes/fake-detail-fetcher';
 import { InMemoryDetailRepository } from './fakes/in-memory-detail.repository';
+import { InMemorySnapshotRepository } from './fakes/in-memory-snapshot.repository';
 import { RecordingDetailEvents } from './fakes/recording-detail-events';
 
 import type { DetailTarget } from '../detail-refresh-report';
@@ -36,7 +37,7 @@ describe('SourceDetailService.refresh', () => {
     events = new RecordingDetailEvents();
     localFetcher = new FakeDetailFetcher('BOKJIRO_LOCAL');
     nationalFetcher = new FakeDetailFetcher('BOKJIRO_NATIONAL');
-    service = new SourceDetailService(repo, [localFetcher, nationalFetcher], events);
+    service = new SourceDetailService(repo, new InMemorySnapshotRepository(), [localFetcher, nationalFetcher], events);
   });
 
   it('대상이 없으면 아무것도 받지 않고 빈 보고서를 돌려준다', async () => {
