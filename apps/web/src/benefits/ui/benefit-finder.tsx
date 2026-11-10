@@ -6,12 +6,14 @@ import { ConditionsSaveBox } from '../../account/ui/conditions-save-box';
 import { useAccountConditions } from '../../account/ui/use-account-conditions';
 import { receiptOf } from '../domain/amount';
 import { splitByAudience } from '../domain/audience';
+import { babySizeOf } from '../domain/baby-size';
 import type { PublishedBenefit } from '../domain/benefit';
 import { CalendarDate } from '../domain/calendar-date';
 import { answeredCount, splitByEligibility, UNANSWERED } from '../domain/eligibility';
 import { ChildDates } from '../domain/child-dates';
 import { callNameOf } from '../domain/child-name';
 import { deadlineEventsOf } from '../domain/deadline-event';
+import { giftCardOf } from '../domain/gift-card';
 import { childStage, hasSchedule } from '../domain/pregnancy';
 import { type RegionDirectory, RegionTree } from '../domain/region';
 import { ALL_TAB, buildTimeline, OTHER_TAB, SAVED_TAB, tabsOf, withoutBenefits } from '../domain/timeline';
@@ -19,6 +21,7 @@ import { BenefitGroups } from './benefit-groups';
 import { ChildDatesField } from './child-dates-field';
 import { CalendarDownload } from './calendar-download';
 import { ExcludedBenefits } from './excluded-benefits';
+import { GiftCardButton } from './gift-card-button';
 import { AmountReceipt } from './amount-receipt';
 import { AudienceGroups } from './audience-groups';
 import { BirthOrderField, ChildcareField, HouseholdFields } from './household-fields';
@@ -61,6 +64,8 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
   const savedItems = saved.listOf(shown, fullTimeline, today);
   const timeline = fullTimeline && withoutBenefits(fullTimeline, isSaved);
   const receipt = receiptOf(shown, household);
+  const gift = giftCardOf(shown, household, region);
+  const callName = callNameOf(childInput);
   const rest = splitByAudience((timeline ? timeline.unscheduled : shown.filter((b) => !isSaved(b))).filter((b) => region.covers(b)));
   const listed = region.groupsOf(rest.forEveryone);
   const scheduledCount = timeline?.phases.reduce((sum, phase) => sum + phase.items.length, 0) ?? 0;
@@ -101,6 +106,7 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
             />
           </form>
           <AmountReceipt receipt={receipt} birthOrderKnown={household.birthOrder !== null} />
+          {gift && <GiftCardButton art={{ card: gift, callName, emoji: (stage && babySizeOf(stage)?.emoji) ?? '🎁' }} />}
           {fullTimeline && <CalendarDownload events={deadlineEventsOf(fullTimeline)} fileName="출산-혜택-마감일.ics" />}
           <p className="notice">
             {dates?.isBorn
@@ -110,7 +116,7 @@ export function BenefitFinder({ benefits, regions }: { benefits: PublishedBenefi
         </aside>
 
         {fullTimeline && stage && dates && (
-          <ThisWeekPanel timeline={fullTimeline} stage={stage} dates={dates} callName={callNameOf(childInput)} today={today} />
+          <ThisWeekPanel timeline={fullTimeline} stage={stage} dates={dates} callName={callName} today={today} />
         )}
 
         <section className="list" aria-label="혜택" ref={listRef}>

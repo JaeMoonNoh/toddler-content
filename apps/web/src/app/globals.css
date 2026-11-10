@@ -229,3 +229,11 @@ select, input[type='date'], input[type='text'] { font: inherit; color: var(--ink
 .week-next-label { font-size: 13px; color: var(--accent); font-family: var(--f-display); }
 .week-next > span:not(.week-next-label) { font-size: 14px; color: var(--muted); }
 .week-next .btn { margin-top: 8px; text-align: center; text-decoration: none; }
+
+/* 우리 아이 축하 선물 카드 */
+.gift-open { width: 100%; background: var(--accent-soft); color: var(--accent); }
+.gift { border: 0; border-radius: 28px; padding: 16px; width: min(420px, calc(100vw - 32px)); background: var(--surface); color: var(--ink); }
+.gift::backdrop { background: rgba(58, 46, 41, 0.45); }
+.gift img { display: block; width: 100%; height: auto; border-radius: 20px; }
+.gift-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+.gift-actions .btn { flex: 1; text-align: center; text-decoration: none; }
